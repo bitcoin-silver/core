@@ -34,6 +34,8 @@ Bitcoin Silver aims to enhance the original Bitcoin network by:
 <tr><td>Algo</td><td>SHA256</td></tr>
 </table>
 
+The initial allocation of 470,000 Bitcoin Silver (ISF) was distributed among core members, averaging 50,000 per person, and backed by USDT deposits used for listing fees and initial cloud services. This was not a pre-mine for personal profit but rather an investment in foundational contributors to incentivize development, ensure long-term commitment, and support the project's growth.
+
 ## Getting Started
 
 ### Prerequisites
