@@ -12,14 +12,14 @@ SOURCE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src'
 DEFAULT_PLATFORM_TOOLSET = R'v143'
 
 libs = [
-    'libbitcoinsilver_cli',
-    'libbitcoinsilver_common',
-    'libbitcoinsilver_crypto',
-    'libbitcoinsilver_node',
-    'libbitcoinsilver_util',
-    'libbitcoinsilver_wallet_tool',
-    'libbitcoinsilver_wallet',
-    'libbitcoinsilver_zmq',
+    'libbitcoin_cli',
+    'libbitcoin_common',
+    'libbitcoin_crypto',
+    'libbitcoin_node',
+    'libbitcoin_util',
+    'libbitcoin_wallet_tool',
+    'libbitcoin_wallet',
+    'libbitcoin_zmq',
     'bench_bitcoin',
     'libtest_util',
 ]
