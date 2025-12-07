@@ -2,9 +2,9 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/bitcoinsilveramountfield.h>
+#include <qt/bitcoinamountfield.h>
 
-#include <qt/bitcoinsilverunits.h>
+#include <qt/bitcoinunits.h>
 #include <qt/guiconstants.h>
 #include <qt/guiutil.h>
 #include <qt/qvaluecombobox.h>
@@ -125,7 +125,7 @@ public:
 
             const QFontMetrics fm(fontMetrics());
             int h = lineEdit()->minimumSizeHint().height();
-            int w = GUIUtil::TextWidth(fm, BitcoinUnits::format(BitcoinUnit::BTCS, BitcoinUnits::maxMoney(), false, BitcoinUnits::SeparatorStyle::ALWAYS));
+            int w = GUIUtil::TextWidth(fm, BitcoinUnits::format(BitcoinUnit::BTC, BitcoinUnits::maxMoney(), false, BitcoinUnits::SeparatorStyle::ALWAYS));
             w += 2; // cursor blinking space
 
             QStyleOptionSpinBox opt;
@@ -150,7 +150,7 @@ public:
     }
 
 private:
-    BitcoinUnit currentUnit{BitcoinUnit::BTCS};
+    BitcoinUnit currentUnit{BitcoinUnit::BTC};
     CAmount singleStep{CAmount(100000)}; // satoshis
     mutable QSize cachedMinimumSizeHint;
     bool m_allow_empty{true};
@@ -215,7 +215,7 @@ Q_SIGNALS:
     void valueChanged();
 };
 
-#include <qt/bitcoinsilveramountfield.moc>
+#include <qt/bitcoinamountfield.moc>
 
 BitcoinAmountField::BitcoinAmountField(QWidget* parent)
     : QWidget(parent)

@@ -26,10 +26,12 @@
 #include <cstring>
 #include <type_traits>
 
+static uint256 uint256S(std::string_view s) { return uint256::FromUserHex(s).value(); }
+
 static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesisOutputScript, uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
     CMutableTransaction txNew;
-    txNew.nVersion = 1;
+    txNew.version = 1;
     txNew.vin.resize(1);
     txNew.vout.resize(1);
     txNew.vin[0].scriptSig = CScript() << 486604799 << CScriptNum(4) << std::vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
@@ -91,8 +93,6 @@ public:
         consensus.nPowTargetSpacing = 5 * 60;
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
-        consensus.nRuleChangeActivationThreshold = 1815;
-        consensus.nMinerConfirmationWindow = 2016;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = Consensus::BIP9Deployment::NEVER_ACTIVE;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
@@ -150,22 +150,14 @@ public:
         fDefaultConsistencyChecks = false;
         m_is_mockable_chain = false;
 
-        checkpointData = {
-            {
-                {0, uint256S("0x00000ea8e97e04892a03df35947ff0c4df705723f5b18be7cc6456ed16e9788e")},
-                {217, uint256S("0x0000000008eadc9e26892240f584eefcdadf9a4d246c905168d24564d30aa82c")},
-            }
-        };
-
         m_assumeutxo_data = {
             // TODO to be specified in a future patch.
         };
 
         chainTxData = ChainTxData{
-            // Data from RPC: getchaintxstats
-            /* nTime    */ 1720846034,
-            /* nTxCount */ 218,
-            /* dTxRate  */ 0.06484235574063058,
+            1720846034,
+            218,
+            0.06484235574063058,
         };
     }
 };
@@ -194,8 +186,6 @@ public:
         consensus.nPowTargetSpacing = 10 * 60;
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
-        consensus.nRuleChangeActivationThreshold = 1512; // 75% for testchains
-        consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = Consensus::BIP9Deployment::NEVER_ACTIVE;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
@@ -243,26 +233,20 @@ public:
         fDefaultConsistencyChecks = false;
         m_is_mockable_chain = false;
 
-        checkpointData = {
-            {
-                {546, uint256S("000000002a936ca763904c3c35fce2f3556c559c0214345d31b1bcebf76acb70")},
-            }
-        };
-
         m_assumeutxo_data = {
             {
                 .height = 2'500'000,
                 .hash_serialized = AssumeutxoHash{uint256S("0xf841584909f68e47897952345234e37fcd9128cd818f41ee6c3ca68db8071be7")},
-                .nChainTx = 66484552,
+                .m_chain_tx_count = 66484552,
                 .blockhash = uint256S("0x0000000000000093bcb68c03a9a168ae252572d348a2eaeba2cdf9231d73206f")
             }
         };
 
         chainTxData = ChainTxData{
             // Data from RPC: getchaintxstats 4096 0000000000000093bcb68c03a9a168ae252572d348a2eaeba2cdf9231d73206f
-            .nTime    = 1694733634,
-            .nTxCount = 66484552,
-            .dTxRate  = 0.1804908356632494,
+            1694733634,
+            66484552,
+            0.1804908356632494,
         };
     }
 };
@@ -291,9 +275,9 @@ public:
             m_assumed_chain_state_size = 0;
             chainTxData = ChainTxData{
                 // Data from RPC: getchaintxstats 4096 0000013d778ba3f914530f11f6b69869c9fab54acff85acd7b8201d111f19b7f
-                .nTime    = 1688366339,
-                .nTxCount = 2262750,
-                .dTxRate  = 0.003414084572046456,
+                                1688366339,
+                2262750,
+                0.003414084572046456,
             };
         } else {
             bin = *options.challenge;
@@ -327,8 +311,6 @@ public:
         consensus.nPowTargetSpacing = 10 * 60;
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
-        consensus.nRuleChangeActivationThreshold = 1815; // 90% of 2016
-        consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
         consensus.MinBIP9WarningHeight = 0;
         consensus.powLimit = uint256S("00000377ae000000000000000000000000000000000000000000000000000000");
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
@@ -358,11 +340,11 @@ public:
 
         vFixedSeeds.clear();
 
-        m_assumeutxo_data = {
-            {
+        m_assumeutxo_data = std::vector<AssumeutxoData>{
+            AssumeutxoData{
                 .height = 160'000,
                 .hash_serialized = AssumeutxoHash{uint256S("0xfe0a44309b74d6b5883d246cb419c6221bcccf0b308c9b59b7d70783dbdf928a")},
-                .nChainTx = 2289496,
+                .m_chain_tx_count = 2289496,
                 .blockhash = uint256S("0x0000003ca3c99aff040f2563c2ad8f8ec88bd0fd6b8f0895cfaf1ef90353a62c")
             }
         };
@@ -403,12 +385,6 @@ public:
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 10 * 60;
-        consensus.fPowAllowMinDifficultyBlocks = true;
-        consensus.fPowNoRetargeting = true;
-        consensus.nRuleChangeActivationThreshold = 108; // 75% for testchains
-        consensus.nMinerConfirmationWindow = 144; // Faster than normal for regtest (144 instead of 2016)
-
-        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 0;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].min_activation_height = 0; // No activation delay
@@ -468,24 +444,18 @@ public:
         fDefaultConsistencyChecks = true;
         m_is_mockable_chain = true;
 
-        checkpointData = {
-            {
-                {0, uint256S("0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206")},
-            }
-        };
-
         m_assumeutxo_data = {
             {
                 .height = 110,
                 .hash_serialized = AssumeutxoHash{uint256S("0x6657b736d4fe4db0cbc796789e812d5dba7f5c143764b1b6905612f1830609d1")},
-                .nChainTx = 111,
+                .m_chain_tx_count = 111,
                 .blockhash = uint256S("0x696e92821f65549c7ee134edceeeeaaa4105647a3c4fd9f298c0aec0ab50425c")
             },
             {
                 // For use by test/functional/feature_assumeutxo.py
                 .height = 299,
                 .hash_serialized = AssumeutxoHash{uint256S("0x61d9c2b29a2571a5fe285fe2d8554f91f93309666fc9b8223ee96338de25ff53")},
-                .nChainTx = 300,
+                .m_chain_tx_count = 300,
                 .blockhash = uint256S("0x7e0517ef3ea6ecbed9117858e42eedc8eb39e8698a38dcbd1b3962a283233f4c")
             },
         };
@@ -524,4 +494,43 @@ std::unique_ptr<const CChainParams> CChainParams::Main()
 std::unique_ptr<const CChainParams> CChainParams::TestNet()
 {
     return std::make_unique<const CTestNetParams>();
+}
+
+std::unique_ptr<const CChainParams> CChainParams::TestNet4()
+{
+    return std::make_unique<const CTestNetParams>();
+}
+
+std::vector<int> CChainParams::GetAvailableSnapshotHeights() const
+{
+    std::vector<int> heights;
+    for (const auto& data : m_assumeutxo_data) {
+        heights.push_back(data.height);
+    }
+    return heights;
+}
+
+std::optional<ChainType> GetNetworkForMagic(const MessageStartChars& pchMessageStart)
+{
+    const auto mainParams = CChainParams::Main();
+    if (pchMessageStart == mainParams->MessageStart()) {
+        return ChainType::MAIN;
+    }
+    const auto testnetParams = CChainParams::TestNet();
+    if (pchMessageStart == testnetParams->MessageStart()) {
+        return ChainType::TESTNET;
+    }
+    const auto testnet4Params = CChainParams::TestNet4();
+    if (pchMessageStart == testnet4Params->MessageStart()) {
+        return ChainType::TESTNET4;
+    }
+    const auto signetParams = CChainParams::SigNet(CChainParams::SigNetOptions{});
+    if (pchMessageStart == signetParams->MessageStart()) {
+        return ChainType::SIGNET;
+    }
+    const auto regtestParams = CChainParams::RegTest(CChainParams::RegTestOptions{});
+    if (pchMessageStart == regtestParams->MessageStart()) {
+        return ChainType::REGTEST;
+    }
+    return std::nullopt;
 }

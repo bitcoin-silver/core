@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_QT_BITCOINSILVERADDRESSVALIDATOR_H
-#define BITCOINSILVER_QT_BITCOINSILVERADDRESSVALIDATOR_H
+#ifndef BITCOIN_QT_BITCOINADDRESSVALIDATOR_H
+#define BITCOIN_QT_BITCOINADDRESSVALIDATOR_H
 
 #include <QValidator>
 
@@ -20,7 +20,7 @@ public:
     State validate(QString &input, int &pos) const override;
 };
 
-/** BitcoinSilver address widget validator, checks for a valid bitcoinsilver address.
+/** Bitcoin address widget validator, checks for a valid bitcoin address.
  */
 class BitcoinAddressCheckValidator : public QValidator
 {
@@ -32,4 +32,4 @@ public:
     State validate(QString &input, int &pos) const override;
 };
 
-#endif // BITCOINSILVER_QT_BITCOINSILVERADDRESSVALIDATOR_H
+#endif // BITCOIN_QT_BITCOINADDRESSVALIDATOR_H

@@ -61,16 +61,16 @@ configure_file(bitcoin_locale.qrc bitcoin_locale.qrc USE_SOURCE_PERMISSIONS COPY
 add_library(bitcoinqt STATIC EXCLUDE_FROM_ALL
   bantablemodel.cpp
   bantablemodel.h
-  bitcoin.cpp
-  bitcoin.h
-  bitcoinaddressvalidator.cpp
-  bitcoinaddressvalidator.h
-  bitcoinamountfield.cpp
-  bitcoinamountfield.h
-  bitcoingui.cpp
-  bitcoingui.h
-  bitcoinunits.cpp
-  bitcoinunits.h
+  bitcoinsilver.cpp
+  bitcoinsilver.h
+  bitcoinsilveraddressvalidator.cpp
+  bitcoinsilveraddressvalidator.h
+  bitcoinsilveramountfield.cpp
+  bitcoinsilveramountfield.h
+  bitcoinsilvergui.cpp
+  bitcoinsilvergui.h
+  bitcoinsilverunits.cpp
+  bitcoinsilverunits.h
   clientmodel.cpp
   clientmodel.h
   csvmodelwriter.cpp

@@ -2,9 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/bitcoinsilvergui.h>
+#include <bitcoin-build-config.h> // IWYU pragma: keep
 
-#include <qt/bitcoinsilverunits.h>
+#include <qt/bitcoingui.h>
+
+#include <qt/bitcoinunits.h>
 #include <qt/clientmodel.h>
 #include <qt/createwalletdialog.h>
 #include <qt/guiconstants.h>
@@ -255,14 +257,14 @@ void BitcoinGUI::createActions()
     tabGroup->addAction(overviewAction);
 
     sendCoinsAction = new QAction(platformStyle->SingleColorIcon(":/icons/send"), tr("&Send"), this);
-    sendCoinsAction->setStatusTip(tr("Send coins to a BitcoinSilver address"));
+    sendCoinsAction->setStatusTip(tr("Send coins to a Bitcoin address"));
     sendCoinsAction->setToolTip(sendCoinsAction->statusTip());
     sendCoinsAction->setCheckable(true);
     sendCoinsAction->setShortcut(QKeySequence(QStringLiteral("Alt+2")));
     tabGroup->addAction(sendCoinsAction);
 
     receiveCoinsAction = new QAction(platformStyle->SingleColorIcon(":/icons/receiving_addresses"), tr("&Receive"), this);
-    receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and bitcoinsilver: URIs)"));
+    receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and bitcoin: URIs)"));
     receiveCoinsAction->setToolTip(receiveCoinsAction->statusTip());
     receiveCoinsAction->setCheckable(true);
     receiveCoinsAction->setShortcut(QKeySequence(QStringLiteral("Alt+3")));
@@ -292,15 +294,15 @@ void BitcoinGUI::createActions()
     quitAction->setStatusTip(tr("Quit application"));
     quitAction->setShortcut(QKeySequence(tr("Ctrl+Q")));
     quitAction->setMenuRole(QAction::QuitRole);
-    aboutAction = new QAction(tr("&About %1").arg(PACKAGE_NAME), this);
-    aboutAction->setStatusTip(tr("Show information about %1").arg(PACKAGE_NAME));
+    aboutAction = new QAction(tr("&About %1").arg(CLIENT_NAME), this);
+    aboutAction->setStatusTip(tr("Show information about %1").arg(CLIENT_NAME));
     aboutAction->setMenuRole(QAction::AboutRole);
     aboutAction->setEnabled(false);
     aboutQtAction = new QAction(tr("About &Qt"), this);
     aboutQtAction->setStatusTip(tr("Show information about Qt"));
     aboutQtAction->setMenuRole(QAction::AboutQtRole);
     optionsAction = new QAction(tr("&Options…"), this);
-    optionsAction->setStatusTip(tr("Modify configuration options for %1").arg(PACKAGE_NAME));
+    optionsAction->setStatusTip(tr("Modify configuration options for %1").arg(CLIENT_NAME));
     optionsAction->setMenuRole(QAction::PreferencesRole);
     optionsAction->setEnabled(false);
 
@@ -312,13 +314,13 @@ void BitcoinGUI::createActions()
     changePassphraseAction = new QAction(tr("&Change Passphrase…"), this);
     changePassphraseAction->setStatusTip(tr("Change the passphrase used for wallet encryption"));
     signMessageAction = new QAction(tr("Sign &message…"), this);
-    signMessageAction->setStatusTip(tr("Sign messages with your BitcoinSilver addresses to prove you own them"));
+    signMessageAction->setStatusTip(tr("Sign messages with your Bitcoin addresses to prove you own them"));
     verifyMessageAction = new QAction(tr("&Verify message…"), this);
-    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified BitcoinSilver addresses"));
+    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified Bitcoin addresses"));
     m_load_psbt_action = new QAction(tr("&Load PSBT from file…"), this);
-    m_load_psbt_action->setStatusTip(tr("Load Partially Signed BitcoinSilver Transaction"));
+    m_load_psbt_action->setStatusTip(tr("Load Partially Signed Bitcoin Transaction"));
     m_load_psbt_clipboard_action = new QAction(tr("Load PSBT from &clipboard…"), this);
-    m_load_psbt_clipboard_action->setStatusTip(tr("Load Partially Signed BitcoinSilver Transaction from clipboard"));
+    m_load_psbt_clipboard_action->setStatusTip(tr("Load Partially Signed Bitcoin Transaction from clipboard"));
 
     openRPCConsoleAction = new QAction(tr("Node window"), this);
     openRPCConsoleAction->setStatusTip(tr("Open node debugging and diagnostic console"));
@@ -332,7 +334,7 @@ void BitcoinGUI::createActions()
     usedReceivingAddressesAction->setStatusTip(tr("Show the list of used receiving addresses and labels"));
 
     openAction = new QAction(tr("Open &URI…"), this);
-    openAction->setStatusTip(tr("Open a bitcoinsilver: URI"));
+    openAction->setStatusTip(tr("Open a bitcoin: URI"));
 
     m_open_wallet_action = new QAction(tr("Open Wallet"), this);
     m_open_wallet_action->setEnabled(false);
@@ -358,10 +360,11 @@ void BitcoinGUI::createActions()
     m_migrate_wallet_action = new QAction(tr("Migrate Wallet"), this);
     m_migrate_wallet_action->setEnabled(false);
     m_migrate_wallet_action->setStatusTip(tr("Migrate a wallet"));
+    m_migrate_wallet_menu = new QMenu(this);
 
     showHelpMessageAction = new QAction(tr("&Command-line options"), this);
     showHelpMessageAction->setMenuRole(QAction::NoRole);
-    showHelpMessageAction->setStatusTip(tr("Show the %1 help message to get a list with possible BitcoinSilver command-line options").arg(PACKAGE_NAME));
+    showHelpMessageAction->setStatusTip(tr("Show the %1 help message to get a list with possible Bitcoin command-line options").arg(CLIENT_NAME));
 
     m_mask_values_action = new QAction(tr("&Mask values"), this);
     m_mask_values_action->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_M));
@@ -394,17 +397,20 @@ void BitcoinGUI::createActions()
         connect(openAction, &QAction::triggered, this, &BitcoinGUI::openClicked);
         connect(m_open_wallet_menu, &QMenu::aboutToShow, [this] {
             m_open_wallet_menu->clear();
-            for (const std::pair<const std::string, bool>& i : m_wallet_controller->listWalletDir()) {
-                const std::string& path = i.first;
-                QString name = path.empty() ? QString("["+tr("default wallet")+"]") : QString::fromStdString(path);
-                // Menu items remove single &. Single & are shown when && is in
-                // the string, but only the first occurrence. So replace only
-                // the first & with &&.
-                name.replace(name.indexOf(QChar('&')), 1, QString("&&"));
+            for (const auto& [path, info] : m_wallet_controller->listWalletDir()) {
+                const auto& [loaded, format] = info;
+                QString name = GUIUtil::WalletDisplayName(path);
+                // An single ampersand in the menu item's text sets a shortcut for this item.
+                // Single & are shown when && is in the string. So replace & with &&.
+                name.replace(QChar('&'), QString("&&"));
+                bool is_legacy = format == "bdb";
+                if (is_legacy) {
+                    name += " (needs migration)";
+                }
                 QAction* action = m_open_wallet_menu->addAction(name);
 
-                if (i.second) {
-                    // This wallet is already loaded
+                if (loaded || is_legacy) {
+                    // This wallet is already loaded or it is a legacy wallet
                     action->setEnabled(false);
                     continue;
                 }
@@ -454,10 +460,31 @@ void BitcoinGUI::createActions()
         connect(m_close_all_wallets_action, &QAction::triggered, [this] {
             m_wallet_controller->closeAllWallets(this);
         });
-        connect(m_migrate_wallet_action, &QAction::triggered, [this] {
-            auto activity = new MigrateWalletActivity(m_wallet_controller, this);
-            connect(activity, &MigrateWalletActivity::migrated, this, &BitcoinGUI::setCurrentWallet);
-            activity->migrate(walletFrame->currentWalletModel());
+        connect(m_migrate_wallet_menu, &QMenu::aboutToShow, [this] {
+            m_migrate_wallet_menu->clear();
+            for (const auto& [wallet_name, info] : m_wallet_controller->listWalletDir()) {
+                const auto& [loaded, format] = info;
+
+                if (format != "bdb") { // Skip already migrated wallets
+                    continue;
+                }
+
+                QString name = GUIUtil::WalletDisplayName(wallet_name);
+                // An single ampersand in the menu item's text sets a shortcut for this item.
+                // Single & are shown when && is in the string. So replace & with &&.
+                name.replace(QChar('&'), QString("&&"));
+                QAction* action = m_migrate_wallet_menu->addAction(name);
+
+                connect(action, &QAction::triggered, [this, wallet_name] {
+                    auto activity = new MigrateWalletActivity(m_wallet_controller, this);
+                    connect(activity, &MigrateWalletActivity::migrated, this, &BitcoinGUI::setCurrentWallet);
+                    activity->migrate(wallet_name);
+                });
+            }
+            if (m_migrate_wallet_menu->isEmpty()) {
+                QAction* action = m_migrate_wallet_menu->addAction(tr("No wallets available"));
+                action->setEnabled(false);
+            }
         });
         connect(m_mask_values_action, &QAction::toggled, this, &BitcoinGUI::setPrivacy);
         connect(m_mask_values_action, &QAction::toggled, this, &BitcoinGUI::enableHistoryAction);
@@ -673,8 +700,10 @@ void BitcoinGUI::setClientModel(ClientModel *_clientModel, interfaces::BlockAndH
 #ifdef ENABLE_WALLET
 void BitcoinGUI::enableHistoryAction(bool privacy)
 {
-    historyAction->setEnabled(!privacy);
-    if (historyAction->isChecked()) gotoOverviewPage();
+    if (walletFrame->currentWalletModel()) {
+        historyAction->setEnabled(!privacy);
+        if (historyAction->isChecked()) gotoOverviewPage();
+    }
 }
 
 void BitcoinGUI::setWalletController(WalletController* wallet_controller, bool show_loading_minimized)
@@ -688,6 +717,8 @@ void BitcoinGUI::setWalletController(WalletController* wallet_controller, bool s
     m_open_wallet_action->setEnabled(true);
     m_open_wallet_action->setMenu(m_open_wallet_menu);
     m_restore_wallet_action->setEnabled(true);
+    m_migrate_wallet_action->setEnabled(true);
+    m_migrate_wallet_action->setMenu(m_migrate_wallet_menu);
 
     GUIUtil::ExceptionSafeConnect(wallet_controller, &WalletController::walletAdded, this, &BitcoinGUI::addWallet);
     connect(wallet_controller, &WalletController::walletRemoved, this, &BitcoinGUI::removeWallet);
@@ -768,7 +799,6 @@ void BitcoinGUI::setCurrentWallet(WalletModel* wallet_model)
         }
     }
     updateWindowTitle();
-    m_migrate_wallet_action->setEnabled(wallet_model->wallet().isLegacy());
 }
 
 void BitcoinGUI::setCurrentWalletBySelectorIndex(int index)
@@ -802,7 +832,6 @@ void BitcoinGUI::setWalletActionsEnabled(bool enabled)
     openAction->setEnabled(enabled);
     m_close_wallet_action->setEnabled(enabled);
     m_close_all_wallets_action->setEnabled(enabled);
-    m_migrate_wallet_action->setEnabled(enabled);
 }
 
 void BitcoinGUI::createTrayIcon()
@@ -812,7 +841,7 @@ void BitcoinGUI::createTrayIcon()
 #ifndef Q_OS_MACOS
     if (QSystemTrayIcon::isSystemTrayAvailable()) {
         trayIcon = new QSystemTrayIcon(m_network_style->getTrayAndWindowIcon(), this);
-        QString toolTip = tr("%1 client").arg(PACKAGE_NAME) + " " + m_network_style->getTitleAddText();
+        QString toolTip = tr("%1 client").arg(CLIENT_NAME) + " " + m_network_style->getTitleAddText();
         trayIcon->setToolTip(toolTip);
     }
 #endif
@@ -983,6 +1012,7 @@ void BitcoinGUI::gotoLoadPSBT(bool from_clipboard)
 
 void BitcoinGUI::updateNetworkState()
 {
+    if (!clientModel) return;
     int count = clientModel->getNumConnections();
     QString icon;
     switch(count)
@@ -998,7 +1028,7 @@ void BitcoinGUI::updateNetworkState()
 
     if (m_node.getNetworkActive()) {
         //: A substring of the tooltip.
-        tooltip = tr("%n active connection(s) to BitcoinSilver network.", "", count);
+        tooltip = tr("%n active connection(s) to Bitcoin network.", "", count);
     } else {
         //: A substring of the tooltip.
         tooltip = tr("Network activity disabled.");
@@ -1189,11 +1219,6 @@ void BitcoinGUI::setNumBlocks(int count, const QDateTime& blockDate, double nVer
 void BitcoinGUI::createWallet()
 {
 #ifdef ENABLE_WALLET
-#ifndef USE_SQLITE
-    // Compiled without sqlite support (required for descriptor wallets)
-    message(tr("Error creating wallet"), tr("Cannot create new wallet, the software was compiled without sqlite support (required for descriptor wallets)"), CClientUIInterface::MSG_ERROR);
-    return;
-#endif // USE_SQLITE
     auto activity = new CreateWalletActivity(getWalletController(), this);
     connect(activity, &CreateWalletActivity::created, this, &BitcoinGUI::setCurrentWallet);
     connect(activity, &CreateWalletActivity::created, rpcConsole, &RPCConsole::setCurrentWallet);
@@ -1204,7 +1229,7 @@ void BitcoinGUI::createWallet()
 void BitcoinGUI::message(const QString& title, QString message, unsigned int style, bool* ret, const QString& detailed_message)
 {
     // Default title. On macOS, the window title is ignored (as required by the macOS Guidelines).
-    QString strTitle{PACKAGE_NAME};
+    QString strTitle{CLIENT_NAME};
     // Default to information icon
     int nMBoxIcon = QMessageBox::Information;
     int nNotifyIcon = Notificator::Information;
@@ -1463,7 +1488,7 @@ void BitcoinGUI::updateProxyIcon()
 
 void BitcoinGUI::updateWindowTitle()
 {
-    QString window_title = PACKAGE_NAME;
+    QString window_title = CLIENT_NAME;
 #ifdef ENABLE_WALLET
     if (walletFrame) {
         WalletModel* const wallet_model = walletFrame->currentWalletModel();

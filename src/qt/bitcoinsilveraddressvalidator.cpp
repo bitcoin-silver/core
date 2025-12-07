@@ -2,7 +2,7 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/bitcoinsilveraddressvalidator.h>
+#include <qt/bitcoinaddressvalidator.h>
 
 #include <key_io.h>
 
@@ -88,7 +88,7 @@ BitcoinAddressCheckValidator::BitcoinAddressCheckValidator(QObject *parent) :
 QValidator::State BitcoinAddressCheckValidator::validate(QString &input, int &pos) const
 {
     Q_UNUSED(pos);
-    // Validate the passed BitcoinSilver address
+    // Validate the passed Bitcoin address
     if (IsValidDestinationString(input.toStdString())) {
         return QValidator::Acceptable;
     }

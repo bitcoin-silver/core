@@ -1,18 +1,16 @@
-// Copyright (c) 2011-2022 The Bitcoin Core developers
+// Copyright (c) 2011-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_QT_BITCOINSILVER_H
-#define BITCOINSILVER_QT_BITCOINSILVER_H
+#ifndef BITCOIN_QT_BITCOIN_H
+#define BITCOIN_QT_BITCOIN_H
 
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoinsilver-config.h>
-#endif
+#include <bitcoin-build-config.h> // IWYU pragma: keep
 
 #include <interfaces/node.h>
 #include <qt/initexecutor.h>
 
-#include <assert.h>
+#include <cassert>
 #include <memory>
 #include <optional>
 
@@ -32,7 +30,7 @@ class Init;
 } // namespace interfaces
 
 
-/** Main BitcoinSilver application object */
+/** Main Bitcoin application object */
 class BitcoinApplication: public QApplication
 {
     Q_OBJECT
@@ -111,4 +109,4 @@ private:
 
 int GuiMain(int argc, char* argv[]);
 
-#endif // BITCOINSILVER_QT_BITCOINSILVER_H
+#endif // BITCOIN_QT_BITCOIN_H

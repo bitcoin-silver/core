@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_QT_BITCOINSILVERUNITS_H
-#define BITCOINSILVER_QT_BITCOINSILVERUNITS_H
+#ifndef BITCOIN_QT_BITCOINUNITS_H
+#define BITCOIN_QT_BITCOINUNITS_H
 
 #include <consensus/amount.h>
 
@@ -26,7 +26,7 @@
 #define THIN_SP_UTF8 REAL_THIN_SP_UTF8
 #define THIN_SP_HTML HTML_HACK_SP
 
-/** BitcoinSilver unit definitions. Encapsulates parsing and formatting
+/** Bitcoin unit definitions. Encapsulates parsing and formatting
    and serves as list model for drop-down selection boxes.
 */
 class BitcoinUnits: public QAbstractListModel
@@ -36,13 +36,13 @@ class BitcoinUnits: public QAbstractListModel
 public:
     explicit BitcoinUnits(QObject *parent);
 
-    /** BitcoinSilver units.
-      @note Source: https://en.bitcoinsilver.it/wiki/Units . Please add only sensible ones
+    /** Bitcoin units.
+      @note Source: https://en.bitcoin.it/wiki/Units . Please add only sensible ones
      */
     enum class Unit {
-        BTCS,
-        mBTCS,
-        uBTCS,
+        BTC,
+        mBTC,
+        uBTC,
         SAT
     };
     Q_ENUM(Unit)
@@ -113,4 +113,4 @@ typedef BitcoinUnits::Unit BitcoinUnit;
 QDataStream& operator<<(QDataStream& out, const BitcoinUnit& unit);
 QDataStream& operator>>(QDataStream& in, BitcoinUnit& unit);
 
-#endif // BITCOINSILVER_QT_BITCOINSILVERUNITS_H
+#endif // BITCOIN_QT_BITCOINUNITS_H

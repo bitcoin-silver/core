@@ -2,14 +2,12 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_QT_BITCOINSILVERGUI_H
-#define BITCOINSILVER_QT_BITCOINSILVERGUI_H
+#ifndef BITCOIN_QT_BITCOINGUI_H
+#define BITCOIN_QT_BITCOINGUI_H
 
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoinsilver-config.h>
-#endif
+#include <bitcoin-build-config.h> // IWYU pragma: keep
 
-#include <qt/bitcoinsilverunits.h>
+#include <qt/bitcoinunits.h>
 #include <qt/clientmodel.h>
 #include <qt/guiutil.h>
 #include <qt/optionsdialog.h>
@@ -63,7 +61,7 @@ class ClickableProgressBar;
 }
 
 /**
-  BitcoinSilver GUI main class. This class represents the main window of the BitcoinSilver UI. It communicates with both the client and
+  Bitcoin GUI main class. This class represents the main window of the Bitcoin UI. It communicates with both the client and
   wallet models to give the user an up-to-date view of the current core state.
 */
 class BitcoinGUI : public QMainWindow
@@ -87,7 +85,7 @@ public:
 
 #ifdef ENABLE_WALLET
     /** Set the wallet model.
-        The wallet model represents a bitcoinsilver wallet, and offers access to the list of transactions, address book and sending
+        The wallet model represents a bitcoin wallet, and offers access to the list of transactions, address book and sending
         functionality.
     */
     void addWallet(WalletModel* walletModel);
@@ -290,7 +288,7 @@ public Q_SLOTS:
     void gotoSignMessageTab(QString addr = "");
     /** Show Sign/Verify Message dialog and switch to verify message tab */
     void gotoVerifyMessageTab(QString addr = "");
-    /** Load Partially Signed BitcoinSilver Transaction from file or clipboard */
+    /** Load Partially Signed Bitcoin Transaction from file or clipboard */
     void gotoLoadPSBT(bool from_clipboard = false);
     /** Enable history action when privacy is changed */
     void enableHistoryAction(bool privacy);
@@ -315,7 +313,7 @@ public Q_SLOTS:
     /** Simply calls showNormalIfMinimized(true) */
     void toggleHidden();
 
-    /** called by a timer to check if ShutdownRequested() has been set **/
+    /** called by a timer to check if shutdown has been requested */
     void detectShutdown();
 
     /** Show progress dialog e.g. for verifychain */
@@ -355,4 +353,4 @@ private Q_SLOTS:
     void onMenuSelection(QAction* action);
 };
 
-#endif // BITCOINSILVER_QT_BITCOINSILVERGUI_H
+#endif // BITCOIN_QT_BITCOINGUI_H

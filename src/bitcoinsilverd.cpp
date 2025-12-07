@@ -3,26 +3,25 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoinsilver-config.h>
-#endif
+#include <bitcoin-build-config.h> // IWYU pragma: keep
 
 #include <chainparams.h>
 #include <clientversion.h>
 #include <common/args.h>
 #include <common/init.h>
 #include <common/system.h>
-#include <common/url.h>
 #include <compat/compat.h>
 #include <init.h>
 #include <interfaces/chain.h>
 #include <interfaces/init.h>
+#include <kernel/context.h>
 #include <node/context.h>
 #include <node/interface_ui.h>
+#include <node/warnings.h>
 #include <noui.h>
-#include <shutdown.h>
 #include <util/check.h>
 #include <util/exception.h>
+#include <util/signalinterrupt.h>
 #include <util/strencodings.h>
 #include <util/syserror.h>
 #include <util/threadnames.h>
@@ -35,8 +34,7 @@
 
 using node::NodeContext;
 
-const std::function<std::string(const char*)> G_TRANSLATION_FUN = nullptr;
-UrlDecodeFn* const URL_DECODE = urlDecode;
+const TranslateFn G_TRANSLATION_FUN{nullptr};
 
 #if HAVE_DECL_FORK
 
@@ -111,10 +109,11 @@ int fork_daemon(bool nochdir, bool noclose, TokenPipeEnd& endpoint)
 
 #endif
 
-static bool ParseArgs(ArgsManager& args, int argc, char* argv[])
+static bool ParseArgs(NodeContext& node, int argc, char* argv[])
 {
-    // If Qt is used, parameters/bitcoinsilver.conf are parsed in qt/bitcoinsilver.cpp's main()
-    SetupServerArgs(args);
+    ArgsManager& args{*Assert(node.args)};
+    // If Qt is used, parameters/bitcoin.conf are parsed in qt/bitcoin.cpp's main()
+    SetupServerArgs(args, node.init->canListenIpc());
     std::string error;
     if (!args.ParseParameters(argc, argv, error)) {
         return InitError(Untranslated(strprintf("Error parsing command line arguments: %s", error)));
@@ -127,22 +126,33 @@ static bool ParseArgs(ArgsManager& args, int argc, char* argv[])
     // Error out when loose non-argument tokens are encountered on command line
     for (int i = 1; i < argc; i++) {
         if (!IsSwitchChar(argv[i][0])) {
-            return InitError(Untranslated(strprintf("Command line contains unexpected token '%s', see bitcoinsilverd -h for a list of options.", argv[i])));
+            return InitError(Untranslated(strprintf("Command line contains unexpected token '%s', see bitcoind -h for a list of options.", argv[i])));
         }
     }
     return true;
 }
 
-static bool ProcessInitCommands(ArgsManager& args)
+static bool ProcessInitCommands(interfaces::Init& init, ArgsManager& args)
 {
     // Process help and version before taking care about datadir
-    if (HelpRequested(args) || args.IsArgSet("-version")) {
-        std::string strUsage = PACKAGE_NAME " version " + FormatFullVersion() + "\n";
+    if (HelpRequested(args) || args.GetBoolArg("-version", false)) {
+        std::string strUsage = CLIENT_NAME " daemon version " + FormatFullVersion();
+        if (const char* exe_name{init.exeName()}) {
+            strUsage += " ";
+            strUsage += exe_name;
+        }
+        strUsage += "\n";
 
-        if (args.IsArgSet("-version")) {
+        if (args.GetBoolArg("-version", false)) {
             strUsage += FormatParagraph(LicenseInfo());
         } else {
-            strUsage += "\nUsage:  bitcoinsilverd [options]                     Start " PACKAGE_NAME "\n"
+            strUsage += "\n"
+                "The " CLIENT_NAME " daemon (bitcoind) is a headless program that connects to the Bitcoin network to validate and relay transactions and blocks, as well as relaying addresses.\n\n"
+                "It provides the backbone of the Bitcoin network and its RPC, REST and ZMQ services can provide various transaction, block and address-related services.\n\n"
+                "There is an optional wallet component which provides transaction services.\n\n"
+                "It can be used in a headless environment or as part of a server setup.\n"
+                "\n"
+                "Usage: bitcoind [options]\n"
                 "\n";
             strUsage += args.GetHelpMessage();
         }
@@ -170,7 +180,7 @@ static bool AppInit(NodeContext& node)
     std::any context{&node};
     try
     {
-        // -server defaults to true for bitcoinsilverd but not for the GUI so do this here
+        // -server defaults to true for bitcoind but not for the GUI so do this here
         args.SoftSetBoolArg("-server", true);
         // Set this early so that parameter interactions go to console
         InitLogging(args);
@@ -184,7 +194,10 @@ static bool AppInit(NodeContext& node)
             return false;
         }
 
+        node.warnings = std::make_unique<node::Warnings>();
+
         node.kernel = std::make_unique<kernel::Context>();
+        node.ecc_context = std::make_unique<ECC_Context>();
         if (!AppInitSanityChecks(*node.kernel))
         {
             // InitError will have been called with detailed error, which ends up on console
@@ -193,7 +206,7 @@ static bool AppInit(NodeContext& node)
 
         if (args.GetBoolArg("-daemon", DEFAULT_DAEMON) || args.GetBoolArg("-daemonwait", DEFAULT_DAEMONWAIT)) {
 #if HAVE_DECL_FORK
-            tfm::format(std::cout, PACKAGE_NAME " starting\n");
+            tfm::format(std::cout, CLIENT_NAME " starting\n");
 
             // Daemonize
             switch (fork_daemon(1, 0, daemon_ep)) { // don't chdir (1), do close FDs (0)
@@ -220,10 +233,10 @@ static bool AppInit(NodeContext& node)
             return InitError(Untranslated("-daemon is not supported on this operating system"));
 #endif // HAVE_DECL_FORK
         }
-        // Lock data directory after daemonization
-        if (!AppInitLockDataDirectory())
+        // Lock critical directories after daemonization
+        if (!AppInitLockDirectories())
         {
-            // If locking the data directory failed, exit immediately
+            // If locking a directory failed, exit immediately
             return false;
         }
         fRet = AppInitInterfaces(node) && AppInitMain(node);
@@ -260,21 +273,19 @@ MAIN_FUNCTION
 
     SetupEnvironment();
 
-    // Connect bitcoinsilverd signal handlers
+    // Connect bitcoind signal handlers
     noui_connect();
 
     util::ThreadSetInternalName("init");
 
     // Interpret command line arguments
     ArgsManager& args = *Assert(node.args);
-    if (!ParseArgs(args, argc, argv)) return EXIT_FAILURE;
+    if (!ParseArgs(node, argc, argv)) return EXIT_FAILURE;
     // Process early info return commands such as -help or -version
-    if (ProcessInitCommands(args)) return EXIT_SUCCESS;
+    if (ProcessInitCommands(*init, args)) return EXIT_SUCCESS;
 
     // Start application
-    if (AppInit(node)) {
-        WaitForShutdown();
-    } else {
+    if (!AppInit(node) || !Assert(node.shutdown_signal)->wait()) {
         node.exit_status = EXIT_FAILURE;
     }
     Interrupt(node);
