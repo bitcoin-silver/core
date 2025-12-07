@@ -32,8 +32,15 @@
 - Multi-signature support
 - Network propagation and consensus validation
 
-### 3. Silent Payments (Planned)
-Bitcoin-compatible stealth addresses (BIP 352) for privacy without on-chain sender/receiver links.
+### 3. Silent Payments (NEW - BIP 352)
+**Bitcoin-compatible stealth addresses** for private transactions:
+
+- **Sender Anonymity**: Sender-receiver relationship hidden on-chain
+- **Unique Outputs**: Each payment creates unique derived address
+- **ECDH-based**: Uses standard Elliptic Curve Diffie-Hellman
+- **Recipient Scanning**: Only recipient can detect payments via scanning private key
+- **Zero Consensus Changes**: Pure wallet-level, uses only standard Bitcoin features
+- **BIP 352 Compliant**: Full compatibility with Bitcoin Silent Payments standard
 
 ## 🏗️ Quick Start
 
@@ -376,16 +383,16 @@ Bitcoin Core is copyright (c) 2009-2024 The Bitcoin Core Developers.
 | Currency | BTC | BS |
 | Consensus | Bitcoin Core 30.x | Bitcoin Core 30.x ✓ |
 | Vaults | ❌ No | ✅ Yes |
-| Silent Payments | ❌ No | ⏳ Planned |
+| Silent Payments | ❌ No | ✅ Yes (BIP 352) |
 
 ## 🚦 Status
 
 - ✅ Bitcoin Core 30.x merged and tested
 - ✅ Complete rebranding (bitcoin → bitcoinsilver)
-- ✅ Vault mechanisms implemented
-- ✅ RPC API for vault management
-- ⏳ Silent Payments (in development)
-- ⏳ GUI wallet enhancements
+- ✅ Vault mechanisms implemented with RPC API
+- ✅ Silent Payments (BIP 352) implemented
+- ⏳ Qt wallet enhancements
+- ⏳ Hardware wallet integration
 
 ## 📞 Support
 
