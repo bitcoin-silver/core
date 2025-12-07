@@ -452,7 +452,7 @@ RPCHelpMan settxfee()
 
     if (!pwallet->chain().rpcEnableDeprecated("settxfee")) {
         throw JSONRPCError(RPC_METHOD_DEPRECATED, "settxfee is deprecated and will be fully removed in v31.0."
-        "\nTo use settxfee restart bitcoind with -deprecatedrpc=settxfee.");
+        "\nTo use settxfee restart bitcoinsilverd with -deprecatedrpc=settxfee.");
     }
 
     CAmount nAmount = AmountFromValue(request.params[0]);

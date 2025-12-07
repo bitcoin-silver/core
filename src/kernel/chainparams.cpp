@@ -49,17 +49,6 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
     return genesis;
 }
 
-/**
- * Build the genesis block. Note that the output of its generation
- * transaction cannot be spent since it did not originally exist in the
- * database.
- *
- * CBlock(hash=000000000019d6, ver=1, hashPrevBlock=00000000000000, hashMerkleRoot=4a5e1e, nTime=1231006505, nBits=1d00ffff, nNonce=2083236893, vtx=1)
- *   CTransaction(hash=4a5e1e, ver=1, vin.size=1, vout.size=1, nLockTime=0)
- *     CTxIn(COutPoint(000000, -1), coinbase 04ffff001d0104455468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73)
- *     CTxOut(nValue=50.00000000, scriptPubKey=0x5F1DF16B2B704C8A578D0B)
- *   vMerkleTree: 4a5e1e
- */
 static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
     const char* pszTimestamp = "US and Germany foiled Russian plot to assassinate CEO of arms manufacturer";
@@ -126,16 +115,11 @@ public:
         assert(consensus.hashGenesisBlock == uint256S("0x00000ea8e97e04892a03df35947ff0c4df705723f5b18be7cc6456ed16e9788e"));
         assert(genesis.hashMerkleRoot == uint256S("0xf7224a6085bc48821bd7c7c1fa0f0e4aa1f7217da863af69f8c1c102e1184b39"));
 
-        // Note that of those which support the service bits prefix, most only support a subset of
-        // possible options.
-        // This is fine at runtime as we'll fall back to using them as an addrfetch if they don't support the
-        // service bits we want, but we should get them updated to support all service bits wanted by any
-        // release ASAP to avoid it where possible.
-
-        vSeeds.emplace_back("213.165.83.94"); // Olafs node
-        vSeeds.emplace_back("78.138.45.19"); // Elvas node 1
-        vSeeds.emplace_back("109.205.181.171"); // Elvas node 2
-        // also update chainparamsseeds.h
+        vSeeds.emplace_back("213.165.83.94");
+        vSeeds.emplace_back("78.138.45.19");
+        vSeeds.emplace_back("109.205.181.171");
+        vSeeds.emplace_back("sha256-mining.ro.ro:10566");
+        vSeeds.emplace_back("[2a06:1fc0:0:1::3e3]");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,0x1A); // Addresses start with 'B'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,0x05);
@@ -150,9 +134,7 @@ public:
         fDefaultConsistencyChecks = false;
         m_is_mockable_chain = false;
 
-        m_assumeutxo_data = {
-            // TODO to be specified in a future patch.
-        };
+        m_assumeutxo_data = {};
 
         chainTxData = ChainTxData{
             1720846034,
@@ -216,9 +198,6 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
-        // nodes with support for servicebits filtering should be at the top
-
-     //   vSeeds.emplace_back("00000000");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
@@ -227,8 +206,6 @@ public:
         base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94};
 
         bech32_hrp = "tbs";
-
-  //      vFixedSeeds = std::vector<uint8_t>(std::begin(chainparams_seed_test), std::end(chainparams_seed_test));
 
         fDefaultConsistencyChecks = false;
         m_is_mockable_chain = false;
