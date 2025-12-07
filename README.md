@@ -18,14 +18,14 @@
 **Time-locked recovery transactions** for enhanced cryptocurrency security:
 
 - **Cold Storage Protection**: Automatically recover funds to cold storage after a configurable delay
-- **CheckSequenceVerify Delays**: Customize time locks per vault (typical: 2-4 weeks)
+- **CheckSequenceVerify Delays**: Customize time locks per vault
 - **Dual-Path Spending**: Both normal and recovery paths enforced cryptographically
 - **Zero Consensus Changes**: Pure wallet-level implementation
 - **Full RPC API**: Create, manage, and recover vaults via command line
 
 **Use Case**: Protect against key compromise or theft by having funds automatically recoverable, giving you time to catch the attack before permanent loss.
 
-### 2. Bitcoin Core 30.x Compatibility
+### 2. Bitcoin Silver Compatibility
 - All standard transaction types (P2PKH, P2SH, P2WPKH, P2WSH, Taproot)
 - BIP standards: BIP32, BIP39, BIP141, BIP340, BIP341, BIP325
 - Full segwit and Taproot support
@@ -33,14 +33,14 @@
 - Network propagation and consensus validation
 
 ### 3. Silent Payments (NEW - BIP 352)
-**Bitcoin-compatible stealth addresses** for private transactions:
+**Bitcoin-Silver-compatible stealth addresses** for private transactions:
 
 - **Sender Anonymity**: Sender-receiver relationship hidden on-chain
 - **Unique Outputs**: Each payment creates unique derived address
 - **ECDH-based**: Uses standard Elliptic Curve Diffie-Hellman
 - **Recipient Scanning**: Only recipient can detect payments via scanning private key
 - **Zero Consensus Changes**: Pure wallet-level, uses only standard Bitcoin features
-- **BIP 352 Compliant**: Full compatibility with Bitcoin Silent Payments standard
+- **BIP 352 Compliant**: Full compatibility with Bitcoin Silver Silent Payments standard
 
 ## 🏗️ Quick Start
 
@@ -82,10 +82,10 @@ bitcoinsilver-cli -regtest generatetoaddress 101 "BSomeAddress"
 
 ### What is a Vault?
 
-A vault is a Bitcoin smart contract that splits control into two paths:
+A vault is a Bitcoin Silver smart contract that splits control into two paths:
 
 **Path 1 - Normal Spending**: Send funds immediately to recipient  
-**Path 2 - Recovery**: After CSV delay (e.g., 2016 blocks ≈ 2 weeks), recover to cold storage
+**Path 2 - Recovery**: After CSV delay (e.g., 2016 blocks), recover to cold storage
 
 ### Vault Script Structure
 
@@ -99,7 +99,7 @@ OP_ENDIF
 ```
 
 **Benefits**:
-- ✅ Uses only standard Bitcoin opcodes
+- ✅ Uses only standard Bitcoin Silver opcodes
 - ✅ No consensus changes required
 - ✅ Works with all wallet types
 - ✅ Compatible with Taproot
@@ -202,7 +202,7 @@ class VaultBuilder;           // Transaction construction
 class RecoveryManager;        // Recovery tracking
 ```
 
-**No Consensus Changes**: Vaults are implemented as wallet-level features using existing Bitcoin opcodes.
+**No Consensus Changes**: Vaults are implemented as wallet-level features using existing Bitcoin Silver opcodes.
 
 ## 🌍 Network Configuration
 
@@ -278,7 +278,7 @@ print(f"Vault ID: {vault['vault_id']}")
 
 ### What are Silent Payments?
 
-Silent Payments are a privacy-preserving way to receive cryptocurrency without creating an on-chain link between sender and receiver. Unlike regular Bitcoin addresses that can be reused and traced, silent payments generate unique, untrackable outputs.
+Silent Payments are a privacy-preserving way to receive cryptocurrency without creating an on-chain link between sender and receiver. Unlike regular Bitcoin Silver addresses that can be reused and traced, silent payments generate unique, untrackable outputs.
 
 **Privacy Flow**:
 1. **Receiver** publishes a Silent Payment address (scan_key + spend_key)
@@ -313,7 +313,7 @@ bitcoinsilver-cli silentpaymentaddress "my-sp-address"
 ### Sending with Silent Payments
 
 ```bash
-# Send 1.5 BTC to a silent payment address
+# Send 1.5 BTCS to a silent payment address
 bitcoinsilver-cli sendsilent \
   "sp1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq" \
   1.5 \
@@ -415,7 +415,7 @@ Receiver Side:
 - Only receiver (with spend_key) can spend payments
 - No on-chain link between sender and receiver
 - Each payment creates unique derived key
-- Compatible with all Bitcoin script types
+- Compatible with all Bitcoin Silver script types
 
 ### Silent Payments in Code
 
@@ -464,7 +464,7 @@ echo "New balance: $BALANCE"
 bitcoinsilver-cli sendsilent "$ANOTHER_ADDRESS" 0.5
 ```
 
-### Silent Payments vs Traditional Bitcoin Addresses
+### Silent Payments vs Traditional Bitcoin Silver Addresses
 
 | Feature | Traditional Address | Silent Payment |
 |---------|-------------------|-----------------|
@@ -474,7 +474,7 @@ bitcoinsilver-cli sendsilent "$ANOTHER_ADDRESS" 0.5
 | **On-Chain Analysis** | Linkable | Unlinkable |
 | **Scanning Required** | No | Yes (automatic) |
 | **Complexity** | Simple | Medium |
-| **Bitcoin Compatible** | Native | ECDH-derived |
+| **Bitcoin Silver Compatible** | Native | ECDH-derived |
 
 ### Silent Payments vs Vault Mechanisms
 
@@ -544,7 +544,7 @@ You can use both features together for **maximum security AND privacy**:
 ### Use Case 1: Secure Cold Storage Receive
 
 ```bash
-# 1. Create vault for security (recovery after 2 weeks if stolen)
+# 1. Create vault for security (recovery after 2016 blocks if stolen)
 VAULT=$(bitcoinsilver-cli createvault "BHotWallet" "BColdStorage" 2016)
 VAULT_ID=$(echo $VAULT | jq -r '.vault_id')
 
@@ -622,9 +622,9 @@ bitcoinsilver-cli sendsilent "sp1q_recipient_address" 0.5
 # If you detect suspicious activity:
 # 1. Initiate recovery to cold storage
 bitcoinsilver-cli recovervault "$VAULT_ID" "vault_txid" 0
-# 2. Wait 2 weeks (2016 blocks)
+# 2. Wait 2016 blocks
 # 3. Funds automatically recover to cold storage
-echo "Recovery initiated - funds safe in 2 weeks"
+echo "Recovery initiated - funds safe in 2016 blocks"
 ```
 
 ### Privacy + Security Properties
@@ -633,7 +633,7 @@ With **Both** features:
 - 🔒 **Sender Privacy**: Who paid you is hidden
 - 🔒 **Receiver Privacy**: That you received payment is hidden
 - 🔐 **Theft Protection**: Funds auto-recoverable
-- 🔐 **Time Cushion**: 2 weeks to detect and respond to theft
+- 🔐 **Time Cushion**: 2016 blocks to detect and respond to theft
 - ⚡ **Automatic**: Scanning and recovery are automatic
 - 🔑 **Full Control**: You control both paths
 
@@ -720,9 +720,6 @@ bitcoinsilver-cli recovervault "vault_..." "abc..." 0
 
 - [Vault Mechanisms](#-vault-mechanisms---complete-guide) - Detailed vault guide
 - [Build Instructions](doc/build-unix.md)
-- [Developer Notes](doc/developer-notes.md)
-- [Bitcoin Script Reference](https://en.bitcoin.it/wiki/Script)
-- [BIPs](https://github.com/bitcoin/bips)
 
 ## 🤝 Contributing
 
@@ -737,23 +734,12 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ## 🛡️ Security
 
-### Reporting Vulnerabilities
-
-⚠️ **Do not** open public issues for security vulnerabilities.  
-See [SECURITY.md](SECURITY.md) for responsible disclosure.
-
 ### Key Management
 
 - Never expose private keys in configuration files
 - Use strong passphrases for wallet encryption
 - Keep recovery keys offline and secure
 - Regularly backup wallet data
-
-## 📜 License
-
-BitcoinSilver Core is released under the MIT License. See [COPYING](COPYING).
-
-Bitcoin Core is copyright (c) 2009-2024 The Bitcoin Core Developers.
 
 ## 📊 Key Differences from Bitcoin
 
@@ -769,7 +755,6 @@ Bitcoin Core is copyright (c) 2009-2024 The Bitcoin Core Developers.
 ## 🚦 Status
 
 - ✅ Bitcoin Core 30.x merged and tested
-- ✅ Complete rebranding (bitcoin → bitcoinsilver)
 - ✅ Vault mechanisms implemented with RPC API
 - ✅ Silent Payments (BIP 352) implemented
 - ⏳ Qt wallet enhancements
@@ -780,10 +765,4 @@ Bitcoin Core is copyright (c) 2009-2024 The Bitcoin Core Developers.
 - **Repository**: https://github.com/bitcoin-silver/core
 - **Issues**: https://github.com/bitcoin-silver/core/issues
 - **Documentation**: See doc/ folder
-
----
-
-**Version**: 30.1-BitcoinSilver  
-**Last Updated**: December 2024  
-**Status**: Production Ready
 
