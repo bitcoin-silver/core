@@ -2,7 +2,7 @@
 # Copyright (c) 2018-2021 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""Verify that starting bitcoinsilver with -h works as expected."""
+"""Verify that starting bitcoin with -h works as expected."""
 
 from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import assert_equal
@@ -35,14 +35,14 @@ class HelpTest(BitcoinTestFramework):
         return out, err
 
     def run_test(self):
-        self.log.info("Start bitcoinsilver with -h for help text")
+        self.log.info("Start bitcoin with -h for help text")
         self.nodes[0].start(extra_args=['-h'])
         # Node should exit immediately and output help to stdout.
         output, _ = self.get_node_output(ret_code_expected=0)
         assert b'Options' in output
         self.log.info(f"Help text received: {output[0:60]} (...)")
 
-        self.log.info("Start bitcoinsilver with -version for version information")
+        self.log.info("Start bitcoin with -version for version information")
         self.nodes[0].start(extra_args=['-version'])
         # Node should exit immediately and output version to stdout.
         output, _ = self.get_node_output(ret_code_expected=0)
@@ -50,7 +50,7 @@ class HelpTest(BitcoinTestFramework):
         self.log.info(f"Version text received: {output[0:60]} (...)")
 
         # Test that arguments not in the help results in an error
-        self.log.info("Start bitcoinsilverd with -fakearg to make sure it does not start")
+        self.log.info("Start bitcoind with -fakearg to make sure it does not start")
         self.nodes[0].start(extra_args=['-fakearg'])
         # Node should exit immediately and output an error to stderr
         _, output = self.get_node_output(ret_code_expected=1)
@@ -59,4 +59,4 @@ class HelpTest(BitcoinTestFramework):
 
 
 if __name__ == '__main__':
-    HelpTest().main()
+    HelpTest(__file__).main()

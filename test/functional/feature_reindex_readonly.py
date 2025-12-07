@@ -2,7 +2,7 @@
 # Copyright (c) 2023-present The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""Test running bitcoinsilverd with -reindex from a read-only blockstore
+"""Test running bitcoind with -reindex from a read-only blockstore
 - Start a node, generate blocks, then restart with -reindex after setting blk files to read-only
 """
 
@@ -24,6 +24,7 @@ class BlockstoreReindexTest(BitcoinTestFramework):
         opreturn = "6a"
         nulldata = fastprune_blockfile_size * "ff"
         self.generateblock(self.nodes[0], output=f"raw({opreturn}{nulldata})", transactions=[])
+        block_count = self.nodes[0].getblockcount()
         self.stop_node(0)
 
         assert (self.nodes[0].chain_path / "blocks" / "blk00000.dat").exists()
@@ -73,10 +74,10 @@ class BlockstoreReindexTest(BitcoinTestFramework):
                 pass
 
         if undo_immutable:
-            self.log.info("Attempt to restart and reindex the node with the unwritable block file")
-            with self.nodes[0].assert_debug_log(expected_msgs=['FlushStateToDisk', 'failed to open file'], unexpected_msgs=[]):
-                self.nodes[0].assert_start_raises_init_error(extra_args=['-reindex', '-fastprune'],
-                    expected_msg="Error: A fatal internal error occurred, see debug.log for details")
+            self.log.debug("Attempt to restart and reindex the node with the unwritable block file")
+            with self.nodes[0].assert_debug_log(["Reindexing finished"], timeout=60):
+                self.start_node(0, extra_args=['-reindex', '-fastprune'])
+            assert block_count == self.nodes[0].getblockcount()
             undo_immutable()
 
         filename.chmod(0o777)
@@ -86,4 +87,4 @@ class BlockstoreReindexTest(BitcoinTestFramework):
 
 
 if __name__ == '__main__':
-    BlockstoreReindexTest().main()
+    BlockstoreReindexTest(__file__).main()

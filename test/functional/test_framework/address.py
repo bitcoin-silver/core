@@ -2,7 +2,7 @@
 # Copyright (c) 2016-2022 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""Encode and decode BitcoinSilver addresses.
+"""Encode and decode Bitcoin addresses.
 
 - base58 P2PKH and P2SH addresses.
 - bech32 segwit v0 P2WPKH and P2WSH addresses.
@@ -47,18 +47,20 @@ class AddressType(enum.Enum):
 b58chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
 
 
-def create_deterministic_address_bcrt1_p2tr_op_true():
+def create_deterministic_address_bcrt1_p2tr_op_true(explicit_internal_key=None):
     """
     Generates a deterministic bech32m address (segwit v1 output) that
     can be spent with a witness stack of OP_TRUE and the control block
     with internal public key (script-path spending).
 
-    Returns a tuple with the generated address and the internal key.
+    Returns a tuple with the generated address and the TaprootInfo object.
     """
-    internal_key = (1).to_bytes(32, 'big')
-    address = output_key_to_p2tr(taproot_construct(internal_key, [(None, CScript([OP_TRUE]))]).output_pubkey)
-    assert_equal(address, 'bcrt1p9yfmy5h72durp7zrhlw9lf7jpwjgvwdg0jr0lqmmjtgg83266lqsekaqka')
-    return (address, internal_key)
+    internal_key = explicit_internal_key or (1).to_bytes(32, 'big')
+    taproot_info = taproot_construct(internal_key, [("only-path", CScript([OP_TRUE]))])
+    address = output_key_to_p2tr(taproot_info.output_pubkey)
+    if explicit_internal_key is None:
+        assert_equal(address, 'bcrt1p9yfmy5h72durp7zrhlw9lf7jpwjgvwdg0jr0lqmmjtgg83266lqsekaqka')
+    return (address, taproot_info)
 
 
 def byte_to_base58(b, version):
@@ -134,7 +136,7 @@ def program_to_witness(version, program, main=False):
     assert 0 <= version <= 16
     assert 2 <= len(program) <= 40
     assert version > 0 or len(program) in [20, 32]
-    return encode_segwit_address("bs" if main else "bsrt", version, program)
+    return encode_segwit_address("bc" if main else "bcrt", version, program)
 
 def script_to_p2wsh(script, main=False):
     script = check_script(script)
@@ -153,6 +155,9 @@ def output_key_to_p2tr(key, main=False):
     assert len(key) == 32
     return program_to_witness(1, key, main)
 
+def p2a(main=False):
+    return program_to_witness(1, "4e73", main)
+
 def check_key(key):
     if (type(key) is str):
         key = bytes.fromhex(key)  # Assuming this is hex string
@@ -170,7 +175,7 @@ def check_script(script):
 
 def bech32_to_bytes(address):
     hrp = address.split('1')[0]
-    if hrp not in ['bs', 'tbs', 'bsrt']:
+    if hrp not in ['bc', 'tb', 'bcrt']:
         return (None, None)
     version, payload = decode_segwit_address(hrp, address)
     if version is None:
@@ -214,7 +219,7 @@ class TestFrameworkScript(unittest.TestCase):
 
     def test_bech32_decode(self):
         def check_bech32_decode(payload, version):
-            hrp = "tbs"
+            hrp = "tb"
             self.assertEqual(bech32_to_bytes(encode_segwit_address(hrp, version, payload)), (version, payload))
 
         check_bech32_decode(bytes.fromhex('36e3e2a33f328de12e4b43c515a75fba2632ecc3'), 0)

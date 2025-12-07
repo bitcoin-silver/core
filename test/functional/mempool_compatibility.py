@@ -28,7 +28,7 @@ class MempoolCompatibilityTest(BitcoinTestFramework):
 
     def setup_network(self):
         self.add_nodes(self.num_nodes, versions=[
-            200100,  # Last release with previous mempool format
+            200100,  # Last release without unbroadcast serialization and without XOR
             None,
         ])
         self.start_nodes()
@@ -56,10 +56,11 @@ class MempoolCompatibilityTest(BitcoinTestFramework):
         self.log.info("Move mempool.dat from old to new node")
         old_node_mempool = old_node.chain_path / "mempool.dat"
         new_node_mempool = new_node.chain_path / "mempool.dat"
+        new_node_mempool.unlink()
         old_node_mempool.rename(new_node_mempool)
 
         self.log.info("Start new node and verify mempool contains the tx")
-        self.start_node(1)
+        self.start_node(1, extra_args=["-persistmempoolv1=1"])
         assert old_tx_hash in new_node.getrawmempool()
 
         self.log.info("Add unbroadcasted tx to mempool on new node and shutdown")
@@ -78,4 +79,4 @@ class MempoolCompatibilityTest(BitcoinTestFramework):
 
 
 if __name__ == "__main__":
-    MempoolCompatibilityTest().main()
+    MempoolCompatibilityTest(__file__).main()

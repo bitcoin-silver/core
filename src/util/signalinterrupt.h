@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_UTIL_SIGNALINTERRUPT_H
-#define BITCOINSILVER_UTIL_SIGNALINTERRUPT_H
+#ifndef BITCOIN_UTIL_SIGNALINTERRUPT_H
+#define BITCOIN_UTIL_SIGNALINTERRUPT_H
 
 #ifdef WIN32
 #include <condition_variable>
@@ -30,9 +30,9 @@ class SignalInterrupt
 public:
     SignalInterrupt();
     explicit operator bool() const;
-    void operator()();
-    void reset();
-    void wait();
+    [[nodiscard]] bool operator()();
+    [[nodiscard]] bool reset();
+    [[nodiscard]] bool wait();
 
 private:
     std::atomic<bool> m_flag;
@@ -49,4 +49,4 @@ private:
 };
 } // namespace util
 
-#endif // BITCOINSILVER_UTIL_SIGNALINTERRUPT_H
+#endif // BITCOIN_UTIL_SIGNALINTERRUPT_H

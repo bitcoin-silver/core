@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 //
-#ifndef BITCOINSILVER_TEST_UTIL_CHAINSTATE_H
-#define BITCOINSILVER_TEST_UTIL_CHAINSTATE_H
+#ifndef BITCOIN_TEST_UTIL_CHAINSTATE_H
+#define BITCOIN_TEST_UTIL_CHAINSTATE_H
 
 #include <clientversion.h>
 #include <logging.h>
@@ -47,16 +47,19 @@ CreateAndActivateUTXOSnapshot(
     FILE* outfile{fsbridge::fopen(snapshot_path, "wb")};
     AutoFile auto_outfile{outfile};
 
-    UniValue result = CreateUTXOSnapshot(
-        node, node.chainman->ActiveChainstate(), auto_outfile, snapshot_path, snapshot_path);
-    LogPrintf(
-        "Wrote UTXO snapshot to %s: %s\n", fs::PathToString(snapshot_path.make_preferred()), result.write());
+    UniValue result = CreateUTXOSnapshot(node,
+                                         node.chainman->ActiveChainstate(),
+                                         std::move(auto_outfile), // Will close auto_outfile.
+                                         snapshot_path,
+                                         snapshot_path);
+    LogInfo("Wrote UTXO snapshot to %s: %s",
+            fs::PathToString(snapshot_path.make_preferred()), result.write());
 
     // Read the written snapshot in and then activate it.
     //
     FILE* infile{fsbridge::fopen(snapshot_path, "rb")};
     AutoFile auto_infile{infile};
-    node::SnapshotMetadata metadata;
+    node::SnapshotMetadata metadata{node.chainman->GetParams().MessageStart()};
     auto_infile >> metadata;
 
     malleation(auto_infile, metadata);
@@ -91,13 +94,16 @@ CreateAndActivateUTXOSnapshot(
             // these blocks instead
             CBlockIndex *pindex = orig_tip;
             while (pindex && pindex != chain.m_chain.Tip()) {
-                pindex->nStatus &= ~BLOCK_HAVE_DATA;
-                pindex->nStatus &= ~BLOCK_HAVE_UNDO;
-                // We have to set the ASSUMED_VALID flag, because otherwise it
-                // would not be possible to have a block index entry without HAVE_DATA
-                // and with nTx > 0 (since we aren't setting the pruned flag);
-                // see CheckBlockIndex().
-                pindex->nStatus |= BLOCK_ASSUMED_VALID;
+                // Remove all data and validity flags by just setting
+                // BLOCK_VALID_TREE. Also reset transaction counts and sequence
+                // ids that are set when blocks are received, to make test setup
+                // more realistic and satisfy consistency checks in
+                // CheckBlockIndex().
+                assert(pindex->IsValid(BlockStatus::BLOCK_VALID_TREE));
+                pindex->nStatus = BlockStatus::BLOCK_VALID_TREE;
+                pindex->nTx = 0;
+                pindex->m_chain_tx_count = 0;
+                pindex->nSequenceId = 0;
                 pindex = pindex->pprev;
             }
         }
@@ -121,12 +127,12 @@ CreateAndActivateUTXOSnapshot(
         new_active.m_chain.SetTip(*(tip->pprev));
     }
 
-    bool res = node.chainman->ActivateSnapshot(auto_infile, metadata, in_memory_chainstate);
+    auto res = node.chainman->ActivateSnapshot(auto_infile, metadata, in_memory_chainstate);
 
     // Restore the old tip.
     new_active.m_chain.SetTip(*tip);
-    return res;
+    return !!res;
 }
 
 
-#endif // BITCOINSILVER_TEST_UTIL_CHAINSTATE_H
+#endif // BITCOIN_TEST_UTIL_CHAINSTATE_H

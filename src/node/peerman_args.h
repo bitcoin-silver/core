@@ -1,5 +1,9 @@
-#ifndef BITCOINSILVER_NODE_PEERMAN_ARGS_H
-#define BITCOINSILVER_NODE_PEERMAN_ARGS_H
+// Copyright (c) 2023-present The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or https://opensource.org/license/mit.
+
+#ifndef BITCOIN_NODE_PEERMAN_ARGS_H
+#define BITCOIN_NODE_PEERMAN_ARGS_H
 
 #include <net_processing.h>
 
@@ -9,4 +13,4 @@ namespace node {
 void ApplyArgsManOptions(const ArgsManager& argsman, PeerManager::Options& options);
 } // namespace node
 
-#endif // BITCOINSILVER_NODE_PEERMAN_ARGS_H
+#endif // BITCOIN_NODE_PEERMAN_ARGS_H

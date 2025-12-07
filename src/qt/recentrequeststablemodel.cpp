@@ -4,7 +4,7 @@
 
 #include <qt/recentrequeststablemodel.h>
 
-#include <qt/bitcoinsilverunits.h>
+#include <qt/bitcoinunits.h>
 #include <qt/guiutil.h>
 #include <qt/optionsmodel.h>
 #include <qt/walletmodel.h>
@@ -19,6 +19,8 @@
 
 #include <QLatin1Char>
 #include <QLatin1String>
+
+using util::ToString;
 
 RecentRequestsTableModel::RecentRequestsTableModel(WalletModel *parent) :
     QAbstractTableModel(parent), walletModel(parent)

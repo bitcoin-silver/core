@@ -5,28 +5,28 @@
 #include <crypto/sha256.h>
 #include <crypto/common.h>
 
-#include <assert.h>
-#include <string.h>
+#include <algorithm>
+#include <cassert>
+#include <cstring>
 
+#if !defined(DISABLE_OPTIMIZED_SHA256)
 #include <compat/cpuid.h>
 
-#if defined(__linux__) && defined(ENABLE_ARM_SHANI) && !defined(BUILD_BITCOINSILVER_INTERNAL)
+#if defined(__linux__) && defined(ENABLE_ARM_SHANI)
 #include <sys/auxv.h>
 #include <asm/hwcap.h>
 #endif
 
-#if defined(MAC_OSX) && defined(ENABLE_ARM_SHANI) && !defined(BUILD_BITCOINSILVER_INTERNAL)
+#if defined(__APPLE__) && defined(ENABLE_ARM_SHANI)
 #include <sys/types.h>
 #include <sys/sysctl.h>
 #endif
 
 #if defined(__x86_64__) || defined(__amd64__) || defined(__i386__)
-#if defined(USE_ASM)
 namespace sha256_sse4
 {
 void Transform(uint32_t* s, const unsigned char* chunk, size_t blocks);
 }
-#endif
 #endif
 
 namespace sha256d64_sse41
@@ -58,6 +58,7 @@ namespace sha256d64_arm_shani
 {
 void Transform_2way(unsigned char* out, const unsigned char* in);
 }
+#endif // DISABLE_OPTIMIZED_SHA256
 
 // Internal implementation code.
 namespace
@@ -567,7 +568,8 @@ bool SelfTest() {
     return true;
 }
 
-#if defined(USE_ASM) && (defined(__x86_64__) || defined(__amd64__) || defined(__i386__))
+#if !defined(DISABLE_OPTIMIZED_SHA256)
+#if (defined(__x86_64__) || defined(__amd64__) || defined(__i386__))
 /** Check whether the OS has enabled AVX registers. */
 bool AVXEnabled()
 {
@@ -576,6 +578,7 @@ bool AVXEnabled()
     return (a & 6) == 6;
 }
 #endif
+#endif // DISABLE_OPTIMIZED_SHA256
 } // namespace
 
 
@@ -588,7 +591,8 @@ std::string SHA256AutoDetect(sha256_implementation::UseImplementation use_implem
     TransformD64_4way = nullptr;
     TransformD64_8way = nullptr;
 
-#if defined(USE_ASM) && defined(HAVE_GETCPUID)
+#if !defined(DISABLE_OPTIMIZED_SHA256)
+#if defined(HAVE_GETCPUID)
     bool have_sse4 = false;
     bool have_xsave = false;
     bool have_avx = false;
@@ -616,12 +620,12 @@ std::string SHA256AutoDetect(sha256_implementation::UseImplementation use_implem
         }
     }
 
-#if defined(ENABLE_X86_SHANI) && !defined(BUILD_BITCOINSILVER_INTERNAL)
+#if defined(ENABLE_SSE41) && defined(ENABLE_X86_SHANI)
     if (have_x86_shani) {
         Transform = sha256_x86_shani::Transform;
         TransformD64 = TransformD64Wrapper<sha256_x86_shani::Transform>;
         TransformD64_2way = sha256d64_x86_shani::Transform_2way;
-        ret = "x86_shani(1way,2way)";
+        ret = "x86_shani(1way;2way)";
         have_sse4 = false; // Disable SSE4/AVX2;
         have_avx2 = false;
     }
@@ -633,21 +637,21 @@ std::string SHA256AutoDetect(sha256_implementation::UseImplementation use_implem
         TransformD64 = TransformD64Wrapper<sha256_sse4::Transform>;
         ret = "sse4(1way)";
 #endif
-#if defined(ENABLE_SSE41) && !defined(BUILD_BITCOINSILVER_INTERNAL)
+#if defined(ENABLE_SSE41)
         TransformD64_4way = sha256d64_sse41::Transform_4way;
-        ret += ",sse41(4way)";
+        ret += ";sse41(4way)";
 #endif
     }
 
-#if defined(ENABLE_AVX2) && !defined(BUILD_BITCOINSILVER_INTERNAL)
+#if defined(ENABLE_AVX2)
     if (have_avx2 && have_avx && enabled_avx) {
         TransformD64_8way = sha256d64_avx2::Transform_8way;
-        ret += ",avx2(8way)";
+        ret += ";avx2(8way)";
     }
 #endif
-#endif // defined(USE_ASM) && defined(HAVE_GETCPUID)
+#endif // defined(HAVE_GETCPUID)
 
-#if defined(ENABLE_ARM_SHANI) && !defined(BUILD_BITCOINSILVER_INTERNAL)
+#if defined(ENABLE_ARM_SHANI)
     bool have_arm_shani = false;
     if (use_implementation & sha256_implementation::USE_SHANI) {
 #if defined(__linux__)
@@ -663,7 +667,7 @@ std::string SHA256AutoDetect(sha256_implementation::UseImplementation use_implem
 #endif
 #endif
 
-#if defined(MAC_OSX)
+#if defined(__APPLE__)
         int val = 0;
         size_t len = sizeof(val);
         if (sysctlbyname("hw.optional.arm.FEAT_SHA256", &val, &len, nullptr, 0) == 0) {
@@ -676,9 +680,10 @@ std::string SHA256AutoDetect(sha256_implementation::UseImplementation use_implem
         Transform = sha256_arm_shani::Transform;
         TransformD64 = TransformD64Wrapper<sha256_arm_shani::Transform>;
         TransformD64_2way = sha256d64_arm_shani::Transform_2way;
-        ret = "arm_shani(1way,2way)";
+        ret = "arm_shani(1way;2way)";
     }
 #endif
+#endif // DISABLE_OPTIMIZED_SHA256
 
     assert(SelfTest());
     return ret;

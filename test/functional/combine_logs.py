@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-# Copyright (c) 2017-2021 The Bitcoin Core developers
+# Copyright (c) 2017-present The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""Combine logs from multiple bitcoinsilver nodes as well as the test_framework log.
+"""Combine logs from multiple bitcoin nodes as well as the test_framework log.
 
 This streams the combined log output to stdout. Use combine_logs.py > outputfile
 to write to an outputfile.
@@ -23,7 +23,7 @@ import tempfile
 # without the parent module installed.
 
 # Should match same symbol in `test_framework.test_framework`.
-TMPDIR_PREFIX = "bitcoinsilver_func_test_"
+TMPDIR_PREFIX = "bitcoin_func_test_"
 
 # Matches on the date format at the start of the log event
 TIMESTAMP_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{6})?Z")
@@ -79,14 +79,16 @@ def read_logs(tmp_dir):
     Delegates to generator function get_log_events() to provide individual log events
     for each of the input log files."""
 
-    # Find out what the folder is called that holds the debug.log file
-    glob = pathlib.Path(tmp_dir).glob('node0/**/debug.log')
-    path = next(glob, None)
-    if path:
-        assert next(glob, None) is None #  more than one debug.log, should never happen
-        chain = re.search(r'node0/(.+?)/debug\.log$', path.as_posix()).group(1)  # extract the chain name
-    else:
-        chain = 'regtest'  # fallback to regtest (should only happen when none exists)
+    # Find out what the folder is called that holds node 0's debug.log file
+    debug_logs = list(pathlib.Path(tmp_dir).glob('node0/**/debug.log'))
+    match len(debug_logs):
+        case 0:
+            chain = 'regtest'  # fallback to regtest
+        case 1:
+            chain = re.search(r'node0/(.+?)/debug\.log$', debug_logs[0].as_posix()).group(1)
+        case _:
+            raise RuntimeError('Max one debug.log is supported, found several:\n\t' +
+                               '\n\t'.join(map(str, debug_logs)))
 
     files = [("test", "%s/test_framework.log" % tmp_dir)]
     for i in itertools.count():

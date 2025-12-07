@@ -11,24 +11,21 @@ Check include guards.
 import re
 import sys
 from subprocess import check_output
-from typing import List
+
+from lint_ignore_dirs import SHARED_EXCLUDED_SUBTREES
 
 
-HEADER_ID_PREFIX = 'BITCOINSILVER_'
+HEADER_ID_PREFIX = 'BITCOIN_'
 HEADER_ID_SUFFIX = '_H'
 
-EXCLUDE_FILES_WITH_PREFIX = ['contrib/devtools/bitcoinsilver-tidy',
+EXCLUDE_FILES_WITH_PREFIX = ['contrib/devtools/bitcoin-tidy',
                              'src/crypto/ctaes',
-                             'src/leveldb',
-                             'src/crc32c',
-                             'src/secp256k1',
-                             'src/minisketch',
                              'src/tinyformat.h',
                              'src/bench/nanobench.h',
-                             'src/test/fuzz/FuzzedDataProvider.h']
+                             'src/test/fuzz/FuzzedDataProvider.h'] + SHARED_EXCLUDED_SUBTREES
 
 
-def _get_header_file_lst() -> List[str]:
+def _get_header_file_lst() -> list[str]:
     """ Helper function to get a list of header filepaths to be
         checked for include guards.
     """
@@ -47,7 +44,7 @@ def _get_header_id(header_file: str) -> str:
     """ Helper function to get the header id from a header file
         string.
 
-        eg: 'src/wallet/walletdb.h' -> 'BITCOINSILVER_WALLET_WALLETDB_H'
+        eg: 'src/wallet/walletdb.h' -> 'BITCOIN_WALLET_WALLETDB_H'
 
     Args:
         header_file: Filepath to header file.
@@ -86,7 +83,7 @@ def main():
 
         if count != 3:
             print(f'{header_file} seems to be missing the expected '
-                  'include guard:')
+                  'include guard to prevent the double inclusion problem:')
             print(f'  #ifndef {header_id}')
             print(f'  #define {header_id}')
             print('  ...')

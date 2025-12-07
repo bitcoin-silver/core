@@ -12,6 +12,7 @@ from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import (
     assert_equal,
     assert_raises_rpc_error,
+    wallet_importprivkey,
 )
 import json
 import os
@@ -35,7 +36,6 @@ class GetblockstatsTest(BitcoinTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
         self.setup_clean_chain = True
-        self.supports_cli = False
 
     def get_stats(self):
         return [self.nodes[0].getblockstats(hash_or_height=self.start_height + i) for i in range(self.max_stat_pos+1)]
@@ -45,7 +45,7 @@ class GetblockstatsTest(BitcoinTestFramework):
         self.nodes[0].setmocktime(mocktime)
         self.nodes[0].createwallet(wallet_name='test')
         privkey = self.nodes[0].get_deterministic_priv_key().key
-        self.nodes[0].importprivkey(privkey)
+        wallet_importprivkey(self.nodes[0], privkey, 0)
 
         self.generate(self.nodes[0], COINBASE_MATURITY + 1)
 
@@ -114,12 +114,12 @@ class GetblockstatsTest(BitcoinTestFramework):
         assert_equal(stats[self.max_stat_pos]['height'], self.start_height + self.max_stat_pos)
 
         for i in range(self.max_stat_pos+1):
-            self.log.info('Checking block %d\n' % (i))
+            self.log.info('Checking block %d' % (i))
             assert_equal(stats[i], self.expected_stats[i])
 
             # Check selecting block by hash too
             blockhash = self.expected_stats[i]['blockhash']
-            stats_by_hash = self.nodes[0].getblockstats(hash_or_height=blockhash)
+            stats_by_hash = self.nodes[0].getblockstats(hash_or_height=self.convert_to_json_for_cli(blockhash))
             assert_equal(stats_by_hash, self.expected_stats[i])
 
         # Make sure each stat can be queried on its own
@@ -161,10 +161,10 @@ class GetblockstatsTest(BitcoinTestFramework):
                                 self.nodes[0].getblockstats, hash_or_height=1, stats=['minfee', f'aaa{inv_sel_stat}'])
         # Mainchain's genesis block shouldn't be found on regtest
         assert_raises_rpc_error(-5, 'Block not found', self.nodes[0].getblockstats,
-                                hash_or_height='000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f')
+                                hash_or_height=self.convert_to_json_for_cli('000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f'))
 
         # Invalid number of args
-        assert_raises_rpc_error(-1, 'getblockstats hash_or_height ( stats )', self.nodes[0].getblockstats, '00', 1, 2)
+        assert_raises_rpc_error(-1, 'getblockstats hash_or_height ( stats )', self.nodes[0].getblockstats, self.convert_to_json_for_cli('00'), 1, 2)
         assert_raises_rpc_error(-1, 'getblockstats hash_or_height ( stats )', self.nodes[0].getblockstats)
 
         self.log.info('Test block height 0')
@@ -182,5 +182,16 @@ class GetblockstatsTest(BitcoinTestFramework):
         assert_equal(tip_stats["utxo_increase_actual"], 4)
         assert_equal(tip_stats["utxo_size_inc_actual"], 300)
 
+        self.log.info("Test when only header is known")
+        block = self.generateblock(self.nodes[0], output="raw(55)", transactions=[], submit=False)
+        self.nodes[0].submitheader(block["hex"])
+        assert_raises_rpc_error(-1, "Block not available (not fully downloaded)", lambda: self.nodes[0].getblockstats(self.convert_to_json_for_cli(block['hash'])))
+
+        self.log.info('Test when block is missing')
+        (self.nodes[0].blocks_path / 'blk00000.dat').rename(self.nodes[0].blocks_path / 'blk00000.dat.backup')
+        assert_raises_rpc_error(-1, 'Block not found on disk', self.nodes[0].getblockstats, hash_or_height=1)
+        (self.nodes[0].blocks_path / 'blk00000.dat.backup').rename(self.nodes[0].blocks_path / 'blk00000.dat')
+
+
 if __name__ == '__main__':
-    GetblockstatsTest().main()
+    GetblockstatsTest(__file__).main()

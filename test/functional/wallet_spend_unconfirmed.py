@@ -13,9 +13,6 @@ from test_framework.util import (
 )
 
 class UnconfirmedInputTest(BitcoinTestFramework):
-    def add_options(self, parser):
-        self.add_wallet_options(parser)
-
     def set_test_params(self):
         getcontext().prec=9
         self.setup_clean_chain = True
@@ -425,10 +422,10 @@ class UnconfirmedInputTest(BitcoinTestFramework):
         self.log.info("Start test with one unconfirmed and one confirmed input")
         wallet = self.setup_and_fund_wallet("confirmed_and_unconfirmed_wallet")
         confirmed_parent_txid = wallet.sendtoaddress(address=wallet.getnewaddress(), amount=1, fee_rate=self.target_fee_rate)
-        self.generate(self.nodes[0], 1) # Wallet has two confirmed UTXOs of ~1BTCS each
+        self.generate(self.nodes[0], 1) # Wallet has two confirmed UTXOs of ~1BTC each
         unconfirmed_parent_txid = wallet.sendtoaddress(address=wallet.getnewaddress(), amount=0.5, fee_rate=0.5*self.target_fee_rate)
 
-        # wallet has one confirmed UTXO of 1BTCS and two unconfirmed UTXOs of ~0.5BTCS each
+        # wallet has one confirmed UTXO of 1BTC and two unconfirmed UTXOs of ~0.5BTC each
         ancestor_aware_txid = wallet.sendtoaddress(address=self.def_wallet.getnewaddress(), amount=1.4, fee_rate=self.target_fee_rate)
         ancestor_aware_tx = wallet.gettransaction(txid=ancestor_aware_txid, verbose=True)
         self.assert_spends_only_parents(ancestor_aware_tx, [confirmed_parent_txid, unconfirmed_parent_txid])
@@ -505,4 +502,4 @@ class UnconfirmedInputTest(BitcoinTestFramework):
         self.test_external_input_unconfirmed_low()
 
 if __name__ == '__main__':
-    UnconfirmedInputTest().main()
+    UnconfirmedInputTest(__file__).main()

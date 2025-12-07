@@ -2,15 +2,15 @@
 
 #### Preparation
 
-As of BitcoinSilver v22.0, releases are signed by a number of public keys on the basis
-of the [guix.sigs repository](https://github.com/bitcoinsilver-core/guix.sigs/). When
+As of Bitcoin Core v22.0, releases are signed by a number of public keys on the basis
+of the [guix.sigs repository](https://github.com/bitcoin-core/guix.sigs/). When
 verifying binary downloads, you (the end user) decide which of these public keys you
 trust and then use that trust model to evaluate the signature on a file that contains
 hashes of the release binaries. The downloaded binaries are then hashed and compared to
 the signed checksum file.
 
 First, you have to figure out which public keys to recognize. Browse the [list of frequent
-builder-keys](https://github.com/bitcoinsilver-core/guix.sigs/tree/main/builder-keys) and
+builder-keys](https://github.com/bitcoin-core/guix.sigs/tree/main/builder-keys) and
 decide which of these keys you would like to trust. For each key you want to trust, you
 must obtain that key for your local GPG installation.
 
@@ -23,7 +23,7 @@ You can obtain these keys by
 #### Usage
 
 This script attempts to download the checksum file (`SHA256SUMS`) and corresponding
-signature file `SHA256SUMS.asc` from https://mrvistos.github.io/bitcoinsilver/ and https://bitcoinsilver.org.
+signature file `SHA256SUMS.asc` from https://bitcoincore.org and https://bitcoin.org.
 
 It first checks if the checksum file is valid based upon a plurality of signatures, and
 then downloads the release files specified in the checksum file, and checks if the
@@ -50,6 +50,7 @@ Get JSON output and don't prompt for user input (no auto key import):
 
 ```sh
 ./contrib/verify-binaries/verify.py --json pub 22.0-x86
+./contrib/verify-binaries/verify.py --json pub 23.0-rc5-linux-gnu
 ```
 
 Rely only on local GPG state and manually specified keys, while requiring a
@@ -57,14 +58,15 @@ threshold of at least 10 trusted signatures:
 ```sh
 ./contrib/verify-binaries/verify.py \
     --trusted-keys 74E2DEF5D77260B98BC19438099BAD163C70FBFA,9D3CC86A72F8494342EA5FD10A41BDC3F4FAFF1C \
-    --min-good-sigs 10 pub 22.0-x86
+    --min-good-sigs 10 pub 22.0-linux
 ```
 
-If you only want to download the binaries for a certain platform, add the corresponding suffix, e.g.:
+If you only want to download the binaries for a certain architecture and/or platform, add the corresponding suffix, e.g.:
 
 ```sh
-./contrib/verify-binaries/verify.py pub 24.0.1-darwin
-./contrib/verify-binaries/verify.py pub 23.1-rc1-win64
+./contrib/verify-binaries/verify.py pub 25.2-x86_64-linux
+./contrib/verify-binaries/verify.py pub 24.1-rc1-darwin
+./contrib/verify-binaries/verify.py pub 27.0-win64-setup.exe
 ```
 
 If you do not want to keep the downloaded binaries, specify the cleanup option.
@@ -83,6 +85,6 @@ Verify only a subset of the files listed in a local checksum file
 
 ```sh
 ./contrib/verify-binaries/verify.py bin ~/Downloads/SHA256SUMS \
-    ~/Downloads/bitcoinsilver-24.0.1-x86_64-linux-gnu.tar.gz \
-    ~/Downloads/bitcoinsilver-24.0.1-arm-linux-gnueabihf.tar.gz
+    ~/Downloads/bitcoin-24.0.1-x86_64-linux-gnu.tar.gz \
+    ~/Downloads/bitcoin-24.0.1-arm-linux-gnueabihf.tar.gz
 ```

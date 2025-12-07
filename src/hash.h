@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2009-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_HASH_H
-#define BITCOINSILVER_HASH_H
+#ifndef BITCOIN_HASH_H
+#define BITCOIN_HASH_H
 
 #include <attributes.h>
 #include <crypto/common.h>
@@ -14,28 +14,27 @@
 #include <serialize.h>
 #include <span.h>
 #include <uint256.h>
-#include <version.h>
 
 #include <string>
 #include <vector>
 
 typedef uint256 ChainCode;
 
-/** A hasher class for BitcoinSilver's 256-bit hash (double SHA-256). */
+/** A hasher class for Bitcoin's 256-bit hash (double SHA-256). */
 class CHash256 {
 private:
     CSHA256 sha;
 public:
     static const size_t OUTPUT_SIZE = CSHA256::OUTPUT_SIZE;
 
-    void Finalize(Span<unsigned char> output) {
+    void Finalize(std::span<unsigned char> output) {
         assert(output.size() == OUTPUT_SIZE);
         unsigned char buf[CSHA256::OUTPUT_SIZE];
         sha.Finalize(buf);
         sha.Reset().Write(buf, CSHA256::OUTPUT_SIZE).Finalize(output.data());
     }
 
-    CHash256& Write(Span<const unsigned char> input) {
+    CHash256& Write(std::span<const unsigned char> input) {
         sha.Write(input.data(), input.size());
         return *this;
     }
@@ -46,21 +45,21 @@ public:
     }
 };
 
-/** A hasher class for BitcoinSilver's 160-bit hash (SHA-256 + RIPEMD-160). */
+/** A hasher class for Bitcoin's 160-bit hash (SHA-256 + RIPEMD-160). */
 class CHash160 {
 private:
     CSHA256 sha;
 public:
     static const size_t OUTPUT_SIZE = CRIPEMD160::OUTPUT_SIZE;
 
-    void Finalize(Span<unsigned char> output) {
+    void Finalize(std::span<unsigned char> output) {
         assert(output.size() == OUTPUT_SIZE);
         unsigned char buf[CSHA256::OUTPUT_SIZE];
         sha.Finalize(buf);
         CRIPEMD160().Write(buf, CSHA256::OUTPUT_SIZE).Finalize(output.data());
     }
 
-    CHash160& Write(Span<const unsigned char> input) {
+    CHash160& Write(std::span<const unsigned char> input) {
         sha.Write(input.data(), input.size());
         return *this;
     }
@@ -104,7 +103,7 @@ private:
     CSHA256 ctx;
 
 public:
-    void write(Span<const std::byte> src)
+    void write(std::span<const std::byte> src)
     {
         ctx.Write(UCharCast(src.data()), src.size());
     }
@@ -146,23 +145,6 @@ public:
     }
 };
 
-class CHashWriter : public HashWriter
-{
-private:
-    const int nVersion;
-
-public:
-    CHashWriter(int nVersionIn) : nVersion{nVersionIn} {}
-
-    int GetVersion() const { return nVersion; }
-
-    template<typename T>
-    CHashWriter& operator<<(const T& obj) {
-        ::Serialize(*this, obj);
-        return (*this);
-    }
-};
-
 /** Reads data from an underlying stream, while hashing the read data. */
 template <typename Source>
 class HashVerifier : public HashWriter
@@ -173,7 +155,7 @@ private:
 public:
     explicit HashVerifier(Source& source LIFETIMEBOUND) : m_source{source} {}
 
-    void read(Span<std::byte> dst)
+    void read(std::span<std::byte> dst)
     {
         m_source.read(dst);
         this->write(dst);
@@ -207,7 +189,7 @@ private:
 public:
     explicit HashedSourceWriter(Source& source LIFETIMEBOUND) : HashWriter{}, m_source{source} {}
 
-    void write(Span<const std::byte> src)
+    void write(std::span<const std::byte> src)
     {
         m_source.write(src);
         HashWriter::write(src);
@@ -224,7 +206,7 @@ public:
 /** Single-SHA256 a 32-byte input (represented as uint256). */
 [[nodiscard]] uint256 SHA256Uint256(const uint256& input);
 
-unsigned int MurmurHash3(unsigned int nHashSeed, Span<const unsigned char> vDataToHash);
+unsigned int MurmurHash3(unsigned int nHashSeed, std::span<const unsigned char> vDataToHash);
 
 void BIP32Hash(const ChainCode &chainCode, unsigned int nChild, unsigned char header, const unsigned char data[32], unsigned char output[64]);
 
@@ -237,11 +219,11 @@ void BIP32Hash(const ChainCode &chainCode, unsigned int nChild, unsigned char he
 HashWriter TaggedHash(const std::string& tag);
 
 /** Compute the 160-bit RIPEMD-160 hash of an array. */
-inline uint160 RIPEMD160(Span<const unsigned char> data)
+inline uint160 RIPEMD160(std::span<const unsigned char> data)
 {
     uint160 result;
     CRIPEMD160().Write(data.data(), data.size()).Finalize(result.begin());
     return result;
 }
 
-#endif // BITCOINSILVER_HASH_H
+#endif // BITCOIN_HASH_H

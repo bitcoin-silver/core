@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_RANDOMENV_H
-#define BITCOINSILVER_RANDOMENV_H
+#ifndef BITCOIN_RANDOMENV_H
+#define BITCOIN_RANDOMENV_H
 
 #include <crypto/sha512.h>
 
@@ -14,4 +14,4 @@ void RandAddDynamicEnv(CSHA512& hasher);
 /** Gather non-cryptographic environment data that does not change over time. */
 void RandAddStaticEnv(CSHA512& hasher);
 
-#endif // BITCOINSILVER_RANDOMENV_H
+#endif // BITCOIN_RANDOMENV_H

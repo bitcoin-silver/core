@@ -2,9 +2,10 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_QT_SENDCOINSDIALOG_H
-#define BITCOINSILVER_QT_SENDCOINSDIALOG_H
+#ifndef BITCOIN_QT_SENDCOINSDIALOG_H
+#define BITCOIN_QT_SENDCOINSDIALOG_H
 
+#include <primitives/transaction_identifier.h>
 #include <qt/clientmodel.h>
 #include <qt/walletmodel.h>
 
@@ -61,7 +62,7 @@ public Q_SLOTS:
     void setBalance(const interfaces::WalletBalances& balances);
 
 Q_SIGNALS:
-    void coinsSent(const uint256& txid);
+    void coinsSent(const Txid& txid);
 
 private:
     Ui::SendCoinsDialog *ui;
@@ -103,7 +104,11 @@ private Q_SLOTS:
     void refreshBalance();
     void coinControlFeatureChanged(bool);
     void coinControlButtonClicked();
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 7, 0))
+    void coinControlChangeChecked(Qt::CheckState);
+#else
     void coinControlChangeChecked(int);
+#endif
     void coinControlChangeEdited(const QString &);
     void coinControlUpdateLabels();
     void coinControlClipboardQuantity();
@@ -148,4 +153,4 @@ private:
     QString m_psbt_button_text{tr("Create Unsigned")};
 };
 
-#endif // BITCOINSILVER_QT_SENDCOINSDIALOG_H
+#endif // BITCOIN_QT_SENDCOINSDIALOG_H

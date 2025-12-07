@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_LOGGING_TIMER_H
-#define BITCOINSILVER_LOGGING_TIMER_H
+#ifndef BITCOIN_LOGGING_TIMER_H
+#define BITCOIN_LOGGING_TIMER_H
 
 #include <logging.h>
 #include <util/macros.h>
@@ -55,7 +55,7 @@ public:
         if (m_log_category == BCLog::LogFlags::ALL) {
             LogPrintf("%s\n", full_msg);
         } else {
-            LogPrint(m_log_category, "%s\n", full_msg);
+            LogDebug(m_log_category, "%s\n", full_msg);
         }
     }
 
@@ -67,11 +67,11 @@ public:
         }
         const auto duration{end_time - *m_start_t};
 
-        if constexpr (std::is_same<TimeType, std::chrono::microseconds>::value) {
+        if constexpr (std::is_same_v<TimeType, std::chrono::microseconds>) {
             return strprintf("%s: %s (%iμs)", m_prefix, msg, Ticks<std::chrono::microseconds>(duration));
-        } else if constexpr (std::is_same<TimeType, std::chrono::milliseconds>::value) {
+        } else if constexpr (std::is_same_v<TimeType, std::chrono::milliseconds>) {
             return strprintf("%s: %s (%.2fms)", m_prefix, msg, Ticks<MillisecondsDouble>(duration));
-        } else if constexpr (std::is_same<TimeType, std::chrono::seconds>::value) {
+        } else if constexpr (std::is_same_v<TimeType, std::chrono::seconds>) {
             return strprintf("%s: %s (%.2fs)", m_prefix, msg, Ticks<SecondsDouble>(duration));
         } else {
             static_assert(ALWAYS_FALSE<TimeType>, "Error: unexpected time type");
@@ -87,7 +87,7 @@ private:
     //! A descriptive message of what is being timed.
     const std::string m_title;
 
-    //! Forwarded on to LogPrint if specified - has the effect of only
+    //! Forwarded on to LogDebug if specified - has the effect of only
     //! outputting the timing log when a particular debug= category is specified.
     const BCLog::LogFlags m_log_category;
 
@@ -108,4 +108,4 @@ private:
     BCLog::Timer<std::chrono::seconds> UNIQUE_NAME(logging_timer)(__func__, end_msg)
 
 
-#endif // BITCOINSILVER_LOGGING_TIMER_H
+#endif // BITCOIN_LOGGING_TIMER_H

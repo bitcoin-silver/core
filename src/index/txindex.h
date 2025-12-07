@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_INDEX_TXINDEX_H
-#define BITCOINSILVER_INDEX_TXINDEX_H
+#ifndef BITCOIN_INDEX_TXINDEX_H
+#define BITCOIN_INDEX_TXINDEX_H
 
 #include <index/base.h>
 
@@ -42,10 +42,10 @@ public:
     /// @param[out]  block_hash  The hash of the block the transaction is found in.
     /// @param[out]  tx  The transaction itself.
     /// @return  true if transaction is found, false otherwise
-    bool FindTx(const uint256& tx_hash, uint256& block_hash, CTransactionRef& tx) const;
+    bool FindTx(const Txid& tx_hash, uint256& block_hash, CTransactionRef& tx) const;
 };
 
 /// The global transaction index, used in GetTransaction. May be null.
 extern std::unique_ptr<TxIndex> g_txindex;
 
-#endif // BITCOINSILVER_INDEX_TXINDEX_H
+#endif // BITCOIN_INDEX_TXINDEX_H

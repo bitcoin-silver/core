@@ -1,13 +1,9 @@
-// Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2009-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_NETADDRESS_H
-#define BITCOINSILVER_NETADDRESS_H
-
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoinsilver-config.h>
-#endif
+#ifndef BITCOIN_NETADDRESS_H
+#define BITCOIN_NETADDRESS_H
 
 #include <compat/compat.h>
 #include <crypto/siphash.h>
@@ -74,11 +70,11 @@ static const std::array<uint8_t, 6> TORV2_IN_IPV6_PREFIX{
 
 /// Prefix of an IPv6 address when it contains an embedded "internal" address.
 /// Used when (un)serializing addresses in ADDRv1 format (pre-BIP155).
-/// The prefix comes from 0xFD + SHA256("bitcoinsilver")[0:5].
+/// The prefix comes from 0xFD + SHA256("bitcoin")[0:5].
 /// Such dummy IPv6 addresses are guaranteed to not be publicly routable as they
 /// fall under RFC4193's fc00::/7 subnet allocated to unique-local addresses.
 static const std::array<uint8_t, 6> INTERNAL_IN_IPV6_PREFIX{
-    0xFD, 0x6B, 0x88, 0xC0, 0x87, 0x24 // 0xFD + sha256("bitcoinsilver")[0:5].
+    0xFD, 0x6B, 0x88, 0xC0, 0x87, 0x24 // 0xFD + sha256("bitcoin")[0:5].
 };
 
 /// All CJDNS addresses start with 0xFC. See
@@ -107,7 +103,7 @@ static constexpr size_t ADDR_INTERNAL_SIZE = 10;
 /// SAM 3.1 and earlier do not support specifying ports and force the port to 0.
 static constexpr uint16_t I2P_SAM31_PORT{0};
 
-std::string OnionToString(Span<const uint8_t> addr);
+std::string OnionToString(std::span<const uint8_t> addr);
 
 /**
  * Network address.
@@ -143,7 +139,7 @@ public:
      * (e.g. IPv4) disguised as IPv6. This encoding is used in the legacy
      * `addr` encoding.
      */
-    void SetLegacyIPv6(Span<const uint8_t> ipv6);
+    void SetLegacyIPv6(std::span<const uint8_t> ipv6);
 
     bool SetInternal(const std::string& name);
 
@@ -187,7 +183,7 @@ public:
     /**
      * Whether this object is a privacy network.
      * TODO: consider adding IsCJDNS() here when more peers adopt CJDNS, see:
-     * https://github.com/MrVistos/bitcoinsilver/pull/27411#issuecomment-1497176155
+     * https://github.com/bitcoin/bitcoin/pull/27411#issuecomment-1497176155
      */
     [[nodiscard]] bool IsPrivacyNet() const { return IsTor() || IsI2P(); }
 
@@ -241,7 +237,7 @@ public:
     template <typename Stream>
     void Serialize(Stream& s) const
     {
-        if (s.GetParams().enc == Encoding::V2) {
+        if (s.template GetParams<SerParams>().enc == Encoding::V2) {
             SerializeV2Stream(s);
         } else {
             SerializeV1Stream(s);
@@ -254,12 +250,24 @@ public:
     template <typename Stream>
     void Unserialize(Stream& s)
     {
-        if (s.GetParams().enc == Encoding::V2) {
+        if (s.template GetParams<SerParams>().enc == Encoding::V2) {
             UnserializeV2Stream(s);
         } else {
             UnserializeV1Stream(s);
         }
     }
+
+    /**
+     * BIP155 network ids recognized by this software.
+     */
+    enum BIP155Network : uint8_t {
+        IPV4 = 1,
+        IPV6 = 2,
+        TORV2 = 3,
+        TORV3 = 4,
+        I2P = 5,
+        CJDNS = 6,
+    };
 
     friend class CSubNet;
 
@@ -281,18 +289,6 @@ private:
      * @see CNetAddr::IsI2P()
      */
     bool SetI2P(const std::string& addr);
-
-    /**
-     * BIP155 network ids recognized by this software.
-     */
-    enum BIP155Network : uint8_t {
-        IPV4 = 1,
-        IPV6 = 2,
-        TORV2 = 3,
-        TORV3 = 4,
-        I2P = 5,
-        CJDNS = 6,
-    };
 
     /**
      * Size of CNetAddr when serialized as ADDRv1 (pre-BIP155) (in bytes).
@@ -441,7 +437,7 @@ private:
 
         if (SetNetFromBIP155Network(bip155_net, address_size)) {
             m_addr.resize(address_size);
-            s >> Span{m_addr};
+            s >> std::span{m_addr};
 
             if (m_net != NET_IPV6) {
                 return;
@@ -452,7 +448,7 @@ private:
             // Recognize NET_INTERNAL embedded in IPv6, such addresses are not
             // gossiped but could be coming from addrman, when unserializing from
             // disk.
-            if (HasPrefix(m_addr, INTERNAL_IN_IPV6_PREFIX)) {
+            if (util::HasPrefix(m_addr, INTERNAL_IN_IPV6_PREFIX)) {
                 m_net = NET_INTERNAL;
                 memmove(m_addr.data(), m_addr.data() + INTERNAL_IN_IPV6_PREFIX.size(),
                         ADDR_INTERNAL_SIZE);
@@ -460,8 +456,8 @@ private:
                 return;
             }
 
-            if (!HasPrefix(m_addr, IPV4_IN_IPV6_PREFIX) &&
-                !HasPrefix(m_addr, TORV2_IN_IPV6_PREFIX)) {
+            if (!util::HasPrefix(m_addr, IPV4_IN_IPV6_PREFIX) &&
+                !util::HasPrefix(m_addr, TORV2_IN_IPV6_PREFIX)) {
                 return;
             }
 
@@ -543,7 +539,19 @@ public:
     explicit CService(const struct sockaddr_in& addr);
     uint16_t GetPort() const;
     bool GetSockAddr(struct sockaddr* paddr, socklen_t* addrlen) const;
-    bool SetSockAddr(const struct sockaddr* paddr);
+    /**
+     * Set CService from a network sockaddr.
+     * @param[in] paddr Pointer to sockaddr structure
+     * @param[in] addrlen Length of sockaddr structure in bytes. This will be checked to exactly match the length of
+     * a socket address of the provided family, unless std::nullopt is passed
+     * @returns true on success
+     */
+    bool SetSockAddr(const struct sockaddr* paddr, socklen_t addrlen);
+    /**
+     * Get the address family
+     * @returns AF_UNSPEC if unspecified
+     */
+    [[nodiscard]] sa_family_t GetSAFamily() const;
     friend bool operator==(const CService& a, const CService& b);
     friend bool operator!=(const CService& a, const CService& b) { return !(a == b); }
     friend bool operator<(const CService& a, const CService& b);
@@ -566,8 +574,8 @@ class CServiceHash
 {
 public:
     CServiceHash()
-        : m_salt_k0{GetRand<uint64_t>()},
-          m_salt_k1{GetRand<uint64_t>()}
+        : m_salt_k0{FastRandomContext().rand64()},
+          m_salt_k1{FastRandomContext().rand64()}
     {
     }
 
@@ -587,4 +595,4 @@ private:
     const uint64_t m_salt_k1;
 };
 
-#endif // BITCOINSILVER_NETADDRESS_H
+#endif // BITCOIN_NETADDRESS_H

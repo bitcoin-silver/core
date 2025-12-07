@@ -29,7 +29,7 @@ class IncludeConfTest(BitcoinTestFramework):
         # - tmpdir/node0/relative2.conf
         with open(self.nodes[0].datadir_path / "relative2.conf", "w", encoding="utf8") as f:
             f.write("uacomment=relative2\n")
-        with open(self.nodes[0].datadir_path / "bitcoinsilver.conf", "a", encoding="utf8") as f:
+        with open(self.nodes[0].datadir_path / "bitcoin.conf", "a", encoding="utf8") as f:
             f.write("uacomment=main\nincludeconf=relative.conf\n")
         self.restart_node(0)
 
@@ -74,7 +74,7 @@ class IncludeConfTest(BitcoinTestFramework):
             # Restore initial file contents
             f.write("uacomment=relative\n")
 
-        with open(self.nodes[0].datadir_path / "bitcoinsilver.conf", "a", encoding="utf8") as f:
+        with open(self.nodes[0].datadir_path / "bitcoin.conf", "a", encoding="utf8") as f:
             f.write("includeconf=relative2.conf\n")
 
         self.start_node(0)
@@ -83,4 +83,4 @@ class IncludeConfTest(BitcoinTestFramework):
         assert subversion.endswith("main; relative; relative2)/")
 
 if __name__ == '__main__':
-    IncludeConfTest().main()
+    IncludeConfTest(__file__).main()

@@ -2,8 +2,8 @@
 // Copyright (c) 2009-2022 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef BITCOINSILVER_POLICY_FEES_H
-#define BITCOINSILVER_POLICY_FEES_H
+#ifndef BITCOIN_POLICY_FEES_H
+#define BITCOIN_POLICY_FEES_H
 
 #include <consensus/amount.h>
 #include <policy/feerate.h>
@@ -12,6 +12,7 @@
 #include <threadsafety.h>
 #include <uint256.h>
 #include <util/fs.h>
+#include <validationinterface.h>
 
 #include <array>
 #include <chrono>
@@ -35,8 +36,9 @@ static constexpr std::chrono::hours MAX_FILE_AGE{60};
 static constexpr bool DEFAULT_ACCEPT_STALE_FEE_ESTIMATES{false};
 
 class AutoFile;
-class CTxMemPoolEntry;
 class TxConfirmStats;
+struct RemovedMempoolTransactionInfo;
+struct NewMempoolTransactionInfo;
 
 /* Identifier for each of the 3 different TxConfirmStats which will track
  * history over different time horizons. */
@@ -143,7 +145,7 @@ struct FeeCalculation
  * a certain number of blocks.  Every time a block is added to the best chain, this class records
  * stats on the transactions included in that block
  */
-class CBlockPolicyEstimator
+class CBlockPolicyEstimator : public CValidationInterface
 {
 private:
     /** Track confirm delays up to 12 blocks for short horizon */
@@ -198,19 +200,19 @@ private:
 public:
     /** Create new BlockPolicyEstimator and initialize stats tracking classes with default values */
     CBlockPolicyEstimator(const fs::path& estimation_filepath, const bool read_stale_estimates);
-    ~CBlockPolicyEstimator();
+    virtual ~CBlockPolicyEstimator();
 
     /** Process all the transactions that have been included in a block */
-    void processBlock(unsigned int nBlockHeight,
-                      std::vector<const CTxMemPoolEntry*>& entries)
+    void processBlock(const std::vector<RemovedMempoolTransactionInfo>& txs_removed_for_block,
+                      unsigned int nBlockHeight)
         EXCLUSIVE_LOCKS_REQUIRED(!m_cs_fee_estimator);
 
     /** Process a transaction accepted to the mempool*/
-    void processTransaction(const CTxMemPoolEntry& entry, bool validFeeEstimate)
+    void processTransaction(const NewMempoolTransactionInfo& tx)
         EXCLUSIVE_LOCKS_REQUIRED(!m_cs_fee_estimator);
 
-    /** Remove a transaction from the mempool tracking stats*/
-    bool removeTx(uint256 hash, bool inBlock)
+    /** Remove a transaction from the mempool tracking stats for non BLOCK removal reasons*/
+    bool removeTx(Txid hash)
         EXCLUSIVE_LOCKS_REQUIRED(!m_cs_fee_estimator);
 
     /** DEPRECATED. Return a feerate estimate */
@@ -260,6 +262,15 @@ public:
     /** Calculates the age of the file, since last modified */
     std::chrono::hours GetFeeEstimatorFileAge();
 
+protected:
+    /** Overridden from CValidationInterface. */
+    void TransactionAddedToMempool(const NewMempoolTransactionInfo& tx, uint64_t /*unused*/) override
+        EXCLUSIVE_LOCKS_REQUIRED(!m_cs_fee_estimator);
+    void TransactionRemovedFromMempool(const CTransactionRef& tx, MemPoolRemovalReason /*unused*/, uint64_t /*unused*/) override
+        EXCLUSIVE_LOCKS_REQUIRED(!m_cs_fee_estimator);
+    void MempoolTransactionsRemovedForBlock(const std::vector<RemovedMempoolTransactionInfo>& txs_removed_for_block, unsigned int nBlockHeight) override
+        EXCLUSIVE_LOCKS_REQUIRED(!m_cs_fee_estimator);
+
 private:
     mutable Mutex m_cs_fee_estimator;
 
@@ -272,11 +283,11 @@ private:
     {
         unsigned int blockHeight{0};
         unsigned int bucketIndex{0};
-        TxStatsInfo() {}
+        TxStatsInfo() = default;
     };
 
     // map of txids to information about that transaction
-    std::map<uint256, TxStatsInfo> mapMemPoolTxs GUARDED_BY(m_cs_fee_estimator);
+    std::map<Txid, TxStatsInfo> mapMemPoolTxs GUARDED_BY(m_cs_fee_estimator);
 
     /** Classes to track historical data on transaction confirmations */
     std::unique_ptr<TxConfirmStats> feeStats PT_GUARDED_BY(m_cs_fee_estimator);
@@ -290,7 +301,7 @@ private:
     std::map<double, unsigned int> bucketMap GUARDED_BY(m_cs_fee_estimator); // Map of bucket upper-bound to index into all vectors by bucket
 
     /** Process a transaction confirmed in a block*/
-    bool processBlockTx(unsigned int nBlockHeight, const CTxMemPoolEntry* entry) EXCLUSIVE_LOCKS_REQUIRED(m_cs_fee_estimator);
+    bool processBlockTx(unsigned int nBlockHeight, const RemovedMempoolTransactionInfo& tx) EXCLUSIVE_LOCKS_REQUIRED(m_cs_fee_estimator);
 
     /** Helper for estimateSmartFee */
     double estimateCombinedFee(unsigned int confTarget, double successThreshold, bool checkShorterHorizon, EstimationResult *result) const EXCLUSIVE_LOCKS_REQUIRED(m_cs_fee_estimator);
@@ -304,7 +315,7 @@ private:
     unsigned int MaxUsableEstimate() const EXCLUSIVE_LOCKS_REQUIRED(m_cs_fee_estimator);
 
     /** A non-thread-safe helper for the removeTx function */
-    bool _removeTx(const uint256& hash, bool inBlock)
+    bool _removeTx(const Txid& hash, bool inBlock)
         EXCLUSIVE_LOCKS_REQUIRED(m_cs_fee_estimator);
 };
 
@@ -331,4 +342,4 @@ private:
     FastRandomContext& insecure_rand GUARDED_BY(m_insecure_rand_mutex);
 };
 
-#endif // BITCOINSILVER_POLICY_FEES_H
+#endif // BITCOIN_POLICY_FEES_H

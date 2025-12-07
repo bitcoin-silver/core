@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_TEST_UTIL_LOGGING_H
-#define BITCOINSILVER_TEST_UTIL_LOGGING_H
+#ifndef BITCOIN_TEST_UTIL_LOGGING_H
+#define BITCOIN_TEST_UTIL_LOGGING_H
 
 #include <util/macros.h>
 
@@ -33,9 +33,9 @@ class DebugLogHelper
 
 public:
     explicit DebugLogHelper(std::string message, MatchFn match = [](const std::string*){ return true; });
-    ~DebugLogHelper() { check_found(); }
+    ~DebugLogHelper() noexcept(false) { check_found(); }
 };
 
 #define ASSERT_DEBUG_LOG(message) DebugLogHelper UNIQUE_NAME(debugloghelper)(message)
 
-#endif // BITCOINSILVER_TEST_UTIL_LOGGING_H
+#endif // BITCOIN_TEST_UTIL_LOGGING_H

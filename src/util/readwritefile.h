@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_UTIL_READWRITEFILE_H
-#define BITCOINSILVER_UTIL_READWRITEFILE_H
+#ifndef BITCOIN_UTIL_READWRITEFILE_H
+#define BITCOIN_UTIL_READWRITEFILE_H
 
 #include <util/fs.h>
 
@@ -25,4 +25,4 @@ std::pair<bool,std::string> ReadBinaryFile(const fs::path &filename, size_t maxs
  */
 bool WriteBinaryFile(const fs::path &filename, const std::string &data);
 
-#endif // BITCOINSILVER_UTIL_READWRITEFILE_H
+#endif // BITCOIN_UTIL_READWRITEFILE_H

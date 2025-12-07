@@ -2,15 +2,17 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_TEST_UTIL_TXMEMPOOL_H
-#define BITCOINSILVER_TEST_UTIL_TXMEMPOOL_H
+#ifndef BITCOIN_TEST_UTIL_TXMEMPOOL_H
+#define BITCOIN_TEST_UTIL_TXMEMPOOL_H
 
+#include <policy/packages.h>
 #include <txmempool.h>
 #include <util/time.h>
 
 namespace node {
 struct NodeContext;
 }
+struct PackageMempoolAcceptResult;
 
 CTxMemPool::Options MemPoolOptionsForTest(const node::NodeContext& node);
 
@@ -36,4 +38,33 @@ struct TestMemPoolEntryHelper {
     TestMemPoolEntryHelper& SigOpsCost(unsigned int _sigopsCost) { sigOpCost = _sigopsCost; return *this; }
 };
 
-#endif // BITCOINSILVER_TEST_UTIL_TXMEMPOOL_H
+/** Check expected properties for every PackageMempoolAcceptResult, regardless of value. Returns
+ * a string if an error occurs with error populated, nullopt otherwise. If mempool is provided,
+ * checks that the expected transactions are in mempool (this should be set to nullptr for a test_accept).
+*/
+std::optional<std::string>  CheckPackageMempoolAcceptResult(const Package& txns,
+                                                            const PackageMempoolAcceptResult& result,
+                                                            bool expect_valid,
+                                                            const CTxMemPool* mempool);
+
+/** Check that we never get into a state where an ephemeral dust
+ *  transaction would be mined without the spend of the dust
+ *  also being mined. This assumes standardness checks are being
+ *  enforced.
+*/
+void CheckMempoolEphemeralInvariants(const CTxMemPool& tx_pool);
+
+/** For every transaction in tx_pool, check TRUC invariants:
+ * - a TRUC tx's ancestor count must be within TRUC_ANCESTOR_LIMIT
+ * - a TRUC tx's descendant count must be within TRUC_DESCENDANT_LIMIT
+ * - if a TRUC tx has ancestors, its sigop-adjusted vsize must be within TRUC_CHILD_MAX_VSIZE
+ * - any non-TRUC tx must only have non-TRUC parents
+ * - any TRUC tx must only have TRUC parents
+ *   */
+void CheckMempoolTRUCInvariants(const CTxMemPool& tx_pool);
+
+/** One-line wrapper for creating a mempool changeset with a single transaction
+ *  and applying it. */
+void AddToMempool(CTxMemPool& tx_pool, const CTxMemPoolEntry& entry);
+
+#endif // BITCOIN_TEST_UTIL_TXMEMPOOL_H

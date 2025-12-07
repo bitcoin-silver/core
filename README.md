@@ -1,109 +1,79 @@
-# Bitcoin Silver (BTCS)
+Bitcoin Core integration/staging tree
+=====================================
 
-Bitcoin Silver is a fork of Bitcoin designed to provide a faster network and continuous development. This README provides an overview of the project, installation instructions, and details on how to contribute.
+https://bitcoincore.org
 
-## Overview
+For an immediately usable, binary version of the Bitcoin Core software, see
+https://bitcoincore.org/en/download/.
 
-Bitcoin Silver aims to enhance the original Bitcoin network by:
-- **Faster Transactions**: Improving transaction speeds to ensure a more efficient and scalable network.
-- **Continuous Development**: Regular updates and community-driven enhancements to keep the network secure and up-to-date.
+What is Bitcoin Core?
+---------------------
 
-## Features
+Bitcoin Core connects to the Bitcoin peer-to-peer network to download and fully
+validate blocks and transactions. It also includes a wallet and graphical user
+interface, which can be optionally built.
 
-- **Speed**: Reduced block generation time to increase transaction throughput.
-- **Security**: Enhanced security protocols to protect against attacks.
-- **Scalability**: Optimized to handle a larger number of transactions per second.
-- **Community-Driven**: Open-source project with contributions from developers worldwide.
+Further information about Bitcoin Core is available in the [doc folder](/doc).
 
-## Specification
+License
+-------
 
-<table>
-<tr><td>Coin Name</td><td>Bitcoin Silver</td></tr>
-<tr><td>Ticker</td><td>BTCS</td></tr>
-<tr><td>Type</td><td>PoW</td></tr>
-<tr><td>Maturity</td><td>200</td></tr>
-<tr><td>Max supply</td><td>21 470 000</td></tr>
-<tr><td>P2P port</td><td>10566</td></tr>
-<tr><td>RPC port</td><td>10567</td></tr>
-<tr><td>Prefix</td><td>"B" / "bs1"</td></tr>
-<tr><td>Halving</td><td>210 000</td></tr>
-<tr><td>Block time</td><td>300 seconds</td></tr>
-<tr><td>Diff time</td><td>~96 blocks</td></tr>
-<tr><td>Block reward</td><td>50</td></tr>
-<tr><td>Initial Security Fund</td><td>470 000 (~2.5%)</td></tr>
-<tr><td>Algo</td><td>SHA256</td></tr>
-</table>
+Bitcoin Core is released under the terms of the MIT license. See [COPYING](COPYING) for more
+information or see https://opensource.org/license/MIT.
 
-The initial allocation of 470,000 Bitcoin Silver (ISF) was distributed among core members, averaging 50,000 per person, and backed by USDT deposits used for listing fees and initial cloud services. This was not a pre-mine for personal profit but rather an investment in foundational contributors to incentivize development, ensure long-term commitment, and support the project's growth.
+Development Process
+-------------------
 
-## Getting Started
+The `master` branch is regularly built (see `doc/build-*.md` for instructions) and tested, but it is not guaranteed to be
+completely stable. [Tags](https://github.com/bitcoin/bitcoin/tags) are created
+regularly from release branches to indicate new official, stable release versions of Bitcoin Core.
 
-### Prerequisites
+The https://github.com/bitcoin-core/gui repository is used exclusively for the
+development of the GUI. Its master branch is identical in all monotree
+repositories. Release branches and tags do not exist, so please do not fork
+that repository unless it is for development reasons.
 
-Before you begin, ensure you have met the following requirements:
-- **Operating System**: Linux, macOS, or Windows.
-- **Dependencies**: Ensure you have `git`, `cmake`, and `gcc` or equivalent installed.
+The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md)
+and useful hints for developers can be found in [doc/developer-notes.md](doc/developer-notes.md).
 
-### Installation
+Testing
+-------
 
-1. **Clone the Repository**
-```bash
-   git clone https://github.com/mrvistos/bitcoinsilver.git
-   cd bitcoinsilver
-```
+Testing and code review is the bottleneck for development; we get more pull
+requests than we can review and test on short notice. Please be patient and help out by testing
+other people's pull requests, and remember this is a security-critical project where any mistake might cost people
+lots of money.
 
-2. **Build the Source Code**
-```bash
-   make clean
-   make distclean
-   ./autogen.sh
-   # for linux:
-   ./configure --disable-tests --disable-bench # possible arguments: --with-gui=qt5 --disable-wallet --without-gui
-   make
-   # for windows:
-   make clean
-   cd depends
-   make HOST=x86_64-w64-mingw32
-   cd ..
-   ./configure --prefix=`pwd`/depends/x86_64-w64-mingw32 --with-gui=qt5 --disable-tests --disable-bench
-   make
-```
+### Automated Testing
 
-   3. **Run the Node**
-```bash
-   ./bitcoinsilverd
-```
-## Usage
+Developers are strongly encouraged to write [unit tests](src/test/README.md) for new code, and to
+submit new unit tests for old code. Unit tests can be compiled and run
+(assuming they weren't disabled during the generation of the build system) with: `ctest`. Further details on running
+and extending unit tests can be found in [/src/test/README.md](/src/test/README.md).
 
-### Wallet Setup
+There are also [regression and integration tests](/test), written
+in Python.
+These tests can be run (if the [test dependencies](/test) are installed) with: `build/test/functional/test_runner.py`
+(assuming `build` is your build directory).
 
-1.  **Generate a New Wallet**
-```bash
-   ./bitcoinsilver-cli createwallet "mywallet"
-```
-    
--   **Get Wallet Address**
-```bash
-   ./bitcoinsilver-cli getnewaddress
-```
-### Mining
+The CI (Continuous Integration) systems make sure that every pull request is tested on Windows, Linux, and macOS.
+The CI must pass on all commits before merge to avoid unrelated CI failures on new pull requests.
 
-Start mining with the following command:
-```bash
-  ./bitcoinsilver-cli generatetoaddress n "mywalletaddress"
-```
-Replace `n` with the number of blocks you want to mine and `"mywalletaddress"` with your actual wallet address.
+### Manual Quality Assurance (QA) Testing
 
-## Contributing
+Changes should be tested by somebody other than the developer who wrote the
+code. This is especially important for large or high-risk changes. It is useful
+to add a test plan to the pull request description if testing the changes is
+not straightforward.
 
-We welcome contributions from the community! To get started:
+Translations
+------------
 
-1.  Fork the repository on GitHub.
-2.  Create a new branch (`git checkout -b feature/YourFeature`).
-3.  Make your changes and commit them (`git commit -am 'Add new feature'`).
-4.  Push to the branch (`git push origin feature/YourFeature`).
-5.  Create a new Pull Request.
+Changes to translations as well as new translations can be submitted to
+[Bitcoin Core's Transifex page](https://explore.transifex.com/bitcoin/bitcoin/).
 
-### Reporting Issues
+Translations are periodically pulled from Transifex and merged into the git repository. See the
+[translation process](doc/translation_process.md) for details on how this works.
 
-If you encounter any issues, please report them on our [GitHub Issues](https://github.com/bitcoin-silver/core/issues) page.
+**Important**: We do not accept translation changes as GitHub pull requests because the next
+pull from Transifex would automatically overwrite them again.

@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_QT_OPTIONSDIALOG_H
-#define BITCOINSILVER_QT_OPTIONSDIALOG_H
+#ifndef BITCOIN_QT_OPTIONSDIALOG_H
+#define BITCOIN_QT_OPTIONSDIALOG_H
 
 #include <QDialog>
 #include <QValidator>
@@ -79,4 +79,4 @@ private:
     QDataWidgetMapper* mapper{nullptr};
 };
 
-#endif // BITCOINSILVER_QT_OPTIONSDIALOG_H
+#endif // BITCOIN_QT_OPTIONSDIALOG_H

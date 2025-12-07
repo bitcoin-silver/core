@@ -2,21 +2,13 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_MAPPORT_H
-#define BITCOINSILVER_MAPPORT_H
+#ifndef BITCOIN_MAPPORT_H
+#define BITCOIN_MAPPORT_H
 
-static constexpr bool DEFAULT_UPNP = false;
+static constexpr bool DEFAULT_NATPMP = true;
 
-static constexpr bool DEFAULT_NATPMP = false;
-
-enum MapPortProtoFlag : unsigned int {
-    NONE = 0x00,
-    UPNP = 0x01,
-    NAT_PMP = 0x02,
-};
-
-void StartMapPort(bool use_upnp, bool use_natpmp);
+void StartMapPort(bool enable);
 void InterruptMapPort();
 void StopMapPort();
 
-#endif // BITCOINSILVER_MAPPORT_H
+#endif // BITCOIN_MAPPORT_H

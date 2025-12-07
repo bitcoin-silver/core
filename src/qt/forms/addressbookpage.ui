@@ -67,7 +67,7 @@
         <string>&amp;New</string>
        </property>
        <property name="icon">
-        <iconset resource="../bitcoinsilver.qrc">
+        <iconset resource="../bitcoin.qrc">
          <normaloff>:/icons/add</normaloff>:/icons/add</iconset>
        </property>
        <property name="autoDefault">
@@ -78,13 +78,13 @@
      <item>
       <widget class="QPushButton" name="copyAddress">
        <property name="toolTip">
-        <string>Copy the currently selected address to the system clipboard</string>
+        <string>Copy the currently selected address to the clipboard</string>
        </property>
        <property name="text">
         <string>&amp;Copy</string>
        </property>
        <property name="icon">
-        <iconset resource="../bitcoinsilver.qrc">
+        <iconset resource="../bitcoin.qrc">
          <normaloff>:/icons/editcopy</normaloff>:/icons/editcopy</iconset>
        </property>
        <property name="autoDefault">
@@ -101,7 +101,7 @@
         <string>&amp;Delete</string>
        </property>
        <property name="icon">
-        <iconset resource="../bitcoinsilver.qrc">
+        <iconset resource="../bitcoin.qrc">
          <normaloff>:/icons/remove</normaloff>:/icons/remove</iconset>
        </property>
        <property name="autoDefault">
@@ -131,7 +131,7 @@
         <string>&amp;Export</string>
        </property>
        <property name="icon">
-        <iconset resource="../bitcoinsilver.qrc">
+        <iconset resource="../bitcoin.qrc">
          <normaloff>:/icons/export</normaloff>:/icons/export</iconset>
        </property>
        <property name="autoDefault">
@@ -160,7 +160,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../bitcoinsilver.qrc"/>
+  <include location="../bitcoin.qrc"/>
  </resources>
  <connections/>
 </ui>

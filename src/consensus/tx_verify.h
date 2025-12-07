@@ -1,13 +1,13 @@
-// Copyright (c) 2017-2021 The Bitcoin Core developers
+// Copyright (c) 2017-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_CONSENSUS_TX_VERIFY_H
-#define BITCOINSILVER_CONSENSUS_TX_VERIFY_H
+#ifndef BITCOIN_CONSENSUS_TX_VERIFY_H
+#define BITCOIN_CONSENSUS_TX_VERIFY_H
 
 #include <consensus/amount.h>
 
-#include <stdint.h>
+#include <cstdint>
 #include <vector>
 
 class CBlockIndex;
@@ -75,4 +75,4 @@ bool EvaluateSequenceLocks(const CBlockIndex& block, std::pair<int, int64_t> loc
  */
 bool SequenceLocks(const CTransaction &tx, int flags, std::vector<int>& prevHeights, const CBlockIndex& block);
 
-#endif // BITCOINSILVER_CONSENSUS_TX_VERIFY_H
+#endif // BITCOIN_CONSENSUS_TX_VERIFY_H

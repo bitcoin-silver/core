@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_WALLET_LOAD_H
-#define BITCOINSILVER_WALLET_LOAD_H
+#ifndef BITCOIN_WALLET_LOAD_H
+#define BITCOIN_WALLET_LOAD_H
 
 #include <string>
 #include <vector>
@@ -26,16 +26,9 @@ bool VerifyWallets(WalletContext& context);
 bool LoadWallets(WalletContext& context);
 
 //! Complete startup of wallets.
-void StartWallets(WalletContext& context, CScheduler& scheduler);
+void StartWallets(WalletContext& context);
 
-//! Flush all wallets in preparation for shutdown.
-void FlushWallets(WalletContext& context);
-
-//! Stop all wallets. Wallets will be flushed first.
-void StopWallets(WalletContext& context);
-
-//! Close all wallets.
 void UnloadWallets(WalletContext& context);
 } // namespace wallet
 
-#endif // BITCOINSILVER_WALLET_LOAD_H
+#endif // BITCOIN_WALLET_LOAD_H

@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_QT_OVERVIEWPAGE_H
-#define BITCOINSILVER_QT_OVERVIEWPAGE_H
+#ifndef BITCOIN_QT_OVERVIEWPAGE_H
+#define BITCOIN_QT_OVERVIEWPAGE_H
 
 #include <interfaces/wallet.h>
 
@@ -64,8 +64,7 @@ private Q_SLOTS:
     void updateDisplayUnit();
     void handleTransactionClicked(const QModelIndex &index);
     void updateAlerts(const QString &warnings);
-    void updateWatchOnlyLabels(bool showWatchOnly);
-    void setMonospacedFont(bool use_embedded_font);
+    void setMonospacedFont(const QFont&);
 };
 
-#endif // BITCOINSILVER_QT_OVERVIEWPAGE_H
+#endif // BITCOIN_QT_OVERVIEWPAGE_H

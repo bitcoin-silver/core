@@ -47,10 +47,10 @@ class VersionBitsWarningTest(BitcoinTestFramework):
         for _ in range(numblocks):
             block = create_block(tip, create_coinbase(height + 1), block_time, version=version)
             block.solve()
-            peer.send_message(msg_block(block))
+            peer.send_without_ping(msg_block(block))
             block_time += 1
             height += 1
-            tip = block.sha256
+            tip = block.hash_int
         peer.sync_with_ping()
 
     def versionbits_in_alert_file(self):
@@ -73,8 +73,8 @@ class VersionBitsWarningTest(BitcoinTestFramework):
         self.generatetoaddress(node, VB_PERIOD - VB_THRESHOLD + 1, node_deterministic_address)
 
         # Check that we're not getting any versionbit-related errors in get*info()
-        assert not VB_PATTERN.match(node.getmininginfo()["warnings"])
-        assert not VB_PATTERN.match(node.getnetworkinfo()["warnings"])
+        assert not VB_PATTERN.match(",".join(node.getmininginfo()["warnings"]))
+        assert not VB_PATTERN.match(",".join(node.getnetworkinfo()["warnings"]))
 
         # Build one period of blocks with VB_THRESHOLD blocks signaling some unknown bit
         self.send_blocks_with_version(peer, VB_THRESHOLD, VB_UNKNOWN_VERSION)
@@ -85,7 +85,7 @@ class VersionBitsWarningTest(BitcoinTestFramework):
         # is cleared. This will move the versionbit state to ACTIVE.
         self.generatetoaddress(node, VB_PERIOD, node_deterministic_address)
 
-        # Stop-start the node. This is required because bitcoinsilverd will only warn once about unknown versions or unknown rules activating.
+        # Stop-start the node. This is required because bitcoind will only warn once about unknown versions or unknown rules activating.
         self.restart_node(0)
 
         # Generating one block guarantees that we'll get out of IBD
@@ -94,10 +94,10 @@ class VersionBitsWarningTest(BitcoinTestFramework):
         # Generating one more block will be enough to generate an error.
         self.generatetoaddress(node, 1, node_deterministic_address)
         # Check that get*info() shows the versionbits unknown rules warning
-        assert WARN_UNKNOWN_RULES_ACTIVE in node.getmininginfo()["warnings"]
-        assert WARN_UNKNOWN_RULES_ACTIVE in node.getnetworkinfo()["warnings"]
+        assert WARN_UNKNOWN_RULES_ACTIVE in ",".join(node.getmininginfo()["warnings"])
+        assert WARN_UNKNOWN_RULES_ACTIVE in ",".join(node.getnetworkinfo()["warnings"])
         # Check that the alert file shows the versionbits unknown rules warning
         self.wait_until(lambda: self.versionbits_in_alert_file())
 
 if __name__ == '__main__':
-    VersionBitsWarningTest().main()
+    VersionBitsWarningTest(__file__).main()

@@ -53,8 +53,8 @@ class AddrReceiver(P2PInterface):
                 # relay_tests checks the content of the addr messages match
                 # expectations based on the message creation in setup_addr_msg
                 assert_equal(addr.nServices, 9)
-                if not 10566 <= addr.port < 8343:
-                    raise AssertionError("Invalid addr.port of {} (10566-8342 expected)".format(addr.port))
+                if not 8333 <= addr.port < 8343:
+                    raise AssertionError("Invalid addr.port of {} (8333-8342 expected)".format(addr.port))
                 assert addr.ip.startswith('123.123.')
 
     def on_getaddr(self, message):
@@ -75,9 +75,10 @@ class AddrReceiver(P2PInterface):
         return self.num_ipv4_received != 0
 
     def on_version(self, message):
-        self.send_message(msg_verack())
+        self.send_version()
+        self.send_without_ping(msg_verack())
         if (self.send_getaddr):
-            self.send_message(msg_getaddr())
+            self.send_without_ping(msg_getaddr())
 
     def getaddr_received(self):
         return self.message_count['getaddr'] > 0
@@ -117,7 +118,7 @@ class AddrTest(BitcoinTestFramework):
                 self.counter += 1
             else:
                 addr.ip = f"{random.randrange(128,169)}.{random.randrange(1,255)}.{random.randrange(1,255)}.{random.randrange(1,255)}"
-            addr.port = 10566 + i
+            addr.port = 8333 + i
             addrs.append(addr)
 
         msg = msg_addr()
@@ -141,7 +142,8 @@ class AddrTest(BitcoinTestFramework):
 
         msg = self.setup_addr_msg(1010)
         with self.nodes[0].assert_debug_log(['addr message size = 1010']):
-            addr_source.send_and_ping(msg)
+            addr_source.send_without_ping(msg)
+            addr_source.wait_for_disconnect()
 
         self.nodes[0].disconnect_p2ps()
 
@@ -270,21 +272,22 @@ class AddrTest(BitcoinTestFramework):
         full_outbound_peer.sync_with_ping()
         assert full_outbound_peer.getaddr_received()
 
-        self.log.info('Check that we do not send a getaddr message upon connecting to a block-relay-only peer')
+        self.log.info('Check that we do not send a getaddr message to a block-relay-only or inbound peer')
         block_relay_peer = self.nodes[0].add_outbound_p2p_connection(AddrReceiver(), p2p_idx=1, connection_type="block-relay-only")
         block_relay_peer.sync_with_ping()
         assert_equal(block_relay_peer.getaddr_received(), False)
 
-        self.log.info('Check that we answer getaddr messages only from inbound peers')
         inbound_peer = self.nodes[0].add_p2p_connection(AddrReceiver(send_getaddr=False))
         inbound_peer.sync_with_ping()
+        assert_equal(inbound_peer.getaddr_received(), False)
 
+        self.log.info('Check that we answer getaddr messages only from inbound peers')
         # Add some addresses to addrman
         for i in range(1000):
             first_octet = i >> 8
             second_octet = i % 256
             a = f"{first_octet}.{second_octet}.1.1"
-            self.nodes[0].addpeeraddress(a, 10566)
+            self.nodes[0].addpeeraddress(a, 8333)
 
         full_outbound_peer.send_and_ping(msg_getaddr())
         block_relay_peer.send_and_ping(msg_getaddr())
@@ -438,4 +441,4 @@ class AddrTest(BitcoinTestFramework):
 
 
 if __name__ == '__main__':
-    AddrTest().main()
+    AddrTest(__file__).main()

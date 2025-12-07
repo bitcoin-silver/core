@@ -1,9 +1,9 @@
-// Copyright (c) 2020-2022 The Bitcoin Core developers
+// Copyright (c) 2020-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_UTIL_SOCK_H
-#define BITCOINSILVER_UTIL_SOCK_H
+#ifndef BITCOIN_UTIL_SOCK_H
+#define BITCOIN_UTIL_SOCK_H
 
 #include <compat/compat.h>
 #include <util/threadinterrupt.h>
@@ -228,7 +228,14 @@ public:
      * @throws std::runtime_error if the operation cannot be completed. In this case only some of
      * the data will be written to the socket.
      */
-    virtual void SendComplete(const std::string& data,
+    virtual void SendComplete(std::span<const unsigned char> data,
+                              std::chrono::milliseconds timeout,
+                              CThreadInterrupt& interrupt) const;
+
+    /**
+     * Convenience method, equivalent to `SendComplete(MakeUCharSpan(data), timeout, interrupt)`.
+     */
+    virtual void SendComplete(std::span<const char> data,
                               std::chrono::milliseconds timeout,
                               CThreadInterrupt& interrupt) const;
 
@@ -277,4 +284,4 @@ private:
 /** Return readable error string for a network error code */
 std::string NetworkErrorString(int err);
 
-#endif // BITCOINSILVER_UTIL_SOCK_H
+#endif // BITCOIN_UTIL_SOCK_H

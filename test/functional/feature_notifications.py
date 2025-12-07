@@ -4,6 +4,7 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the -alertnotify, -blocknotify and -walletnotify options."""
 import os
+import platform
 
 from test_framework.address import ADDRESS_BCRT1_UNSPENDABLE
 from test_framework.descriptors import descsum_create
@@ -14,22 +15,20 @@ from test_framework.util import (
 
 # Linux allow all characters other than \x00
 # Windows disallow control characters (0-31) and /\?%:|"<>
-FILE_CHAR_START = 32 if os.name == 'nt' else 1
+FILE_CHAR_START = 32 if platform.system() == 'Windows' else 1
 FILE_CHAR_END = 128
-FILE_CHARS_DISALLOWED = '/\\?%*:|"<>' if os.name == 'nt' else '/'
+FILE_CHARS_DISALLOWED = '/\\?%*:|"<>' if platform.system() == 'Windows' else '/'
 UNCONFIRMED_HASH_STRING = 'unconfirmed'
 
 def notify_outputname(walletname, txid):
-    return txid if os.name == 'nt' else f'{walletname}_{txid}'
+    return txid if platform.system() == 'Windows' else f'{walletname}_{txid}'
 
 
 class NotificationsTest(BitcoinTestFramework):
-    def add_options(self, parser):
-        self.add_wallet_options(parser)
-
     def set_test_params(self):
         self.num_nodes = 2
         self.setup_clean_chain = True
+        self.uses_wallet = None
 
     def setup_network(self):
         self.wallet = ''.join(chr(i) for i in range(FILE_CHAR_START, FILE_CHAR_END) if chr(i) not in FILE_CHARS_DISALLOWED)
@@ -57,7 +56,6 @@ class NotificationsTest(BitcoinTestFramework):
     def run_test(self):
         if self.is_wallet_compiled():
             # Setup the descriptors to be imported to the wallet
-            seed = "cTdGmKFWpbvpKQ7ejrdzqYT2hhjyb3GPHnLAK7wdi5Em67YLwSm9"
             xpriv = "tprv8ZgxMBicQKsPfHCsTwkiM1KT56RXbGGTqvc2hgqzycpwbHqqpcajQeMRZoBD35kW4RtyCemu6j34Ku5DEspmgjKdt2qe4SvRch5Kk8B8A2v"
             desc_imports = [{
                 "desc": descsum_create(f"wpkh({xpriv}/0/*)"),
@@ -74,11 +72,8 @@ class NotificationsTest(BitcoinTestFramework):
             # Make the wallets and import the descriptors
             # Ensures that node 0 and node 1 share the same wallet for the conflicting transaction tests below.
             for i, name in enumerate(self.wallet_names):
-                self.nodes[i].createwallet(wallet_name=name, descriptors=self.options.descriptors, blank=True, load_on_startup=True)
-                if self.options.descriptors:
-                    self.nodes[i].importdescriptors(desc_imports)
-                else:
-                    self.nodes[i].sethdseed(True, seed)
+                self.nodes[i].createwallet(wallet_name=name, blank=True, load_on_startup=True)
+                self.nodes[i].importdescriptors(desc_imports)
 
         self.log.info("test -blocknotify")
         block_count = 10
@@ -126,7 +121,7 @@ class NotificationsTest(BitcoinTestFramework):
 
             # Generate bump transaction, sync mempools, and check for bump1
             # notification. In the future, per
-            # https://github.com/MrVistos/bitcoinsilver/pull/9371, it might be better
+            # https://github.com/bitcoin/bitcoin/pull/9371, it might be better
             # to have notifications for both tx1 and bump1.
             bump1 = self.nodes[0].bumpfee(tx1)["txid"]
             assert_equal(bump1 in self.nodes[0].getrawmempool(), True)
@@ -181,7 +176,7 @@ class NotificationsTest(BitcoinTestFramework):
                 # Universal newline ensures '\n' on 'nt'
                 assert_equal(text[-1], '\n')
                 text = text[:-1]
-                if os.name == 'nt':
+                if platform.system() == 'Windows':
                     # On Windows, echo as above will append a whitespace
                     assert_equal(text[-1], ' ')
                     text = text[:-1]
@@ -193,4 +188,4 @@ class NotificationsTest(BitcoinTestFramework):
 
 
 if __name__ == '__main__':
-    NotificationsTest().main()
+    NotificationsTest(__file__).main()

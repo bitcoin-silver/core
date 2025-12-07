@@ -11,7 +11,7 @@ import os
 import re
 import sys
 from subprocess import check_output
-from typing import Dict, Optional, NoReturn
+from typing import Optional, NoReturn
 
 CMD_TOP_LEVEL = ["git", "rev-parse", "--show-toplevel"]
 CMD_ALL_FILES = ["git", "ls-files", "-z", "--full-name", "--stage"]
@@ -26,6 +26,9 @@ ALLOWED_SOURCE_FILENAME_EXCEPTION_REGEXP = (
 ALLOWED_PERMISSION_NON_EXECUTABLES = 0o644
 ALLOWED_PERMISSION_EXECUTABLES = 0o755
 ALLOWED_EXECUTABLE_SHEBANG = {
+    # https://github.com/dylanaraps/pure-bash-bible#shebang:
+    # `#!/bin/bash` assumes it is always installed to /bin/ which can cause issues;
+    # `#!/usr/bin/env bash` searches the user's PATH to find the bash binary.
     "py": [b"#!/usr/bin/env python3"],
     "sh": [b"#!/usr/bin/env bash", b"#!/bin/sh"],
 }
@@ -69,7 +72,7 @@ class FileMeta(object):
             return None
 
 
-def get_git_file_metadata() -> Dict[str, FileMeta]:
+def get_git_file_metadata() -> dict[str, FileMeta]:
     '''
     Return a dictionary mapping the name of all files in the repository to git tree metadata.
     '''
@@ -91,7 +94,7 @@ def check_all_filenames(files) -> int:
     for filename in filenames:
         if not filename_regex.match(filename):
             print(
-                f"""File {repr(filename)} does not not match the allowed filename regexp ('{ALLOWED_FILENAME_REGEXP}')."""
+                f"""File {repr(filename)} does not match the allowed filename regexp ('{ALLOWED_FILENAME_REGEXP}')."""
             )
             failed_tests += 1
     return failed_tests
@@ -111,7 +114,7 @@ def check_source_filenames(files) -> int:
     for filename in filenames:
         if not filename_regex.match(filename) and not filename_exception_regex.match(filename):
             print(
-                f"""File {repr(filename)} does not not match the allowed source filename regexp ('{ALLOWED_SOURCE_FILENAME_REGEXP}'), or the exception regexp ({ALLOWED_SOURCE_FILENAME_EXCEPTION_REGEXP})."""
+                f"""File {repr(filename)} does not match the allowed source filename regexp ('{ALLOWED_SOURCE_FILENAME_REGEXP}'), or the exception regexp ({ALLOWED_SOURCE_FILENAME_EXCEPTION_REGEXP})."""
             )
             failed_tests += 1
     return failed_tests

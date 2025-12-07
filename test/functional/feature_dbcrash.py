@@ -36,6 +36,7 @@ from test_framework.messages import (
 )
 from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import (
+    assert_not_equal,
     assert_equal,
 )
 from test_framework.wallet import (
@@ -89,14 +90,14 @@ class ChainstateWriteCrashTest(BitcoinTestFramework):
                 return utxo_hash
             except Exception:
                 # An exception here should mean the node is about to crash.
-                # If bitcoinsilverd exits, then try again.  wait_for_node_exit()
-                # should raise an exception if bitcoinsilverd doesn't exit.
+                # If bitcoind exits, then try again.  wait_for_node_exit()
+                # should raise an exception if bitcoind doesn't exit.
                 self.wait_for_node_exit(node_index, timeout=10)
             self.crashed_on_restart += 1
             time.sleep(1)
 
-        # If we got here, bitcoinsilverd isn't coming back up on restart.  Could be a
-        # bug in bitcoinsilverd, or we've gotten unlucky with our dbcrash ratio --
+        # If we got here, bitcoind isn't coming back up on restart.  Could be a
+        # bug in bitcoind, or we've gotten unlucky with our dbcrash ratio --
         # perhaps we generated a test case that blew up our cache?
         # TODO: If this happens a lot, we should try to restart without -dbcrashratio
         # and make sure that recovery happens.
@@ -184,7 +185,7 @@ class ChainstateWriteCrashTest(BitcoinTestFramework):
             assert_equal(nodei_utxo_hash, node3_utxo_hash)
 
     def generate_small_transactions(self, node, count, utxo_list):
-        FEE = 1000  # TODO: replace this with node relay fee based calculation
+        FEE = 1000
         num_transactions = 0
         random.shuffle(utxo_list)
         while len(utxo_list) >= 2 and num_transactions < count:
@@ -274,7 +275,7 @@ class ChainstateWriteCrashTest(BitcoinTestFramework):
         self.log.info(f"Restarted nodes: {self.restart_counts}; crashes on restart: {self.crashed_on_restart}")
 
         # If no nodes were restarted, we didn't test anything.
-        assert self.restart_counts != [0, 0, 0]
+        assert_not_equal(self.restart_counts, [0, 0, 0])
 
         # Make sure we tested the case of crash-during-recovery.
         assert self.crashed_on_restart > 0
@@ -286,4 +287,4 @@ class ChainstateWriteCrashTest(BitcoinTestFramework):
 
 
 if __name__ == "__main__":
-    ChainstateWriteCrashTest().main()
+    ChainstateWriteCrashTest(__file__).main()

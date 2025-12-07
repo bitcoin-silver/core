@@ -2,34 +2,33 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_CHAINPARAMSBASE_H
-#define BITCOINSILVER_CHAINPARAMSBASE_H
+#ifndef BITCOIN_CHAINPARAMSBASE_H
+#define BITCOIN_CHAINPARAMSBASE_H
 
 #include <util/chaintype.h>
 
+#include <cstdint>
 #include <memory>
 #include <string>
 
 class ArgsManager;
 
 /**
- * CBaseChainParams defines the base parameters (shared between bitcoinsilver-cli and bitcoinsilverd)
- * of a given instance of the BitcoinSilver system.
+ * CBaseChainParams defines the base parameters (shared between bitcoin-cli and bitcoind)
+ * of a given instance of the Bitcoin system.
  */
 class CBaseChainParams
 {
 public:
     const std::string& DataDir() const { return strDataDir; }
     uint16_t RPCPort() const { return m_rpc_port; }
-    uint16_t OnionServiceTargetPort() const { return m_onion_service_target_port; }
 
     CBaseChainParams() = delete;
-    CBaseChainParams(const std::string& data_dir, uint16_t rpc_port, uint16_t onion_service_target_port)
-        : m_rpc_port(rpc_port), m_onion_service_target_port(onion_service_target_port), strDataDir(data_dir) {}
+    CBaseChainParams(const std::string& data_dir, uint16_t rpc_port)
+        : m_rpc_port(rpc_port), strDataDir(data_dir) {}
 
 private:
     const uint16_t m_rpc_port;
-    const uint16_t m_onion_service_target_port;
     std::string strDataDir;
 };
 
@@ -52,4 +51,7 @@ const CBaseChainParams& BaseParams();
 /** Sets the params returned by Params() to those for the given chain. */
 void SelectBaseParams(const ChainType chain);
 
-#endif // BITCOINSILVER_CHAINPARAMSBASE_H
+/** List of possible chain / network names  */
+#define LIST_CHAIN_NAMES "main, test, testnet4, signet, regtest"
+
+#endif // BITCOIN_CHAINPARAMSBASE_H

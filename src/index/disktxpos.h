@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_INDEX_DISKTXPOS_H
-#define BITCOINSILVER_INDEX_DISKTXPOS_H
+#ifndef BITCOIN_INDEX_DISKTXPOS_H
+#define BITCOIN_INDEX_DISKTXPOS_H
 
 #include <flatfile.h>
 #include <serialize.h>
@@ -20,7 +20,7 @@ struct CDiskTxPos : public FlatFilePos
     CDiskTxPos(const FlatFilePos &blockIn, unsigned int nTxOffsetIn) : FlatFilePos(blockIn.nFile, blockIn.nPos), nTxOffset(nTxOffsetIn) {
     }
 
-    CDiskTxPos() {}
+    CDiskTxPos() = default;
 };
 
-#endif // BITCOINSILVER_INDEX_DISKTXPOS_H
+#endif // BITCOIN_INDEX_DISKTXPOS_H

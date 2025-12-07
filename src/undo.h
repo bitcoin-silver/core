@@ -3,15 +3,14 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_UNDO_H
-#define BITCOINSILVER_UNDO_H
+#ifndef BITCOIN_UNDO_H
+#define BITCOIN_UNDO_H
 
 #include <coins.h>
 #include <compressor.h>
 #include <consensus/consensus.h>
 #include <primitives/transaction.h>
 #include <serialize.h>
-#include <version.h>
 
 /** Formatter for undo information for a CTxIn
  *
@@ -68,4 +67,4 @@ public:
     SERIALIZE_METHODS(CBlockUndo, obj) { READWRITE(obj.vtxundo); }
 };
 
-#endif // BITCOINSILVER_UNDO_H
+#endif // BITCOIN_UNDO_H

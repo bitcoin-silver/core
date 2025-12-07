@@ -1,19 +1,33 @@
-// Copyright (c) 2019-2022 The Bitcoin Core developers
+// Copyright (c) 2019-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_UTIL_HASHER_H
-#define BITCOINSILVER_UTIL_HASHER_H
+#ifndef BITCOIN_UTIL_HASHER_H
+#define BITCOIN_UTIL_HASHER_H
 
 #include <crypto/common.h>
 #include <crypto/siphash.h>
 #include <primitives/transaction.h>
+#include <span.h>
 #include <uint256.h>
 
+#include <concepts>
 #include <cstdint>
 #include <cstring>
 
-template <typename C> class Span;
+class SaltedUint256Hasher
+{
+private:
+    /** Salt */
+    const uint64_t k0, k1;
+
+public:
+    SaltedUint256Hasher();
+
+    size_t operator()(const uint256& hash) const {
+        return SipHashUint256(k0, k1, hash);
+    }
+};
 
 class SaltedTxidHasher
 {
@@ -24,10 +38,25 @@ private:
 public:
     SaltedTxidHasher();
 
-    size_t operator()(const uint256& txid) const {
-        return SipHashUint256(k0, k1, txid);
+    size_t operator()(const Txid& txid) const {
+        return SipHashUint256(k0, k1, txid.ToUint256());
     }
 };
+
+class SaltedWtxidHasher
+{
+private:
+    /** Salt */
+    const uint64_t k0, k1;
+
+public:
+    SaltedWtxidHasher();
+
+    size_t operator()(const Wtxid& wtxid) const {
+        return SipHashUint256(k0, k1, wtxid.ToUint256());
+    }
+};
+
 
 class SaltedOutpointHasher
 {
@@ -45,10 +74,10 @@ public:
      * a slight performance penalty (around 1.6%), but this is compensated by
      * memory savings of about 9% which allow for a larger dbcache setting.
      *
-     * @see https://gcc.gnu.org/onlinedocs/gcc-9.2.0/libstdc++/manual/manual/unordered_associative.html
+     * @see https://gcc.gnu.org/onlinedocs/gcc-13.2.0/libstdc++/manual/manual/unordered_associative.html
      */
     size_t operator()(const COutPoint& id) const noexcept {
-        return SipHashUint256Extra(k0, k1, id.hash, id.n);
+        return SipHashUint256Extra(k0, k1, id.hash.ToUint256(), id.n);
     }
 };
 
@@ -95,7 +124,7 @@ private:
 public:
     SaltedSipHasher();
 
-    size_t operator()(const Span<const unsigned char>& script) const;
+    size_t operator()(const std::span<const unsigned char>& script) const;
 };
 
-#endif // BITCOINSILVER_UTIL_HASHER_H
+#endif // BITCOIN_UTIL_HASHER_H

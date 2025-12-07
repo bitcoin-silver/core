@@ -2,12 +2,15 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_WALLET_EXTERNAL_SIGNER_SCRIPTPUBKEYMAN_H
-#define BITCOINSILVER_WALLET_EXTERNAL_SIGNER_SCRIPTPUBKEYMAN_H
+#ifndef BITCOIN_WALLET_EXTERNAL_SIGNER_SCRIPTPUBKEYMAN_H
+#define BITCOIN_WALLET_EXTERNAL_SIGNER_SCRIPTPUBKEYMAN_H
 
 #include <wallet/scriptpubkeyman.h>
 
 #include <memory>
+#include <util/result.h>
+
+struct bilingual_str;
 
 namespace wallet {
 class ExternalSignerScriptPubKeyMan : public DescriptorScriptPubKeyMan
@@ -23,13 +26,17 @@ class ExternalSignerScriptPubKeyMan : public DescriptorScriptPubKeyMan
   /** Provide a descriptor at setup time
   * Returns false if already setup or setup fails, true if setup is successful
   */
-  bool SetupDescriptor(std::unique_ptr<Descriptor>desc);
+  bool SetupDescriptor(WalletBatch& batch, std::unique_ptr<Descriptor>desc);
 
-  static ExternalSigner GetExternalSigner();
+  static util::Result<ExternalSigner> GetExternalSigner();
 
-  bool DisplayAddress(const CScript scriptPubKey, const ExternalSigner &signer) const;
+  /**
+  * Display address on the device and verify that the returned value matches.
+  * @returns nothing or an error message
+  */
+ util::Result<void> DisplayAddress(const CTxDestination& dest, const ExternalSigner& signer) const;
 
-  TransactionError FillPSBT(PartiallySignedTransaction& psbt, const PrecomputedTransactionData& txdata, int sighash_type = 1 /* SIGHASH_ALL */, bool sign = true, bool bip32derivs = false, int* n_signed = nullptr, bool finalize = true) const override;
+  std::optional<common::PSBTError> FillPSBT(PartiallySignedTransaction& psbt, const PrecomputedTransactionData& txdata, std::optional<int> sighash_type = std::nullopt, bool sign = true, bool bip32derivs = false, int* n_signed = nullptr, bool finalize = true) const override;
 };
 } // namespace wallet
-#endif // BITCOINSILVER_WALLET_EXTERNAL_SIGNER_SCRIPTPUBKEYMAN_H
+#endif // BITCOIN_WALLET_EXTERNAL_SIGNER_SCRIPTPUBKEYMAN_H

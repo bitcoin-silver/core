@@ -7,13 +7,13 @@
 export LC_ALL=C
 
 # Fixes permission issues when there is a container UID/GID mismatch with the owner
-# of the mounted bitcoinsilver src dir.
-git config --global --add safe.directory /bitcoinsilver
+# of the mounted bitcoin src dir.
+git config --global --add safe.directory /bitcoin
 
 export PATH="/python_build/bin:${PATH}"
 
 if [ -z "$1" ]; then
-  LOCAL_BRANCH=1 bash -ic "./ci/lint/06_script.sh"
+  bash -ic "./ci/lint/06_script.sh"
 else
   exec "$@"
 fi

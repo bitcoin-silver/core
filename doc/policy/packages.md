@@ -8,11 +8,9 @@ Graph (a directed edge exists between a transaction that spends the output of an
 For every transaction `t` in a **topologically sorted** package, if any of its parents are present
 in the package, they appear somewhere in the list before `t`.
 
-A **child-with-unconfirmed-parents** package is a topologically sorted package that consists of
-exactly one child and all of its unconfirmed parents (no other transactions may be present).
-The last transaction in the package is the child, and its package can be canonically defined based
-on the current state: each of its inputs must be available in the UTXO set as of the current chain
-tip or some preceding transaction in the package.
+A **child-with-parents** package is a topologically sorted package that consists of exactly one child and at least one
+of its unconfirmed parents.  Not all unconfirmed parents need to be present but no other transactions may be present; the
+parent of a parent should not be in this package (unless this "grandparent" is also a direct parent of the child).
 
 ## Package Mempool Acceptance Rules
 
@@ -36,10 +34,27 @@ The following rules are enforced for all packages:
 * Packages cannot have conflicting transactions, i.e. no two transactions in a package can spend
    the same inputs. Packages cannot have duplicate transactions. (#20833)
 
-* No transaction in a package can conflict with a mempool transaction. Replace By Fee is
-  currently disabled for packages. (#20833)
+* Only limited package replacements are currently considered. (#28984)
 
-   - Package RBF may be enabled in the future.
+   - Packages are 1-parent-1-child, with no in-mempool ancestors of the package.
+
+   - All conflicting clusters (connected components of mempool transactions) must be clusters of up to size 2.
+
+   - No more than MAX_REPLACEMENT_CANDIDATES transactions can be replaced, analogous to
+     regular [replacement rule](./mempool-replacements.md) 5).
+
+   - Replacements must pay more total fees at the incremental relay fee (analogous to
+     regular [replacement rules](./mempool-replacements.md) 3 and 4).
+
+   - Parent feerate must be lower than package feerate.
+
+   - Must improve [feerate diagram](https://delvingbitcoin.org/t/mempool-incentive-compatibility/553). (#29242)
+
+   - *Rationale*: Basic support for package RBF can be used by wallets
+     by making chains of no longer than two, then directly conflicting
+     those chains when needed. Combined with TRUC transactions this can
+     result in more robust fee bumping. More general package RBF may be
+     enabled in the future.
 
 * When packages are evaluated against ancestor/descendant limits, the union of all transactions'
   descendants and ancestors is considered. (#21800)
@@ -48,11 +63,16 @@ The following rules are enforced for all packages:
      heavily connected, i.e. some transaction in the package is the ancestor or descendant of all
      the other transactions.
 
-The following rules are only enforced for packages to be submitted to the mempool (not enforced for
-test accepts):
+* [CPFP Carve Out](./mempool-limits.md#CPFP-Carve-Out) is disabled in packaged contexts. (#21800)
 
-* Packages must be child-with-unconfirmed-parents packages. This also means packages must contain at
-  least 2 transactions. (#22674)
+   - *Rationale*: This carve out cannot be accurately applied when there are multiple transactions'
+     ancestors and descendants being considered at the same time.
+
+The following rules are only enforced for packages to be submitted to the mempool (not
+enforced for test accepts):
+
+* Packages must be child-with-parents packages. This also means packages must contain at
+  least 1 transaction. (#31096)
 
    - *Rationale*: This allows for fee-bumping by CPFP. Allowing multiple parents makes it possible
      to fee-bump a batch of transactions. Restricting packages to a defined topology is easier to
@@ -95,8 +115,11 @@ rejected from the mempool when transaction volume is high and the mempool minimu
 
 Note: Package feerate cannot be used to meet the minimum relay feerate (`-minrelaytxfee`)
 requirement. For example, if the mempool minimum feerate is 5sat/vB and the minimum relay feerate is
-set to 5satvB, a 1sat/vB parent transaction with a high-feerate child will not be accepted, even if
-submitted as a package.
+set to 5sat/vB, a 1sat/vB parent transaction with a high-feerate child will not be accepted, even if
+submitted as a package. Note that this rule does not apply to
+[TRUC transactions](https://github.com/bitcoin/bips/blob/master/bip-0431.mediawiki) as an individual
+TRUC transaction is permitted to be below the mempool min relay feerate, assuming it is considered within
+a package that meets the mempool's feerate requirements.
 
 *Rationale*: Avoid situations in which the mempool contains non-bumped transactions below min relay
 feerate (which we consider to have pay 0 fees and thus receiving free relay). While package

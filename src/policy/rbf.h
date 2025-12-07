@@ -2,14 +2,16 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_POLICY_RBF_H
-#define BITCOINSILVER_POLICY_RBF_H
+#ifndef BITCOIN_POLICY_RBF_H
+#define BITCOIN_POLICY_RBF_H
 
 #include <consensus/amount.h>
 #include <primitives/transaction.h>
 #include <threadsafety.h>
 #include <txmempool.h>
+#include <util/feefrac.h>
 
+#include <compare>
 #include <cstddef>
 #include <cstdint>
 #include <optional>
@@ -31,6 +33,13 @@ enum class RBFTransactionState {
     REPLACEABLE_BIP125,
     /** Neither this tx nor a mempool ancestor signals rbf */
     FINAL,
+};
+
+enum class DiagramCheckError {
+    /** Unable to calculate due to topology or other reason */
+    UNCALCULABLE,
+    /** New diagram wasn't strictly superior  */
+    FAILURE,
 };
 
 /**
@@ -80,8 +89,8 @@ std::optional<std::string> HasNoNewUnconfirmed(const CTransaction& tx, const CTx
  * @returns error message if the sets intersect, std::nullopt if they are disjoint.
  */
 std::optional<std::string> EntriesAndTxidsDisjoint(const CTxMemPool::setEntries& ancestors,
-                                                   const std::set<uint256>& direct_conflicts,
-                                                   const uint256& txid);
+                                                   const std::set<Txid>& direct_conflicts,
+                                                   const Txid& txid);
 
 /** Check that the feerate of the replacement transaction(s) is higher than the feerate of each
  * of the transactions in iters_conflicting.
@@ -89,7 +98,7 @@ std::optional<std::string> EntriesAndTxidsDisjoint(const CTxMemPool::setEntries&
  * @returns error message if fees insufficient, otherwise std::nullopt.
  */
 std::optional<std::string> PaysMoreThanConflicts(const CTxMemPool::setEntries& iters_conflicting,
-                                                 CFeeRate replacement_feerate, const uint256& txid);
+                                                 CFeeRate replacement_feerate, const Txid& txid);
 
 /** The replacement transaction must pay more fees than the original transactions. The additional
  * fees must pay for the replacement's bandwidth at or above the incremental relay feerate.
@@ -104,6 +113,13 @@ std::optional<std::string> PaysForRBF(CAmount original_fees,
                                       CAmount replacement_fees,
                                       size_t replacement_vsize,
                                       CFeeRate relay_fee,
-                                      const uint256& txid);
+                                      const Txid& txid);
 
-#endif // BITCOINSILVER_POLICY_RBF_H
+/**
+ * The replacement transaction must improve the feerate diagram of the mempool.
+ * @param[in]   changeset           The changeset containing proposed additions/removals
+ * @returns error type and string if mempool diagram doesn't improve, otherwise std::nullopt.
+ */
+std::optional<std::pair<DiagramCheckError, std::string>> ImprovesFeerateDiagram(CTxMemPool::ChangeSet& changeset);
+
+#endif // BITCOIN_POLICY_RBF_H

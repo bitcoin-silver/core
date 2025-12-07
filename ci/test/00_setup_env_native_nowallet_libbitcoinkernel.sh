@@ -6,10 +6,11 @@
 
 export LC_ALL=C.UTF-8
 
-export CONTAINER_NAME=ci_native_nowallet_libbitcoinsilverkernel
-export CI_IMAGE_NAME_TAG="docker.io/ubuntu:20.04"
-# Use minimum supported python3.8 and clang-10, see doc/dependencies.md
-export PACKAGES="python3-zmq clang-10 llvm-10 libc++abi-10-dev libc++-10-dev"
-export DEP_OPTS="NO_WALLET=1 CC=clang-10 CXX='clang++-10 -stdlib=libc++'"
+export CONTAINER_NAME=ci_native_nowallet_libbitcoinkernel
+export CI_IMAGE_NAME_TAG="mirror.gcr.io/debian:bookworm"
+# Use minimum supported python3.10 (or best-effort 3.11) and clang-16, see doc/dependencies.md
+export PACKAGES="python3-zmq python3-pip clang-16 llvm-16 libc++abi-16-dev libc++-16-dev"
+export PIP_PACKAGES="--break-system-packages pycapnp"
+export DEP_OPTS="NO_WALLET=1 CC=clang-16 CXX='clang++-16 -stdlib=libc++'"
 export GOAL="install"
-export BITCOINSILVER_CONFIG="--enable-reduce-exports --enable-experimental-util-chainstate --with-experimental-kernel-lib --enable-shared"
+export BITCOIN_CONFIG="-DREDUCE_EXPORTS=ON -DBUILD_UTIL_CHAINSTATE=ON -DBUILD_KERNEL_LIB=ON -DBUILD_SHARED_LIBS=ON"

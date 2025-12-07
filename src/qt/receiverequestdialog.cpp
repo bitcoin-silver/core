@@ -5,7 +5,7 @@
 #include <qt/receiverequestdialog.h>
 #include <qt/forms/ui_receiverequestdialog.h>
 
-#include <qt/bitcoinsilverunits.h>
+#include <qt/bitcoinunits.h>
 #include <qt/guiutil.h>
 #include <qt/optionsmodel.h>
 #include <qt/qrimagewidget.h>
@@ -14,9 +14,7 @@
 #include <QDialog>
 #include <QString>
 
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoinsilver-config.h> /* for USE_QRCODE */
-#endif
+#include <bitcoin-build-config.h> // IWYU pragma: keep
 
 ReceiveRequestDialog::ReceiveRequestDialog(QWidget* parent)
     : QDialog(parent, GUIUtil::dialog_flags),

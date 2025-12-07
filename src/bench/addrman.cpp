@@ -4,12 +4,18 @@
 
 #include <addrman.h>
 #include <bench/bench.h>
+#include <compat/compat.h>
+#include <netaddress.h>
 #include <netbase.h>
 #include <netgroup.h>
+#include <protocol.h>
 #include <random.h>
+#include <span.h>
+#include <uint256.h>
 #include <util/check.h>
 #include <util/time.h>
 
+#include <cstring>
 #include <optional>
 #include <vector>
 
@@ -104,7 +110,7 @@ static void AddrManSelectFromAlmostEmpty(benchmark::Bench& bench)
     AddrMan addrman{EMPTY_NETGROUPMAN, /*deterministic=*/false, ADDRMAN_CONSISTENCY_CHECK_RATIO};
 
     // Add one address to the new table
-    CService addr = Lookup("250.3.1.1", 10566, false).value();
+    CService addr = Lookup("250.3.1.1", 8333, false).value();
     addrman.Add({CAddress(addr, NODE_NONE)}, addr);
 
     bench.run([&] {
@@ -127,7 +133,7 @@ static void AddrManSelectByNetwork(benchmark::Bench& bench)
     FillAddrMan(addrman);
 
     bench.run([&] {
-        (void)addrman.Select(/*new_only=*/false, NET_I2P);
+        (void)addrman.Select(/*new_only=*/false, {NET_I2P});
     });
 }
 

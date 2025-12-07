@@ -12,11 +12,14 @@
 #include <tinyformat.h>
 #include <txmempool.h>
 #include <uint256.h>
+#include <util/check.h>
 #include <util/moneystr.h>
 #include <util/rbf.h>
 
 #include <limits>
 #include <vector>
+
+#include <compare>
 
 RBFTransactionState IsRBFOptIn(const CTransaction& tx, const CTxMemPool& pool)
 {
@@ -29,13 +32,13 @@ RBFTransactionState IsRBFOptIn(const CTransaction& tx, const CTxMemPool& pool)
 
     // If this transaction is not in our mempool, then we can't be sure
     // we will know about all its inputs.
-    if (!pool.exists(GenTxid::Txid(tx.GetHash()))) {
+    if (!pool.exists(tx.GetHash())) {
         return RBFTransactionState::UNKNOWN;
     }
 
     // If all the inputs have nSequence >= maxint-1, it still might be
     // signaled for RBF if any unconfirmed parents have signaled.
-    const CTxMemPoolEntry entry{*pool.mapTx.find(tx.GetHash())};
+    const auto& entry{*Assert(pool.GetEntry(tx.GetHash()))};
     auto ancestors{pool.AssumeCalculateMemPoolAncestors(__func__, entry, CTxMemPool::Limits::NoLimits(),
                                                         /*fSearchForParents=*/false)};
 
@@ -59,7 +62,6 @@ std::optional<std::string> GetEntriesForConflicts(const CTransaction& tx,
                                                   CTxMemPool::setEntries& all_conflicts)
 {
     AssertLockHeld(pool.cs);
-    const uint256 txid = tx.GetHash();
     uint64_t nConflictingCount = 0;
     for (const auto& mi : iters_conflicting) {
         nConflictingCount += mi->GetCountWithDescendants();
@@ -68,8 +70,8 @@ std::optional<std::string> GetEntriesForConflicts(const CTransaction& tx,
         // descendants (i.e. if multiple conflicts share a descendant, it will be counted multiple
         // times), but we just want to be conservative to avoid doing too much work.
         if (nConflictingCount > MAX_REPLACEMENT_CANDIDATES) {
-            return strprintf("rejecting replacement %s; too many potential replacements (%d > %d)\n",
-                             txid.ToString(),
+            return strprintf("rejecting replacement %s; too many potential replacements (%d > %d)",
+                             tx.GetHash().ToString(),
                              nConflictingCount,
                              MAX_REPLACEMENT_CANDIDATES);
         }
@@ -86,7 +88,7 @@ std::optional<std::string> HasNoNewUnconfirmed(const CTransaction& tx,
                                                const CTxMemPool::setEntries& iters_conflicting)
 {
     AssertLockHeld(pool.cs);
-    std::set<uint256> parents_of_conflicts;
+    std::set<Txid> parents_of_conflicts;
     for (const auto& mi : iters_conflicting) {
         for (const CTxIn& txin : mi->GetTx().vin) {
             parents_of_conflicts.insert(txin.prevout.hash);
@@ -104,7 +106,7 @@ std::optional<std::string> HasNoNewUnconfirmed(const CTransaction& tx,
         if (!parents_of_conflicts.count(tx.vin[j].prevout.hash)) {
             // Rather than check the UTXO set - potentially expensive - it's cheaper to just check
             // if the new input refers to a tx that's in the mempool.
-            if (pool.exists(GenTxid::Txid(tx.vin[j].prevout.hash))) {
+            if (pool.exists(tx.vin[j].prevout.hash)) {
                 return strprintf("replacement %s adds unconfirmed input, idx %d",
                                  tx.GetHash().ToString(), j);
             }
@@ -114,11 +116,11 @@ std::optional<std::string> HasNoNewUnconfirmed(const CTransaction& tx,
 }
 
 std::optional<std::string> EntriesAndTxidsDisjoint(const CTxMemPool::setEntries& ancestors,
-                                                   const std::set<uint256>& direct_conflicts,
-                                                   const uint256& txid)
+                                                   const std::set<Txid>& direct_conflicts,
+                                                   const Txid& txid)
 {
     for (CTxMemPool::txiter ancestorIt : ancestors) {
-        const uint256& hashAncestor = ancestorIt->GetTx().GetHash();
+        const Txid& hashAncestor = ancestorIt->GetTx().GetHash();
         if (direct_conflicts.count(hashAncestor)) {
             return strprintf("%s spends conflicting transaction %s",
                              txid.ToString(),
@@ -130,7 +132,7 @@ std::optional<std::string> EntriesAndTxidsDisjoint(const CTxMemPool::setEntries&
 
 std::optional<std::string> PaysMoreThanConflicts(const CTxMemPool::setEntries& iters_conflicting,
                                                  CFeeRate replacement_feerate,
-                                                 const uint256& txid)
+                                                 const Txid& txid)
 {
     for (const auto& mi : iters_conflicting) {
         // Don't allow the replacement to reduce the feerate of the mempool.
@@ -158,7 +160,7 @@ std::optional<std::string> PaysForRBF(CAmount original_fees,
                                       CAmount replacement_fees,
                                       size_t replacement_vsize,
                                       CFeeRate relay_fee,
-                                      const uint256& txid)
+                                      const Txid& txid)
 {
     // Rule #3: The replacement fees must be greater than or equal to fees of the
     // transactions it replaces, otherwise the bandwidth used by those conflicting transactions
@@ -177,6 +179,21 @@ std::optional<std::string> PaysForRBF(CAmount original_fees,
                          txid.ToString(),
                          FormatMoney(additional_fees),
                          FormatMoney(relay_fee.GetFee(replacement_vsize)));
+    }
+    return std::nullopt;
+}
+
+std::optional<std::pair<DiagramCheckError, std::string>> ImprovesFeerateDiagram(CTxMemPool::ChangeSet& changeset)
+{
+    // Require that the replacement strictly improves the mempool's feerate diagram.
+    const auto chunk_results{changeset.CalculateChunksForRBF()};
+
+    if (!chunk_results.has_value()) {
+        return std::make_pair(DiagramCheckError::UNCALCULABLE, util::ErrorString(chunk_results).original);
+    }
+
+    if (!std::is_gt(CompareChunks(chunk_results.value().second, chunk_results.value().first))) {
+        return std::make_pair(DiagramCheckError::FAILURE, "insufficient feerate: does not improve feerate diagram");
     }
     return std::nullopt;
 }

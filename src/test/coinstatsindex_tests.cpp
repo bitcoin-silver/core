@@ -6,7 +6,6 @@
 #include <index/coinstatsindex.h>
 #include <interfaces/chain.h>
 #include <kernel/coinstats.h>
-#include <test/util/index.h>
 #include <test/util/setup_common.h>
 #include <test/util/validation.h>
 #include <validation.h>
@@ -33,9 +32,7 @@ BOOST_FIXTURE_TEST_CASE(coinstatsindex_initial_sync, TestChain100Setup)
     // is started.
     BOOST_CHECK(!coin_stats_index.BlockUntilSyncedToCurrentChain());
 
-    BOOST_REQUIRE(coin_stats_index.StartBackgroundSync());
-
-    IndexWaitSynced(coin_stats_index);
+    coin_stats_index.Sync();
 
     // Check that CoinStatsIndex works for genesis block.
     const CBlockIndex* genesis_block_index;
@@ -70,7 +67,7 @@ BOOST_FIXTURE_TEST_CASE(coinstatsindex_initial_sync, TestChain100Setup)
     // SyncWithValidationInterfaceQueue() call below is also needed to ensure
     // TSAN always sees the test thread waiting for the notification thread, and
     // avoid potential false positive reports.
-    SyncWithValidationInterfaceQueue();
+    m_node.validation_signals->SyncWithValidationInterfaceQueue();
 
     // Shutdown sequence (c.f. Shutdown() in init.cpp)
     coin_stats_index.Stop();
@@ -85,8 +82,7 @@ BOOST_FIXTURE_TEST_CASE(coinstatsindex_unclean_shutdown, TestChain100Setup)
     {
         CoinStatsIndex index{interfaces::MakeChain(m_node), 1 << 20};
         BOOST_REQUIRE(index.Init());
-        BOOST_REQUIRE(index.StartBackgroundSync());
-        IndexWaitSynced(index);
+        index.Sync();
         std::shared_ptr<const CBlock> new_block;
         CBlockIndex* new_block_index = nullptr;
         {

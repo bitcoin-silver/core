@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_RPC_MEMPOOL_H
-#define BITCOINSILVER_RPC_MEMPOOL_H
+#ifndef BITCOIN_RPC_MEMPOOL_H
+#define BITCOIN_RPC_MEMPOOL_H
 
 class CTxMemPool;
 class UniValue;
@@ -14,4 +14,4 @@ UniValue MempoolInfoToJSON(const CTxMemPool& pool);
 /** Mempool to JSON */
 UniValue MempoolToJSON(const CTxMemPool& pool, bool verbose = false, bool include_mempool_sequence = false);
 
-#endif // BITCOINSILVER_RPC_MEMPOOL_H
+#endif // BITCOIN_RPC_MEMPOOL_H

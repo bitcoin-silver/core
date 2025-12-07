@@ -4,7 +4,7 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test mempool persistence.
 
-By default, bitcoinsilverd will dump mempool on shutdown and
+By default, bitcoind will dump mempool on shutdown and
 then reload it on startup. This can be overridden with
 the -persistmempool=0 command line option.
 
@@ -50,19 +50,16 @@ from test_framework.wallet import MiniWallet, COIN
 
 
 class MempoolPersistTest(BitcoinTestFramework):
-    def add_options(self, parser):
-        self.add_wallet_options(parser, legacy=False)
-
     def set_test_params(self):
         self.num_nodes = 3
         self.extra_args = [[], ["-persistmempool=0"], []]
+        self.uses_wallet = None
 
     def run_test(self):
         self.mini_wallet = MiniWallet(self.nodes[2])
-        if self.is_sqlite_compiled():
+        if self.is_wallet_compiled():
             self.nodes[2].createwallet(
                 wallet_name="watch",
-                descriptors=True,
                 disable_private_keys=True,
                 load_on_startup=False,
             )
@@ -73,7 +70,7 @@ class MempoolPersistTest(BitcoinTestFramework):
         tx_creation_time_lower = int(time.time())
         for _ in range(5):
             last_txid = self.mini_wallet.send_self_transfer(from_node=self.nodes[2])["txid"]
-        if self.is_sqlite_compiled():
+        if self.is_wallet_compiled():
             self.nodes[2].syncwithvalidationinterfacequeue()  # Flush mempool to wallet
             node2_balance = wallet_watch.getbalance()
         self.sync_all()
@@ -137,7 +134,7 @@ class MempoolPersistTest(BitcoinTestFramework):
         assert_equal(entry_prioritised_before_restart['fees']['base'] + Decimal('0.00009999'), entry_prioritised_before_restart['fees']['modified'])
 
         # Verify accounting of mempool transactions after restart is correct
-        if self.is_sqlite_compiled():
+        if self.is_wallet_compiled():
             self.nodes[2].loadwallet("watch")
             wallet_watch = self.nodes[2].get_wallet_rpc("watch")
             self.nodes[2].syncwithvalidationinterfacequeue()  # Flush mempool to wallet
@@ -188,7 +185,7 @@ class MempoolPersistTest(BitcoinTestFramework):
         assert self.nodes[1].getmempoolinfo()["loaded"]
         assert_equal(len(self.nodes[1].getrawmempool()), 7)
 
-        self.log.debug("Prevent bitcoinsilverd from writing mempool.dat to disk. Verify that `savemempool` fails")
+        self.log.debug("Prevent bitcoind from writing mempool.dat to disk. Verify that `savemempool` fails")
         # to test the exception we are creating a tmp folder called mempool.dat.new
         # which is an implementation detail that could change and break this test
         mempooldotnew1 = mempooldat1 + '.new'
@@ -263,4 +260,4 @@ class MempoolPersistTest(BitcoinTestFramework):
 
 
 if __name__ == "__main__":
-    MempoolPersistTest().main()
+    MempoolPersistTest(__file__).main()

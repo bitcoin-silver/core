@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_UTIL_CHAINTYPE_H
-#define BITCOINSILVER_UTIL_CHAINTYPE_H
+#ifndef BITCOIN_UTIL_CHAINTYPE_H
+#define BITCOIN_UTIL_CHAINTYPE_H
 
 #include <optional>
 #include <string>
@@ -13,10 +13,11 @@ enum class ChainType {
     TESTNET,
     SIGNET,
     REGTEST,
+    TESTNET4,
 };
 
 std::string ChainTypeToString(ChainType chain);
 
 std::optional<ChainType> ChainTypeFromString(std::string_view chain);
 
-#endif // BITCOINSILVER_UTIL_CHAINTYPE_H
+#endif // BITCOIN_UTIL_CHAINTYPE_H

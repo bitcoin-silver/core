@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2009-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -52,6 +52,11 @@ bool HidingSigningProvider::GetTaprootBuilder(const XOnlyPubKey& output_key, Tap
 {
     return m_provider->GetTaprootBuilder(output_key, builder);
 }
+std::vector<CPubKey> HidingSigningProvider::GetMuSig2ParticipantPubkeys(const CPubKey& pubkey) const
+{
+    if (m_hide_origin) return {};
+    return m_provider->GetMuSig2ParticipantPubkeys(pubkey);
+}
 
 bool FlatSigningProvider::GetCScript(const CScriptID& scriptid, CScript& script) const { return LookupHelper(scripts, scriptid, script); }
 bool FlatSigningProvider::GetPubKey(const CKeyID& keyid, CPubKey& pubkey) const { return LookupHelper(pubkeys, keyid, pubkey); }
@@ -61,6 +66,11 @@ bool FlatSigningProvider::GetKeyOrigin(const CKeyID& keyid, KeyOriginInfo& info)
     bool ret = LookupHelper(origins, keyid, out);
     if (ret) info = std::move(out.second);
     return ret;
+}
+bool FlatSigningProvider::HaveKey(const CKeyID &keyid) const
+{
+    CKey key;
+    return LookupHelper(keys, keyid, key);
 }
 bool FlatSigningProvider::GetKey(const CKeyID& keyid, CKey& key) const { return LookupHelper(keys, keyid, key); }
 bool FlatSigningProvider::GetTaprootSpendData(const XOnlyPubKey& output_key, TaprootSpendData& spenddata) const
@@ -77,6 +87,13 @@ bool FlatSigningProvider::GetTaprootBuilder(const XOnlyPubKey& output_key, Tapro
     return LookupHelper(tr_trees, output_key, builder);
 }
 
+std::vector<CPubKey> FlatSigningProvider::GetMuSig2ParticipantPubkeys(const CPubKey& pubkey) const
+{
+    std::vector<CPubKey> participant_pubkeys;
+    LookupHelper(aggregate_pubkeys, pubkey, participant_pubkeys);
+    return participant_pubkeys;
+}
+
 FlatSigningProvider& FlatSigningProvider::Merge(FlatSigningProvider&& b)
 {
     scripts.merge(b.scripts);
@@ -84,6 +101,7 @@ FlatSigningProvider& FlatSigningProvider::Merge(FlatSigningProvider&& b)
     keys.merge(b.keys);
     origins.merge(b.origins);
     tr_trees.merge(b.tr_trees);
+    aggregate_pubkeys.merge(b.aggregate_pubkeys);
     return *this;
 }
 
@@ -157,8 +175,10 @@ bool FillableSigningProvider::GetKey(const CKeyID &address, CKey &keyOut) const
 
 bool FillableSigningProvider::AddCScript(const CScript& redeemScript)
 {
-    if (redeemScript.size() > MAX_SCRIPT_ELEMENT_SIZE)
-        return error("FillableSigningProvider::AddCScript(): redeemScripts > %i bytes are invalid", MAX_SCRIPT_ELEMENT_SIZE);
+    if (redeemScript.size() > MAX_SCRIPT_ELEMENT_SIZE) {
+        LogError("FillableSigningProvider::AddCScript(): redeemScripts > %i bytes are invalid\n", MAX_SCRIPT_ELEMENT_SIZE);
+        return false;
+    }
 
     LOCK(cs_KeyStore);
     mapScripts[CScriptID(redeemScript)] = redeemScript;
@@ -361,15 +381,13 @@ void TaprootBuilder::Insert(TaprootBuilder::NodeInfo&& node, int depth)
     return branch.size() == 0 || (branch.size() == 1 && branch[0]);
 }
 
-TaprootBuilder& TaprootBuilder::Add(int depth, Span<const unsigned char> script, int leaf_version, bool track)
+TaprootBuilder& TaprootBuilder::Add(int depth, std::span<const unsigned char> script, int leaf_version, bool track)
 {
     assert((leaf_version & ~TAPROOT_LEAF_MASK) == 0);
     if (!IsValid()) return *this;
     /* Construct NodeInfo object with leaf hash and (if track is true) also leaf information. */
     NodeInfo node;
     node.hash = ComputeTapleafHash(leaf_version, script);
-    // due to bug in clang-tidy-17:
-    // NOLINTNEXTLINE(modernize-use-emplace)
     if (track) node.leaves.emplace_back(LeafInfo{std::vector<unsigned char>(script.begin(), script.end()), leaf_version, {}});
     /* Insert into the branch. */
     Insert(std::move(node), depth);

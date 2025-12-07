@@ -1,12 +1,12 @@
-// Copyright (c) 2014-2022 The Bitcoin Core developers
+// Copyright (c) 2014-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_CRYPTO_SHA1_H
-#define BITCOINSILVER_CRYPTO_SHA1_H
+#ifndef BITCOIN_CRYPTO_SHA1_H
+#define BITCOIN_CRYPTO_SHA1_H
 
+#include <cstdint>
 #include <cstdlib>
-#include <stdint.h>
 
 /** A hasher class for SHA1. */
 class CSHA1
@@ -25,4 +25,4 @@ public:
     CSHA1& Reset();
 };
 
-#endif // BITCOINSILVER_CRYPTO_SHA1_H
+#endif // BITCOIN_CRYPTO_SHA1_H

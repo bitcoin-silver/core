@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_QT_WALLETVIEW_H
-#define BITCOINSILVER_QT_WALLETVIEW_H
+#ifndef BITCOIN_QT_WALLETVIEW_H
+#define BITCOIN_QT_WALLETVIEW_H
 
 #include <consensus/amount.h>
-#include <qt/bitcoinsilverunits.h>
+#include <qt/bitcoinunits.h>
 
 #include <QStackedWidget>
 
@@ -53,7 +53,7 @@ private:
     ClientModel* clientModel{nullptr};
 
     //!
-    //! The wallet model represents a bitcoinsilver wallet, and offers access to
+    //! The wallet model represents a bitcoin wallet, and offers access to
     //! the list of transactions, address book and sending functionality.
     //!
     WalletModel* const walletModel;
@@ -124,4 +124,4 @@ Q_SIGNALS:
     void outOfSyncWarningClicked();
 };
 
-#endif // BITCOINSILVER_QT_WALLETVIEW_H
+#endif // BITCOIN_QT_WALLETVIEW_H

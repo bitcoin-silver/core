@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_WALLET_WALLETTOOL_H
-#define BITCOINSILVER_WALLET_WALLETTOOL_H
+#ifndef BITCOIN_WALLET_WALLETTOOL_H
+#define BITCOIN_WALLET_WALLETTOOL_H
 
 #include <string>
 
@@ -17,4 +17,4 @@ bool ExecuteWalletToolFunc(const ArgsManager& args, const std::string& command);
 } // namespace WalletTool
 } // namespace wallet
 
-#endif // BITCOINSILVER_WALLET_WALLETTOOL_H
+#endif // BITCOIN_WALLET_WALLETTOOL_H

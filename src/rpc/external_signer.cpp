@@ -2,6 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include <bitcoin-build-config.h> // IWYU pragma: keep
+
 #include <common/args.h>
 #include <common/system.h>
 #include <external_signer.h>
@@ -41,7 +43,7 @@ static RPCHelpMan enumeratesigners()
         [&](const RPCHelpMan& self, const JSONRPCRequest& request) -> UniValue
         {
             const std::string command = gArgs.GetArg("-signer", "");
-            if (command == "") throw JSONRPCError(RPC_MISC_ERROR, "Error: restart bitcoinsilverd with -signer=<cmd>");
+            if (command == "") throw JSONRPCError(RPC_MISC_ERROR, "Error: restart bitcoind with -signer=<cmd>");
             const std::string chain = gArgs.GetChainTypeString();
             UniValue signers_res = UniValue::VARR;
             try {
@@ -51,13 +53,13 @@ static RPCHelpMan enumeratesigners()
                     UniValue signer_res = UniValue::VOBJ;
                     signer_res.pushKV("fingerprint", signer.m_fingerprint);
                     signer_res.pushKV("name", signer.m_name);
-                    signers_res.push_back(signer_res);
+                    signers_res.push_back(std::move(signer_res));
                 }
             } catch (const std::exception& e) {
                 throw JSONRPCError(RPC_MISC_ERROR, e.what());
             }
             UniValue result(UniValue::VOBJ);
-            result.pushKV("signers", signers_res);
+            result.pushKV("signers", std::move(signers_res));
             return result;
         }
     };

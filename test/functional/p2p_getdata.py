@@ -19,8 +19,7 @@ class P2PStoreBlock(P2PInterface):
         self.blocks = defaultdict(int)
 
     def on_block(self, message):
-        message.block.calc_sha256()
-        self.blocks[message.block.sha256] += 1
+        self.blocks[message.block.hash_int] += 1
 
 
 class GetdataTest(BitcoinTestFramework):
@@ -46,4 +45,4 @@ class GetdataTest(BitcoinTestFramework):
 
 
 if __name__ == '__main__':
-    GetdataTest().main()
+    GetdataTest(__file__).main()

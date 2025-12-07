@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_NET_TYPES_H
-#define BITCOINSILVER_NET_TYPES_H
+#ifndef BITCOIN_NET_TYPES_H
+#define BITCOIN_NET_TYPES_H
 
 #include <cstdint>
 #include <map>
@@ -19,7 +19,7 @@ public:
     int64_t nCreateTime{0};
     int64_t nBanUntil{0};
 
-    CBanEntry() {}
+    CBanEntry() = default;
 
     explicit CBanEntry(int64_t nCreateTimeIn)
         : nCreateTime{nCreateTimeIn} {}
@@ -57,4 +57,4 @@ UniValue BanMapToJson(const banmap_t& bans);
  */
 void BanMapFromJson(const UniValue& bans_json, banmap_t& bans);
 
-#endif // BITCOINSILVER_NET_TYPES_H
+#endif // BITCOIN_NET_TYPES_H

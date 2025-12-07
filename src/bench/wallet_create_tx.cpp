@@ -2,21 +2,45 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
 
+#include <addresstype.h>
 #include <bench/bench.h>
+#include <chain.h>
 #include <chainparams.h>
-#include <wallet/coincontrol.h>
+#include <consensus/amount.h>
+#include <consensus/consensus.h>
 #include <consensus/merkle.h>
+#include <interfaces/chain.h>
 #include <kernel/chain.h>
-#include <node/context.h>
+#include <node/blockstorage.h>
+#include <outputtype.h>
+#include <policy/feerate.h>
+#include <primitives/block.h>
+#include <primitives/transaction.h>
+#include <script/script.h>
+#include <sync.h>
 #include <test/util/setup_common.h>
+#include <uint256.h>
+#include <util/result.h>
+#include <util/time.h>
 #include <validation.h>
+#include <versionbits.h>
+#include <wallet/coincontrol.h>
+#include <wallet/coinselection.h>
 #include <wallet/spend.h>
 #include <wallet/test/util.h>
 #include <wallet/wallet.h>
+#include <wallet/walletutil.h>
+
+#include <cassert>
+#include <cstdint>
+#include <map>
+#include <memory>
+#include <optional>
+#include <utility>
+#include <vector>
 
 using wallet::CWallet;
 using wallet::CreateMockableWalletDatabase;
-using wallet::DBErrors;
 using wallet::WALLET_FLAG_DESCRIPTORS;
 
 struct TipBlock
@@ -47,10 +71,17 @@ void generateFakeBlock(const CChainParams& params,
     coinbase_tx.vin[0].prevout.SetNull();
     coinbase_tx.vout.resize(2);
     coinbase_tx.vout[0].scriptPubKey = coinbase_out_script;
-    coinbase_tx.vout[0].nValue = 49 * COIN;
+    coinbase_tx.vout[0].nValue = 48 * COIN;
     coinbase_tx.vin[0].scriptSig = CScript() << ++tip.tip_height << OP_0;
     coinbase_tx.vout[1].scriptPubKey = coinbase_out_script; // extra output
     coinbase_tx.vout[1].nValue = 1 * COIN;
+
+    // Fill the coinbase with outputs that don't belong to the wallet in order to benchmark
+    // AvailableCoins' behavior with unnecessary TXOs
+    for (int i = 0; i < 50; ++i) {
+        coinbase_tx.vout.emplace_back(1 * COIN / 50, CScript(OP_TRUE));
+    }
+
     block.vtx = {MakeTransactionRef(std::move(coinbase_tx))};
 
     block.nVersion = VERSIONBITS_LAST_OLD_BLOCK_VERSION;
@@ -90,7 +121,6 @@ static void WalletCreateTx(benchmark::Bench& bench, const OutputType output_type
         LOCK(wallet.cs_wallet);
         wallet.SetWalletFlag(WALLET_FLAG_DESCRIPTORS);
         wallet.SetupDescriptorScriptPubKeyMans();
-        if (wallet.LoadWallet() != DBErrors::LOAD_OK) assert(false);
     }
 
     // Generate destinations
@@ -106,14 +136,14 @@ static void WalletCreateTx(benchmark::Bench& bench, const OutputType output_type
 
     // Check available balance
     auto bal = WITH_LOCK(wallet.cs_wallet, return wallet::AvailableCoins(wallet).GetTotalAmount()); // Cache
-    assert(bal == 50 * COIN * (chain_size - COINBASE_MATURITY));
+    assert(bal == 49 * COIN * (chain_size - COINBASE_MATURITY));
 
     wallet::CCoinControl coin_control;
     coin_control.m_allow_other_inputs = allow_other_inputs;
 
     CAmount target = 0;
     if (preset_inputs) {
-        // Select inputs, each has 49 BTCS
+        // Select inputs, each has 48 BTC
         wallet::CoinFilterParams filter_coins;
         filter_coins.max_count = preset_inputs->num_of_internal_inputs;
         const auto& res = WITH_LOCK(wallet.cs_wallet,
@@ -129,9 +159,9 @@ static void WalletCreateTx(benchmark::Bench& bench, const OutputType output_type
     if (coin_control.m_allow_other_inputs) target += 50 * COIN;
     std::vector<wallet::CRecipient> recipients = {{dest, target, true}};
 
-    bench.epochIterations(5).run([&] {
+    bench.run([&] {
         LOCK(wallet.cs_wallet);
-        const auto& tx_res = CreateTransaction(wallet, recipients, -1, coin_control);
+        const auto& tx_res = CreateTransaction(wallet, recipients, /*change_pos=*/std::nullopt, coin_control);
         assert(tx_res);
     });
 }
@@ -146,7 +176,6 @@ static void AvailableCoins(benchmark::Bench& bench, const std::vector<OutputType
         LOCK(wallet.cs_wallet);
         wallet.SetWalletFlag(WALLET_FLAG_DESCRIPTORS);
         wallet.SetupDescriptorScriptPubKeyMans();
-        if (wallet.LoadWallet() != DBErrors::LOAD_OK) assert(false);
     }
 
     // Generate destinations
@@ -167,9 +196,9 @@ static void AvailableCoins(benchmark::Bench& bench, const std::vector<OutputType
 
     // Check available balance
     auto bal = WITH_LOCK(wallet.cs_wallet, return wallet::AvailableCoins(wallet).GetTotalAmount()); // Cache
-    assert(bal == 50 * COIN * (chain_size - COINBASE_MATURITY));
+    assert(bal == 49 * COIN * (chain_size - COINBASE_MATURITY));
 
-    bench.epochIterations(2).run([&] {
+    bench.run([&] {
         LOCK(wallet.cs_wallet);
         const auto& res = wallet::AvailableCoins(wallet);
         assert(res.All().size() == (chain_size - COINBASE_MATURITY) * 2);

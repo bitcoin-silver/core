@@ -1,11 +1,11 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2009-present The Bitcoin Core developers
 // Copyright (c) 2017 The Zcash developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_PUBKEY_H
-#define BITCOINSILVER_PUBKEY_H
+#ifndef BITCOIN_PUBKEY_H
+#define BITCOIN_PUBKEY_H
 
 #include <hash.h>
 #include <serialize.h>
@@ -103,7 +103,7 @@ public:
     }
 
     //! Construct a public key from a byte vector.
-    explicit CPubKey(Span<const uint8_t> _vch)
+    explicit CPubKey(std::span<const uint8_t> _vch)
     {
         Set(_vch.begin(), _vch.end());
     }
@@ -142,14 +142,14 @@ public:
     {
         unsigned int len = size();
         ::WriteCompactSize(s, len);
-        s << Span{vch, len};
+        s << std::span{vch, len};
     }
     template <typename Stream>
     void Unserialize(Stream& s)
     {
         const unsigned int len(::ReadCompactSize(s));
         if (len <= SIZE) {
-            s >> Span{vch, len};
+            s >> std::span{vch, len};
             if (len != size()) {
                 Invalidate();
             }
@@ -163,13 +163,13 @@ public:
     //! Get the KeyID of this public key (hash of its serialization)
     CKeyID GetID() const
     {
-        return CKeyID(Hash160(Span{vch}.first(size())));
+        return CKeyID(Hash160(std::span{vch}.first(size())));
     }
 
     //! Get the 256-bit hash of this public key.
     uint256 GetHash() const
     {
-        return Hash(Span{vch}.first(size()));
+        return Hash(std::span{vch}.first(size()));
     }
 
     /*
@@ -233,6 +233,11 @@ private:
     uint256 m_keydata;
 
 public:
+    /** Nothing Up My Sleeve point H
+     *  Used as an internal key for provably disabling the key path spend
+     *  see BIP341 for more details */
+    static const XOnlyPubKey NUMS_H;
+
     /** Construct an empty x-only pubkey. */
     XOnlyPubKey() = default;
 
@@ -249,16 +254,16 @@ public:
     bool IsNull() const { return m_keydata.IsNull(); }
 
     /** Construct an x-only pubkey from exactly 32 bytes. */
-    explicit XOnlyPubKey(Span<const unsigned char> bytes);
+    constexpr explicit XOnlyPubKey(std::span<const unsigned char> bytes) : m_keydata{bytes} {}
 
     /** Construct an x-only pubkey from a normal pubkey. */
-    explicit XOnlyPubKey(const CPubKey& pubkey) : XOnlyPubKey(Span{pubkey}.subspan(1, 32)) {}
+    explicit XOnlyPubKey(const CPubKey& pubkey) : XOnlyPubKey(std::span{pubkey}.subspan(1, 32)) {}
 
     /** Verify a Schnorr signature against this public key.
      *
      * sigbytes must be exactly 64 bytes.
      */
-    bool VerifySchnorr(const uint256& msg, Span<const unsigned char> sigbytes) const;
+    bool VerifySchnorr(const uint256& msg, std::span<const unsigned char> sigbytes) const;
 
     /** Compute the Taproot tweak as specified in BIP341, with *this as internal
      * key:
@@ -278,17 +283,22 @@ public:
     std::optional<std::pair<XOnlyPubKey, bool>> CreateTapTweak(const uint256* merkle_root) const;
 
     /** Returns a list of CKeyIDs for the CPubKeys that could have been used to create this XOnlyPubKey.
+     * As the CKeyID is the Hash160(full pubkey), the produced CKeyIDs are for the versions of this
+     * XOnlyPubKey with 0x02 and 0x03 prefixes.
      * This is needed for key lookups since keys are indexed by CKeyID.
      */
     std::vector<CKeyID> GetKeyIDs() const;
+    /** Returns this XOnlyPubKey with 0x02 and 0x03 prefixes */
+    std::vector<CPubKey> GetCPubKeys() const;
 
     CPubKey GetEvenCorrespondingCPubKey() const;
 
     const unsigned char& operator[](int pos) const { return *(m_keydata.begin() + pos); }
-    const unsigned char* data() const { return m_keydata.begin(); }
     static constexpr size_t size() { return decltype(m_keydata)::size(); }
+    const unsigned char* data() const { return m_keydata.begin(); }
     const unsigned char* begin() const { return m_keydata.begin(); }
     const unsigned char* end() const { return m_keydata.end(); }
+    unsigned char* data() { return m_keydata.begin(); }
     unsigned char* begin() { return m_keydata.begin(); }
     unsigned char* end() { return m_keydata.end(); }
     bool operator==(const XOnlyPubKey& other) const { return m_keydata == other.m_keydata; }
@@ -311,7 +321,7 @@ public:
     EllSwiftPubKey() noexcept = default;
 
     /** Construct a new ellswift public key from a given serialization. */
-    EllSwiftPubKey(Span<const std::byte> ellswift) noexcept;
+    EllSwiftPubKey(std::span<const std::byte> ellswift) noexcept;
 
     /** Decode to normal compressed CPubKey (for debugging purposes). */
     CPubKey Decode() const;
@@ -372,4 +382,4 @@ struct CExtPubKey {
     [[nodiscard]] bool Derive(CExtPubKey& out, unsigned int nChild) const;
 };
 
-#endif // BITCOINSILVER_PUBKEY_H
+#endif // BITCOIN_PUBKEY_H

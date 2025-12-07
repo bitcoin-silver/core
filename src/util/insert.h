@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_UTIL_INSERT_H
-#define BITCOINSILVER_UTIL_INSERT_H
+#ifndef BITCOIN_UTIL_INSERT_H
+#define BITCOIN_UTIL_INSERT_H
 
 #include <set>
 
@@ -21,4 +21,4 @@ inline void insert(std::set<TsetT>& dst, const Tsrc& src) {
 
 } // namespace util
 
-#endif // BITCOINSILVER_UTIL_INSERT_H
+#endif // BITCOIN_UTIL_INSERT_H

@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_ADDRMAN_H
-#define BITCOINSILVER_ADDRMAN_H
+#ifndef BITCOIN_ADDRMAN_H
+#define BITCOIN_ADDRMAN_H
 
 #include <netaddress.h>
 #include <netgroup.h>
@@ -15,6 +15,7 @@
 #include <cstdint>
 #include <memory>
 #include <optional>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -111,13 +112,16 @@ public:
 
     /**
      * Attempt to add one or more addresses to addrman's new table.
+     * If an address already exists in addrman, the existing entry may be updated
+     * (e.g. adding additional service flags). If the existing entry is in the new table,
+     * it may be added to more buckets, improving the probability of selection.
      *
      * @param[in] vAddr           Address records to attempt to add.
      * @param[in] source          The address of the node that sent us these addr records.
      * @param[in] time_penalty    A "time penalty" to apply to the address record's nTime. If a peer
      *                            sends us an address record with nTime=n, then we'll add it to our
      *                            addrman with nTime=(n - time_penalty).
-     * @return    true if at least one address is successfully added. */
+     * @return    true if at least one address is successfully added, or added to an additional bucket. Unaffected by updates. */
     bool Add(const std::vector<CAddress>& vAddr, const CNetAddr& source, std::chrono::seconds time_penalty = 0s);
 
     /**
@@ -151,28 +155,29 @@ public:
      *                     an address from the new table or an empty pair. Passing `false` will return an
      *                     empty pair or an address from either the new or tried table (it does not
      *                     guarantee a tried entry).
-     * @param[in] network  Select only addresses of this network (nullopt = all). Passing a network may
+     * @param[in] networks Select only addresses of these networks (empty = all). Passing networks may
      *                     slow down the search.
      * @return    CAddress The record for the selected peer.
      *            seconds  The last time we attempted to connect to that peer.
      */
-    std::pair<CAddress, NodeSeconds> Select(bool new_only = false, std::optional<Network> network = std::nullopt) const;
+    std::pair<CAddress, NodeSeconds> Select(bool new_only = false, const std::unordered_set<Network>& networks = {}) const;
 
     /**
      * Return all or many randomly selected addresses, optionally by network.
      *
      * @param[in] max_addresses  Maximum number of addresses to return (0 = all).
-     * @param[in] max_pct        Maximum percentage of addresses to return (0 = all).
+     * @param[in] max_pct        Maximum percentage of addresses to return (0 = all). Value must be from 0 to 100.
      * @param[in] network        Select only addresses of this network (nullopt = all).
+     * @param[in] filtered       Select only addresses that are considered good quality (false = all).
      *
      * @return                   A vector of randomly selected addresses from vRandom.
      */
-    std::vector<CAddress> GetAddr(size_t max_addresses, size_t max_pct, std::optional<Network> network) const;
+    std::vector<CAddress> GetAddr(size_t max_addresses, size_t max_pct, std::optional<Network> network, const bool filtered = true) const;
 
     /**
      * Returns an information-location pair for all addresses in the selected addrman table.
      * If an address appears multiple times in the new table, an information-location pair
-     * is returned for each occurence. Addresses only ever appear once in the tried table.
+     * is returned for each occurrence. Addresses only ever appear once in the tried table.
      *
      * @param[in] from_tried     Selects which table to return entries from.
      *
@@ -206,4 +211,4 @@ public:
     std::optional<AddressPosition> FindAddressEntry(const CAddress& addr);
 };
 
-#endif // BITCOINSILVER_ADDRMAN_H
+#endif // BITCOIN_ADDRMAN_H

@@ -142,12 +142,12 @@ BOOST_AUTO_TEST_CASE(test_assumeutxo)
     }
 
     const auto out110 = *params->AssumeutxoForHeight(110);
-    BOOST_CHECK_EQUAL(out110.hash_serialized.ToString(), "6657b736d4fe4db0cbc796789e812d5dba7f5c143764b1b6905612f1830609d1");
-    BOOST_CHECK_EQUAL(out110.nChainTx, 111U);
+    BOOST_CHECK_EQUAL(out110.hash_serialized.ToString(), "b952555c8ab81fec46f3d4253b7af256d766ceb39fb7752b9d18cdf4a0141327");
+    BOOST_CHECK_EQUAL(out110.m_chain_tx_count, 111U);
 
-    const auto out110_2 = *params->AssumeutxoForBlockhash(uint256S("0x696e92821f65549c7ee134edceeeeaaa4105647a3c4fd9f298c0aec0ab50425c"));
-    BOOST_CHECK_EQUAL(out110_2.hash_serialized.ToString(), "6657b736d4fe4db0cbc796789e812d5dba7f5c143764b1b6905612f1830609d1");
-    BOOST_CHECK_EQUAL(out110_2.nChainTx, 111U);
+    const auto out110_2 = *params->AssumeutxoForBlockhash(uint256{"6affe030b7965ab538f820a56ef56c8149b7dc1d1c144af57113be080db7c397"});
+    BOOST_CHECK_EQUAL(out110_2.hash_serialized.ToString(), "b952555c8ab81fec46f3d4253b7af256d766ceb39fb7752b9d18cdf4a0141327");
+    BOOST_CHECK_EQUAL(out110_2.m_chain_tx_count, 111U);
 }
 
 BOOST_AUTO_TEST_CASE(block_malleation)
@@ -214,9 +214,9 @@ BOOST_AUTO_TEST_CASE(block_malleation)
         // Block with a single coinbase tx is mutated if the merkle root is not
         // equal to the coinbase tx's hash.
         block.vtx.push_back(create_coinbase_tx());
-        BOOST_CHECK(block.vtx[0]->GetHash() != block.hashMerkleRoot);
+        BOOST_CHECK(block.vtx[0]->GetHash().ToUint256() != block.hashMerkleRoot);
         BOOST_CHECK(is_mutated(block, /*check_witness_root=*/false));
-        block.hashMerkleRoot = block.vtx[0]->GetHash();
+        block.hashMerkleRoot = block.vtx[0]->GetHash().ToUint256();
         BOOST_CHECK(is_not_mutated(block, /*check_witness_root=*/false));
 
         // Block with two transactions is mutated if the merkle root does not
@@ -225,18 +225,17 @@ BOOST_AUTO_TEST_CASE(block_malleation)
         block.vtx.push_back(MakeTransactionRef(CMutableTransaction{}));
         BOOST_CHECK(is_mutated(block, /*check_witness_root=*/false));
         HashWriter hasher;
-        hasher.write(Span(reinterpret_cast<const std::byte*>(block.vtx[0]->GetHash().data()), 32));
-        hasher.write(Span(reinterpret_cast<const std::byte*>(block.vtx[1]->GetHash().data()), 32));
+        hasher.write(block.vtx[0]->GetHash());
+        hasher.write(block.vtx[1]->GetHash());
         block.hashMerkleRoot = hasher.GetHash();
         BOOST_CHECK(is_not_mutated(block, /*check_witness_root=*/false));
 
         // Block with two transactions is mutated if any node is duplicate.
         {
             block.vtx[1] = block.vtx[0];
-            BOOST_CHECK(is_mutated(block, /*check_witness_root=*/false));
             HashWriter hasher;
-            hasher.write(Span(reinterpret_cast<const std::byte*>(block.vtx[0]->GetHash().data()), 32));
-            hasher.write(Span(reinterpret_cast<const std::byte*>(block.vtx[1]->GetHash().data()), 32));
+            hasher.write(block.vtx[0]->GetHash());
+            hasher.write(block.vtx[1]->GetHash());
             block.hashMerkleRoot = hasher.GetHash();
             BOOST_CHECK(is_mutated(block, /*check_witness_root=*/false));
         }
@@ -249,9 +248,9 @@ BOOST_AUTO_TEST_CASE(block_malleation)
             mtx.vout.resize(1);
             mtx.vout[0].scriptPubKey.resize(4);
             block.vtx.push_back(MakeTransactionRef(mtx));
-            block.hashMerkleRoot = block.vtx.back()->GetHash();
+            block.hashMerkleRoot = block.vtx.back()->GetHash().ToUint256();
             assert(block.vtx.back()->IsCoinBase());
-            assert(GetSerializeSize(block.vtx.back(), PROTOCOL_VERSION | SERIALIZE_TRANSACTION_NO_WITNESS) == 64);
+            assert(GetSerializeSize(TX_NO_WITNESS(block.vtx.back())) == 64);
         }
         BOOST_CHECK(is_not_mutated(block, /*check_witness_root=*/false));
     }
@@ -284,11 +283,11 @@ BOOST_AUTO_TEST_CASE(block_malleation)
         {
             // Verify that double_sha256(txid1||txid2) == txid3
             HashWriter hasher;
-            hasher.write(Span(reinterpret_cast<const std::byte*>(tx1.GetHash().data()), 32));
-            hasher.write(Span(reinterpret_cast<const std::byte*>(tx2.GetHash().data()), 32));
-            assert(hasher.GetHash() == tx3.GetHash());
+            hasher.write(tx1.GetHash());
+            hasher.write(tx2.GetHash());
+            assert(hasher.GetHash() == tx3.GetHash().ToUint256());
             // Verify that tx3 is 64 bytes in size (without witness).
-            assert(GetSerializeSize(tx3, PROTOCOL_VERSION | SERIALIZE_TRANSACTION_NO_WITNESS) == 64);
+            assert(GetSerializeSize(TX_NO_WITNESS(tx3)) == 64);
         }
 
         CBlock block;

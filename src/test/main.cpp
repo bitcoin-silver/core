@@ -5,7 +5,7 @@
 /**
  * See https://www.boost.org/doc/libs/1_78_0/libs/test/doc/html/boost_test/adv_scenarios/single_header_customizations/multiple_translation_units.html
  */
-#define BOOST_TEST_MODULE BitcoinSilver Test Suite
+#define BOOST_TEST_MODULE Bitcoin Core Test Suite
 
 #include <boost/test/included/unit_test.hpp>
 
@@ -38,4 +38,11 @@ const std::function<std::vector<const char*>()> G_TEST_COMMAND_LINE_ARGUMENTS = 
         args.push_back(boost::unit_test::framework::master_test_suite().argv[i]);
     }
     return args;
+};
+
+/**
+ * Retrieve the boost unit test name.
+ */
+const std::function<std::string()> G_TEST_GET_FULL_NAME = []() {
+    return boost::unit_test::framework::current_test_case().full_name();
 };

@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_QT_NETWORKSTYLE_H
-#define BITCOINSILVER_QT_NETWORKSTYLE_H
+#ifndef BITCOIN_QT_NETWORKSTYLE_H
+#define BITCOIN_QT_NETWORKSTYLE_H
 
 #include <util/chaintype.h>
 
@@ -32,4 +32,4 @@ private:
     QString titleAddText;
 };
 
-#endif // BITCOINSILVER_QT_NETWORKSTYLE_H
+#endif // BITCOIN_QT_NETWORKSTYLE_H

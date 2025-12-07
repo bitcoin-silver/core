@@ -14,7 +14,7 @@ from test_framework.util import check_node_connections, assert_equal, p2p_port
 
 INBOUND_CONNECTIONS = 5
 BLOCK_RELAY_CONNECTIONS = 2
-ONION_ADDR = "pg6mmjiyjmcrsslvykfwnntlaru7p5svn6y2ymmju6nubxndf4pscryd.onion:10566"
+ONION_ADDR = "pg6mmjiyjmcrsslvykfwnntlaru7p5svn6y2ymmju6nubxndf4pscryd.onion:8333"
 
 
 class AnchorsTest(BitcoinTestFramework):
@@ -99,10 +99,10 @@ class AnchorsTest(BitcoinTestFramework):
         self.restart_node(0, extra_args=[f"-onion={onion_conf.addr[0]}:{onion_conf.addr[1]}"])
 
         self.log.info("Add 256-bit-address block-relay-only connections to node")
-        self.nodes[0].addconnection(ONION_ADDR, 'block-relay-only')
+        self.nodes[0].addconnection(ONION_ADDR, 'block-relay-only', v2transport=False)
 
         self.log.debug("Stop node")
-        with self.nodes[0].assert_debug_log([f"DumpAnchors: Flush 1 outbound block-relay-only peer addresses to anchors.dat"]):
+        with self.nodes[0].assert_debug_log(["DumpAnchors: Flush 1 outbound block-relay-only peer addresses to anchors.dat"]):
             self.stop_node(0)
         # Manually close keep_alive proxy connection
         onion_proxy.stop()
@@ -141,4 +141,4 @@ class AnchorsTest(BitcoinTestFramework):
 
 
 if __name__ == "__main__":
-    AnchorsTest().main()
+    AnchorsTest(__file__).main()

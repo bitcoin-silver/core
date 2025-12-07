@@ -1,14 +1,14 @@
-// Copyright (c) 2022 The Bitcoin Core developers
+// Copyright (c) 2022-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_HEADERSSYNC_H
-#define BITCOINSILVER_HEADERSSYNC_H
+#ifndef BITCOIN_HEADERSSYNC_H
+#define BITCOIN_HEADERSSYNC_H
 
 #include <arith_uint256.h>
 #include <chain.h>
 #include <consensus/params.h>
-#include <net.h> // For NodeId
+#include <net.h>
 #include <primitives/block.h>
 #include <uint256.h>
 #include <util/bitdeque.h>
@@ -56,7 +56,7 @@ struct CompressedHeader {
  *
  * We wish to download a peer's headers chain in a DoS-resistant way.
  *
- * The BitcoinSilver protocol does not offer an easy way to determine the work on a
+ * The Bitcoin protocol does not offer an easy way to determine the work on a
  * peer's chain. Currently, we can query a peer's headers by using a GETHEADERS
  * message, and our peer can return a set of up to 2000 headers that connect to
  * something we know. If a peer's chain has more than 2000 blocks, then we need
@@ -100,7 +100,7 @@ struct CompressedHeader {
 
 class HeadersSyncState {
 public:
-    ~HeadersSyncState() {}
+    ~HeadersSyncState() = default;
 
     enum class State {
         /** PRESYNC means the peer has not yet demonstrated their chain has
@@ -224,7 +224,7 @@ private:
     arith_uint256 m_current_chain_work;
 
     /** m_hasher is a salted hasher for making our 1-bit commitments to headers we've seen. */
-    const SaltedTxidHasher m_hasher;
+    const SaltedUint256Hasher m_hasher;
 
     /** A queue of commitment bits, created during the 1st phase, and verified during the 2nd. */
     bitdeque<> m_header_commitments;
@@ -275,4 +275,4 @@ private:
     State m_download_state{State::PRESYNC};
 };
 
-#endif // BITCOINSILVER_HEADERSSYNC_H
+#endif // BITCOIN_HEADERSSYNC_H

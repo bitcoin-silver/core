@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_UTIL_VECTOR_H
-#define BITCOINSILVER_UTIL_VECTOR_H
+#ifndef BITCOIN_UTIL_VECTOR_H
+#define BITCOIN_UTIL_VECTOR_H
 
 #include <functional>
 #include <initializer_list>
@@ -20,9 +20,9 @@
  *   (list initialization always copies).
  */
 template<typename... Args>
-inline std::vector<typename std::common_type<Args...>::type> Vector(Args&&... args)
+inline std::vector<std::common_type_t<Args...>> Vector(Args&&... args)
 {
-    std::vector<typename std::common_type<Args...>::type> ret;
+    std::vector<std::common_type_t<Args...>> ret;
     ret.reserve(sizeof...(args));
     // The line below uses the trick from https://www.experts-exchange.com/articles/32502/None-recursive-variadic-templates-with-std-initializer-list.html
     (void)std::initializer_list<int>{(ret.emplace_back(std::forward<Args>(args)), 0)...};
@@ -80,4 +80,4 @@ inline std::optional<V> FindFirst(const std::vector<V>& vec, const L fnc)
     return std::nullopt;
 }
 
-#endif // BITCOINSILVER_UTIL_VECTOR_H
+#endif // BITCOIN_UTIL_VECTOR_H

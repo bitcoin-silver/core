@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2021 The Bitcoin Core developers
+// Copyright (c) 2014-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -12,8 +12,8 @@
 #include <util/strencodings.h>
 
 #include <algorithm>
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 
 /// Maximum witness length for Bech32 addresses.
 static constexpr std::size_t BECH32_WITNESS_PROG_MAX_LEN = 40;
@@ -91,7 +91,7 @@ CTxDestination DecodeDestination(const std::string& str, const CChainParams& par
     bool is_bech32 = (ToLower(str.substr(0, params.Bech32HRP().size())) == params.Bech32HRP());
 
     if (!is_bech32 && DecodeBase58Check(str, data, 21)) {
-        // base58-encoded BitcoinSilver addresses.
+        // base58-encoded Bitcoin addresses.
         // Public-key-hash-addresses have version 0 (or 111 testnet).
         // The data vector contains RIPEMD160(SHA256(pubkey)), where pubkey is the serialized public key.
         const std::vector<unsigned char>& pubkey_prefix = params.Base58Prefix(CChainParams::PUBKEY_ADDRESS);
@@ -181,6 +181,10 @@ CTxDestination DecodeDestination(const std::string& str, const CChainParams& par
                 return tap;
             }
 
+            if (CScript::IsPayToAnchor(version, data)) {
+                return PayToAnchor();
+            }
+
             if (version > 16) {
                 error_str = "Invalid Bech32 address witness version";
                 return CNoDestination();
@@ -228,7 +232,7 @@ std::string EncodeSecret(const CKey& key)
 {
     assert(key.IsValid());
     std::vector<unsigned char> data = Params().Base58Prefix(CChainParams::SECRET_KEY);
-    data.insert(data.end(), key.begin(), key.end());
+    data.insert(data.end(), UCharCast(key.begin()), UCharCast(key.end()));
     if (key.IsCompressed()) {
         data.push_back(1);
     }
@@ -269,6 +273,9 @@ CExtKey DecodeExtKey(const std::string& str)
         if (data.size() == BIP32_EXTKEY_SIZE + prefix.size() && std::equal(prefix.begin(), prefix.end(), data.begin())) {
             key.Decode(data.data() + prefix.size());
         }
+    }
+    if (!data.empty()) {
+        memory_cleanse(data.data(), data.size());
     }
     return key;
 }

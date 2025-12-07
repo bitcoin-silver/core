@@ -1,14 +1,14 @@
-// Copyright (c) 2014-2022 The Bitcoin Core developers
+// Copyright (c) 2014-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_CRYPTO_HMAC_SHA512_H
-#define BITCOINSILVER_CRYPTO_HMAC_SHA512_H
+#ifndef BITCOIN_CRYPTO_HMAC_SHA512_H
+#define BITCOIN_CRYPTO_HMAC_SHA512_H
 
 #include <crypto/sha512.h>
 
+#include <cstdint>
 #include <cstdlib>
-#include <stdint.h>
 
 /** A hasher class for HMAC-SHA-512. */
 class CHMAC_SHA512
@@ -29,4 +29,4 @@ public:
     void Finalize(unsigned char hash[OUTPUT_SIZE]);
 };
 
-#endif // BITCOINSILVER_CRYPTO_HMAC_SHA512_H
+#endif // BITCOIN_CRYPTO_HMAC_SHA512_H

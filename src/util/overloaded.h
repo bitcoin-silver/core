@@ -1,9 +1,9 @@
-// Copyright (c) 2021 The Bitcoin Core developers
+// Copyright (c) 2021-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_UTIL_OVERLOADED_H
-#define BITCOINSILVER_UTIL_OVERLOADED_H
+#ifndef BITCOIN_UTIL_OVERLOADED_H
+#define BITCOIN_UTIL_OVERLOADED_H
 
 namespace util {
 //! Overloaded helper for std::visit. This helper and std::visit in general are
@@ -15,8 +15,8 @@ namespace util {
 //! https://en.cppreference.com/w/cpp/utility/variant/visit#Example
 template<class... Ts> struct Overloaded : Ts... { using Ts::operator()...; };
 
-//! Explicit deduction guide (not needed as of C++20)
+//! Explicit deduction guide (not needed after clang-17)
 template<class... Ts> Overloaded(Ts...) -> Overloaded<Ts...>;
 } // namespace util
 
-#endif // BITCOINSILVER_UTIL_OVERLOADED_H
+#endif // BITCOIN_UTIL_OVERLOADED_H

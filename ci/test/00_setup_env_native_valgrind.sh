@@ -6,12 +6,16 @@
 
 export LC_ALL=C.UTF-8
 
-export CI_IMAGE_NAME_TAG="docker.io/debian:bookworm"
+export CI_IMAGE_NAME_TAG="mirror.gcr.io/ubuntu:24.04"
 export CONTAINER_NAME=ci_native_valgrind
-export PACKAGES="valgrind clang llvm libclang-rt-dev python3-zmq libevent-dev libboost-dev libdb5.3++-dev libminiupnpc-dev libnatpmp-dev libzmq3-dev libsqlite3-dev"
+export PACKAGES="valgrind python3-zmq libevent-dev libboost-dev libzmq3-dev libsqlite3-dev libcapnp-dev capnproto python3-pip"
+export PIP_PACKAGES="--break-system-packages pycapnp"
 export USE_VALGRIND=1
 export NO_DEPENDS=1
-export TEST_RUNNER_EXTRA="--exclude feature_init,rpc_bind,feature_bind_extra"  # Excluded for now, see https://github.com/MrVistos/bitcoinsilver/issues/17765#issuecomment-602068547
+# bind tests excluded for now, see https://github.com/bitcoin/bitcoin/issues/17765#issuecomment-602068547
+export TEST_RUNNER_EXTRA="--exclude rpc_bind,feature_bind_extra"
 export GOAL="install"
-# Temporarily pin dwarf 4, until using Valgrind 3.20 or later
-export BITCOINSILVER_CONFIG="--enable-zmq --with-incompatible-bdb --with-gui=no CC='clang -gdwarf-4' CXX='clang++ -gdwarf-4'"  # TODO enable GUI
+# TODO enable GUI
+export BITCOIN_CONFIG="\
+ -DWITH_ZMQ=ON -DBUILD_GUI=OFF \
+"

@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2021 The Bitcoin Core developers
+// Copyright (c) 2009-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_SUPPORT_ALLOCATORS_SECURE_H
-#define BITCOINSILVER_SUPPORT_ALLOCATORS_SECURE_H
+#ifndef BITCOIN_SUPPORT_ALLOCATORS_SECURE_H
+#define BITCOIN_SUPPORT_ALLOCATORS_SECURE_H
 
 #include <support/lockedpool.h>
 #include <support/cleanse.h>
@@ -74,11 +74,11 @@ secure_unique_ptr<T> make_secure_unique(Args&&... as)
 
     // initialize in place, and return as secure_unique_ptr
     try {
-        return secure_unique_ptr<T>(new (p) T(std::forward(as)...));
+        return secure_unique_ptr<T>(new (p) T(std::forward<Args>(as)...));
     } catch (...) {
         secure_allocator<T>().deallocate(p, 1);
         throw;
     }
 }
 
-#endif // BITCOINSILVER_SUPPORT_ALLOCATORS_SECURE_H
+#endif // BITCOIN_SUPPORT_ALLOCATORS_SECURE_H

@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_MEMUSAGE_H
-#define BITCOINSILVER_MEMUSAGE_H
+#ifndef BITCOIN_MEMUSAGE_H
+#define BITCOIN_MEMUSAGE_H
 
 #include <indirectmap.h>
 #include <prevector.h>
@@ -15,6 +15,7 @@
 #include <map>
 #include <memory>
 #include <set>
+#include <string>
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
@@ -84,10 +85,22 @@ struct stl_shared_counter
     size_t weak_count;
 };
 
-template<typename X>
-static inline size_t DynamicUsage(const std::vector<X>& v)
+template<typename T, typename Allocator>
+static inline size_t DynamicUsage(const std::vector<T, Allocator>& v)
 {
-    return MallocUsage(v.capacity() * sizeof(X));
+    return MallocUsage(v.capacity() * sizeof(T));
+}
+
+static inline size_t DynamicUsage(const std::string& s)
+{
+    const char* s_ptr = reinterpret_cast<const char*>(&s);
+    // Don't count the dynamic memory used for string, if it resides in the
+    // "small string" optimization area (which stores data inside the object itself, up to some
+    // size; 15 bytes in modern libstdc++).
+    if (!std::less{}(s.data(), s_ptr) && !std::greater{}(s.data() + s.size(), s_ptr + sizeof(s))) {
+        return 0;
+    }
+    return MallocUsage(s.capacity());
 }
 
 template<unsigned int N, typename X, typename S, typename D>
@@ -204,4 +217,4 @@ static inline size_t DynamicUsage(const std::unordered_map<Key,
 
 } // namespace memusage
 
-#endif // BITCOINSILVER_MEMUSAGE_H
+#endif // BITCOIN_MEMUSAGE_H

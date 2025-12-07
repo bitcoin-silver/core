@@ -3,12 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_COMPAT_COMPAT_H
-#define BITCOINSILVER_COMPAT_COMPAT_H
-
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoinsilver-config.h>
-#endif
+#ifndef BITCOIN_COMPAT_COMPAT_H
+#define BITCOIN_COMPAT_COMPAT_H
 
 // Windows defines FD_SETSIZE to 64 (see _fd_types.h in mingw-w64),
 // which is too small for our usage, but allows us to redefine it safely.
@@ -24,7 +20,6 @@
 #else
 #include <arpa/inet.h>   // IWYU pragma: export
 #include <fcntl.h>       // IWYU pragma: export
-#include <ifaddrs.h>     // IWYU pragma: export
 #include <net/if.h>      // IWYU pragma: export
 #include <netdb.h>       // IWYU pragma: export
 #include <netinet/in.h>  // IWYU pragma: export
@@ -34,6 +29,13 @@
 #include <sys/socket.h>  // IWYU pragma: export
 #include <sys/types.h>   // IWYU pragma: export
 #include <unistd.h>      // IWYU pragma: export
+#endif
+
+// Windows does not have `sa_family_t` - it defines `sockaddr::sa_family` as `u_short`.
+// Thus define `sa_family_t` on Windows too so that the rest of the code can use `sa_family_t`.
+// See https://learn.microsoft.com/en-us/windows/win32/api/winsock/ns-winsock-sockaddr#syntax
+#ifdef WIN32
+typedef u_short sa_family_t;
 #endif
 
 // We map Linux / BSD error functions and codes, to the equivalent
@@ -94,7 +96,7 @@ typedef char* sockopt_arg_type;
 
 // Note these both should work with the current usage of poll, but best to be safe
 // WIN32 poll is broken https://daniel.haxx.se/blog/2012/10/10/wsapoll-is-broken/
-// __APPLE__ poll is broke https://github.com/MrVistos/bitcoinsilver/pull/14336#issuecomment-437384408
+// __APPLE__ poll is broke https://github.com/bitcoin/bitcoin/pull/14336#issuecomment-437384408
 #if defined(__linux__)
 #define USE_POLL
 #endif
@@ -109,4 +111,4 @@ typedef char* sockopt_arg_type;
 #define MSG_DONTWAIT 0
 #endif
 
-#endif // BITCOINSILVER_COMPAT_COMPAT_H
+#endif // BITCOIN_COMPAT_COMPAT_H

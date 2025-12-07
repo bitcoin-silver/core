@@ -1,4 +1,4 @@
-// Copyright (c) 2020-2022 The Bitcoin Core developers
+// Copyright (c) 2020-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -242,7 +242,7 @@ bool Sock::WaitMany(std::chrono::milliseconds timeout, EventsPerSock& events_per
 #endif /* USE_POLL */
 }
 
-void Sock::SendComplete(const std::string& data,
+void Sock::SendComplete(std::span<const unsigned char> data,
                         std::chrono::milliseconds timeout,
                         CThreadInterrupt& interrupt) const
 {
@@ -281,6 +281,13 @@ void Sock::SendComplete(const std::string& data,
         const auto wait_time = std::min(deadline - now, std::chrono::milliseconds{MAX_WAIT_FOR_IO});
         (void)Wait(wait_time, SEND);
     }
+}
+
+void Sock::SendComplete(std::span<const char> data,
+                        std::chrono::milliseconds timeout,
+                        CThreadInterrupt& interrupt) const
+{
+    SendComplete(MakeUCharSpan(data), timeout, interrupt);
 }
 
 std::string Sock::RecvUntilTerminator(uint8_t terminator,

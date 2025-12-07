@@ -2,13 +2,16 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_COMMON_URL_H
-#define BITCOINSILVER_COMMON_URL_H
+#ifndef BITCOIN_COMMON_URL_H
+#define BITCOIN_COMMON_URL_H
 
 #include <string>
+#include <string_view>
 
-using UrlDecodeFn = std::string(const std::string& url_encoded);
-UrlDecodeFn urlDecode;
-extern UrlDecodeFn* const URL_DECODE;
+/* Decode a URL.
+ *
+ * Notably this implementation does not decode a '+' to a ' '.
+ */
+std::string UrlDecode(std::string_view url_encoded);
 
-#endif // BITCOINSILVER_COMMON_URL_H
+#endif // BITCOIN_COMMON_URL_H

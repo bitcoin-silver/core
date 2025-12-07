@@ -3,12 +3,10 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_INIT_H
-#define BITCOINSILVER_INIT_H
+#ifndef BITCOIN_INIT_H
+#define BITCOIN_INIT_H
 
-#include <any>
-#include <memory>
-#include <string>
+#include <atomic>
 
 //! Default value for -daemon option
 static constexpr bool DEFAULT_DAEMON = false;
@@ -26,6 +24,11 @@ namespace node {
 struct NodeContext;
 } // namespace node
 
+/** Initialize node context shutdown and args variables. */
+void InitContext(node::NodeContext& node);
+/** Return whether node shutdown was requested. */
+bool ShutdownRequested(node::NodeContext& node);
+
 /** Interrupt threads */
 void Interrupt(node::NodeContext& node);
 void Shutdown(node::NodeContext& node);
@@ -34,7 +37,7 @@ void InitLogging(const ArgsManager& args);
 //!Parameter interaction: change current parameters depending on various rules
 void InitParameterInteraction(ArgsManager& args);
 
-/** Initialize bitcoinsilver: Basic context setup.
+/** Initialize bitcoin core: Basic context setup.
  *  @note This can be done before daemonization. Do not call Shutdown() if this function fails.
  *  @pre Parameters should be parsed and config file should be read.
  */
@@ -52,28 +55,28 @@ bool AppInitParameterInteraction(const ArgsManager& args);
  */
 bool AppInitSanityChecks(const kernel::Context& kernel);
 /**
- * Lock bitcoinsilver data directory.
+ * Lock bitcoin core critical directories.
  * @note This should only be done after daemonization. Do not call Shutdown() if this function fails.
  * @pre Parameters should be parsed and config file should be read, AppInitSanityChecks should have been called.
  */
-bool AppInitLockDataDirectory();
+bool AppInitLockDirectories();
 /**
  * Initialize node and wallet interface pointers. Has no prerequisites or side effects besides allocating memory.
  */
 bool AppInitInterfaces(node::NodeContext& node);
 /**
- * BitcoinSilver main initialization.
+ * Bitcoin core main initialization.
  * @note This should only be done after daemonization. Call Shutdown() if this function fails.
- * @pre Parameters should be parsed and config file should be read, AppInitLockDataDirectory should have been called.
+ * @pre Parameters should be parsed and config file should be read, AppInitLockDirectories should have been called.
  */
 bool AppInitMain(node::NodeContext& node, interfaces::BlockAndHeaderTipInfo* tip_info = nullptr);
 
 /**
  * Register all arguments with the ArgsManager
  */
-void SetupServerArgs(ArgsManager& argsman);
+void SetupServerArgs(ArgsManager& argsman, bool can_listen_ipc=false);
 
 /** Validates requirements to run the indexes and spawns each index initial sync thread */
 bool StartIndexBackgroundSync(node::NodeContext& node);
 
-#endif // BITCOINSILVER_INIT_H
+#endif // BITCOIN_INIT_H

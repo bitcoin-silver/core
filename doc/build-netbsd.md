@@ -1,8 +1,8 @@
 # NetBSD Build Guide
 
-Updated for NetBSD [9.2](https://netbsd.org/releases/formal-9/NetBSD-9.2.html).
+**Updated for NetBSD [10.1](https://netbsd.org/releases/formal-10/NetBSD-10.1.html)**
 
-This guide describes how to build bitcoinsilverd, command-line utilities, and GUI on NetBSD.
+This guide describes how to build bitcoind, command-line utilities, and GUI on NetBSD.
 
 ## Preparation
 
@@ -12,70 +12,79 @@ Install the required dependencies the usual way you [install software on NetBSD]
 The example commands below use `pkgin`.
 
 ```bash
-pkgin install autoconf automake libtool pkg-config git gmake boost libevent
-
+pkgin install git cmake pkg-config boost libevent
 ```
 
 NetBSD currently ships with an older version of `gcc` than is needed to build. You should upgrade your `gcc` and then pass this new version to the configure script.
 
-For example, grab `gcc9`:
+For example, grab `gcc12`:
 ```
-pkgin install gcc9
+pkgin install gcc12
 ```
 
 Then, when configuring, pass the following:
 ```bash
-./configure
+cmake -B build
     ...
-    CC="/usr/pkg/gcc9/bin/gcc" \
-    CXX="/usr/pkg/gcc9/bin/g++" \
+    -DCMAKE_C_COMPILER="/usr/pkg/gcc12/bin/gcc" \
+    -DCMAKE_CXX_COMPILER="/usr/pkg/gcc12/bin/g++" \
     ...
 ```
 
-See [dependencies.md](dependencies.md) for a complete overview.
-
-### 2. Clone BitcoinSilver Repo
-
-Clone the BitcoinSilver repository to a directory. All build scripts and commands will run from this directory.
-
-```bash
-git clone https://github.com/MrVistos/bitcoinsilver.git
-```
-
-### 3. Install Optional Dependencies
-
-#### Wallet Dependencies
-
-It is not necessary to build wallet functionality to run bitcoinsilverd or the GUI.
-
-###### Descriptor Wallet Support
-
-`sqlite3` is required to enable support for [descriptor wallets](https://github.com/MrVistos/bitcoinsilver/blob/master/doc/descriptors.md).
+SQLite is required for the wallet:
 
 ```bash
 pkgin install sqlite3
 ```
 
-###### Legacy Wallet Support
+To build Bitcoin Core without the wallet, use `-DENABLE_WALLET=OFF`.
 
-`db4` is required to enable support for legacy wallets.
+Cap'n Proto is needed for IPC functionality (see [multiprocess.md](multiprocess.md)):
 
 ```bash
-pkgin install db4
+pkgin install capnproto
 ```
+
+Compile with `-DENABLE_IPC=OFF` if you do not need IPC functionality.
+
+See [dependencies.md](dependencies.md) for a complete overview.
+
+### 2. Clone Bitcoin Repo
+
+Clone the Bitcoin Core repository to a directory. All build scripts and commands will run from this directory.
+
+```bash
+git clone https://github.com/bitcoin/bitcoin.git
+```
+
+### 3. Install Optional Dependencies
 
 #### GUI Dependencies
+###### Qt6
 
-BitcoinSilver includes a GUI built with the cross-platform Qt Framework. To compile the GUI, we need to install `qt5`.
+Bitcoin Core includes a GUI built with the cross-platform Qt Framework. To compile the GUI, we need to install
+the necessary parts of Qt, the libqrencode and pass `-DBUILD_GUI=ON`. Skip if you don't intend to use the GUI.
 
 ```bash
-pkgin install qt5
+pkgin install qt6-qtbase qt6-qttools
 ```
 
-The GUI can encode addresses in a QR Code. To build in QR support for the GUI, install `qrencode`.
+###### libqrencode
+
+The GUI will be able to encode addresses in QR codes unless this feature is explicitly disabled. To install libqrencode, run:
 
 ```bash
 pkgin install qrencode
+```
+
+Otherwise, if you don't need QR encoding support, use the `-DWITH_QRENCODE=OFF` option to disable this feature in order to compile the GUI.
+
+#### Notifications
+###### ZeroMQ
+
+Bitcoin Core can provide notifications via ZeroMQ. If the package is installed, support will be compiled in.
+```bash
+pkgin install zeromq
 ```
 
 #### Test Suite Dependencies
@@ -84,33 +93,27 @@ There is an included test suite that is useful for testing code changes when dev
 To run the test suite (recommended), you will need to have Python 3 installed:
 
 ```bash
-pkgin install python37
+pkgin install python310 py310-zmq
 ```
 
-### Building BitcoinSilver
-
-**Note**: Use `gmake` (the non-GNU `make` will exit with an error).
-
+## Building Bitcoin Core
 
 ### 1. Configuration
 
-There are many ways to configure BitcoinSilver. Here is an example that
+There are many ways to configure Bitcoin Core. Here is an example that
 explicitly disables the wallet and GUI:
 
 ```bash
-./autogen.sh
-./configure --without-wallet --with-gui=no \
-    CPPFLAGS="-I/usr/pkg/include" \
-    MAKE=gmake
+cmake -B build -DENABLE_WALLET=OFF -DBUILD_GUI=OFF
 ```
 
-For a full list of configuration options, see the output of `./configure --help`
+Run `cmake -B build -LH` to see the full list of available options.
 
 ### 2. Compile
 
 Build and run the tests:
 
 ```bash
-gmake # use "-j N" here for N parallel jobs
-gmake check # Run tests if Python 3 is available
+cmake --build build     # Append "-j N" for N parallel jobs.
+ctest --test-dir build  # Append "-j N" for N parallel tests.
 ```

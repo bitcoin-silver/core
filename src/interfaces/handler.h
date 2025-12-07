@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_INTERFACES_HANDLER_H
-#define BITCOINSILVER_INTERFACES_HANDLER_H
+#ifndef BITCOIN_INTERFACES_HANDLER_H
+#define BITCOIN_INTERFACES_HANDLER_H
 
 #include <functional>
 #include <memory>
@@ -22,7 +22,7 @@ namespace interfaces {
 class Handler
 {
 public:
-    virtual ~Handler() {}
+    virtual ~Handler() = default;
 
     //! Disconnect the handler.
     virtual void disconnect() = 0;
@@ -36,4 +36,4 @@ std::unique_ptr<Handler> MakeCleanupHandler(std::function<void()> cleanup);
 
 } // namespace interfaces
 
-#endif // BITCOINSILVER_INTERFACES_HANDLER_H
+#endif // BITCOIN_INTERFACES_HANDLER_H

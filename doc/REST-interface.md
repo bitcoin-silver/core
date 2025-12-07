@@ -3,8 +3,8 @@ Unauthenticated REST Interface
 
 The REST API can be enabled with the `-rest` option.
 
-The interface runs on the same port as the JSON-RPC interface, by default port 10567 for mainnet, port 18332 for testnet,
-port 38332 for signet, and port 18443 for regtest.
+The interface runs on the same port as the JSON-RPC interface, by default port 8332 for mainnet, port 18332 for testnet,
+port 48332 for testnet4, port 38332 for signet, and port 18443 for regtest.
 
 REST Interface consistency guarantees
 -------------------------------------
@@ -79,6 +79,13 @@ Responds with 404 if the block doesn't exist.
 Given a height: returns hash of block in best-block-chain at height provided.
 Responds with 404 if block not found.
 
+#### Spent transaction outputs
+`GET /rest/spenttxouts/<BLOCK-HASH>.<bin|hex|json>`
+
+Given a block hash: returns a collection of spent transaction output lists,
+one per transaction in the block.
+Responds with 404 if the block doesn't exist or its undo data is not available.
+
 #### Chaininfos
 `GET /rest/chaininfo.json`
 
@@ -101,7 +108,7 @@ Refer to the `getdeploymentinfo` RPC help for details.
 
 The getutxos endpoint allows querying the UTXO set, given a set of outpoints.
 With the `/checkmempool/` option, the mempool is also taken into account.
-See [BIP64](https://github.com/bitcoinsilver/bips/blob/master/bip-0064.mediawiki) for
+See [BIP64](https://github.com/bitcoin/bips/blob/master/bip-0064.mediawiki) for
 input and output serialization (relevant for `bin` and `hex` output formats).
 
 Example:
@@ -117,7 +124,7 @@ $ curl localhost:18332/rest/getutxos/checkmempool/b2cdfd7b89def827ff8af7cd9bff76
          "value" : 8.8687,
          "scriptPubKey" : {
             "asm" : "OP_DUP OP_HASH160 1c7cebb529b86a04c683dfa87be49de35bcf589e OP_EQUALVERIFY OP_CHECKSIG",
-            "desc" : "addr(mi7as51dvLJsizWnTMurtRmrP8hG2m1XvD)#gj9tznmy"
+            "desc" : "addr(mi7as51dvLJsizWnTMurtRmrP8hG2m1XvD)#gj9tznmy",
             "hex" : "76a9141c7cebb529b86a04c683dfa87be49de35bcf589e88ac",
             "type" : "pubkeyhash",
             "address" : "mi7as51dvLJsizWnTMurtRmrP8hG2m1XvD"
@@ -146,4 +153,4 @@ Refer to the `getrawmempool` RPC help for details. Defaults to setting
 
 Risks
 -------------
-Running a web browser on the same node with a REST enabled bitcoinsilverd can be a risk. Accessing prepared XSS websites could read out tx/block data of your node by placing links like `<script src="http://127.0.0.1:10567/rest/tx/1234567890.json">` which might break the nodes privacy.
+Running a web browser on the same node with a REST enabled bitcoind can be a risk. Accessing prepared XSS websites could read out tx/block data of your node by placing links like `<script src="http://127.0.0.1:8332/rest/tx/1234567890.json">` which might break the nodes privacy.

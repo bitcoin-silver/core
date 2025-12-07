@@ -3,10 +3,10 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 //! @file
-//! @brief Common init functions shared by bitcoinsilver-node, bitcoinsilver-wallet, etc.
+//! @brief Common init functions shared by bitcoin-node, bitcoin-wallet, etc.
 
-#ifndef BITCOINSILVER_INIT_COMMON_H
-#define BITCOINSILVER_INIT_COMMON_H
+#ifndef BITCOIN_INIT_COMMON_H
+#define BITCOIN_INIT_COMMON_H
 
 #include <util/result.h>
 
@@ -21,4 +21,4 @@ bool StartLogging(const ArgsManager& args);
 void LogPackageVersion();
 } // namespace init
 
-#endif // BITCOINSILVER_INIT_COMMON_H
+#endif // BITCOIN_INIT_COMMON_H

@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_QT_GUIUTIL_H
-#define BITCOINSILVER_QT_GUIUTIL_H
+#ifndef BITCOIN_QT_GUIUTIL_H
+#define BITCOIN_QT_GUIUTIL_H
 
 #include <consensus/amount.h>
 #include <net.h>
@@ -52,7 +52,7 @@ class QUrl;
 class QWidget;
 QT_END_NAMESPACE
 
-/** Utility functions used by the BitcoinSilver Qt UI.
+/** Utility functions used by the Bitcoin Qt UI.
  */
 namespace GUIUtil
 {
@@ -77,7 +77,7 @@ namespace GUIUtil
      */
     void AddButtonShortcut(QAbstractButton* button, const QKeySequence& shortcut);
 
-    // Parse "bitcoinsilver:" URI into recipient object, return true on successful parsing
+    // Parse "bitcoin:" URI into recipient object, return true on successful parsing
     bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out);
     bool parseBitcoinURI(QString uri, SendCoinsRecipient *out);
     QString formatBitcoinURI(const SendCoinsRecipient &info);
@@ -240,8 +240,8 @@ namespace GUIUtil
     /** Format a CNodeStats.m_last_ping_time into a user-readable string or display N/A, if 0 */
     QString formatPingTime(std::chrono::microseconds ping_time);
 
-    /** Format a CNodeCombinedStats.nTimeOffset into a user-readable string */
-    QString formatTimeOffset(int64_t nTimeOffset);
+    /** Format a CNodeStateStats.time_offset into a user-readable string */
+    QString formatTimeOffset(int64_t time_offset);
 
     QString formatNiceTimeOffset(qint64 secs);
 
@@ -347,28 +347,6 @@ namespace GUIUtil
      * QPixmap* QLabel::pixmap() is deprecated since Qt 5.15.
      */
     bool HasPixmap(const QLabel* label);
-    QImage GetImage(const QLabel* label);
-
-    /**
-     * Splits the string into substrings wherever separator occurs, and returns
-     * the list of those strings. Empty strings do not appear in the result.
-     *
-     * QString::split() signature differs in different Qt versions:
-     *  - QString::SplitBehavior is deprecated since Qt 5.15
-     *  - Qt::SplitBehavior was introduced in Qt 5.14
-     * If {QString|Qt}::SkipEmptyParts behavior is required, use this
-     * function instead of QString::split().
-     */
-    template <typename SeparatorType>
-    QStringList SplitSkipEmptyParts(const QString& string, const SeparatorType& separator)
-    {
-    #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-        return string.split(separator, Qt::SkipEmptyParts);
-    #else
-        return string.split(separator, QString::SkipEmptyParts);
-    #endif
-    }
-
 
     /**
      * Replaces a plain text link with an HTML tagged one.
@@ -436,6 +414,9 @@ namespace GUIUtil
         return false;
     }
 
+    QString WalletDisplayName(const std::string& name);
+    QString WalletDisplayName(const QString& name);
+
 } // namespace GUIUtil
 
-#endif // BITCOINSILVER_QT_GUIUTIL_H
+#endif // BITCOIN_QT_GUIUTIL_H

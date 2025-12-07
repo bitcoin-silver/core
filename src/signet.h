@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_SIGNET_H
-#define BITCOINSILVER_SIGNET_H
+#ifndef BITCOIN_SIGNET_H
+#define BITCOIN_SIGNET_H
 
 #include <consensus/params.h>
 #include <primitives/block.h>
@@ -34,4 +34,4 @@ public:
     const CTransaction m_to_sign;
 };
 
-#endif // BITCOINSILVER_SIGNET_H
+#endif // BITCOIN_SIGNET_H

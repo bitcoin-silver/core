@@ -5,8 +5,8 @@
 /**
  * Functionality for communicating with Tor.
  */
-#ifndef BITCOINSILVER_TORCONTROL_H
-#define BITCOINSILVER_TORCONTROL_H
+#ifndef BITCOIN_TORCONTROL_H
+#define BITCOIN_TORCONTROL_H
 
 #include <netaddress.h>
 #include <util/fs.h>
@@ -19,6 +19,7 @@
 #include <string>
 #include <vector>
 
+constexpr uint16_t DEFAULT_TOR_SOCKS_PORT{9050};
 constexpr int DEFAULT_TOR_CONTROL_PORT = 9051;
 extern const std::string DEFAULT_TOR_CONTROL;
 static const bool DEFAULT_LISTEN_ONION = true;
@@ -27,7 +28,7 @@ void StartTorControl(CService onion_service_target);
 void InterruptTorControl();
 void StopTorControl();
 
-CService DefaultOnionServiceTarget();
+CService DefaultOnionServiceTarget(uint16_t port);
 
 /** Reply from Tor, can be single or multi-line */
 class TorControlReply
@@ -98,7 +99,7 @@ private:
     static void eventcb(struct bufferevent *bev, short what, void *ctx);
 };
 
-/****** BitcoinSilver specific TorController implementation ********/
+/****** Bitcoin specific TorController implementation ********/
 
 /** Controller that connects to Tor control socket, authenticate, then create
  * and maintain an ephemeral onion service.
@@ -153,4 +154,4 @@ public:
     static void reconnect_cb(evutil_socket_t fd, short what, void *arg);
 };
 
-#endif // BITCOINSILVER_TORCONTROL_H
+#endif // BITCOIN_TORCONTROL_H

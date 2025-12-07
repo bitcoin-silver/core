@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_INTERFACES_ECHO_H
-#define BITCOINSILVER_INTERFACES_ECHO_H
+#ifndef BITCOIN_INTERFACES_ECHO_H
+#define BITCOIN_INTERFACES_ECHO_H
 
 #include <memory>
 #include <string>
@@ -13,7 +13,7 @@ namespace interfaces {
 class Echo
 {
 public:
-    virtual ~Echo() {}
+    virtual ~Echo() = default;
 
     //! Echo provided string.
     virtual std::string echo(const std::string& echo) = 0;
@@ -23,4 +23,4 @@ public:
 std::unique_ptr<Echo> MakeEcho();
 } // namespace interfaces
 
-#endif // BITCOINSILVER_INTERFACES_ECHO_H
+#endif // BITCOIN_INTERFACES_ECHO_H

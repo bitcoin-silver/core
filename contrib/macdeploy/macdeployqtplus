@@ -20,7 +20,7 @@ import sys, re, os, platform, shutil, stat, subprocess, os.path
 from argparse import ArgumentParser
 from pathlib import Path
 from subprocess import PIPE, run
-from typing import List, Optional
+from typing import Optional
 
 # This is ported from the original macdeployqt with modifications
 
@@ -77,7 +77,7 @@ class FrameworkInfo(object):
     bundleBinaryDirectory = "Contents/MacOS"
     
     @classmethod
-    def fromOtoolLibraryLine(cls, line: str) -> Optional['FrameworkInfo']:
+    def fromLibraryLine(cls, line: str) -> Optional['FrameworkInfo']:
         # Note: line must be trimmed
         if line == "":
             return None
@@ -88,7 +88,7 @@ class FrameworkInfo(object):
         
         m = cls.reOLine.match(line)
         if m is None:
-            raise RuntimeError(f"otool line could not be parsed: {line}")
+            raise RuntimeError(f"Line could not be parsed: {line}")
         
         path = m.group(1)
         
@@ -120,7 +120,7 @@ class FrameworkInfo(object):
                     break
                 i += 1
             if i == len(parts):
-                raise RuntimeError(f"Could not find .framework or .dylib in otool line: {line}")
+                raise RuntimeError(f"Could not find .framework or .dylib in line: {line}")
             
             info.frameworkName = parts[i]
             info.frameworkDirectory = "/".join(parts[:i])
@@ -145,8 +145,8 @@ class FrameworkInfo(object):
 class ApplicationBundleInfo(object):
     def __init__(self, path: str):
         self.path = path
-        # for backwards compatibility reasons, this must remain as BitcoinSilver-Qt
-        self.binaryPath = os.path.join(path, "Contents", "MacOS", "BitcoinSilver-Qt")
+        # for backwards compatibility reasons, this must remain as Bitcoin-Qt
+        self.binaryPath = os.path.join(path, "Contents", "MacOS", "Bitcoin-Qt")
         if not os.path.exists(self.binaryPath):
             raise RuntimeError(f"Could not find bundle binary for {path}")
         self.resourcesPath = os.path.join(path, "Contents", "Resources")
@@ -157,20 +157,19 @@ class DeploymentInfo(object):
         self.qtPath = None
         self.pluginPath = None
         self.deployedFrameworks = []
-    
+
     def detectQtPath(self, frameworkDirectory: str):
         parentDir = os.path.dirname(frameworkDirectory)
-        if os.path.exists(os.path.join(parentDir, "translations")):
-            # Classic layout, e.g. "/usr/local/Trolltech/Qt-4.x.x"
+        if os.path.exists(os.path.join(parentDir, "share", "qt", "translations")):
             self.qtPath = parentDir
         else:
             self.qtPath = os.getenv("QTDIR", None)
 
         if self.qtPath is not None:
-            pluginPath = os.path.join(self.qtPath, "plugins")
+            pluginPath = os.path.join(self.qtPath, "share", "qt", "plugins")
             if os.path.exists(pluginPath):
                 self.pluginPath = pluginPath
-    
+
     def usesFramework(self, name: str) -> bool:
         for framework in self.deployedFrameworks:
             if framework.endswith(".framework"):
@@ -181,31 +180,33 @@ class DeploymentInfo(object):
                     return True
         return False
 
-def getFrameworks(binaryPath: str, verbose: int) -> List[FrameworkInfo]:
+def getFrameworks(binaryPath: str, verbose: int, rpath: str = '') -> list[FrameworkInfo]:
+    objdump = os.getenv("OBJDUMP", "objdump")
     if verbose:
-        print(f"Inspecting with otool: {binaryPath}")
-    otoolbin=os.getenv("OTOOL", "otool")
-    otool = run([otoolbin, "-L", binaryPath], stdout=PIPE, stderr=PIPE, text=True)
-    if otool.returncode != 0:
-        sys.stderr.write(otool.stderr)
+        print(f"Inspecting with {objdump}: {binaryPath}")
+    output = run([objdump, "--macho", "--dylibs-used", binaryPath], stdout=PIPE, stderr=PIPE, text=True)
+    if output.returncode != 0:
+        sys.stderr.write(output.stderr)
         sys.stderr.flush()
-        raise RuntimeError(f"otool failed with return code {otool.returncode}")
+        raise RuntimeError(f"{objdump} failed with return code {output.returncode}")
 
-    otoolLines = otool.stdout.split("\n")
-    otoolLines.pop(0) # First line is the inspected binary
+    lines = output.stdout.split("\n")
+    lines.pop(0) # First line is the inspected binary
     if ".framework" in binaryPath or binaryPath.endswith(".dylib"):
-        otoolLines.pop(0) # Frameworks and dylibs list themselves as a dependency.
-    
+        lines.pop(0) # Frameworks and dylibs list themselves as a dependency.
+
     libraries = []
-    for line in otoolLines:
+    for line in lines:
         line = line.replace("@loader_path", os.path.dirname(binaryPath))
-        info = FrameworkInfo.fromOtoolLibraryLine(line.strip())
+        if rpath:
+            line = line.replace("@rpath", rpath)
+        info = FrameworkInfo.fromLibraryLine(line.strip())
         if info is not None:
             if verbose:
                 print("Found framework:")
                 print(info)
             libraries.append(info)
-    
+
     return libraries
 
 def runInstallNameTool(action: str, *args):
@@ -285,7 +286,7 @@ def copyFramework(framework: FrameworkInfo, path: str, verbose: int) -> Optional
 
     return toPath
 
-def deployFrameworks(frameworks: List[FrameworkInfo], bundlePath: str, binaryPath: str, strip: bool, verbose: int, deploymentInfo: Optional[DeploymentInfo] = None) -> DeploymentInfo:
+def deployFrameworks(frameworks: list[FrameworkInfo], bundlePath: str, binaryPath: str, strip: bool, verbose: int, deploymentInfo: Optional[DeploymentInfo] = None) -> DeploymentInfo:
     if deploymentInfo is None:
         deploymentInfo = DeploymentInfo()
     
@@ -318,7 +319,7 @@ def deployFrameworks(frameworks: List[FrameworkInfo], bundlePath: str, binaryPat
         # install_name_tool it a new id.
         changeIdentification(framework.deployedInstallName, deployedBinaryPath, verbose)
         # Check for framework dependencies
-        dependencies = getFrameworks(deployedBinaryPath, verbose)
+        dependencies = getFrameworks(deployedBinaryPath, verbose, rpath=framework.frameworkDirectory)
         
         for dependency in dependencies:
             changeInstallName(dependency.installName, dependency.deployedInstallName, deployedBinaryPath, verbose)
@@ -421,7 +422,7 @@ if os.path.exists(appname + ".zip"):
 
 # ------------------------------------------------
 
-target = os.path.join("dist", "BitcoinSilver-Qt.app")
+target = os.path.join("dist", "Bitcoin-Qt.app")
 
 print("+ Copying source bundle +")
 if verbose:
@@ -465,18 +466,18 @@ if config.translations_dir:
         sys.stderr.write(f"Error: Could not find translation dir \"{config.translations_dir[0]}\"\n")
         sys.exit(1)
 
-print("+ Adding Qt translations +")
+    print("+ Adding Qt translations +")
 
-translations = Path(config.translations_dir[0])
+    translations = Path(config.translations_dir[0])
 
-regex = re.compile('qt_[a-z]*(.qm|_[A-Z]*.qm)')
+    regex = re.compile('qt_[a-z]*(.qm|_[A-Z]*.qm)')
 
-lang_files = [x for x in translations.iterdir() if regex.match(x.name)]
+    lang_files = [x for x in translations.iterdir() if regex.match(x.name)]
 
-for file in lang_files:
-    if verbose:
-        print(file.as_posix(), "->", os.path.join(applicationBundle.resourcesPath, file.name))
-    shutil.copy2(file.as_posix(), os.path.join(applicationBundle.resourcesPath, file.name))
+    for file in lang_files:
+        if verbose:
+            print(file.as_posix(), "->", os.path.join(applicationBundle.resourcesPath, file.name))
+        shutil.copy2(file.as_posix(), os.path.join(applicationBundle.resourcesPath, file.name))
 
 # ------------------------------------------------
 
@@ -498,7 +499,7 @@ if platform.system() == "Darwin":
 # ------------------------------------------------
 
 if config.zip is not None:
-    shutil.make_archive('{}'.format(appname), format='zip', root_dir='dist', base_dir='BitcoinSilver-Qt.app')
+    shutil.make_archive('{}'.format(appname), format='zip', root_dir='dist', base_dir='Bitcoin-Qt.app')
 
 # ------------------------------------------------
 

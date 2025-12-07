@@ -2,12 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_QT_SENDCOINSRECIPIENT_H
-#define BITCOINSILVER_QT_SENDCOINSRECIPIENT_H
-
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoinsilver-config.h>
-#endif
+#ifndef BITCOIN_QT_SENDCOINSRECIPIENT_H
+#define BITCOIN_QT_SENDCOINSRECIPIENT_H
 
 #include <consensus/amount.h>
 #include <serialize.h>
@@ -62,4 +58,4 @@ public:
     }
 };
 
-#endif // BITCOINSILVER_QT_SENDCOINSRECIPIENT_H
+#endif // BITCOIN_QT_SENDCOINSRECIPIENT_H

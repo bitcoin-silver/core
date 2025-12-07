@@ -2,10 +2,6 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoinsilver-config.h>
-#endif
-
 #include <qt/addressbookpage.h>
 #include <qt/forms/ui_addressbookpage.h>
 
@@ -19,11 +15,7 @@
 #include <QMenu>
 #include <QMessageBox>
 #include <QSortFilterProxyModel>
-#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
 #include <QRegularExpression>
-#else
-#include <QRegExp>
-#endif
 
 class AddressBookSortFilterProxyModel final : public QSortFilterProxyModel
 {
@@ -51,11 +43,7 @@ protected:
 
         auto address = model->index(row, AddressTableModel::Address, parent);
 
-#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
         const auto pattern = filterRegularExpression();
-#else
-        const auto pattern = filterRegExp();
-#endif
         return (model->data(address).toString().contains(pattern) ||
                 model->data(label).toString().contains(pattern));
     }
@@ -96,12 +84,12 @@ AddressBookPage::AddressBookPage(const PlatformStyle *platformStyle, Mode _mode,
     switch(tab)
     {
     case SendingTab:
-        ui->labelExplanation->setText(tr("These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins."));
+        ui->labelExplanation->setText(tr("These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins."));
         ui->deleteAddress->setVisible(true);
         ui->newAddress->setVisible(true);
         break;
     case ReceivingTab:
-        ui->labelExplanation->setText(tr("These are your BitcoinSilver addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.\nSigning is only possible with addresses of the type 'legacy'."));
+        ui->labelExplanation->setText(tr("These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.\nSigning is only possible with addresses of the type 'legacy'."));
         ui->deleteAddress->setVisible(false);
         ui->newAddress->setVisible(false);
         break;

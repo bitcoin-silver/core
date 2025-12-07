@@ -7,17 +7,12 @@
 #include <chainparams.h>
 #include <key.h>
 #include <logging.h>
-#include <qt/bitcoinsilver.h>
-#include <qt/bitcoinsilvergui.h>
+#include <qt/bitcoin.h>
+#include <qt/bitcoingui.h>
 #include <qt/networkstyle.h>
 #include <qt/rpcconsole.h>
-#include <shutdown.h>
 #include <test/util/setup_common.h>
 #include <validation.h>
-
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoinsilver-config.h>
-#endif
 
 #include <QAction>
 #include <QLineEdit>
@@ -65,8 +60,8 @@ void AppTests::appTests()
         // framework when it tries to look up unimplemented cocoa functions,
         // and fails to handle returned nulls
         // (https://bugreports.qt.io/browse/QTBUG-49686).
-        QWARN("Skipping AppTests on mac build with 'minimal' platform set due to Qt bugs. To run AppTests, invoke "
-              "with 'QT_QPA_PLATFORM=cocoa test_bitcoinsilver-qt' on mac, or else use a linux or windows build.");
+        qWarning() << "Skipping AppTests on mac build with 'minimal' platform set due to Qt bugs. To run AppTests, invoke "
+                      "with 'QT_QPA_PLATFORM=cocoa test_bitcoin-qt' on mac, or else use a linux or windows build.";
         return;
     }
 #endif

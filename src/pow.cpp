@@ -9,16 +9,12 @@
 #include <chain.h>
 #include <primitives/block.h>
 #include <uint256.h>
+#include <util/check.h>
 
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
 {
     assert(pindexLast != nullptr);
     unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
-
-
-
-    if (pindexLast->nHeight > 1)
-        return LwmaCalculateNextWorkRequired(pindexLast, params);
 
     // Only change once per difficulty adjustment interval
     if ((pindexLast->nHeight+1) % params.DifficultyAdjustmentInterval() != 0)
@@ -27,7 +23,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
         {
             // Special difficulty rule for testnet:
             // If the new block's timestamp is more than 2* 10 minutes
-            // then allow mining of a min-difficulty block.
+            // then it MUST be a min-difficulty block.
             if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing*2)
                 return nProofOfWorkLimit;
             else
@@ -51,46 +47,6 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     return CalculateNextWorkRequired(pindexLast, pindexFirst->GetBlockTime(), params);
 }
 
-
-unsigned int LwmaCalculateNextWorkRequired(const CBlockIndex* pindexLast, const Consensus::Params& params)
-{
-    const int64_t T = params.nPowTargetSpacing;
-    const int64_t N = 96;
-    const int64_t k = N * (N + 1) * T / 2;
-    const int64_t height = pindexLast->nHeight;
-    const arith_uint256 powLimit = UintToArith256(params.powLimit);
-
-    if (height < N) { return powLimit.GetCompact(); }
-
-    arith_uint256 sumTarget, nextTarget;
-    int64_t thisTimestamp, previousTimestamp;
-    int64_t t = 0, j = 0;
-
-    const CBlockIndex* blockPreviousTimestamp = pindexLast->GetAncestor(height - N);
-    previousTimestamp = blockPreviousTimestamp->GetBlockTime();
-
-    // Loop through N most recent blocks. 
-    for (int64_t i = height - N + 1; i <= height; i++) {
-        const CBlockIndex* block = pindexLast->GetAncestor(i);
-        thisTimestamp = (block->GetBlockTime() > previousTimestamp) ? 
-                            block->GetBlockTime() : previousTimestamp + 1;
-
-        int64_t solvetime = std::min(6 * T, thisTimestamp - previousTimestamp);
-        previousTimestamp = thisTimestamp;
-
-        j++;
-        t += solvetime * j; // Weighted solvetime sum.
-        arith_uint256 target;
-        target.SetCompact(block->nBits);
-        sumTarget += target / (k * N);
-    }
-    nextTarget = t * sumTarget;
-
-    if (nextTarget > powLimit) { nextTarget = powLimit; }
-
-    return nextTarget.GetCompact();
-}
-
 unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nFirstBlockTime, const Consensus::Params& params)
 {
     if (params.fPowNoRetargeting)
@@ -106,7 +62,19 @@ unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nF
     // Retarget
     const arith_uint256 bnPowLimit = UintToArith256(params.powLimit);
     arith_uint256 bnNew;
-    bnNew.SetCompact(pindexLast->nBits);
+
+    // Special difficulty rule for Testnet4
+    if (params.enforce_BIP94) {
+        // Here we use the first block of the difficulty period. This way
+        // the real difficulty is always preserved in the first block as
+        // it is not allowed to use the min-difficulty exception.
+        int nHeightFirst = pindexLast->nHeight - (params.DifficultyAdjustmentInterval()-1);
+        const CBlockIndex* pindexFirst = pindexLast->GetAncestor(nHeightFirst);
+        bnNew.SetCompact(pindexFirst->nBits);
+    } else {
+        bnNew.SetCompact(pindexLast->nBits);
+    }
+
     bnNew *= nActualTimespan;
     bnNew /= params.nPowTargetTimespan;
 
@@ -167,7 +135,15 @@ bool PermittedDifficultyTransition(const Consensus::Params& params, int64_t heig
     return true;
 }
 
+// Bypasses the actual proof of work check during fuzz testing with a simplified validation checking whether
+// the most significant bit of the last byte of the hash is set.
 bool CheckProofOfWork(uint256 hash, unsigned int nBits, const Consensus::Params& params)
+{
+    if (EnableFuzzDeterminism()) return (hash.data()[31] & 0x80) == 0;
+    return CheckProofOfWorkImpl(hash, nBits, params);
+}
+
+std::optional<arith_uint256> DeriveTarget(unsigned int nBits, const uint256 pow_limit)
 {
     bool fNegative;
     bool fOverflow;
@@ -176,8 +152,16 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits, const Consensus::Params&
     bnTarget.SetCompact(nBits, &fNegative, &fOverflow);
 
     // Check range
-    if (fNegative || bnTarget == 0 || fOverflow || bnTarget > UintToArith256(params.powLimit))
-        return false;
+    if (fNegative || bnTarget == 0 || fOverflow || bnTarget > UintToArith256(pow_limit))
+        return {};
+
+    return bnTarget;
+}
+
+bool CheckProofOfWorkImpl(uint256 hash, unsigned int nBits, const Consensus::Params& params)
+{
+    auto bnTarget{DeriveTarget(nBits, params.powLimit)};
+    if (!bnTarget) return false;
 
     // Check proof of work matches claimed amount
     if (UintToArith256(hash) > bnTarget)

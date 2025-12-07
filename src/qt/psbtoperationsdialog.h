@@ -2,10 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_QT_PSBTOPERATIONSDIALOG_H
-#define BITCOINSILVER_QT_PSBTOPERATIONSDIALOG_H
+#ifndef BITCOIN_QT_PSBTOPERATIONSDIALOG_H
+#define BITCOIN_QT_PSBTOPERATIONSDIALOG_H
 
 #include <QDialog>
+#include <QString>
 
 #include <psbt.h>
 #include <qt/clientmodel.h>
@@ -46,9 +47,9 @@ private:
 
     size_t couldSignInputs(const PartiallySignedTransaction &psbtx);
     void updateTransactionDisplay();
-    std::string renderTransaction(const PartiallySignedTransaction &psbtx);
+    QString renderTransaction(const PartiallySignedTransaction &psbtx);
     void showStatus(const QString &msg, StatusLevel level);
     void showTransactionStatus(const PartiallySignedTransaction &psbtx);
 };
 
-#endif // BITCOINSILVER_QT_PSBTOPERATIONSDIALOG_H
+#endif // BITCOIN_QT_PSBTOPERATIONSDIALOG_H

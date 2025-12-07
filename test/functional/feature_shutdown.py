@@ -2,7 +2,7 @@
 # Copyright (c) 2018-2020 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""Test bitcoinsilverd shutdown."""
+"""Test bitcoind shutdown."""
 
 from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import assert_equal, get_rpc_proxy
@@ -32,4 +32,4 @@ class ShutdownTest(BitcoinTestFramework):
         self.stop_node(0, wait=1000)
 
 if __name__ == '__main__':
-    ShutdownTest().main()
+    ShutdownTest(__file__).main()

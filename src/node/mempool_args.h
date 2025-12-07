@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOINSILVER_NODE_MEMPOOL_ARGS_H
-#define BITCOINSILVER_NODE_MEMPOOL_ARGS_H
+#ifndef BITCOIN_NODE_MEMPOOL_ARGS_H
+#define BITCOIN_NODE_MEMPOOL_ARGS_H
 
 #include <util/result.h>
 
@@ -24,4 +24,4 @@ struct MemPoolOptions;
 [[nodiscard]] util::Result<void> ApplyArgsManOptions(const ArgsManager& argsman, const CChainParams& chainparams, kernel::MemPoolOptions& mempool_opts);
 
 
-#endif // BITCOINSILVER_NODE_MEMPOOL_ARGS_H
+#endif // BITCOIN_NODE_MEMPOOL_ARGS_H

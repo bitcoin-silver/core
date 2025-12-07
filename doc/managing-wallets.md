@@ -4,24 +4,26 @@
 
 ### 1.1 Creating the Wallet
 
-Since version 0.21, BitcoinSilver no longer has a default wallet.
+Since version 0.21, Bitcoin Core no longer has a default wallet.
 Wallets can be created with the `createwallet` RPC or with the `Create wallet` GUI menu item.
 
 In the GUI, the `Create a new wallet` button is displayed on the main screen when there is no wallet loaded. Alternatively, there is the option `File` ->`Create wallet`.
 
-The following command, for example, creates a descriptor wallet. More information about this command may be found by running `bitcoinsilver-cli help createwallet`.
+The following command, for example, creates a descriptor wallet. More information about this command may be found by running `bitcoin-cli help createwallet`.
 
 ```
-$ bitcoinsilver-cli createwallet "wallet-01"
+$ bitcoin-cli createwallet "wallet-01"
 ```
+
+`bitcoin rpc` can also be substituted for `bitcoin-cli`.
 
 By default, wallets are created in the `wallets` folder of the data directory, which varies by operating system, as shown below. The user can change the default by using the `-datadir` or `-walletdir` initialization parameters.
 
 | Operating System | Default wallet directory                                    |
 | -----------------|:------------------------------------------------------------|
-| Linux            | `/home/<user>/.bitcoinsilver/wallets`                             |
-| Windows          | `C:\Users\<user>\AppData\Roaming\BitcoinSilver\wallets`           |
-| macOS            | `/Users/<user>/Library/Application Support/BitcoinSilver/wallets` |
+| Linux            | `/home/<user>/.bitcoin/wallets`                             |
+| Windows          | `C:\Users\<user>\AppData\Local\Bitcoin\wallets`             |
+| macOS            | `/Users/<user>/Library/Application Support/Bitcoin/wallets` |
 
 ### 1.2 Encrypting the Wallet
 
@@ -36,13 +38,13 @@ After encrypting the wallet or changing the passphrase, a new backup needs to be
 The wallet's private key may be encrypted with the following command:
 
 ```
-$ bitcoinsilver-cli -rpcwallet="wallet-01" encryptwallet "passphrase"
+$ bitcoin-cli -rpcwallet="wallet-01" encryptwallet "passphrase"
 ```
 
 Once encrypted, the passphrase can be changed with the `walletpassphrasechange` command.
 
 ```
-$ bitcoinsilver-cli -rpcwallet="wallet-01" walletpassphrasechange "oldpassphrase" "newpassphrase"
+$ bitcoin-cli -rpcwallet="wallet-01" walletpassphrasechange "oldpassphrase" "newpassphrase"
 ```
 
 The argument passed to `-rpcwallet` is the name of the wallet to be encrypted.
@@ -52,7 +54,7 @@ Only the wallet's private key is encrypted. All other wallet information, such a
 The wallet's private key can also be encrypted in the `createwallet` command via the `passphrase` argument:
 
 ```
-$ bitcoinsilver-cli -named createwallet wallet_name="wallet-01" passphrase="passphrase"
+$ bitcoin-cli -named createwallet wallet_name="wallet-01" passphrase="passphrase"
 ```
 
 Note that if the passphrase is lost, all the coins in the wallet will also be lost forever.
@@ -62,7 +64,7 @@ Note that if the passphrase is lost, all the coins in the wallet will also be lo
 If the wallet is encrypted and the user tries any operation related to private keys, such as sending bitcoins, an error message will be displayed.
 
 ```
-$ bitcoinsilver-cli -rpcwallet="wallet-01" sendtoaddress "tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx" 0.01
+$ bitcoin-cli -rpcwallet="wallet-01" sendtoaddress "tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx" 0.01
 error code: -13
 error message:
 Error: Please enter the wallet passphrase with walletpassphrase first.
@@ -73,7 +75,7 @@ To unlock the wallet and allow it to run these operations, the `walletpassphrase
 This command takes the passphrase and an argument called `timeout`, which specifies the time in seconds that the wallet decryption key is stored in memory. After this period expires, the user needs to execute this RPC again.
 
 ```
-$ bitcoinsilver-cli -rpcwallet="wallet-01" walletpassphrase "passphrase" 120
+$ bitcoin-cli -rpcwallet="wallet-01" walletpassphrase "passphrase" 120
 ```
 
 In the GUI, there is no specific menu item to unlock the wallet. When the user sends bitcoins, the passphrase will be prompted automatically.
@@ -82,10 +84,10 @@ In the GUI, there is no specific menu item to unlock the wallet. When the user s
 
 To backup the wallet, the `backupwallet` RPC or the `Backup Wallet` GUI menu item must be used to ensure the file is in a safe state when the copy is made.
 
-In the RPC, the destination parameter must include the name of the file. Otherwise, the command will return an error message like "Error: Wallet backup failed!" for descriptor wallets. If it is a legacy wallet, it will be copied and a file will be created with the default file name `wallet.dat`.
+In the RPC, the destination parameter must include the name of the file. Otherwise, the command will return an error message like "Error: Wallet backup failed!".
 
 ```
-$ bitcoinsilver-cli -rpcwallet="wallet-01" backupwallet /home/node01/Backups/backup-01.dat
+$ bitcoin-cli -rpcwallet="wallet-01" backupwallet /home/node01/Backups/backup-01.dat
 ```
 
 In the GUI, the wallet is selected in the `Wallet` drop-down list in the upper right corner. If this list is not present, the wallet can be loaded in `File` ->`Open Wallet` if necessary. Then, the backup can be done in `File` -> `Backup Wallet…`.
@@ -98,9 +100,9 @@ If both the wallet and all backups are lost for any reason, the bitcoins related
 
 ### 1.5 Backup Frequency
 
-The original BitcoinSilver wallet was a collection of unrelated private keys. If a non-HD wallet had received funds to an address and then was restored from a backup made before the address was generated, then any funds sent to that address would have been lost because there was no deterministic mechanism to derive the address again.
+The original Bitcoin Core wallet was a collection of unrelated private keys. If a non-HD wallet had received funds to an address and then was restored from a backup made before the address was generated, then any funds sent to that address would have been lost because there was no deterministic mechanism to derive the address again.
 
-BitcoinSilver [version 0.13](https://github.com/MrVistos/bitcoinsilver/blob/master/doc/release-notes/release-notes-0.13.0.md) introduced HD wallets with deterministic key derivation. With HD wallets, users no longer lose funds when restoring old backups because all addresses are derived from the HD wallet seed.
+Bitcoin Core [version 0.13](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-0.13.0.md) introduced HD wallets with deterministic key derivation. With HD wallets, users no longer lose funds when restoring old backups because all addresses are derived from the HD wallet seed.
 
 This means that a single backup is enough to recover the coins at any time. It is still recommended to make regular backups (once a week) or after a significant number of new transactions to maintain the metadata, such as labels. Metadata cannot be retrieved from a blockchain rescan, so if the backup is too old, the metadata will be lost forever.
 
@@ -111,27 +113,46 @@ Wallets created before version 0.13 are not HD and must be backed up every 100 k
 To restore a wallet, the `restorewallet` RPC or the `Restore Wallet` GUI menu item (`File` -> `Restore Wallet…`) must be used.
 
 ```
-$ bitcoinsilver-cli restorewallet "restored-wallet" /home/node01/Backups/backup-01.dat
+$ bitcoin-cli restorewallet "restored-wallet" /home/node01/Backups/backup-01.dat
 ```
 
 After that, `getwalletinfo` can be used to check if the wallet has been fully restored.
 
 ```
-$ bitcoinsilver-cli -rpcwallet="restored-wallet" getwalletinfo
+$ bitcoin-cli -rpcwallet="restored-wallet" getwalletinfo
 ```
 
 The restored wallet can also be loaded in the GUI via `File` ->`Open wallet`.
+
+## Wallet Passphrase
+
+Understanding wallet security is crucial for safely storing your Bitcoin. A key aspect is the wallet passphrase, used for encryption. Let's explore its nuances, role, encryption process, and limitations.
+
+- **Not the Seed:**
+The wallet passphrase and the seed are two separate components in wallet security. The seed, or HD seed, functions as a master key for deriving private and public keys in a hierarchical deterministic (HD) wallet. In contrast, the passphrase serves as an additional layer of security specifically designed to secure the private keys within the wallet. The passphrase serves as a safeguard, demanding an additional layer of authentication to access funds in the wallet.
+
+- **Protection Against Unauthorized Access:**
+The passphrase serves as a protective measure, securing your funds in situations where an unauthorized user gains access to your unlocked computer or device while your wallet application is active. Without the passphrase, they would be unable to access your wallet's funds or execute transactions. However, it's essential to be aware that someone with access can potentially compromise the security of your passphrase by installing a keylogger.
+
+- **Doesn't Encrypt Metadata or Public Keys:**
+It's important to note that the passphrase primarily secures the private keys and access to funds within the wallet. It does not encrypt metadata associated with transactions or public keys. Information about your transaction history and the public keys involved may still be visible.
+
+- **Risk of Fund Loss if Forgotten or Lost:**
+If the wallet passphrase is too complex and is subsequently forgotten or lost, there is a risk of losing access to the funds permanently. A forgotten passphrase will result in the inability to unlock the wallet and access the funds.
 
 ## Migrating Legacy Wallets to Descriptor Wallets
 
 Legacy wallets (traditional non-descriptor wallets) can be migrated to become Descriptor wallets
 through the use of the `migratewallet` RPC. Migrated wallets will have all of their addresses and private keys added to
-a newly created Descriptor wallet that has the same name as the original wallet. Because Descriptor
-wallets do not support having private keys and watch-only scripts, there may be up to two
+a newly created Descriptor wallet that has the same name as the original wallet. As Descriptor
+wallets do not support having both private keys and watch-only scripts, there may be up to two
 additional wallets created after migration. In addition to a descriptor wallet of the same name,
 there may also be a wallet named `<name>_watchonly` and `<name>_solvables`. `<name>_watchonly`
-contains all of the watchonly scripts. `<name>_solvables` contains any scripts which the wallet
-knows but is not watching the corresponding P2(W)SH scripts.
+contains all of the watchonly scripts. `<name>_solvables` contains any scripts that the wallet
+knows but for which it is not watching the corresponding P2(W)SH scripts. If the legacy wallet
+contains only watch-only scripts and no private keys, then only the `<name>_watchonly` wallet
+will be created and the descriptor wallet with the same name will not be created. Additionally,
+the created watch-only descriptor wallet will not have private keys enabled.
 
 Migrated wallets will also generate new addresses differently. While the same BIP 32 seed will be
 used, the BIP 44, 49, 84, and 86 standard derivation paths will be used. After migrating, a new
