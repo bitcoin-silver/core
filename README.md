@@ -274,9 +274,390 @@ vault = create_vault("BAddress1", "BAddress2")
 print(f"Vault ID: {vault['vault_id']}")
 ```
 
-## 📝 Configuration
+## 💳 Silent Payments - Privacy Transactions (BIP 352)
 
-**File**: `~/.bitcoinsilver/bitcoinsilver.conf`
+### What are Silent Payments?
+
+Silent Payments are a privacy-preserving way to receive cryptocurrency without creating an on-chain link between sender and receiver. Unlike regular Bitcoin addresses that can be reused and traced, silent payments generate unique, untrackable outputs.
+
+**Privacy Flow**:
+1. **Receiver** publishes a Silent Payment address (scan_key + spend_key)
+2. **Sender** scans the blockchain for receiver inputs and derives a unique output key
+3. **Payment** is created to that derived key - invisible to observers
+4. **Receiver** automatically detects the payment by scanning with their private key
+
+**Key Advantage**: No blockchain observer can link sender to receiver, and each payment is unique even from the same sender.
+
+### Creating Silent Payment Addresses
+
+```bash
+# Create a new silent payment address
+bitcoinsilver-cli silentpaymentaddress "my-sp-address"
+```
+
+**Output**:
+```json
+{
+  "sp_address": "sp1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq",
+  "scan_key": "02a1b2c3d4e5f6...",
+  "spend_key": "03f6e5d4c3b2a1...",
+  "label": "my-sp-address"
+}
+```
+
+**Security Notes**:
+- Share only `sp_address` publicly
+- Keep `scan_key` in your hot wallet (needed for auto-scanning)
+- Backup `spend_key` to cold storage (needed for spending)
+
+### Sending with Silent Payments
+
+```bash
+# Send 1.5 BTC to a silent payment address
+bitcoinsilver-cli sendsilent \
+  "sp1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq" \
+  1.5 \
+  0.001 \
+  false
+
+# Output:
+{
+  "txid": "abc123def456...",
+  "size": 234,
+  "status": "broadcasted"
+}
+```
+
+**How it works**:
+1. Your wallet scans the recipient's recent inputs
+2. Computes ECDH shared secret with each input pubkey
+3. Derives unique output key for this specific transaction
+4. Creates output to that key (recipient can detect it, but observer cannot)
+
+### Monitoring Silent Payments
+
+```bash
+# Check total balance of all silent payment addresses
+bitcoinsilver-cli silentpaymentbalance
+
+# Output:
+{
+  "balance": "2.50000000",
+  "confirmations_needed": 6
+}
+```
+
+```bash
+# List all your silent payment addresses
+bitcoinsilver-cli listsilentpaymentaddresses true
+
+# Output:
+[
+  {
+    "address": "sp1qqq...",
+    "scan_key": "02...",
+    "spend_key": "03..."
+  },
+  {
+    "address": "sp1qqq...",
+    "scan_key": "02...",
+    "spend_key": "03..."
+  }
+]
+```
+
+### Importing Silent Payment Addresses
+
+For receive-only wallets (cold storage), you can import a silent payment address to scan for incoming payments without holding spending keys:
+
+```bash
+# Import a watch-only silent payment address
+bitcoinsilver-cli importsilentpayment \
+  "sp1qqq..." \
+  "watch-only-cold-storage"
+
+# Output:
+{
+  "success": true,
+  "address": "sp1qqq...",
+  "label": "watch-only-cold-storage"
+}
+```
+
+This allows:
+- ✅ Scanning for incoming payments
+- ✅ Deriving output addresses
+- ❌ Spending received funds (need the spend_key for that)
+
+### Understanding Silent Payment Cryptography
+
+Silent Payments use **ECDH (Elliptic Curve Diffie-Hellman)** for key derivation:
+
+```
+Sender Side:
+  input_keys = extract_pubkeys(transaction_inputs)
+  shared_secret = ECDH(sender_privkey, receiver_scan_pubkey)
+  output_key = receiver_spend_pubkey + hash(shared_secret || payment_index)
+  → Create output to output_key
+
+Receiver Side:
+  For each transaction output:
+    shared_secret = ECDH(receiver_scan_privkey, input_pubkey)
+    expected_key = receiver_spend_pubkey + hash(shared_secret || output_index)
+    If output_key == expected_key:
+      → This payment is for me!
+      receive_key = receiver_spend_privkey + hash(shared_secret || output_index)
+      → Can now spend this output
+```
+
+**Security Properties**:
+- Only receiver (with scan_key) can detect payments
+- Only receiver (with spend_key) can spend payments
+- No on-chain link between sender and receiver
+- Each payment creates unique derived key
+- Compatible with all Bitcoin script types
+
+### Silent Payments in Code
+
+**C++**:
+```cpp
+#include <wallet/silent_payments.h>
+
+// Create silent payment receiver
+auto receiver = SilentPaymentReceiver::GenerateNew();
+auto sp_address = receiver.GetAddress();
+
+std::cout << "Your Silent Payment Address: " << sp_address.ToString() << std::endl;
+std::cout << "Scan Key: " << receiver.GetScanKey().GetHex() << std::endl;
+
+// Later: scan a transaction for payments
+auto payments = receiver.ScanTransaction(tx, block_height);
+for (const auto& payment : payments) {
+    std::cout << "Detected payment of " << payment.amount << " satoshis" << std::endl;
+    
+    // Derive the private key to spend this output
+    auto spending_key = receiver.DerivePrivateKey(payment.shared_secret, payment.output_index);
+}
+```
+
+**Command Line Workflow**:
+```bash
+#!/bin/bash
+
+# 1. Create a new silent payment address
+SP_ADDR=$(bitcoinsilver-cli silentpaymentaddress "my-address")
+ADDRESS=$(echo $SP_ADDR | jq -r '.sp_address')
+echo "Your Silent Payment Address: $ADDRESS"
+
+# 2. Share address with sender
+# (send $ADDRESS to your counterparty)
+
+# 3. Sender sends funds
+bitcoinsilver-cli sendsilent "$ADDRESS" 1.0
+
+# 4. Your wallet automatically detects it
+sleep 10  # Wait for confirmation
+BALANCE=$(bitcoinsilver-cli silentpaymentbalance)
+echo "New balance: $BALANCE"
+
+# 5. Spend the received funds
+bitcoinsilver-cli sendsilent "$ANOTHER_ADDRESS" 0.5
+```
+
+### Silent Payments vs Traditional Bitcoin Addresses
+
+| Feature | Traditional Address | Silent Payment |
+|---------|-------------------|-----------------|
+| **Address Reuse** | Yes (public link) | No (unique per payment) |
+| **Sender Privacy** | No | ✅ Yes |
+| **Receiver Privacy** | No | ✅ Yes |
+| **On-Chain Analysis** | Linkable | Unlinkable |
+| **Scanning Required** | No | Yes (automatic) |
+| **Complexity** | Simple | Medium |
+| **Bitcoin Compatible** | Native | ECDH-derived |
+
+### Silent Payments vs Vault Mechanisms
+
+| Feature | Silent Payments | Vault Mechanisms |
+|---------|-----------------|------------------|
+| **Primary Goal** | Privacy | Security (theft protection) |
+| **On-Chain Visible** | Hidden | Visible (but time-locked) |
+| **Recovery Path** | Not applicable | Yes (CSV delay) |
+| **Address Reuse** | No (unique outputs) | Yes (same vault) |
+| **Scanning** | Required | Not required |
+| **Use Case** | Hide identity | Protect against theft |
+
+### Best Practices for Silent Payments
+
+✅ **DO**:
+- Create multiple silent payment addresses for different contacts
+- Backup both scan_key and spend_key securely
+- Test send/receive in testnet first
+- Use long addresses (more data = more privacy)
+- Monitor scanning for performance
+- Combine with Tor for network privacy
+
+❌ **DON'T**:
+- Share spend_key with anyone
+- Lose scan_key (can't detect payments)
+- Reuse same SP address across different contexts
+- Assume complete anonymity (chain analysis possible)
+- Mix SP outputs with regular UTXO tracking
+- Disable wallet scanning (automatic detection needed)
+
+### RPC Reference for Silent Payments
+
+| Command | Purpose |
+|---------|---------|
+| `silentpaymentaddress [label]` | Create new SP address |
+| `sendsilent <sp_addr> <amount> [fee_rate]` | Send with SP |
+| `silentpaymentbalance` | Get SP balance |
+| `listsilentpaymentaddresses [keys]` | List SP addresses |
+| `importsilentpayment <addr> [label]` | Import watch-only |
+
+### Limitations & Future Improvements
+
+**Current Implementation**:
+- ✅ Full BIP 352 architecture
+- ✅ RPC command suite
+- ✅ ECDH-based key derivation
+- ⏳ Optimized block scanning
+- ⏳ Hardware wallet integration
+- ⏳ Qt wallet UI
+- ⏳ Batch payment optimization
+
+**Performance**:
+- Scanning requires testing private key against each output
+- For many addresses, this can be CPU intensive
+- Future: BIP 352 client-side filtering opcodes
+
+### Resources
+
+- **BIP 352 Specification**: https://github.com/bitcoin/bips/blob/master/bip-0352.mediawiki
+- **Silent Payments Documentation**: https://silentpayments.xyz
+- **Cryptography**: secp256k1 ECDH + SHA256-HMAC
+
+## 🔗 Combining Vault Mechanisms + Silent Payments
+
+You can use both features together for **maximum security AND privacy**:
+
+### Use Case 1: Secure Cold Storage Receive
+
+```bash
+# 1. Create vault for security (recovery after 2 weeks if stolen)
+VAULT=$(bitcoinsilver-cli createvault "BHotWallet" "BColdStorage" 2016)
+VAULT_ID=$(echo $VAULT | jq -r '.vault_id')
+
+# 2. Create silent payment for privacy (no one knows you received it)
+SP_ADDR=$(bitcoinsilver-cli silentpaymentaddress "private-receive")
+SP_ADDRESS=$(echo $SP_ADDR | jq -r '.sp_address')
+
+# 3. Share SP_ADDRESS with counterparty
+# They send with: bitcoinsilver-cli sendsilent "$SP_ADDRESS" 1.0
+
+# Result:
+# ✅ Privacy: Counterparty cannot be linked to you
+# ✅ Security: Funds auto-recoverable to cold storage if compromised
+```
+
+### Use Case 2: Multi-Sig + Time-Lock + Privacy
+
+```bash
+# Create multi-sig wallet for team
+# Then vault each multi-sig output
+# Then receive via silent payments
+# Result: Highest security + best privacy
+```
+
+### Feature Comparison
+
+| Scenario | Solution |
+|----------|----------|
+| **Receive privately** | Silent Payments |
+| **Protect from theft** | Vault Mechanisms |
+| **Both** | Vault + Silent Payments |
+| **Hide identity** | Silent Payments |
+| **Recover if hacked** | Vault Mechanisms |
+| **Maximum protection** | Vault + Silent Payments |
+
+### Combined Workflow Example
+
+```bash
+#!/bin/bash
+
+# Setup Phase
+echo "=== Setting up secure & private wallet ==="
+
+# 1. Create vault for emergency recovery
+VAULT=$(bitcoinsilver-cli createvault \
+  "B_your_hot_wallet" \
+  "B_your_cold_storage" \
+  2016)  # 2 week recovery window
+
+VAULT_ID=$(echo $VAULT | jq -r '.vault_id')
+echo "✅ Vault created: $VAULT_ID"
+
+# 2. Create silent payment address for receiving
+SP_ADDR=$(bitcoinsilver-cli silentpaymentaddress "my-private-address")
+SP_ADDRESS=$(echo $SP_ADDR | jq -r '.sp_address')
+echo "✅ Silent Payment address: $SP_ADDRESS"
+
+# Distribution Phase
+echo "Share this address with payers:"
+echo "$SP_ADDRESS"
+
+# Payment Reception Phase (automatic)
+# When payer does: bitcoinsilver-cli sendsilent "$SP_ADDRESS" 1.0
+# Your wallet:
+# 1. Automatically detects payment (via scanning)
+# 2. Funds go to vaulted output (protected by time-lock)
+# 3. No observer can link payer to you
+
+# Spending Phase
+echo "=== Spending received funds ==="
+
+# If all is normal, spend normally to recipient
+bitcoinsilver-cli sendsilent "sp1q_recipient_address" 0.5
+
+# If you detect suspicious activity:
+# 1. Initiate recovery to cold storage
+bitcoinsilver-cli recovervault "$VAULT_ID" "vault_txid" 0
+# 2. Wait 2 weeks (2016 blocks)
+# 3. Funds automatically recover to cold storage
+echo "Recovery initiated - funds safe in 2 weeks"
+```
+
+### Privacy + Security Properties
+
+With **Both** features:
+- 🔒 **Sender Privacy**: Who paid you is hidden
+- 🔒 **Receiver Privacy**: That you received payment is hidden
+- 🔐 **Theft Protection**: Funds auto-recoverable
+- 🔐 **Time Cushion**: 2 weeks to detect and respond to theft
+- ⚡ **Automatic**: Scanning and recovery are automatic
+- 🔑 **Full Control**: You control both paths
+
+### When to Use Each Feature
+
+**Use Vault Mechanisms** when:
+- You want protection against key theft
+- You can afford to wait (CSV delay) for emergency access
+- You run a business with high-value transactions
+- You want deterministic recovery
+
+**Use Silent Payments** when:
+- You need privacy from public/observer scrutiny
+- You want to hide transaction history
+- You receive from multiple sources
+- You need deniability
+
+**Use BOTH** when:
+- You need maximum security AND privacy (recommended for serious users)
+- You're managing significant cryptocurrency
+- You operate in hostile environments
+- You want defense-in-depth
+
+## 📝 Configuration
 
 ```ini
 # Network
