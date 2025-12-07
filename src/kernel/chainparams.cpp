@@ -118,7 +118,6 @@ public:
         vSeeds.emplace_back("213.165.83.94");
         vSeeds.emplace_back("78.138.45.19");
         vSeeds.emplace_back("109.205.181.171");
-        vSeeds.emplace_back("sha256-mining.ro.ro:10566");
         vSeeds.emplace_back("[2a06:1fc0:0:1::3e3]");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,0x1A); // Addresses start with 'B'
