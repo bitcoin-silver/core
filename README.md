@@ -68,7 +68,7 @@ make
 > **Note:** On newer Linux distros (Ubuntu 22.04+, Ubuntu 25.10, etc.) BerkeleyDB 4.8 is no longer available. Install BerkeleyDB dev libraries and add `--with-incompatible-bdb`:
 > ```bash
 > sudo apt install libdb-dev libdb++-dev
-> ./configure --disable-tests --disable-bench --with-wallet --with-incompatible-bdb
+> ./configure --disable-tests --disable-bench --with-incompatible-bdb
 > make
 > ```
 > After `./configure` completes, verify the summary shows `with wallet = yes` before running `make`.
