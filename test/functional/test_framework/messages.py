@@ -1293,7 +1293,10 @@ class msg_tx:
     __slots__ = ("tx",)
     msgtype = b"tx"
 
-    def __init__(self, tx=CTransaction()):
+    def __init__(self, tx=None):
+        if tx is None:
+            self.tx = CTransaction()
+        else:
         self.tx = tx
 
     def deserialize(self, f):
