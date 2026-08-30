@@ -31,7 +31,7 @@
 
 struct LogIPsTestingSetup : public TestingSetup {
     LogIPsTestingSetup()
-        : TestingSetup{ChainType::MAIN, /*extra_args=*/{"-logips"}} {}
+        : TestingSetup{ChainType::MAIN, {.extra_args = {"-logips"}}} {}
 };
 
 BOOST_FIXTURE_TEST_SUITE(net_peer_connection_tests, LogIPsTestingSetup)
@@ -84,7 +84,7 @@ static void AddPeer(NodeId& id, std::vector<CNode*>& nodes, PeerManager& peerman
 BOOST_AUTO_TEST_CASE(test_addnode_getaddednodeinfo_and_connection_detection)
 {
     auto connman = std::make_unique<ConnmanTestMsg>(0x1337, 0x1337, *m_node.addrman, *m_node.netgroupman, Params());
-    auto peerman = PeerManager::make(*connman, *m_node.addrman, nullptr, *m_node.chainman, *m_node.mempool, {});
+    auto peerman = PeerManager::make(*connman, *m_node.addrman, nullptr, *m_node.chainman, *m_node.mempool, *m_node.warnings, {});
     NodeId id{0};
     std::vector<CNode*> nodes;
 

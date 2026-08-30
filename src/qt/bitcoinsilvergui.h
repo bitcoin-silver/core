@@ -5,9 +5,7 @@
 #ifndef BITCOINSILVER_QT_BITCOINSILVERGUI_H
 #define BITCOINSILVER_QT_BITCOINSILVERGUI_H
 
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoinsilver-config.h>
-#endif
+#include <config/bitcoinsilver-config.h> // IWYU pragma: keep
 
 #include <qt/bitcoinsilverunits.h>
 #include <qt/clientmodel.h>

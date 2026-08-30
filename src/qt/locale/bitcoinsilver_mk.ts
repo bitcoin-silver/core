@@ -365,6 +365,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>%1 GB</source>
         <translation type="unfinished">%1 ГБ</translation>
     </message>
+    <message>
+        <source>default wallet</source>
+        <translation type="unfinished">Паричник по подразбирање</translation>
+    </message>
 </context>
 <context>
     <name>BitcoinGUI</name>
@@ -672,10 +676,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Прикриј ги вредностите во разделот Преглед</translation>
     </message>
     <message>
-        <source>default wallet</source>
-        <translation type="unfinished">Паричник по подразбирање</translation>
-    </message>
-    <message>
         <source>No wallets available</source>
         <translation type="unfinished">Нема достапни паричници</translation>
     </message>
@@ -893,10 +893,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </context>
 <context>
     <name>OpenWalletActivity</name>
-    <message>
-        <source>default wallet</source>
-        <translation type="unfinished">Паричник по подразбирање</translation>
-    </message>
     <message>
         <source>Open Wallet</source>
         <extracomment>Title of window indicating the progress of opening of a wallet.</extracomment>
@@ -1342,10 +1338,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Send Coins</source>
         <translation type="unfinished">Испраќање</translation>
-    </message>
-    <message>
-        <source>default wallet</source>
-        <translation type="unfinished">Паричник по подразбирање</translation>
     </message>
 </context>
 <context>

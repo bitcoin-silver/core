@@ -74,13 +74,13 @@
     <ReplaceInFile FilePath="$(ConfigIniOut)"
                   Replace="@BUILD_BITCOINSILVER_CLI_TRUE@" By=""></ReplaceInFile>
     <ReplaceInFile FilePath="$(ConfigIniOut)"
-                  Replace="@BUILD_BITCOINSILVERSILVER_UTIL_TRUE@" By=""></ReplaceInFile>
+                  Replace="@BUILD_BITCOINSILVER_UTIL_TRUE@" By=""></ReplaceInFile>
     <ReplaceInFile FilePath="$(ConfigIniOut)"
-                  Replace="@BUILD_BITCOINSILVERSILVER_WALLET_TRUE@" By=""></ReplaceInFile>
+                  Replace="@BUILD_BITCOINSILVER_WALLET_TRUE@" By=""></ReplaceInFile>
     <ReplaceInFile FilePath="$(ConfigIniOut)"
                   Replace="@BUILD_BITCOINSILVERD_TRUE@" By=""></ReplaceInFile>
     <ReplaceInFile FilePath="$(ConfigIniOut)"
-                  Replace="@ENABLE_FUZZ_BINARY_TRUE@" By="#"></ReplaceInFile>
+                  Replace="@ENABLE_FUZZ_BINARY_TRUE@" By=""></ReplaceInFile>
     <ReplaceInFile FilePath="$(ConfigIniOut)"
                   Replace="@ENABLE_ZMQ_TRUE@" By=""></ReplaceInFile>
     <ReplaceInFile FilePath="$(ConfigIniOut)"

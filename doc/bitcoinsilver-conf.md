@@ -59,7 +59,7 @@ The `includeconf=<file>` option in the `bitcoinsilver.conf` file can be used to 
 
 Operating System | Data Directory | Example Path
 -- | -- | --
-Windows | `%APPDATA%\BitcoinSilver\` | `C:\Users\username\AppData\Roaming\BitcoinSilver\bitcoinsilver.conf`
+Windows | `%LOCALAPPDATA%\BitcoinSilver\` | `C:\Users\username\AppData\Local\BitcoinSilver\bitcoinsilver.conf`
 Linux | `$HOME/.bitcoinsilver/` | `/home/username/.bitcoinsilver/bitcoinsilver.conf`
 macOS | `$HOME/Library/Application Support/BitcoinSilver/` | `/Users/username/Library/Application Support/BitcoinSilver/bitcoinsilver.conf`
 

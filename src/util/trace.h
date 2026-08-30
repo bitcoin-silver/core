@@ -5,9 +5,7 @@
 #ifndef BITCOINSILVER_UTIL_TRACE_H
 #define BITCOINSILVER_UTIL_TRACE_H
 
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoinsilver-config.h>
-#endif
+#include <config/bitcoinsilver-config.h> // IWYU pragma: keep
 
 #ifdef ENABLE_TRACING
 

@@ -142,7 +142,7 @@ In the current design, class names, method names, and parameter names are duplic
 
 An alternate approach could use custom [C++ Attributes](https://en.cppreference.com/w/cpp/language/attributes) embedded in interface declarations to automatically generate `.capnp` files from C++ headers. This has not been pursued because parsing C++ headers is more complicated than parsing Cap’n Proto interface definitions, especially portably on multiple platforms.
 
-In the meantime, the developer guide [Internal interface guidelines](developer-notes.md#internal-interface-guidelines) can provide guidance on keeping interfaces consistent and functional and avoiding compile errors.
+In the meantime, the developer guide [Internal interface guidelines](../developer-notes.md#internal-interface-guidelines) can provide guidance on keeping interfaces consistent and functional and avoiding compile errors.
 
 ### Interface Stability
 
@@ -156,17 +156,17 @@ The integration of [Cap’n Proto](https://capnproto.org/) and [libmultiprocess]
 
 ### Retrieving a Block Hash
 
-Let’s walk through an example where the `bitcoinsilversilver-wallet` process requests the hash of a block at a specific height from the `bitcoinsilversilver-node` process. This example demonstrates the practical application of the IPC mechanism, specifically the interplay between C++ method calls and Cap’n Proto-generated RPC calls.
+Let’s walk through an example where the `bitcoinsilver-wallet` process requests the hash of a block at a specific height from the `bitcoinsilver-node` process. This example demonstrates the practical application of the IPC mechanism, specifically the interplay between C++ method calls and Cap’n Proto-generated RPC calls.
 
 <table><tr><td>
 
 ```mermaid
 sequenceDiagram
-    box "bitcoinsilversilver-wallet process"
+    box "bitcoinsilver-wallet process"
     participant WalletCode as Wallet code
     participant ChainClient as Generated Chain client class<br/>ProxyClient<messages::Chain>
     end
-    box "bitcoinsilversilver-node process"
+    box "bitcoinsilver-node process"
     participant ChainServer as Generated Chain server class<br/>ProxyServer<messages::Chain>
     participant LocalChain as Chain object<br/>node::ChainImpl
     end

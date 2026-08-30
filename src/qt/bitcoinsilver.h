@@ -5,9 +5,7 @@
 #ifndef BITCOINSILVER_QT_BITCOINSILVER_H
 #define BITCOINSILVER_QT_BITCOINSILVER_H
 
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoinsilver-config.h>
-#endif
+#include <config/bitcoinsilver-config.h> // IWYU pragma: keep
 
 #include <interfaces/node.h>
 #include <qt/initexecutor.h>
