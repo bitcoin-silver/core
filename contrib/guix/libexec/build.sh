@@ -211,6 +211,7 @@ CONFIGFLAGS="-DREDUCE_EXPORTS=ON -DBUILD_BENCH=OFF -DBUILD_GUI_TESTS=OFF -DBUILD
 # CFLAGS
 HOST_CFLAGS="-O2 -g"
 HOST_CFLAGS+=$(find /gnu/store -maxdepth 1 -mindepth 1 -type d -exec echo -n " -ffile-prefix-map={}=/usr" \;)
+HOST_CFLAGS+=" -fdebug-prefix-map=${DISTSRC}/src=."
 case "$HOST" in
     *mingw*)  HOST_CFLAGS+=" -fno-ident" ;;
     *darwin*) unset HOST_CFLAGS ;;
@@ -392,6 +393,7 @@ mv --no-target-directory "$OUTDIR" "$ACTUAL_OUTDIR" \
     || ( rm -rf "$ACTUAL_OUTDIR" && exit 1 )
 
 (
+    tmp="$(mktemp)"
     cd /outdir-base
     {
         echo "$GIT_ARCHIVE"
@@ -399,5 +401,6 @@ mv --no-target-directory "$OUTDIR" "$ACTUAL_OUTDIR" \
     } | xargs realpath --relative-base="$PWD" \
       | xargs sha256sum \
       | sort -k2 \
-      | sponge "$ACTUAL_OUTDIR"/SHA256SUMS.part
+        > "$tmp";
+    mv "$tmp" "$ACTUAL_OUTDIR"/SHA256SUMS.part
 )

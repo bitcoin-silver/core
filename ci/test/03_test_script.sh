@@ -146,11 +146,9 @@ cmake --build "${BASE_BUILD_DIR}" "$MAKEJOBS" --target all $GOAL || (
 )
 
 bash -c "${PRINT_CCACHE_STATISTICS}"
-if [ "$CI" = "true" ]; then
-  hit_rate=$(ccache -s | grep "Hits:" | head -1 | sed 's/.*(\(.*\)%).*/\1/')
-  if [ "${hit_rate%.*}" -lt 75 ]; then
-      echo "::notice title=low ccache hitrate::Ccache hit-rate in $CONTAINER_NAME was $hit_rate%"
-  fi
+hit_rate=$(ccache --show-stats | grep "Hits:" | head -1 | sed 's/.*(\(.*\)%).*/\1/')
+if [ "${hit_rate%.*}" -lt 75 ]; then
+  echo "::notice title=low ccache hitrate::Ccache hit-rate in $CONTAINER_NAME was $hit_rate%"
 fi
 du -sh "${DEPENDS_DIR}"/*/
 du -sh "${PREVIOUS_RELEASES_DIR}"
@@ -165,6 +163,14 @@ fi
 
 if [ "$RUN_CHECK_DEPS" = "true" ]; then
   "${BASE_ROOT_DIR}/contrib/devtools/check-deps.sh" "${BASE_BUILD_DIR}"
+fi
+
+if [[ "$CI_OS_NAME" == "macos" && "${GOAL}" = "install deploy" ]]; then
+  unzip "${BASE_BUILD_DIR}/Bitcoin-Core.zip" -d "${BASE_BUILD_DIR}/deploy"
+  if ! ( codesign --verify "${BASE_BUILD_DIR}/deploy/Bitcoin-Qt.app" ); then
+    echo "Codesigning failed."
+    false
+  fi
 fi
 
 if [ "$RUN_UNIT_TESTS" = "true" ]; then

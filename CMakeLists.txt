@@ -111,8 +111,12 @@ if(ENABLE_WALLET)
   if(VCPKG_TARGET_TRIPLET)
     # Use of the `unofficial::` namespace is a vcpkg package manager convention.
     find_package(unofficial-sqlite3 CONFIG REQUIRED)
+    add_library(SQLite3::SQLite3 ALIAS unofficial::sqlite3::sqlite3)
   else()
     find_package(SQLite3 3.7.17 REQUIRED)
+    if(NOT TARGET SQLite3::SQLite3) # CMake < 4.3
+      add_library(SQLite3::SQLite3 ALIAS SQLite::SQLite3)
+    endif()
   endif()
 endif()
 cmake_dependent_option(BUILD_WALLET_TOOL "Build bitcoin-wallet tool." ${BUILD_TESTS} "ENABLE_WALLET" OFF)
@@ -479,14 +483,8 @@ configure_file(contrib/filter-lcov.py filter-lcov.py USE_SOURCE_PERMISSIONS COPY
 # Don't allow extended (non-ASCII) symbols in identifiers. This is easier for code review.
 try_append_cxx_flags("-fno-extended-identifiers" TARGET core_interface SKIP_LINK)
 
-# Avoiding the `-ffile-prefix-map` compiler option because it implies
-# `-fcoverage-prefix-map` on Clang or `-fprofile-prefix-map` on GCC,
-# which can cause issues with coverage builds, particularly when using
-# Clang in the OSS-Fuzz environment due to its use of other options
-# and a third party script, or with GCC.
-try_append_cxx_flags("-fdebug-prefix-map=A=B" TARGET core_interface SKIP_LINK
-  IF_CHECK_PASSED "-fdebug-prefix-map=${PROJECT_SOURCE_DIR}/src=."
-)
+# Set `-fmacro-prefix-map`, so that source file names are expanded without the
+# src prefix.
 try_append_cxx_flags("-fmacro-prefix-map=A=B" TARGET core_interface SKIP_LINK
   IF_CHECK_PASSED "-fmacro-prefix-map=${PROJECT_SOURCE_DIR}/src=."
 )
