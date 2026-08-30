@@ -41,7 +41,7 @@ git commit
 ### Creating a Transifex account
 Visit the [Transifex Signup](https://www.transifex.com/signup/) page to create an account. Take note of your username and password, as they will be required to configure the command-line tool.
 
-You can find the BitcoinSilver translation project at [https://www.transifex.com/bitcoinsilver/bitcoinsilver/](https://www.transifex.com/bitcoinsilver/bitcoinsilver/).
+You can find the BitcoinSilver translation project at [https://explore.transifex.com/bitcoinsilver/bitcoinsilver/](https://explore.transifex.com/bitcoinsilver/bitcoinsilver/).
 
 ### Installing the Transifex client command-line tool
 The client is used to fetch updated translations. Please check installation instructions and any other details at https://developers.transifex.com/docs/cli.

@@ -1039,6 +1039,7 @@ bool MemPoolAccept::PreChecks(ATMPArgs& args, Workspace& ws)
     // Even though just checking direct mempool parents for inheritance would be sufficient, we
     // check using the full ancestor set here because it's more convenient to use what we have
     // already calculated.
+    if (!args.m_bypass_limits) {
     if (const auto err{SingleTRUCChecks(ws.m_ptx, ws.m_ancestors, ws.m_conflicts, ws.m_vsize)}) {
         // Single transaction contexts only.
         if (args.m_allow_sibling_eviction && err->second != nullptr) {
@@ -1060,6 +1061,7 @@ bool MemPoolAccept::PreChecks(ATMPArgs& args, Workspace& ws)
         } else {
             return state.Invalid(TxValidationResult::TX_MEMPOOL_POLICY, "TRUC-violation", err->first);
         }
+    }
     }
 
     // A transaction that spends outputs that would be replaced by it is invalid. Now
