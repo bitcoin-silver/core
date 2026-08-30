@@ -294,7 +294,7 @@ if(BUILD_BITCOIN_BIN)
   set_target_properties(bitcoin PROPERTIES OUTPUT_NAME bitcoinsilver)
   add_windows_resources(bitcoin bitcoinsilver-wrapper-res.rc)
   add_windows_application_manifest(bitcoin)
-  target_link_libraries(bitcoin core_interface bitcoin_util)
+  target_link_libraries(bitcoin core_interface bitcoin_common bitcoin_util)
   install_binary_component(bitcoin HAS_MANPAGE)
 endif()
 
