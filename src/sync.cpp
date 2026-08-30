@@ -148,8 +148,8 @@ template <typename MutexType>
 static void push_lock(MutexType* c, const CLockLocation& locklocation)
 {
     constexpr bool is_recursive_mutex =
-        std::is_base_of<RecursiveMutex, MutexType>::value ||
-        std::is_base_of<std::recursive_mutex, MutexType>::value;
+        std::is_base_of_v<RecursiveMutex, MutexType> ||
+        std::is_base_of_v<std::recursive_mutex, MutexType>;
 
     LockData& lockdata = GetLockData();
     std::lock_guard<std::mutex> lock(lockdata.dd_mutex);
@@ -206,8 +206,6 @@ void EnterCritical(const char* pszName, const char* pszFile, int nLine, MutexTyp
 {
     push_lock(cs, CLockLocation(pszName, pszFile, nLine, fTry, util::ThreadGetInternalName()));
 }
-template void EnterCritical(const char*, const char*, int, Mutex*, bool);
-template void EnterCritical(const char*, const char*, int, RecursiveMutex*, bool);
 template void EnterCritical(const char*, const char*, int, std::mutex*, bool);
 template void EnterCritical(const char*, const char*, int, std::recursive_mutex*, bool);
 

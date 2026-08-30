@@ -47,10 +47,10 @@ class VersionBitsWarningTest(BitcoinTestFramework):
         for _ in range(numblocks):
             block = create_block(tip, create_coinbase(height + 1), block_time, version=version)
             block.solve()
-            peer.send_message(msg_block(block))
+            peer.send_without_ping(msg_block(block))
             block_time += 1
             height += 1
-            tip = block.sha256
+            tip = block.hash_int
         peer.sync_with_ping()
 
     def versionbits_in_alert_file(self):

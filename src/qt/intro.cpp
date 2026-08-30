@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2022 The BitcoinSilver Core developers
+// Copyright (c) 2011-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,6 +10,7 @@
 #include <util/chaintype.h>
 #include <util/fs.h>
 
+#include <qt/freespacechecker.h>
 #include <qt/guiconstants.h>
 #include <qt/guiutil.h>
 #include <qt/optionsmodel.h>
@@ -24,90 +25,6 @@
 #include <QMessageBox>
 
 #include <cmath>
-
-/* Check free space asynchronously to prevent hanging the UI thread.
-
-   Up to one request to check a path is in flight to this thread; when the check()
-   function runs, the current path is requested from the associated Intro object.
-   The reply is sent back through a signal.
-
-   This ensures that no queue of checking requests is built up while the user is
-   still entering the path, and that always the most recently entered path is checked as
-   soon as the thread becomes available.
-*/
-class FreespaceChecker : public QObject
-{
-    Q_OBJECT
-
-public:
-    explicit FreespaceChecker(Intro *intro);
-
-    enum Status {
-        ST_OK,
-        ST_ERROR
-    };
-
-public Q_SLOTS:
-    void check();
-
-Q_SIGNALS:
-    void reply(int status, const QString &message, quint64 available);
-
-private:
-    Intro *intro;
-};
-
-#include <qt/intro.moc>
-
-FreespaceChecker::FreespaceChecker(Intro *_intro)
-{
-    this->intro = _intro;
-}
-
-void FreespaceChecker::check()
-{
-    QString dataDirStr = intro->getPathToCheck();
-    fs::path dataDir = GUIUtil::QStringToPath(dataDirStr);
-    uint64_t freeBytesAvailable = 0;
-    int replyStatus = ST_OK;
-    QString replyMessage = tr("A new data directory will be created.");
-
-    /* Find first parent that exists, so that fs::space does not fail */
-    fs::path parentDir = dataDir;
-    fs::path parentDirOld = fs::path();
-    while(parentDir.has_parent_path() && !fs::exists(parentDir))
-    {
-        parentDir = parentDir.parent_path();
-
-        /* Check if we make any progress, break if not to prevent an infinite loop here */
-        if (parentDirOld == parentDir)
-            break;
-
-        parentDirOld = parentDir;
-    }
-
-    try {
-        freeBytesAvailable = fs::space(parentDir).available;
-        if(fs::exists(dataDir))
-        {
-            if(fs::is_directory(dataDir))
-            {
-                QString separator = "<code>" + QDir::toNativeSeparators("/") + tr("name") + "</code>";
-                replyStatus = ST_OK;
-                replyMessage = tr("Directory already exists. Add %1 if you intend to create a new directory here.").arg(separator);
-            } else {
-                replyStatus = ST_ERROR;
-                replyMessage = tr("Path already exists, and is not a directory.");
-            }
-        }
-    } catch (const fs::filesystem_error&)
-    {
-        /* Parent directory does not exist or is not accessible */
-        replyStatus = ST_ERROR;
-        replyMessage = tr("Cannot create data directory here.");
-    }
-    Q_EMIT reply(replyStatus, replyMessage, freeBytesAvailable);
-}
 
 namespace {
 //! Return pruning size that will be used if automatic pruning is enabled.
@@ -134,15 +51,15 @@ Intro::Intro(QWidget *parent, int64_t blockchain_size_gb, int64_t chain_state_si
         .arg(CLIENT_NAME)
         .arg(m_blockchain_size_gb)
         .arg(2009)
-        .arg(tr("BitcoinSilver"))
+        .arg(tr("Bitcoin"))
     );
     ui->lblExplanation2->setText(ui->lblExplanation2->text().arg(CLIENT_NAME));
 
     const int min_prune_target_GB = std::ceil(MIN_DISK_SPACE_FOR_BLOCK_FILES / 1e9);
     ui->pruneGB->setRange(min_prune_target_GB, std::numeric_limits<int>::max());
-    if (gArgs.IsArgSet("-prune")) {
+    if (const auto arg{gArgs.GetIntArg("-prune")}) {
         m_prune_checkbox_is_default = false;
-        ui->prune->setChecked(gArgs.GetIntArg("-prune", 0) >= 1);
+        ui->prune->setChecked(*arg >= 1);
         ui->prune->setEnabled(false);
     }
     ui->pruneGB->setValue(m_prune_target_gb);
@@ -228,7 +145,7 @@ bool Intro::showIfNeeded(bool& did_show_intro, int64_t& prune_MiB)
         /* If current default data directory does not exist, let the user choose one */
         Intro intro(nullptr, Params().AssumedBlockchainSize(), Params().AssumedChainStateSize());
         intro.setDataDirectory(dataDir);
-        intro.setWindowIcon(QIcon(":icons/bitcoinsilver"));
+        intro.setWindowIcon(QIcon(":icons/bitcoin"));
         did_show_intro = true;
 
         while(true)
@@ -259,8 +176,8 @@ bool Intro::showIfNeeded(bool& did_show_intro, int64_t& prune_MiB)
         settings.setValue("fReset", false);
     }
     /* Only override -datadir if different from the default, to make it possible to
-     * override -datadir in the bitcoinsilver.conf file in the default data directory
-     * (to be consistent with bitcoinsilverd behavior)
+     * override -datadir in the bitcoin.conf file in the default data directory
+     * (to be consistent with bitcoind behavior)
      */
     if(dataDir != GUIUtil::getDefaultDataDirectory()) {
         gArgs.SoftSetArg("-datadir", fs::PathToString(GUIUtil::QStringToPath(dataDir))); // use OS locale for path setting
@@ -389,7 +306,7 @@ void Intro::UpdatePruneLabels(bool prune_checked)
         //: Explanatory text on the capability of the current prune target.
         tr("(sufficient to restore backups %n day(s) old)", "", expected_backup_days));
     ui->sizeWarningLabel->setText(
-        tr("%1 will download and store a copy of the BitcoinSilver block chain.").arg(CLIENT_NAME) + " " +
+        tr("%1 will download and store a copy of the Bitcoin block chain.").arg(CLIENT_NAME) + " " +
         storageRequiresMsg.arg(m_required_space_gb) + " " +
         tr("The wallet will also be stored in this directory.")
     );

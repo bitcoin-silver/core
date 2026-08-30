@@ -8,7 +8,7 @@
 | *libbitcoinsilver_crypto*      | Hardware-optimized functions for data encryption, hashing, message authentication, and key derivation. |
 | *libbitcoinsilver_kernel*      | Consensus engine and support library used for validation by *libbitcoinsilver_node*. |
 | *libbitcoinsilverqt*           | GUI functionality used by *bitcoinsilver-qt* and *bitcoinsilver-gui* executables. |
-| *libbitcoinsilver_ipc*         | IPC functionality used by *bitcoinsilver-node*, *bitcoinsilver-wallet*, *bitcoinsilver-gui* executables to communicate when [`-DWITH_MULTIPROCESS=ON`](multiprocess.md) is used. |
+| *libbitcoinsilver_ipc*         | IPC functionality used by *bitcoinsilver-node* and *bitcoinsilver-gui* executables to communicate when [`-DENABLE_IPC=ON`](multiprocess.md) is used. |
 | *libbitcoinsilver_node*        | P2P and RPC server functionality used by *bitcoinsilverd* and *bitcoinsilver-qt* executables. |
 | *libbitcoinsilver_util*        | Home for common functionality shared by different executables and libraries. Similar to *libbitcoinsilver_common*, but lower-level (see [Dependencies](#dependencies)). |
 | *libbitcoinsilver_wallet*      | Wallet functionality used by *bitcoinsilverd* and *bitcoinsilver-wallet* executables. |

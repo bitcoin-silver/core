@@ -33,7 +33,6 @@ and confirm again balances are correct.
 from decimal import Decimal
 import os
 from random import randint
-import shutil
 
 from test_framework.blocktools import COINBASE_MATURITY
 from test_framework.test_framework import BitcoinTestFramework
@@ -45,9 +44,6 @@ from test_framework.util import (
 
 
 class WalletBackupTest(BitcoinTestFramework):
-    def add_options(self, parser):
-        self.add_wallet_options(parser)
-
     def set_test_params(self):
         self.num_nodes = 4
         self.setup_clean_chain = True
@@ -256,10 +252,6 @@ class WalletBackupTest(BitcoinTestFramework):
         for node_num in range(3):
             self.nodes[node_num].backupwallet(self.nodes[node_num].datadir_path / 'wallet.bak')
 
-        if not self.options.descriptors:
-            for node_num in range(3):
-                self.nodes[node_num].dumpwallet(self.nodes[node_num].datadir_path / 'wallet.dump')
-
         self.log.info("More transactions")
         for _ in range(5):
             self.do_one_round()
@@ -304,29 +296,6 @@ class WalletBackupTest(BitcoinTestFramework):
         self.restore_wallet_existent_name()
         self.test_restore_existent_dir()
         self.test_restore_into_unnamed_wallet()
-
-        if not self.options.descriptors:
-            self.log.info("Restoring using dumped wallet")
-            self.stop_three()
-            self.erase_three()
-
-            #start node2 with no chain
-            shutil.rmtree(self.nodes[2].blocks_path)
-            shutil.rmtree(self.nodes[2].chain_path / 'chainstate')
-
-            self.start_three(["-nowallet"])
-            # Create new wallets for the three nodes.
-            # We will use this empty wallets to test the 'importwallet()' RPC command below.
-            for node_num in range(3):
-                self.nodes[node_num].createwallet(wallet_name=self.default_wallet_name, descriptors=self.options.descriptors, load_on_startup=True)
-                assert_equal(self.nodes[node_num].getbalance(), 0)
-                self.nodes[node_num].importwallet(self.nodes[node_num].datadir_path / 'wallet.dump')
-
-            self.sync_blocks()
-
-            assert_equal(self.nodes[0].getbalance(), balance0)
-            assert_equal(self.nodes[1].getbalance(), balance1)
-            assert_equal(self.nodes[2].getbalance(), balance2)
 
         # Backup to source wallet file must fail
         sourcePaths = [

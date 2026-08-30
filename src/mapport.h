@@ -5,7 +5,7 @@
 #ifndef BITCOINSILVER_MAPPORT_H
 #define BITCOINSILVER_MAPPORT_H
 
-static constexpr bool DEFAULT_NATPMP = false;
+static constexpr bool DEFAULT_NATPMP = true;
 
 void StartMapPort(bool enable);
 void InterruptMapPort();

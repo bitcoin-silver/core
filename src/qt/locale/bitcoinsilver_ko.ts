@@ -14,20 +14,16 @@
         <translation type="unfinished">새 항목(&amp;N)</translation>
     </message>
     <message>
-        <source>Copy the currently selected address to the system clipboard</source>
-        <translation type="unfinished">현재 선택한 주소를 시스템 클립보드로 복사하기</translation>
-    </message>
-    <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">복사(&amp;C)</translation>
+        <translation type="unfinished">&amp;복사</translation>
     </message>
     <message>
         <source>C&amp;lose</source>
-        <translation type="unfinished">닫기(&amp;L)</translation>
+        <translation type="unfinished">C&amp;닫기</translation>
     </message>
     <message>
         <source>Delete the currently selected address from the list</source>
-        <translation type="unfinished">목록에서 현재 선택한 주소 삭제하기</translation>
+        <translation type="unfinished">목록에 현재 선택한 주소 삭제</translation>
     </message>
     <message>
         <source>Enter address or label to search</source>
@@ -309,6 +305,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>unknown</source>
         <translation type="unfinished">알 수 없음</translation>
+    </message>
+    <message>
+        <source>Custom…</source>
+        <translation type="unfinished">사용자정의</translation>
     </message>
     <message>
         <source>Amount</source>
@@ -829,14 +829,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">블록 헤더들을 사전 동기화 중 (%1%)...</translation>
     </message>
     <message>
-        <source>Error creating wallet</source>
-        <translation type="unfinished">지갑 생성 오류</translation>
-    </message>
-    <message>
-        <source>Cannot create new wallet, the software was compiled without sqlite support (required for descriptor wallets)</source>
-        <translation type="unfinished">새 지갑을 생성할 수 없습니다. 소프트웨어가 sqlite 지원 없이 컴파일되었습니다 (설명자 지갑에 필요합니다).</translation>
-    </message>
-    <message>
         <source>Error: %1</source>
         <translation type="unfinished">오류: %1</translation>
     </message>
@@ -1345,7 +1337,77 @@ The migration process will create a backup of the wallet before migrating. This 
     </message>
 </context>
 <context>
+    <name>HelpMessageDialog</name>
+    <message>
+        <source>version</source>
+        <translation type="unfinished">버전</translation>
+    </message>
+    <message>
+        <source>About %1</source>
+        <translation type="unfinished">%1 정보</translation>
+    </message>
+    <message>
+        <source>Command-line options</source>
+        <translation type="unfinished">명령줄 옵션</translation>
+    </message>
+</context>
+<context>
+    <name>ShutdownWindow</name>
+    <message>
+        <source>%1 is shutting down…</source>
+        <translation type="unfinished">%1 종료 중입니다...</translation>
+    </message>
+    <message>
+        <source>Do not shut down the computer until this window disappears.</source>
+        <translation type="unfinished">이 창이 사라지기 전까지 컴퓨터를 끄지 마세요.</translation>
+    </message>
+</context>
+<context>
     <name>Intro</name>
+    <message>
+        <source>Welcome</source>
+        <translation type="unfinished">환영합니다</translation>
+    </message>
+    <message>
+        <source>Welcome to %1.</source>
+        <translation type="unfinished">%1에 오신것을 환영합니다.</translation>
+    </message>
+    <message>
+        <source>As this is the first time the program is launched, you can choose where %1 will store its data.</source>
+        <translation type="unfinished">프로그램이 처음으로 실행되고 있습니다. %1가 어디에 데이터를 저장할지 선택할 수 있습니다.</translation>
+    </message>
+    <message>
+        <source>Limit block chain storage to</source>
+        <translation type="unfinished">블록체인 스토리지를 다음으로 제한하기 </translation>
+    </message>
+    <message>
+        <source>Reverting this setting requires re-downloading the entire blockchain. It is faster to download the full chain first and prune it later. Disables some advanced features.</source>
+        <translation type="unfinished">이 설정을 되돌리면 전체 블록 체인을 다시 다운로드 해야 합니다. 전체 체인을 먼저 다운로드하고 나중에 정리하는 것이 더 빠릅니다. 일부 고급 기능을 비활성화합니다.</translation>
+    </message>
+    <message>
+        <source> GB</source>
+        <translation type="unfinished">GB</translation>
+    </message>
+    <message>
+        <source>This initial synchronisation is very demanding, and may expose hardware problems with your computer that had previously gone unnoticed. Each time you run %1, it will continue downloading where it left off.</source>
+        <translation type="unfinished">초기 동기화는 매우 오래 걸리며 이전에는 본 적 없는 하드웨어 문제를 발생시킬 수 있습니다. %1을 실행할 때마다 중단 된 곳에서 다시 계속 다운로드 됩니다.</translation>
+    </message>
+    <message>
+        <source>When you click OK, %1 will begin to download and process the full %4 block chain (%2 GB) starting with the earliest transactions in %3 when %4 initially launched.</source>
+        <translation type="unfinished">OK를 클릭하면, %1는 %4가 최초 출시된 %3에 있는 가장 오래된 트랜잭션들부터 시작하여 전체 %4 블록체인 (%2GB)을 내려 받고 처리하기 시작합니다.</translation>
+    </message>
+    <message>
+        <source>If you have chosen to limit block chain storage (pruning), the historical data must still be downloaded and processed, but will be deleted afterward to keep your disk usage low.</source>
+        <translation type="unfinished">블록 체인 저장 영역을 제한하도록 선택한 경우 (블록 정리), 이력 데이터는 계속해서 다운로드 및 처리 되지만, 차후 디스크 용량을 줄이기 위해 삭제됩니다.</translation>
+    </message>
+    <message>
+        <source>Use the default data directory</source>
+        <translation type="unfinished">기본 데이터 폴더를 사용하기</translation>
+    </message>
+    <message>
+        <source>Use a custom data directory:</source>
+        <translation type="unfinished">커스텀 데이터 폴더 사용:</translation>
+    </message>
     <message>
         <source>Bitcoin</source>
         <translation type="unfinished">비트코인</translation>
@@ -1402,76 +1464,6 @@ The migration process will create a backup of the wallet before migrating. This 
     <message>
         <source>Error</source>
         <translation type="unfinished">오류</translation>
-    </message>
-    <message>
-        <source>Welcome</source>
-        <translation type="unfinished">환영합니다</translation>
-    </message>
-    <message>
-        <source>Welcome to %1.</source>
-        <translation type="unfinished">%1에 오신것을 환영합니다.</translation>
-    </message>
-    <message>
-        <source>As this is the first time the program is launched, you can choose where %1 will store its data.</source>
-        <translation type="unfinished">프로그램이 처음으로 실행되고 있습니다. %1가 어디에 데이터를 저장할지 선택할 수 있습니다.</translation>
-    </message>
-    <message>
-        <source>Limit block chain storage to</source>
-        <translation type="unfinished">블록체인 스토리지를 다음으로 제한하기 </translation>
-    </message>
-    <message>
-        <source>Reverting this setting requires re-downloading the entire blockchain. It is faster to download the full chain first and prune it later. Disables some advanced features.</source>
-        <translation type="unfinished">이 설정을 되돌리면 전체 블록 체인을 다시 다운로드 해야 합니다. 전체 체인을 먼저 다운로드하고 나중에 정리하는 것이 더 빠릅니다. 일부 고급 기능을 비활성화합니다.</translation>
-    </message>
-    <message>
-        <source> GB</source>
-        <translation type="unfinished">GB</translation>
-    </message>
-    <message>
-        <source>This initial synchronisation is very demanding, and may expose hardware problems with your computer that had previously gone unnoticed. Each time you run %1, it will continue downloading where it left off.</source>
-        <translation type="unfinished">초기 동기화는 매우 오래 걸리며 이전에는 본 적 없는 하드웨어 문제를 발생시킬 수 있습니다. %1을 실행할 때마다 중단 된 곳에서 다시 계속 다운로드 됩니다.</translation>
-    </message>
-    <message>
-        <source>When you click OK, %1 will begin to download and process the full %4 block chain (%2 GB) starting with the earliest transactions in %3 when %4 initially launched.</source>
-        <translation type="unfinished">OK를 클릭하면, %1는 %4가 최초 출시된 %3에 있는 가장 오래된 트랜잭션들부터 시작하여 전체 %4 블록체인 (%2GB)을 내려 받고 처리하기 시작합니다.</translation>
-    </message>
-    <message>
-        <source>If you have chosen to limit block chain storage (pruning), the historical data must still be downloaded and processed, but will be deleted afterward to keep your disk usage low.</source>
-        <translation type="unfinished">블록 체인 저장 영역을 제한하도록 선택한 경우 (블록 정리), 이력 데이터는 계속해서 다운로드 및 처리 되지만, 차후 디스크 용량을 줄이기 위해 삭제됩니다.</translation>
-    </message>
-    <message>
-        <source>Use the default data directory</source>
-        <translation type="unfinished">기본 데이터 폴더를 사용하기</translation>
-    </message>
-    <message>
-        <source>Use a custom data directory:</source>
-        <translation type="unfinished">커스텀 데이터 폴더 사용:</translation>
-    </message>
-</context>
-<context>
-    <name>HelpMessageDialog</name>
-    <message>
-        <source>version</source>
-        <translation type="unfinished">버전</translation>
-    </message>
-    <message>
-        <source>About %1</source>
-        <translation type="unfinished">%1 정보</translation>
-    </message>
-    <message>
-        <source>Command-line options</source>
-        <translation type="unfinished">명령줄 옵션</translation>
-    </message>
-</context>
-<context>
-    <name>ShutdownWindow</name>
-    <message>
-        <source>%1 is shutting down…</source>
-        <translation type="unfinished">%1 종료 중입니다...</translation>
-    </message>
-    <message>
-        <source>Do not shut down the computer until this window disappears.</source>
-        <translation type="unfinished">이 창이 사라지기 전까지 컴퓨터를 끄지 마세요.</translation>
     </message>
 </context>
 <context>
@@ -1865,10 +1857,6 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">표시된 정보가 오래된 것 같습니다. 당신의 지갑은 비트코인 네트워크에 연결된 뒤 자동으로 동기화 하지만, 아직 과정이 끝나지 않았습니다.</translation>
     </message>
     <message>
-        <source>Watch-only:</source>
-        <translation type="unfinished">조회-전용:</translation>
-    </message>
-    <message>
         <source>Available:</source>
         <translation type="unfinished">사용 가능:</translation>
     </message>
@@ -1905,28 +1893,8 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">당신의 현재 총액</translation>
     </message>
     <message>
-        <source>Your current balance in watch-only addresses</source>
-        <translation type="unfinished">조회-전용 주소의 현재 잔액</translation>
-    </message>
-    <message>
-        <source>Spendable:</source>
-        <translation type="unfinished">사용 가능:</translation>
-    </message>
-    <message>
         <source>Recent transactions</source>
         <translation type="unfinished">최근 거래들</translation>
-    </message>
-    <message>
-        <source>Unconfirmed transactions to watch-only addresses</source>
-        <translation type="unfinished">조회-전용 주소의 검증되지 않은 거래</translation>
-    </message>
-    <message>
-        <source>Mined balance in watch-only addresses that has not yet matured</source>
-        <translation type="unfinished">조회-전용 주소의 채굴된 잔액 중 사용가능하지 않은 금액</translation>
-    </message>
-    <message>
-        <source>Current total balance in watch-only addresses</source>
-        <translation type="unfinished">조회-전용 주소의 현재 잔액</translation>
     </message>
     <message>
         <source>Privacy mode activated for the Overview tab. To unmask the values, uncheck Settings-&gt;Mask values.</source>
@@ -1935,6 +1903,10 @@ The migration process will create a backup of the wallet before migrating. This 
 </context>
 <context>
     <name>PSBTOperationsDialog</name>
+    <message>
+        <source>PSBT Operations</source>
+        <translation type="unfinished">PSBT 작업</translation>
+    </message>
     <message>
         <source>Sign Tx</source>
         <translation type="unfinished">거래 서명</translation>
@@ -1970,6 +1942,10 @@ The migration process will create a backup of the wallet before migrating. This 
     <message>
         <source>Could not sign any more inputs.</source>
         <translation type="unfinished">더 이상 추가적인 입력에 대해 서명할 수 없습니다.</translation>
+    </message>
+    <message>
+        <source>Signed %1 inputs, but more signatures are still required.</source>
+        <translation type="unfinished">%1 입력에 서명했지만 더 많은 서명이 필요합니다.</translation>
     </message>
     <message>
         <source>Signed transaction successfully. Transaction is ready to broadcast.</source>
@@ -2108,6 +2084,11 @@ BIP70의 광범위한 보안 결함으로 인해 모든 가맹점에서는 지�
         <source>Peer</source>
         <extracomment>Title of Peers Table column which contains a unique number used to identify a connection.</extracomment>
         <translation type="unfinished">피어</translation>
+    </message>
+    <message>
+        <source>Age</source>
+        <extracomment>Title of Peers Table column which indicates the duration (length of time) since the peer connection started.</extracomment>
+        <translation type="unfinished">나이</translation>
     </message>
     <message>
         <source>Direction</source>
@@ -2357,6 +2338,10 @@ BIP70의 광범위한 보안 결함으로 인해 모든 가맹점에서는 지�
         <translation type="unfinished">피어 연결의 방향 및 유형: %1</translation>
     </message>
     <message>
+        <source>The BIP324 session ID string in hex.</source>
+        <translation type="unfinished">16진수(hex) 형식의 BIP324 세션 ID 문자열입니다.</translation>
+    </message>
+    <message>
         <source>The network protocol this peer is connected through: IPv4, IPv6, Onion, I2P, or CJDNS.</source>
         <translation type="unfinished">이 피어가 연결된 네트워크 프로토콜: IPv4, IPv6, Onion, I2P 또는 CJDNS.</translation>
     </message>
@@ -2483,6 +2468,21 @@ BIP70의 광범위한 보안 결함으로 인해 모든 가맹점에서는 지�
         <extracomment>Explanatory text for a short-lived outbound peer connection that is used to request addresses from a peer.</extracomment>
         <translation type="unfinished">아웃바운드 주소 가져오기: 단기, 주소 요청용
  </translation>
+    </message>
+    <message>
+        <source>detecting: peer could be v1 or v2</source>
+        <extracomment>Explanatory text for "detecting" transport type.</extracomment>
+        <translation type="unfinished">감지 중: 피어는 v1 또는 v2일 수 있습니다</translation>
+    </message>
+    <message>
+        <source>v1: unencrypted, plaintext transport protocol</source>
+        <extracomment>Explanatory text for v1 transport type.</extracomment>
+        <translation type="unfinished">v1: 암호화되지 않은 평문 전송 프로토콜</translation>
+    </message>
+    <message>
+        <source>v2: BIP324 encrypted transport protocol</source>
+        <extracomment>Explanatory text for v2 transport type.</extracomment>
+        <translation type="unfinished">v2: BIP324를 사용하는 암호화된 전송 프로토콜</translation>
     </message>
     <message>
         <source>we selected the peer for high bandwidth relay</source>
@@ -2693,6 +2693,14 @@ For more information on using this console, type %6.
     <message>
         <source>Copy &amp;amount</source>
         <translation type="unfinished">복사 &amp; 금액</translation>
+    </message>
+    <message>
+        <source>Generates a native segwit address (BIP-173). Some old wallets don't support it.</source>
+        <translation type="unfinished">네이티브 세그윗 주소(BIP-173)를 생성합니다. 일부 오래된 지갑은 이를 지원하지 않습니다</translation>
+    </message>
+    <message>
+        <source>Bech32m (BIP-350) is an upgrade to Bech32, wallet support is still limited.</source>
+        <translation type="unfinished">Bech32m(BIP-350)은 Bech32의 업그레이드며, 지갑 지원은 아직 제한적입니다.</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -3082,10 +3090,6 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">코인 전송을 확인</translation>
     </message>
     <message>
-        <source>Watch-only balance:</source>
-        <translation type="unfinished">조회-전용 잔액:</translation>
-    </message>
-    <message>
         <source>The recipient address is not valid. Please recheck.</source>
         <translation type="unfinished">수령인 주소가 정확하지 않습니다. 재확인 바랍니다</translation>
     </message>
@@ -3239,10 +3243,6 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
     <message>
         <source>Signature</source>
         <translation type="unfinished">서명</translation>
-    </message>
-    <message>
-        <source>Copy the current signature to the system clipboard</source>
-        <translation type="unfinished">이 서명을 시스템 클립보드로 복사</translation>
     </message>
     <message>
         <source>Sign the message to prove you own this Bitcoin address</source>
@@ -3411,10 +3411,6 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">자신의 주소</translation>
     </message>
     <message>
-        <source>watch-only</source>
-        <translation type="unfinished">조회-전용</translation>
-    </message>
-    <message>
         <source>label</source>
         <translation type="unfinished">라벨</translation>
     </message>
@@ -3579,10 +3575,6 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">채굴</translation>
     </message>
     <message>
-        <source>watch-only</source>
-        <translation type="unfinished">조회-전용</translation>
-    </message>
-    <message>
         <source>(n/a)</source>
         <translation type="unfinished">(없음)</translation>
     </message>
@@ -3601,10 +3593,6 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
     <message>
         <source>Type of transaction.</source>
         <translation type="unfinished">거래의 종류.</translation>
-    </message>
-    <message>
-        <source>Whether or not a watch-only address is involved in this transaction.</source>
-        <translation type="unfinished">조회-전용 주소가 이 거래에 참여하는지 여부입니다.</translation>
     </message>
     <message>
         <source>User-defined intent/purpose of the transaction.</source>
@@ -3726,10 +3714,6 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
     <message>
         <source>Confirmed</source>
         <translation type="unfinished">확인됨</translation>
-    </message>
-    <message>
-        <source>Watch-only</source>
-        <translation type="unfinished">조회-전용</translation>
     </message>
     <message>
         <source>Date</source>
@@ -3863,6 +3847,10 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation type="unfinished">PSBT 복사됨</translation>
     </message>
     <message>
+        <source>Fee-bump PSBT copied to clipboard</source>
+        <translation type="unfinished">수수료 범프 PSBT가 클립보드에 복사되었습니다.</translation>
+    </message>
+    <message>
         <source>Can't sign transaction.</source>
         <translation type="unfinished">거래에 서명 할 수 없습니다.</translation>
     </message>
@@ -3879,7 +3867,7 @@ Go to File &gt; Open Wallet to load a wallet.
     <name>WalletView</name>
     <message>
         <source>&amp;Export</source>
-        <translation type="unfinished">&amp;내보내기</translation>
+        <translation type="unfinished">내보내기(&amp;E)</translation>
     </message>
     <message>
         <source>Export the data in the current tab to a file</source>
@@ -3922,18 +3910,6 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation type="unfinished">%s 개발자들</translation>
     </message>
     <message>
-        <source>%s corrupt. Try using the wallet tool bitcoin-wallet to salvage or restoring a backup.</source>
-        <translation type="unfinished">%s가 손상되었습니다. '비트 코인-지갑'을 사용하여 백업을 구제하거나 복원하십시오.</translation>
-    </message>
-    <message>
-        <source>Cannot downgrade wallet from version %i to version %i. Wallet version unchanged.</source>
-        <translation type="unfinished">%i버젼에서 %i버젼으로 다운그레이드 할 수 없습니다. 월렛 버젼은 변경되지 않았습니다.</translation>
-    </message>
-    <message>
-        <source>Cannot upgrade a non HD split wallet from version %i to version %i without upgrading to support pre-split keypool. Please use version %i or no version specified.</source>
-        <translation type="unfinished">사전분리 키풀를 지원하기 위해서 업그레이드 하지 않고는 Non HD split 지갑의 %i버젼을 %i버젼으로 업그레이드 할 수 없습니다. %i버젼을 활용하거나 구체화되지 않은 버젼을 활용하세요.</translation>
-    </message>
-    <message>
         <source>Distributed under the MIT software license, see the accompanying file %s or %s</source>
         <translation type="unfinished">MIT 소프트웨어 라이센스에 따라 배포되었습니다. 첨부 파일 %s 또는 %s을 참조하십시오.</translation>
     </message>
@@ -3952,10 +3928,6 @@ Go to File &gt; Open Wallet to load a wallet.
     <message>
         <source>Error: Dumpfile version is not supported. This version of bitcoin-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
         <translation type="unfinished">오류 : 덤프파일 버젼이 지원되지 않습니다. 이 비트코인 지갑 버젼은 오직 버젼1의 덤프파일을 지원합니다. %s버젼의 덤프파일을 얻었습니다.</translation>
-    </message>
-    <message>
-        <source>Error: Legacy wallets only support the "legacy", "p2sh-segwit", and "bech32" address types</source>
-        <translation type="unfinished">오류 : 레거시 지갑주소는 "레거시", "p2sh-segwit", "bech32" 지갑 주소의 타입만 지원합니다.</translation>
     </message>
     <message>
         <source>File %s already exists. If you are sure this is what you want, move it out of the way first.</source>
@@ -3978,20 +3950,12 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation type="unfinished">덤프파일이 입력되지 않았습니다. 덤프를 사용하기 위해서는 -dumpfile=&lt;filename&gt;이 반드시 입력되어야 합니다.</translation>
     </message>
     <message>
-        <source>No wallet file format provided. To use createfromdump, -format=&lt;format&gt; must be provided.</source>
-        <translation type="unfinished">shshhdchb bdfjj fb  rciivfjb doffbfbdjdj</translation>
-    </message>
-    <message>
         <source>Please contribute if you find %s useful. Visit %s for further information about the software.</source>
         <translation type="unfinished">%s가 유용하다고 생각한다면 프로젝트에 공헌해주세요. 이 소프트웨어에 대한 보다 자세한 정보는 %s를 방문해 주십시오.</translation>
     </message>
     <message>
         <source>Prune configured below the minimum of %d MiB.  Please use a higher number.</source>
         <translation type="unfinished">블록 축소가 최소치인 %d MiB 밑으로 설정되어 있습니다. 더 높은 값을 사용해 주십시오.</translation>
-    </message>
-    <message>
-        <source>Prune: last wallet synchronisation goes beyond pruned data. You need to -reindex (download the whole blockchain again in case of pruned node)</source>
-        <translation type="unfinished">블록 축소: 마지막 지갑 동기화 지점이 축소된 데이터보다 과거의 것 입니다. -reindex가 필요합니다 (축소된 노드의 경우 모든 블록체인을 재다운로드합니다)</translation>
     </message>
     <message>
         <source>SQLiteDatabase: Unknown sqlite wallet schema version %d. Only version %d is supported</source>
@@ -4004,10 +3968,6 @@ Go to File &gt; Open Wallet to load a wallet.
     <message>
         <source>The transaction amount is too small to send after the fee has been deducted</source>
         <translation type="unfinished">거래액이 수수료를 지불하기엔 너무 작습니다</translation>
-    </message>
-    <message>
-        <source>This error could occur if this wallet was not shutdown cleanly and was last loaded using a build with a newer version of Berkeley DB. If so, please use the software that last loaded this wallet</source>
-        <translation type="unfinished">지갑이 완전히 종료되지 않고 최신 버전의 Berkeley DB 빌드를 사용하여 마지막으로 로드된 경우 오류가 발생할 수 있습니다. 이 지갑을 마지막으로 로드한 소프트웨어를 사용하십시오.</translation>
     </message>
     <message>
         <source>This is a pre-release test build - use at your own risk - do not use for mining or merchant applications</source>
@@ -4032,10 +3992,6 @@ Go to File &gt; Open Wallet to load a wallet.
     <message>
         <source>Unable to replay blocks. You will need to rebuild the database using -reindex-chainstate.</source>
         <translation type="unfinished">블록을 재생할 수 없습니다. -reindex-chainstate를 사용하여 데이터베이스를 다시 빌드 해야 합니다.</translation>
-    </message>
-    <message>
-        <source>Wallet created successfully. The legacy wallet type is being deprecated and support for creating and opening legacy wallets will be removed in the future.</source>
-        <translation type="unfinished">지갑 생성 성공. Legacy 지갑 유형은 더 이상 지원되지 않으며, 향후 기존 지갑의 생성 및 열기 기능이 제거될 예정입니다.</translation>
     </message>
     <message>
         <source>Warning: Private keys detected in wallet {%s} with disabled private keys</source>
@@ -4070,6 +4026,38 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation type="unfinished">-blockfilterindex는 -peerblockfilters 없이 사용할 수 없습니다.</translation>
     </message>
     <message>
+        <source>Flushing block file to disk failed. This is likely the result of an I/O error.</source>
+        <translation type="unfinished">블록 파일을 디스크에 기록하는 데 실패했습니다. 이는 I/O 오류로 인한 것일 가능성이 높습니다.</translation>
+    </message>
+    <message>
+        <source>Flushing undo file to disk failed. This is likely the result of an I/O error.</source>
+        <translation type="unfinished">Undo 파일을 디스크에 기록하는 데 실패했습니다. 이는 I/O 오류로 인한 것일 가능성이 높습니다.</translation>
+    </message>
+    <message>
+        <source>Outbound connections restricted to CJDNS (-onlynet=cjdns) but -cjdnsreachable is not provided</source>
+        <translation type="unfinished">아웃바운드 연결이 CJDNS(-onlynet=cjdns)로 제한되었지만, -cjdnsreachable 옵션이 입력되지 않았습니다.</translation>
+    </message>
+    <message>
+        <source>The combination of the pre-selected inputs and the wallet automatic inputs selection exceeds the transaction maximum weight. Please try sending a smaller amount or manually consolidating your wallet's UTXOs</source>
+        <translation type="unfinished">사전에 선택된 입력과 지갑의 자동 입력 선택이 결합되어 트랜잭션 최대 웨이트(weight)를 초과했습니다. 더 작은 금액을 보내거나 지갑의 UTXO들을 수동으로 통합하고 나서 시도해 주세요.</translation>
+    </message>
+    <message>
+        <source>The inputs size exceeds the maximum weight. Please try sending a smaller amount or manually consolidating your wallet's UTXOs</source>
+        <translation type="unfinished">입력 크기가 최대 웨이트(weight) 를 초과했습니다. 더 작은 금액을 보내거나 지갑의 UTXO들을 수동으로 정리한 뒤 다시 시도해 주세요.</translation>
+    </message>
+    <message>
+        <source>The preselected coins total amount does not cover the transaction target. Please allow other inputs to be automatically selected or include more coins manually</source>
+        <translation type="unfinished">미리 선택된 코인 총액이 트랜잭션의 목표 금액을 충족하지 못합니다. 다른 입력을 자동으로 선택하도록 허용하거나 더 많은 코인을 수동으로 포함해 주세요.</translation>
+    </message>
+    <message>
+        <source>UTXO snapshot failed to validate. Restart to resume normal initial block download, or try loading a different snapshot.</source>
+        <translation type="unfinished">UTXO 스냅샷 검증에 실패했습니다. 정상적인 초기 블록 다운로드(IBD)를 재개하려면 다시 시작하거나 다른 스냅샷을 불러오세요.</translation>
+    </message>
+    <message>
+        <source>default wallet</source>
+        <translation type="unfinished">기본 지갑</translation>
+    </message>
+    <message>
         <source>Block verification was interrupted</source>
         <translation type="unfinished">블록 검증이 중단되었음</translation>
     </message>
@@ -4102,16 +4090,16 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation type="unfinished">파일 버리기 %s 존재 안함</translation>
     </message>
     <message>
+        <source>Elliptic curve cryptography sanity check failure. %s is shutting down.</source>
+        <translation type="unfinished">타원 곡선 암호(ECC) 정합성 검사 실패. %s가 종료됩니다.</translation>
+    </message>
+    <message>
         <source>Error creating %s</source>
         <translation type="unfinished">만들기 오류 %s</translation>
     </message>
     <message>
         <source>Error initializing block database</source>
         <translation type="unfinished">블록 데이터베이스 초기화 오류 발생</translation>
-    </message>
-    <message>
-        <source>Error initializing wallet database environment %s!</source>
-        <translation type="unfinished">지갑 데이터베이스 %s 환경 초기화 오류 발생!</translation>
     </message>
     <message>
         <source>Error loading %s</source>
@@ -4134,8 +4122,16 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation type="unfinished">블록 데이터베이스 불러오는데 오류 발생</translation>
     </message>
     <message>
+        <source>Error loading databases</source>
+        <translation type="unfinished">데이터 베이스 불러오는데 오류</translation>
+    </message>
+    <message>
         <source>Error opening block database</source>
         <translation type="unfinished">블록 데이터베이스 열기 오류 발생</translation>
+    </message>
+    <message>
+        <source>Error opening coins database</source>
+        <translation type="unfinished">코인 데이터 베이스 열기 오류</translation>
     </message>
     <message>
         <source>Error reading from database, shutting down.</source>
@@ -4184,10 +4180,6 @@ Go to File &gt; Open Wallet to load a wallet.
     <message>
         <source>Ignoring duplicate -wallet %s.</source>
         <translation type="unfinished">중복 -지갑 %s를 무시합니다.</translation>
-    </message>
-    <message>
-        <source>Importing…</source>
-        <translation type="unfinished">불러오는 중...</translation>
     </message>
     <message>
         <source>Incorrect or no genesis block found. Wrong datadir for network?</source>
@@ -4366,12 +4358,8 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation type="unfinished">PID 파일 생성 실패 '%s': %s</translation>
     </message>
     <message>
-        <source>Unable to generate initial keys</source>
-        <translation type="unfinished">초기 키값 생성 불가</translation>
-    </message>
-    <message>
-        <source>Unable to generate keys</source>
-        <translation type="unfinished">키 생성 불가</translation>
+        <source>Unable to find UTXO for external input</source>
+        <translation type="unfinished"> 외부 입력에 대한 UTXO를 찾을 수 없습니다</translation>
     </message>
     <message>
         <source>Unable to open %s for writing</source>
@@ -4408,6 +4396,14 @@ Go to File &gt; Open Wallet to load a wallet.
     <message>
         <source>Error: Could not delete watchonly transactions. </source>
         <translation type="unfinished">오류: 보기전용 트랜젝션을 제거할 수 없습니다.</translation>
+    </message>
+    <message>
+        <source>Error: Wallet does not exist</source>
+        <translation type="unfinished">오류: 지갑이 존재하지 않습니다</translation>
+    </message>
+    <message>
+        <source>Error: cannot remove legacy wallet records</source>
+        <translation type="unfinished">오류: 기존 지갑 기록을 삭제할 수 없습니다</translation>
     </message>
     <message>
         <source>User Agent comment (%s) contains unsafe characters.</source>

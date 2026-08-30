@@ -25,9 +25,6 @@ from test_framework.util import (
 from test_framework.wallet import MiniWallet
 
 class WalletAnchorTest(BitcoinTestFramework):
-    def add_options(self, parser):
-        self.add_wallet_options(parser)
-
     def set_test_params(self):
         self.num_nodes = 1
 
@@ -41,15 +38,13 @@ class WalletAnchorTest(BitcoinTestFramework):
         sender = MiniWallet(self.nodes[0])
         anchor_tx = sender.create_self_transfer(fee_rate=0, version=3)["tx"]
         anchor_tx.vout.append(CTxOut(0, PAY_TO_ANCHOR))
-        anchor_tx.rehash()  # Rehash after modifying anchor_tx
         anchor_spend = sender.create_self_transfer(version=3)["tx"]
-        anchor_spend.vin.append(CTxIn(COutPoint(anchor_tx.sha256, 1), b""))
+        anchor_spend.vin.append(CTxIn(COutPoint(anchor_tx.txid_int, 1), b""))
         anchor_spend.wit.vtxinwit.append(CTxInWitness())
-        anchor_spend.rehash()  # Rehash after modifying anchor_spend
         submit_res = self.nodes[0].submitpackage([anchor_tx.serialize().hex(), anchor_spend.serialize().hex()])
         assert_equal(submit_res["package_msg"], "success")
-        anchor_txid = anchor_tx.hash
-        anchor_spend_txid = anchor_spend.hash
+        anchor_txid = anchor_tx.txid_hex
+        anchor_spend_txid = anchor_spend.txid_hex
 
         # Mine each tx in separate blocks
         self.generateblock(self.nodes[0], sender.get_address(), [anchor_tx.serialize().hex()])
@@ -62,8 +57,8 @@ class WalletAnchorTest(BitcoinTestFramework):
 
         self.nodes[0].createwallet(wallet_name="anchor", disable_private_keys=True)
         wallet = self.nodes[0].get_wallet_rpc("anchor")
-
-        wallet.importaddress(ANCHOR_ADDRESS, rescan=False)
+        import_res = wallet.importdescriptors([{"desc": descsum_create(f"addr({ANCHOR_ADDRESS})"), "timestamp": "now"}])
+        assert_equal(import_res[0]["success"], True)
 
         # The wallet should have no UTXOs, and not know of the anchor tx or its spend
         assert_equal(wallet.listunspent(), [])
@@ -90,15 +85,12 @@ class WalletAnchorTest(BitcoinTestFramework):
         for disable_privkeys in [False, True]:
             self.nodes[0].createwallet(wallet_name=f"anchor_spend_{disable_privkeys}", disable_private_keys=disable_privkeys)
             wallet = self.nodes[0].get_wallet_rpc(f"anchor_spend_{disable_privkeys}")
-            if self.options.descriptors:
-                import_res = wallet.importdescriptors([
-                    {"desc": descsum_create(f"addr({ANCHOR_ADDRESS})"), "timestamp": "now"},
-                    {"desc": descsum_create(f"raw({PAY_TO_ANCHOR.hex()})"), "timestamp": "now"}
-                ])
-                assert_equal(import_res[0]["success"], disable_privkeys)
-                assert_equal(import_res[1]["success"], disable_privkeys)
-            else:
-                wallet.importaddress(ANCHOR_ADDRESS)
+            import_res = wallet.importdescriptors([
+                {"desc": descsum_create(f"addr({ANCHOR_ADDRESS})"), "timestamp": "now"},
+                {"desc": descsum_create(f"raw({PAY_TO_ANCHOR.hex()})"), "timestamp": "now"}
+            ])
+            assert_equal(import_res[0]["success"], disable_privkeys)
+            assert_equal(import_res[1]["success"], disable_privkeys)
 
         anchor_txid = self.default_wallet.sendtoaddress(ANCHOR_ADDRESS, 1)
         self.generate(self.nodes[0], 1)
@@ -110,14 +102,10 @@ class WalletAnchorTest(BitcoinTestFramework):
         assert_equal(utxos[0]["address"], ANCHOR_ADDRESS)
         assert_equal(utxos[0]["amount"], 1)
 
-        if self.options.descriptors:
-            assert_raises_rpc_error(-4, "Missing solving data for estimating transaction size", wallet.send, [{self.default_wallet.getnewaddress(): 0.9999}])
-            assert_raises_rpc_error(-4, "Unable to determine the size of the transaction, the wallet contains unsolvable descriptors", wallet.sendall, recipients=[self.default_wallet.getnewaddress()])
-        else:
-            assert_raises_rpc_error(-4, "Insufficient funds", wallet.send, [{self.default_wallet.getnewaddress(): 0.9999}])
-            assert_raises_rpc_error(-6, "Total value of UTXO pool too low to pay for transaction. Try using lower feerate or excluding uneconomic UTXOs with 'send_max' option.", wallet.sendall, recipients=[self.default_wallet.getnewaddress()])
+        assert_raises_rpc_error(-4, "Missing solving data for estimating transaction size", wallet.send, [{self.default_wallet.getnewaddress(): 0.9999}])
         assert_raises_rpc_error(-4, "Error: Private keys are disabled for this wallet", wallet.sendtoaddress, self.default_wallet.getnewaddress(), 0.9999)
         assert_raises_rpc_error(-4, "Unable to determine the size of the transaction, the wallet contains unsolvable descriptors", wallet.sendall, recipients=[self.default_wallet.getnewaddress()], inputs=utxos)
+        assert_raises_rpc_error(-4, "Unable to determine the size of the transaction, the wallet contains unsolvable descriptors", wallet.sendall, recipients=[self.default_wallet.getnewaddress()])
 
     def run_test(self):
         self.default_wallet = self.nodes[0].get_wallet_rpc(self.default_wallet_name)

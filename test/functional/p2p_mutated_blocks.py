@@ -60,7 +60,7 @@ class MutatedBlocksTest(BitcoinTestFramework):
         # Announce the new block via a compact block through the honest relayer
         cmpctblock = HeaderAndShortIDs()
         cmpctblock.initialize_from_block(block, use_witness=True)
-        honest_relayer.send_message(msg_cmpctblock(cmpctblock.to_p2p()))
+        honest_relayer.send_without_ping(msg_cmpctblock(cmpctblock.to_p2p()))
 
         # Wait for a `getblocktxn` that attempts to fetch the self-transfer
         def self_transfer_requested():
@@ -68,7 +68,7 @@ class MutatedBlocksTest(BitcoinTestFramework):
                 return False
 
             get_block_txn = honest_relayer.last_message['getblocktxn']
-            return get_block_txn.block_txn_request.blockhash == block.sha256 and \
+            return get_block_txn.block_txn_request.blockhash == block.hash_int and \
                    get_block_txn.block_txn_request.indexes == [1]
         honest_relayer.wait_until(self_transfer_requested, timeout=5)
 
@@ -80,7 +80,7 @@ class MutatedBlocksTest(BitcoinTestFramework):
         # Attempt to clear the honest relayer's download request by sending the
         # mutated block (as the attacker).
         with self.nodes[0].assert_debug_log(expected_msgs=["Block mutated: bad-txnmrklroot, hashMerkleRoot mismatch"]):
-            attacker.send_message(msg_block(mutated_block))
+            attacker.send_without_ping(msg_block(mutated_block))
         # Attacker should get disconnected for sending a mutated block
         attacker.wait_for_disconnect(timeout=5)
 
@@ -93,9 +93,9 @@ class MutatedBlocksTest(BitcoinTestFramework):
         # The honest relayer should be able to complete relaying the block by
         # sending the blocktxn that was requested.
         block_txn = msg_blocktxn()
-        block_txn.block_transactions = BlockTransactions(blockhash=block.sha256, transactions=[tx])
+        block_txn.block_transactions = BlockTransactions(blockhash=block.hash_int, transactions=[tx])
         honest_relayer.send_and_ping(block_txn)
-        assert_equal(self.nodes[0].getbestblockhash(), block.hash)
+        assert_equal(self.nodes[0].getbestblockhash(), block.hash_hex)
 
         # Check that unexpected-witness mutation check doesn't trigger on a header that doesn't connect to anything
         assert_equal(len(self.nodes[0].getpeerinfo()), 1)
@@ -107,7 +107,7 @@ class MutatedBlocksTest(BitcoinTestFramework):
         # Check that non-connecting block causes disconnect
         assert_equal(len(self.nodes[0].getpeerinfo()), 2)
         with self.nodes[0].assert_debug_log(expected_msgs=["AcceptBlock FAILED (prev-blk-not-found)"]):
-            attacker.send_message(msg_block(block_missing_prev))
+            attacker.send_without_ping(msg_block(block_missing_prev))
         attacker.wait_for_disconnect(timeout=5)
 
 

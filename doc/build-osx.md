@@ -48,8 +48,21 @@ See [dependencies.md](dependencies.md) for a complete overview.
 To install, run the following from your terminal:
 
 ``` bash
-brew install cmake boost pkgconf libevent
+brew install cmake boost pkgconf libevent capnp
 ```
+
+#### Wallet Dependencies
+
+If you do not need wallet functionality, you can use `-DENABLE_WALLET=OFF` in
+the `cmake -B` step below.
+
+SQLite is required, but since macOS ships with a useable `sqlite` package, you don't need to
+install anything.
+
+#### IPC Dependencies
+
+If you do not need IPC functionality (see [multiprocess.md](multiprocess.md))
+you can omit `capnp` and use `-DENABLE_IPC=OFF` in the `cmake -B` step below.
 
 ### 4. Clone BitcoinSilver repository
 
@@ -63,27 +76,6 @@ git clone https://github.com/bitcoin/bitcoin.git
 
 ### 5. Install Optional Dependencies
 
-#### Wallet Dependencies
-
-It is not necessary to build wallet functionality to run `bitcoinsilverd` or  `bitcoinsilver-qt`.
-
-###### Descriptor Wallet Support
-
-`sqlite` is required to support for descriptor wallets.
-
-macOS ships with a useable `sqlite` package, meaning you don't need to
-install anything.
-
-###### Legacy Wallet Support
-
-`berkeley-db@4` is only required to support for legacy wallets.
-Skip if you don't intend to use legacy wallets.
-
-``` bash
-brew install berkeley-db@4
-```
----
-
 #### GUI Dependencies
 
 ###### Qt
@@ -92,10 +84,8 @@ BitcoinSilver includes a GUI built with the cross-platform Qt Framework. To comp
 Qt, libqrencode and pass `-DBUILD_GUI=ON`. Skip if you don't intend to use the GUI.
 
 ``` bash
-brew install qt@5
+brew install qt@6
 ```
-
-Note: Building may fail if Qt 6 is installed (`qt` or `qt@6`)
 
 Note: Building with Qt binaries downloaded from the Qt website is not officially supported.
 See the notes in [#7714](https://github.com/bitcoin/bitcoin/issues/7714).
@@ -141,21 +131,13 @@ brew install python
 #### Deploy Dependencies
 
 You can [deploy](#3-deploy-optional) a `.zip` containing the BitcoinSilver application.
-It is required that you have `python` installed.
+It is required that you have `python` and `zip` installed.
 
 ## Building BitcoinSilver
 
 ### 1. Configuration
 
 There are many ways to configure BitcoinSilver, here are a few common examples:
-
-##### Wallet (BDB + SQlite) Support, No GUI:
-
-If `berkeley-db@4` or `sqlite` are not installed, this will throw an error.
-
-``` bash
-cmake -B build -DWITH_BDB=ON
-```
 
 ##### Wallet (only SQlite) and GUI Support:
 
@@ -203,6 +185,10 @@ cmake --build build --target deploy
 
 BitcoinSilver should now be available at `./build/bin/bitcoinsilverd`.
 If you compiled support for the GUI, it should be available at `./build/bin/bitcoinsilver-qt`.
+
+There is also a multifunction command line interface at `./build/bin/bitcoinsilver`
+supporting subcommands like `bitcoinsilver node`, `bitcoinsilver gui`, `bitcoinsilver rpc`, and
+others that can be listed with `bitcoinsilver help`.
 
 The first time you run `bitcoinsilverd` or `bitcoinsilver-qt`, it will start downloading the blockchain.
 This process could take many hours, or even days on slower than average systems.

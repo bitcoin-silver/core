@@ -130,6 +130,12 @@ struct RegTestingSetup : public TestingSetup {
         : TestingSetup{ChainType::REGTEST} {}
 };
 
+/** Identical to TestingSetup, but chain set to testnet4 */
+struct Testnet4Setup : public TestingSetup {
+    Testnet4Setup()
+        : TestingSetup{ChainType::TESTNET4} {}
+};
+
 class CBlock;
 struct CMutableTransaction;
 class CScript;
@@ -285,6 +291,8 @@ inline std::ostream& operator<<(std::ostream& os, const std::optional<T>& v)
 std::ostream& operator<<(std::ostream& os, const arith_uint256& num);
 std::ostream& operator<<(std::ostream& os, const uint160& num);
 std::ostream& operator<<(std::ostream& os, const uint256& num);
+std::ostream& operator<<(std::ostream& os, const Txid& txid);
+std::ostream& operator<<(std::ostream& os, const Wtxid& wtxid);
 // @}
 
 /**

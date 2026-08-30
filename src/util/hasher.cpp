@@ -1,4 +1,4 @@
-// Copyright (c) 2019-2022 The Bitcoin Core developers
+// Copyright (c) 2019-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,7 +7,15 @@
 #include <span.h>
 #include <util/hasher.h>
 
+SaltedUint256Hasher::SaltedUint256Hasher() :
+    k0{FastRandomContext().rand64()},
+    k1{FastRandomContext().rand64()} {}
+
 SaltedTxidHasher::SaltedTxidHasher() :
+    k0{FastRandomContext().rand64()},
+    k1{FastRandomContext().rand64()} {}
+
+SaltedWtxidHasher::SaltedWtxidHasher() :
     k0{FastRandomContext().rand64()},
     k1{FastRandomContext().rand64()} {}
 
@@ -20,7 +28,7 @@ SaltedSipHasher::SaltedSipHasher() :
     m_k0{FastRandomContext().rand64()},
     m_k1{FastRandomContext().rand64()} {}
 
-size_t SaltedSipHasher::operator()(const Span<const unsigned char>& script) const
+size_t SaltedSipHasher::operator()(const std::span<const unsigned char>& script) const
 {
     return CSipHasher(m_k0, m_k1).Write(script).Finalize();
 }

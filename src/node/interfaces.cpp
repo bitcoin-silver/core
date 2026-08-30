@@ -82,6 +82,7 @@ using interfaces::Mining;
 using interfaces::Node;
 using interfaces::WalletLoader;
 using node::BlockAssembler;
+using node::BlockWaitOptions;
 using util::Join;
 
 namespace node {
@@ -325,7 +326,8 @@ public:
     }
     double getVerificationProgress() override
     {
-        return chainman().GuessVerificationProgress(WITH_LOCK(chainman().GetMutex(), return chainman().ActiveChain().Tip()));
+        LOCK(chainman().GetMutex());
+        return chainman().GuessVerificationProgress(chainman().ActiveTip());
     }
     bool isInitialBlockDownload() override
     {
@@ -354,8 +356,6 @@ public:
         return ::tableRPC.execute(req);
     }
     std::vector<std::string> listRpcCommands() override { return ::tableRPC.listCommands(); }
-    void rpcSetTimerInterfaceIfUnset(RPCTimerInterface* iface) override { RPCSetTimerInterfaceIfUnset(iface); }
-    void rpcUnsetTimerInterface(RPCTimerInterface* iface) override { RPCUnsetTimerInterface(iface); }
     std::optional<Coin> getUnspentOutput(const COutPoint& output) override
     {
         LOCK(::cs_main);
@@ -407,9 +407,8 @@ public:
     }
     std::unique_ptr<Handler> handleNotifyBlockTip(NotifyBlockTipFn fn) override
     {
-        return MakeSignalHandler(::uiInterface.NotifyBlockTip_connect([fn, this](SynchronizationState sync_state, const CBlockIndex* block) {
-            fn(sync_state, BlockTip{block->nHeight, block->GetBlockTime(), block->GetBlockHash()},
-               chainman().GuessVerificationProgress(block));
+        return MakeSignalHandler(::uiInterface.NotifyBlockTip_connect([fn](SynchronizationState sync_state, const CBlockIndex& block, double verification_progress) {
+            fn(sync_state, BlockTip{block.nHeight, block.GetBlockTime(), block.GetBlockHash()}, verification_progress);
         }));
     }
     std::unique_ptr<Handler> handleNotifyHeaderTip(NotifyHeaderTipFn fn) override
@@ -430,7 +429,7 @@ public:
 };
 
 // NOLINTNEXTLINE(misc-no-recursion)
-bool FillBlock(const CBlockIndex* index, const FoundBlock& block, UniqueLock<RecursiveMutex>& lock, const CChain& active, const BlockManager& blockman)
+bool FillBlock(const CBlockIndex* index, const FoundBlock& block, UniqueLock<RecursiveMutex>& lock, const CChain& active, const BlockManager& blockman) EXCLUSIVE_LOCKS_REQUIRED(cs_main)
 {
     if (!index) return false;
     if (block.m_hash) *block.m_hash = index->GetBlockHash();
@@ -442,7 +441,7 @@ bool FillBlock(const CBlockIndex* index, const FoundBlock& block, UniqueLock<Rec
     if (block.m_locator) { *block.m_locator = GetLocator(index); }
     if (block.m_next_block) FillBlock(active[index->nHeight] == index ? active[index->nHeight + 1] : nullptr, *block.m_next_block, lock, active, blockman);
     if (block.m_data) {
-        REVERSE_LOCK(lock);
+        REVERSE_LOCK(lock, cs_main);
         if (!blockman.ReadBlock(*block.m_data, *index)) block.m_data->SetNull();
     }
     block.found = true;
@@ -560,17 +559,6 @@ public:
         const CBlockIndex* block{chainman().ActiveChain()[height]};
         return block && ((block->nStatus & BLOCK_HAVE_DATA) != 0) && block->nTx > 0;
     }
-    CBlockLocator getTipLocator() override
-    {
-        LOCK(::cs_main);
-        return chainman().ActiveChain().GetLocator();
-    }
-    CBlockLocator getActiveChainLocator(const uint256& block_hash) override
-    {
-        LOCK(::cs_main);
-        const CBlockIndex* index = chainman().m_blockman.LookupBlockIndex(block_hash);
-        return GetLocator(index);
-    }
     std::optional<int> findLocatorFork(const CBlockLocator& locator) override
     {
         LOCK(::cs_main);
@@ -668,17 +656,17 @@ public:
         LOCK(m_node.mempool->cs);
         return IsRBFOptIn(tx, *m_node.mempool);
     }
-    bool isInMempool(const uint256& txid) override
+    bool isInMempool(const Txid& txid) override
     {
         if (!m_node.mempool) return false;
         LOCK(m_node.mempool->cs);
-        return m_node.mempool->exists(GenTxid::Txid(txid));
+        return m_node.mempool->exists(txid);
     }
-    bool hasDescendantsInMempool(const uint256& txid) override
+    bool hasDescendantsInMempool(const Txid& txid) override
     {
         if (!m_node.mempool) return false;
         LOCK(m_node.mempool->cs);
-        const auto entry{m_node.mempool->GetEntry(Txid::FromUint256(txid))};
+        const auto entry{m_node.mempool->GetEntry(txid)};
         if (entry == nullptr) return false;
         return entry->GetCountWithDescendants() > 1;
     }
@@ -693,7 +681,7 @@ public:
         // that Chain clients do not need to know about.
         return TransactionError::OK == err;
     }
-    void getTransactionAncestry(const uint256& txid, size_t& ancestors, size_t& descendants, size_t* ancestorsize, CAmount* ancestorfees) override
+    void getTransactionAncestry(const Txid& txid, size_t& ancestors, size_t& descendants, size_t* ancestorsize, CAmount* ancestorfees) override
     {
         ancestors = descendants = 0;
         if (!m_node.mempool) return;
@@ -803,10 +791,6 @@ public:
         return std::make_unique<RpcHandlerImpl>(command);
     }
     bool rpcEnableDeprecated(const std::string& method) override { return IsDeprecatedRPCEnabled(method); }
-    void rpcRunLater(const std::string& name, std::function<void()> fn, int64_t seconds) override
-    {
-        RPCRunLater(name, std::move(fn), seconds);
-    }
     common::SettingsValue getSetting(const std::string& name) override
     {
         return args().GetSetting(name);
@@ -877,7 +861,11 @@ public:
 class BlockTemplateImpl : public BlockTemplate
 {
 public:
-    explicit BlockTemplateImpl(std::unique_ptr<CBlockTemplate> block_template, NodeContext& node) : m_block_template(std::move(block_template)), m_node(node)
+    explicit BlockTemplateImpl(BlockAssembler::Options assemble_options,
+                               std::unique_ptr<CBlockTemplate> block_template,
+                               NodeContext& node) : m_assemble_options(std::move(assemble_options)),
+                                                    m_block_template(std::move(block_template)),
+                                                    m_node(node)
     {
         assert(m_block_template);
     }
@@ -924,27 +912,23 @@ public:
 
     bool submitSolution(uint32_t version, uint32_t timestamp, uint32_t nonce, CTransactionRef coinbase) override
     {
-        CBlock block{m_block_template->block};
-
-        if (block.vtx.size() == 0) {
-            block.vtx.push_back(coinbase);
-        } else {
-            block.vtx[0] = coinbase;
-        }
-
-        block.nVersion = version;
-        block.nTime = timestamp;
-        block.nNonce = nonce;
-
-        block.hashMerkleRoot = BlockMerkleRoot(block);
-
-        auto block_ptr = std::make_shared<const CBlock>(block);
-        return chainman().ProcessNewBlock(block_ptr, /*force_processing=*/true, /*min_pow_checked=*/true, /*new_block=*/nullptr);
+        AddMerkleRootAndCoinbase(m_block_template->block, std::move(coinbase), version, timestamp, nonce);
+        return chainman().ProcessNewBlock(std::make_shared<const CBlock>(m_block_template->block), /*force_processing=*/true, /*min_pow_checked=*/true, /*new_block=*/nullptr);
     }
+
+    std::unique_ptr<BlockTemplate> waitNext(BlockWaitOptions options) override
+    {
+        auto new_template = WaitAndCreateNewBlock(chainman(), notifications(), m_node.mempool.get(), m_block_template, options, m_assemble_options);
+        if (new_template) return std::make_unique<BlockTemplateImpl>(m_assemble_options, std::move(new_template), m_node);
+        return nullptr;
+    }
+
+    const BlockAssembler::Options m_assemble_options;
 
     const std::unique_ptr<CBlockTemplate> m_block_template;
 
     ChainstateManager& chainman() { return *Assert(m_node.chainman); }
+    KernelNotifications& notifications() { return *Assert(m_node.notifications); }
     NodeContext& m_node;
 };
 
@@ -965,33 +949,31 @@ public:
 
     std::optional<BlockRef> getTip() override
     {
-        LOCK(::cs_main);
-        CBlockIndex* tip{chainman().ActiveChain().Tip()};
-        if (!tip) return {};
-        return BlockRef{tip->GetBlockHash(), tip->nHeight};
+        return GetTip(chainman());
     }
 
-    BlockRef waitTipChanged(uint256 current_tip, MillisecondsDouble timeout) override
+    std::optional<BlockRef> waitTipChanged(uint256 current_tip, MillisecondsDouble timeout) override
     {
-        if (timeout > std::chrono::years{100}) timeout = std::chrono::years{100}; // Upper bound to avoid UB in std::chrono
-        {
-            WAIT_LOCK(notifications().m_tip_block_mutex, lock);
-            notifications().m_tip_block_cv.wait_for(lock, timeout, [&]() EXCLUSIVE_LOCKS_REQUIRED(notifications().m_tip_block_mutex) {
-                // We need to wait for m_tip_block to be set AND for the value
-                // to differ from the current_tip value.
-                return (notifications().TipBlock() && notifications().TipBlock() != current_tip) || chainman().m_interrupt;
-            });
-        }
-        // Must release m_tip_block_mutex before locking cs_main, to avoid deadlocks.
-        LOCK(::cs_main);
-        return BlockRef{chainman().ActiveChain().Tip()->GetBlockHash(), chainman().ActiveChain().Tip()->nHeight};
+        return WaitTipChanged(chainman(), notifications(), current_tip, timeout);
     }
 
     std::unique_ptr<BlockTemplate> createNewBlock(const BlockCreateOptions& options) override
     {
+        // Ensure m_tip_block is set so consumers of BlockTemplate can rely on that.
+        if (!waitTipChanged(uint256::ZERO, MillisecondsDouble::max())) return {};
+
         BlockAssembler::Options assemble_options{options};
         ApplyArgsManOptions(*Assert(m_node.args), assemble_options);
-        return std::make_unique<BlockTemplateImpl>(BlockAssembler{chainman().ActiveChainstate(), context()->mempool.get(), assemble_options}.CreateNewBlock(), m_node);
+        return std::make_unique<BlockTemplateImpl>(assemble_options, BlockAssembler{chainman().ActiveChainstate(), context()->mempool.get(), assemble_options}.CreateNewBlock(), m_node);
+    }
+
+    bool checkBlock(const CBlock& block, const node::BlockCheckOptions& options, std::string& reason, std::string& debug) override
+    {
+        LOCK(chainman().GetMutex());
+        BlockValidationState state{TestBlockValidity(chainman().ActiveChainstate(), block, /*check_pow=*/options.check_pow, /*=check_merkle_root=*/options.check_merkle_root)};
+        reason = state.GetRejectReason();
+        debug = state.GetDebugMessage();
+        return state.IsValid();
     }
 
     NodeContext* context() override { return &m_node; }

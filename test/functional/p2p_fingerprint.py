@@ -41,7 +41,7 @@ class P2PFingerprintTest(BitcoinTestFramework):
             block.solve()
 
             blocks.append(block)
-            prev_hash = block.hash
+            prev_hash = block.hash_hex
             prev_height += 1
             prev_median_time = block_time
         return blocks
@@ -50,13 +50,13 @@ class P2PFingerprintTest(BitcoinTestFramework):
     def send_block_request(self, block_hash, node):
         msg = msg_getdata()
         msg.inv.append(CInv(MSG_BLOCK, block_hash))
-        node.send_message(msg)
+        node.send_without_ping(msg)
 
     # Send a getheaders request for a given single block hash
     def send_header_request(self, block_hash, node):
         msg = msg_getheaders()
         msg.hashstop = block_hash
-        node.send_message(msg)
+        node.send_without_ping(msg)
 
     # Checks that stale blocks timestamped more than a month ago are not served
     # by the node while recent stale blocks and old active chain blocks are.
@@ -78,8 +78,8 @@ class P2PFingerprintTest(BitcoinTestFramework):
         new_blocks = self.build_chain(5, block_hash, height, block_time)
 
         # Force reorg to a longer chain
-        node0.send_message(msg_headers(new_blocks))
-        node0.wait_for_getdata([x.sha256 for x in new_blocks])
+        node0.send_without_ping(msg_headers(new_blocks))
+        node0.wait_for_getdata([x.hash_int for x in new_blocks])
         for block in new_blocks:
             node0.send_and_ping(msg_block(block))
 

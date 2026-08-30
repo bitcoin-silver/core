@@ -8,15 +8,17 @@
 
 - [Multi-wallet environment](#multi-wallet-environment)
 
-  - [Berkeley DB database based wallets](#berkeley-db-database-based-wallets)
-
   - [SQLite database based wallets](#sqlite-database-based-wallets)
 
 - [GUI settings](#gui-settings)
 
 - [Legacy subdirectories and files](#legacy-subdirectories-and-files)
 
-- [Notes](#notes)
+  - [Berkeley DB database based wallets](#berkeley-db-database-based-wallets)
+
+- [Installed Files](#installed-files)
+
+- [Filesystem recommendations](#filesystem-recommendations)
 
 ## Data directory location
 
@@ -34,13 +36,13 @@ Windows  | `%LOCALAPPDATA%\BitcoinSilver\` <sup>[\[1\]](#note1)</sup>
 
 3. All content of the data directory, except for `bitcoinsilver.conf` file, is chain-specific. This means the actual data directory paths for non-mainnet cases differ:
 
-Chain option                   | Data directory path
+Chain option                     | Data directory path
 ---------------------------------|------------------------------
-`-chain=main` (default)        | *path_to_datadir*`/`
-`-chain=test` or `-testnet`    | *path_to_datadir*`/testnet3/`
+`-chain=main` (default)          | *path_to_datadir*`/`
+`-chain=test` or `-testnet`      | *path_to_datadir*`/testnet3/`
 `-chain=testnet4` or `-testnet4` | *path_to_datadir*`/testnet4/`
-`-chain=signet` or `-signet`   | *path_to_datadir*`/signet/`
-`-chain=regtest` or `-regtest` | *path_to_datadir*`/regtest/`
+`-chain=signet` or `-signet`     | *path_to_datadir*`/signet/`
+`-chain=regtest` or `-regtest`   | *path_to_datadir*`/regtest/`
 
 ## Data directory layout
 
@@ -55,7 +57,7 @@ Subdirectory       | File(s)               | Description
 `indexes/txindex/` | LevelDB database      | Transaction index; *optional*, used if `-txindex=1`
 `indexes/blockfilter/basic/db/` | LevelDB database      | Blockfilter index LevelDB database for the basic filtertype; *optional*, used if `-blockfilterindex=basic`
 `indexes/blockfilter/basic/`    | `fltrNNNNN.dat`<sup>[\[2\]](#note2)</sup> | Blockfilter index filters for the basic filtertype; *optional*, used if `-blockfilterindex=basic`
-`indexes/coinstats/db/` | LevelDB database | Coinstats index; *optional*, used if `-coinstatsindex=1`
+`indexes/coinstatsindex/db/` | LevelDB database | Coinstats index; *optional*, used if `-coinstatsindex=1`
 `wallets/`         |                       | [Contains wallets](#multi-wallet-environment); can be specified by `-walletdir` option; if `wallets/` subdirectory does not exist, wallets reside in the [data directory](#data-directory-location)
 `./`               | `anchors.dat`         | Anchor IP address database, created on shutdown and deleted at startup. Anchors are last known outgoing block-relay-only peers that are tried to re-connect to on startup
 `./`               | `banlist.json`        | Stores the addresses/subnets of banned nodes.
@@ -75,7 +77,7 @@ Subdirectory       | File(s)               | Description
 
 ## Multi-wallet environment
 
-Wallets are Berkeley DB (BDB) or SQLite databases.
+Wallets are SQLite databases.
 
 1. Each user-defined wallet named "wallet_name" resides in the `wallets/wallet_name/` subdirectory.
 
@@ -83,19 +85,10 @@ Wallets are Berkeley DB (BDB) or SQLite databases.
 
 3. A wallet database path can be specified with the `-wallet` option.
 
-4. `wallet.dat` files must not be shared across different node instances, as that can result in key-reuse and double-spends due the lack of synchronization between instances.
+4. `wallet.dat` files must not be shared across different node instances, as that can result in key-reuse and double-spends due to the lack of synchronization between instances.
 
 5. Any copy or backup of the wallet should be done through a `backupwallet` call in order to update and lock the wallet, preventing any file corruption caused by updates during the copy.
 
-
-### Berkeley DB database based wallets
-
-Subdirectory | File(s)           | Description
--------------|-------------------|-------------
-`database/`  | BDB logging files | Part of BDB environment; created at start and deleted on shutdown; a user *must keep it as safe* as personal wallet `wallet.dat`
-`./`         | `db.log`          | BDB error file
-`./`         | `wallet.dat`      | Personal wallet (a BDB database) with keys and transactions
-`./`         | `.walletlock`     | BDB wallet lock file
 
 ### SQLite database based wallets
 
@@ -107,7 +100,7 @@ Subdirectory | File                 | Description
 
 ## GUI settings
 
-`bitcoinsilver-qt` uses [`QSettings`](https://doc.qt.io/qt-5/qsettings.html) class; this implies platform-specific [locations where application settings are stored](https://doc.qt.io/qt-5/qsettings.html#locations-where-application-settings-are-stored).
+`bitcoinsilver-qt` uses [`QSettings`](https://doc.qt.io/qt-6/qsettings.html) class; this implies platform-specific [locations where application settings are stored](https://doc.qt.io/qt-6/qsettings.html#locations-where-application-settings-are-stored).
 
 ## Legacy subdirectories and files
 
@@ -115,16 +108,62 @@ These subdirectories and files are no longer used by BitcoinSilver:
 
 Path           | Description | Repository notes
 ---------------|-------------|-----------------
-`banlist.dat`  | Stores the addresses/subnets of banned nodes; superseded by `banlist.json` in 22.0 and completely ignored in 23.0 | [PR #20966](https://github.com/MrVistos/bitcoinsilver/pull/20966), [PR #22570](https://github.com/MrVistos/bitcoinsilver/pull/22570)
-`blktree/`     | Blockchain index; replaced by `blocks/index/` in [0.8.0](https://github.com/MrVistos/bitcoinsilver/blob/master/doc/release-notes/release-notes-0.8.0.md#improvements) | [PR #2231](https://github.com/MrVistos/bitcoinsilver/pull/2231), [`8fdc94cc`](https://github.com/MrVistos/bitcoinsilver/commit/8fdc94cc8f0341e96b1edb3a5b56811c0b20bd15)
-`coins/`       | Unspent transaction output database; replaced by `chainstate/` in 0.8.0 | [PR #2231](https://github.com/MrVistos/bitcoinsilver/pull/2231), [`8fdc94cc`](https://github.com/MrVistos/bitcoinsilver/commit/8fdc94cc8f0341e96b1edb3a5b56811c0b20bd15)
-`blkindex.dat` | Blockchain index BDB database; replaced by {`chainstate/`, `blocks/index/`, `blocks/revNNNNN.dat`<sup>[\[2\]](#note2)</sup>} in 0.8.0 | [PR #1677](https://github.com/MrVistos/bitcoinsilver/pull/1677)
-`blk000?.dat`  | Block data (custom format, 2 GiB per file); replaced by `blocks/blkNNNNN.dat`<sup>[\[2\]](#note2)</sup> in 0.8.0 | [PR #1677](https://github.com/MrVistos/bitcoinsilver/pull/1677)
-`addr.dat`     | Peer IP address BDB database; replaced by `peers.dat` in [0.7.0](https://github.com/MrVistos/bitcoinsilver/blob/master/doc/release-notes/release-notes-0.7.0.md) | [PR #1198](https://github.com/MrVistos/bitcoinsilver/pull/1198), [`928d3a01`](https://github.com/MrVistos/bitcoinsilver/commit/928d3a011cc66c7f907c4d053f674ea77dc611cc)
-`onion_private_key` | Cached Tor onion service private key for `-listenonion` option. Was used for Tor v2 services; replaced by `onion_v3_private_key` in [0.21.0](https://github.com/MrVistos/bitcoinsilver/blob/master/doc/release-notes/release-notes-0.21.0.md) | [PR #19954](https://github.com/MrVistos/bitcoinsilver/pull/19954)
+`banlist.dat`  | Stores the addresses/subnets of banned nodes; superseded by `banlist.json` in 22.0 and completely ignored in 23.0 | [PR #20966](https://github.com/bitcoin/bitcoin/pull/20966), [PR #22570](https://github.com/bitcoin/bitcoin/pull/22570)
+`blktree/`     | Blockchain index; replaced by `blocks/index/` in [0.8.0](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-0.8.0.md#improvements) | [PR #2231](https://github.com/bitcoin/bitcoin/pull/2231), [`8fdc94cc`](https://github.com/bitcoin/bitcoin/commit/8fdc94cc8f0341e96b1edb3a5b56811c0b20bd15)
+`coins/`       | Unspent transaction output database; replaced by `chainstate/` in 0.8.0 | [PR #2231](https://github.com/bitcoin/bitcoin/pull/2231), [`8fdc94cc`](https://github.com/bitcoin/bitcoin/commit/8fdc94cc8f0341e96b1edb3a5b56811c0b20bd15)
+`blkindex.dat` | Blockchain index BDB database; replaced by {`chainstate/`, `blocks/index/`, `blocks/revNNNNN.dat`<sup>[\[2\]](#note2)</sup>} in 0.8.0 | [PR #1677](https://github.com/bitcoin/bitcoin/pull/1677)
+`blk000?.dat`  | Block data (custom format, 2 GiB per file); replaced by `blocks/blkNNNNN.dat`<sup>[\[2\]](#note2)</sup> in 0.8.0 | [PR #1677](https://github.com/bitcoin/bitcoin/pull/1677)
+`addr.dat`     | Peer IP address BDB database; replaced by `peers.dat` in [0.7.0](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-0.7.0.md) | [PR #1198](https://github.com/bitcoin/bitcoin/pull/1198), [`928d3a01`](https://github.com/bitcoin/bitcoin/commit/928d3a011cc66c7f907c4d053f674ea77dc611cc)
+`onion_private_key` | Cached Tor onion service private key for `-listenonion` option. Was used for Tor v2 services; replaced by `onion_v3_private_key` in [0.21.0](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-0.21.0.md) | [PR #19954](https://github.com/bitcoin/bitcoin/pull/19954)
 
-## Notes
+### Berkeley DB database based wallets
+
+Subdirectory | File(s)           | Description
+-------------|-------------------|-------------
+`database/`  | BDB logging files | Part of BDB environment; created at start and deleted on shutdown; a user *must keep it as safe* as personal wallet `wallet.dat`
+`./`         | `db.log`          | BDB error file
+`./`         | `wallet.dat`      | Personal wallet (a BDB database) with keys and transactions
+`./`         | `.walletlock`     | BDB wallet lock file
+
+### Notes
 
 <a name="note1">1</a>. The `/` (slash, U+002F) is used as the platform-independent path component separator in this document.
 
 <a name="note2">2</a>. `NNNNN` matches `[0-9]{5}` regex.
+
+## Installed Files
+
+This table describes the files installed by BitcoinSilver across different platforms.
+
+| **Path**                                                   | **Description**                                                             |
+|------------------------------------------------------------|-----------------------------------------------------------------------------|
+| [README.md](README.md) or [readme.txt](README_windows.txt) | Project information and instructions                                        |
+| bitcoinsilver.conf                                               | [Generated](../contrib/devtools/gen-bitcoinsilver-conf.sh) configuration file     |
+| bin/bitcoinsilver                                                | Command-line tool for interacting with BitcoinSilver. Calls other binaries below. |
+| bin/bitcoinsilver-cli                                            | Tool for making node and wallet RPC calls.                                  |
+| bin/bitcoinsilver-qt                                             | BitcoinSilver node and wallet GUI                                                 |
+| bin/bitcoinsilver-tx                                             | Tool for creating and modifying transactions                                |
+| bin/bitcoinsilver-util                                           | Miscellaneous utilities                                                     |
+| bin/bitcoinsilver-wallet                                         | BitcoinSilver wallet tool                                                         |
+| bin/bitcoinsilverd                                               | BitcoinSilver node and wallet daemon                                              |
+| *lib/libbitcoinsilverkernel.so*                                  | Shared library containing core consensus and validation code                |
+| *lib/pkgconfig/libbitcoinsilverkernel.pc*                        | Pkg-config metadata for linking to `libbitcoinsilverkernel`                       |
+| *libexec/bench_bitcoinsilver*                                    | Benchmarking tool for measuring node performance                            |
+| *libexec/bitcoinsilver-chainstate*                               | Tool to validate and connect blocks                                         |
+| libexec/bitcoinsilver-gui                                        | IPC-enabled alternative to `bitcoinsilver-qt`                                     |
+| libexec/bitcoinsilver-node                                       | IPC-enabled alternative to `bitcoinsilverd`                                       |
+| libexec/test_bitcoinsilver                                       | Unit test binary                                                            |
+| *libexec/test_bitcoinsilver-qt*                                  | GUI-specific unit tests                                                     |
+| share/man/man1/                                            | Man pages for command-line tools like `bitcoinsilver-cli`, `bitcoinsilverd`, and others |
+| share/rpcauth/                                             | Documentation and scripts for RPC authentication setup                      |
+
+### Notes
+
+- *Italicized* files are only installed in source builds if relevant CMake options are enabled. They are not included in binary releases.
+- README and bitcoinsilver.conf files are included in binary releases but not installed in source builds.
+- On Windows, binaries have a `.exe` suffix (e.g., `bitcoinsilver-cli.exe`).
+
+## Filesystem recommendations
+
+When choosing a filesystem for the data directory (`datadir`) or blocks directory (`blocksdir`) on **macOS**,the `exFAT` filesystem should be avoided.
+There have been multiple reports of database corruption and data loss when using this filesystem with BitcoinSilver, see [Issue #31454](https://github.com/bitcoin/bitcoin/issues/31454) for more details.

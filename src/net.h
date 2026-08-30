@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2009-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -24,6 +24,7 @@
 #include <policy/feerate.h>
 #include <protocol.h>
 #include <random.h>
+#include <semaphore_grant.h>
 #include <span.h>
 #include <streams.h>
 #include <sync.h>
@@ -157,6 +158,7 @@ enum
 /** Returns a local address that we should advertise to this peer. */
 std::optional<CService> GetLocalAddrForPeer(CNode& node);
 
+void ClearLocal();
 bool AddLocal(const CService& addr, int nScore = LOCAL_NONE);
 bool AddLocal(const CNetAddr& addr, int nScore = LOCAL_NONE);
 void RemoveLocal(const CService& addr);
@@ -276,7 +278,7 @@ public:
      *
      * Consumed bytes are chopped off the front of msg_bytes.
      */
-    virtual bool ReceivedBytes(Span<const uint8_t>& msg_bytes) = 0;
+    virtual bool ReceivedBytes(std::span<const uint8_t>& msg_bytes) = 0;
 
     /** Retrieve a completed message from transport.
      *
@@ -298,14 +300,14 @@ public:
     virtual bool SetMessageToSend(CSerializedNetMsg& msg) noexcept = 0;
 
     /** Return type for GetBytesToSend, consisting of:
-     *  - Span<const uint8_t> to_send: span of bytes to be sent over the wire (possibly empty).
+     *  - std::span<const uint8_t> to_send: span of bytes to be sent over the wire (possibly empty).
      *  - bool more: whether there will be more bytes to be sent after the ones in to_send are
      *    all sent (as signaled by MarkBytesSent()).
      *  - const std::string& m_type: message type on behalf of which this is being sent
      *    ("" for bytes that are not on behalf of any message).
      */
     using BytesToSend = std::tuple<
-        Span<const uint8_t> /*to_send*/,
+        std::span<const uint8_t> /*to_send*/,
         bool /*more*/,
         const std::string& /*m_type*/
     >;
@@ -380,8 +382,8 @@ private:
     unsigned int nDataPos GUARDED_BY(m_recv_mutex);
 
     const uint256& GetMessageHash() const EXCLUSIVE_LOCKS_REQUIRED(m_recv_mutex);
-    int readHeader(Span<const uint8_t> msg_bytes) EXCLUSIVE_LOCKS_REQUIRED(m_recv_mutex);
-    int readData(Span<const uint8_t> msg_bytes) EXCLUSIVE_LOCKS_REQUIRED(m_recv_mutex);
+    int readHeader(std::span<const uint8_t> msg_bytes) EXCLUSIVE_LOCKS_REQUIRED(m_recv_mutex);
+    int readData(std::span<const uint8_t> msg_bytes) EXCLUSIVE_LOCKS_REQUIRED(m_recv_mutex);
 
     void Reset() EXCLUSIVE_LOCKS_REQUIRED(m_recv_mutex) {
         AssertLockHeld(m_recv_mutex);
@@ -424,7 +426,7 @@ public:
 
     Info GetInfo() const noexcept override;
 
-    bool ReceivedBytes(Span<const uint8_t>& msg_bytes) override EXCLUSIVE_LOCKS_REQUIRED(!m_recv_mutex)
+    bool ReceivedBytes(std::span<const uint8_t>& msg_bytes) override EXCLUSIVE_LOCKS_REQUIRED(!m_recv_mutex)
     {
         AssertLockNotHeld(m_recv_mutex);
         LOCK(m_recv_mutex);
@@ -616,7 +618,7 @@ private:
     /** Change the send state. */
     void SetSendState(SendState send_state) noexcept EXCLUSIVE_LOCKS_REQUIRED(m_send_mutex);
     /** Given a packet's contents, find the message type (if valid), and strip it from contents. */
-    static std::optional<std::string> GetMessageType(Span<const uint8_t>& contents) noexcept;
+    static std::optional<std::string> GetMessageType(std::span<const uint8_t>& contents) noexcept;
     /** Determine how many received bytes can be processed in one go (not allowed in V1 state). */
     size_t GetMaxBytesToProcess() noexcept EXCLUSIVE_LOCKS_REQUIRED(m_recv_mutex);
     /** Put our public key + garbage in the send buffer. */
@@ -641,11 +643,11 @@ public:
     V2Transport(NodeId nodeid, bool initiating) noexcept;
 
     /** Construct a V2 transport with specified keys and garbage (test use only). */
-    V2Transport(NodeId nodeid, bool initiating, const CKey& key, Span<const std::byte> ent32, std::vector<uint8_t> garbage) noexcept;
+    V2Transport(NodeId nodeid, bool initiating, const CKey& key, std::span<const std::byte> ent32, std::vector<uint8_t> garbage) noexcept;
 
     // Receive side functions.
     bool ReceivedMessageComplete() const noexcept override EXCLUSIVE_LOCKS_REQUIRED(!m_recv_mutex);
-    bool ReceivedBytes(Span<const uint8_t>& msg_bytes) noexcept override EXCLUSIVE_LOCKS_REQUIRED(!m_recv_mutex, !m_send_mutex);
+    bool ReceivedBytes(std::span<const uint8_t>& msg_bytes) noexcept override EXCLUSIVE_LOCKS_REQUIRED(!m_recv_mutex, !m_send_mutex);
     CNetMessage GetReceivedMessage(std::chrono::microseconds time, bool& reject_message) noexcept override EXCLUSIVE_LOCKS_REQUIRED(!m_recv_mutex);
 
     // Send side functions.
@@ -729,7 +731,7 @@ public:
     // Setting fDisconnect to true will cause the node to be disconnected the
     // next time DisconnectNodes() runs
     std::atomic_bool fDisconnect{false};
-    CSemaphoreGrant grantOutbound;
+    CountingSemaphoreGrant<> grantOutbound;
     std::atomic<int> nRefCount{0};
 
     const uint64_t nKeyedNetGroup;
@@ -914,7 +916,7 @@ public:
      * @return  True if the peer should stay connected,
      *          False if the peer should be disconnected from.
      */
-    bool ReceiveMsgBytes(Span<const uint8_t> msg_bytes, bool& complete) EXCLUSIVE_LOCKS_REQUIRED(!cs_vRecv);
+    bool ReceiveMsgBytes(std::span<const uint8_t> msg_bytes, bool& complete) EXCLUSIVE_LOCKS_REQUIRED(!cs_vRecv);
 
     void SetCommonVersion(int greatest_common_version)
     {
@@ -1136,7 +1138,7 @@ public:
     bool GetNetworkActive() const { return fNetworkActive; };
     bool GetUseAddrmanOutgoing() const { return m_use_addrman_outgoing; };
     void SetNetworkActive(bool active);
-    void OpenNetworkConnection(const CAddress& addrConnect, bool fCountFailure, CSemaphoreGrant&& grant_outbound, const char* strDest, ConnectionType conn_type, bool use_v2transport) EXCLUSIVE_LOCKS_REQUIRED(!m_unused_i2p_sessions_mutex);
+    void OpenNetworkConnection(const CAddress& addrConnect, bool fCountFailure, CountingSemaphoreGrant<>&& grant_outbound, const char* strDest, ConnectionType conn_type, bool use_v2transport) EXCLUSIVE_LOCKS_REQUIRED(!m_unused_i2p_sessions_mutex);
     bool CheckIncomingNonce(uint64_t nonce);
     void ASMapHealthCheck();
 
@@ -1168,19 +1170,30 @@ public:
 
     // Addrman functions
     /**
-     * Return all or many randomly selected addresses, optionally by network.
+     * Return randomly selected addresses. This function does not use the address response cache and
+     * should only be used in trusted contexts.
+     *
+     * An untrusted caller (e.g. from p2p) should instead use @ref GetAddresses to use the cache.
      *
      * @param[in] max_addresses  Maximum number of addresses to return (0 = all).
      * @param[in] max_pct        Maximum percentage of addresses to return (0 = all). Value must be from 0 to 100.
      * @param[in] network        Select only addresses of this network (nullopt = all).
      * @param[in] filtered       Select only addresses that are considered high quality (false = all).
      */
-    std::vector<CAddress> GetAddresses(size_t max_addresses, size_t max_pct, std::optional<Network> network, const bool filtered = true) const;
+    std::vector<CAddress> GetAddressesUnsafe(size_t max_addresses, size_t max_pct, std::optional<Network> network, const bool filtered = true) const;
     /**
-     * Cache is used to minimize topology leaks, so it should
-     * be used for all non-trusted calls, for example, p2p.
-     * A non-malicious call (from RPC or a peer with addr permission) should
-     * call the function without a parameter to avoid using the cache.
+     * Return addresses from the per-requestor cache. If no cache entry exists, it is populated with
+     * randomly selected addresses. This function can be used in untrusted contexts.
+     *
+     * A trusted caller (e.g. from RPC or a peer with addr permission) can use
+     * @ref GetAddressesUnsafe to avoid using the cache.
+     *
+     * @param[in] requestor      The requesting peer. Used to key the cache to prevent privacy leaks.
+     * @param[in] max_addresses  Maximum number of addresses to return (0 = all). Ignored when cache
+     *                           already contains an entry for requestor.
+     * @param[in] max_pct        Maximum percentage of addresses to return (0 = all). Value must be
+     *                           from 0 to 100. Ignored when cache already contains an entry for
+     *                           requestor.
      */
     std::vector<CAddress> GetAddresses(CNode& requestor, size_t max_addresses, size_t max_pct);
 
@@ -1297,7 +1310,7 @@ private:
     void ThreadOpenAddedConnections() EXCLUSIVE_LOCKS_REQUIRED(!m_added_nodes_mutex, !m_unused_i2p_sessions_mutex, !m_reconnections_mutex);
     void AddAddrFetch(const std::string& strDest) EXCLUSIVE_LOCKS_REQUIRED(!m_addr_fetches_mutex);
     void ProcessAddrFetch() EXCLUSIVE_LOCKS_REQUIRED(!m_addr_fetches_mutex, !m_unused_i2p_sessions_mutex);
-    void ThreadOpenConnections(std::vector<std::string> connect, Span<const std::string> seed_nodes) EXCLUSIVE_LOCKS_REQUIRED(!m_addr_fetches_mutex, !m_added_nodes_mutex, !m_nodes_mutex, !m_unused_i2p_sessions_mutex, !m_reconnections_mutex);
+    void ThreadOpenConnections(std::vector<std::string> connect, std::span<const std::string> seed_nodes) EXCLUSIVE_LOCKS_REQUIRED(!m_addr_fetches_mutex, !m_added_nodes_mutex, !m_nodes_mutex, !m_unused_i2p_sessions_mutex, !m_reconnections_mutex);
     void ThreadMessageHandler() EXCLUSIVE_LOCKS_REQUIRED(!mutexMsgProc);
     void ThreadI2PAcceptIncoming();
     void AcceptConnection(const ListenSocket& hListenSocket);
@@ -1325,7 +1338,7 @@ private:
      * @param[in] nodes Select from these nodes' sockets.
      * @return sockets to check for readiness
      */
-    Sock::EventsPerSock GenerateWaitSockets(Span<CNode* const> nodes);
+    Sock::EventsPerSock GenerateWaitSockets(std::span<CNode* const> nodes);
 
     /**
      * Check connected and listening sockets for IO readiness and process them accordingly.
@@ -1491,8 +1504,8 @@ private:
      */
     std::atomic<ServiceFlags> m_local_services;
 
-    std::unique_ptr<CSemaphore> semOutbound;
-    std::unique_ptr<CSemaphore> semAddnode;
+    std::unique_ptr<std::counting_semaphore<>> semOutbound;
+    std::unique_ptr<std::counting_semaphore<>> semAddnode;
 
     /**
      * Maximum number of automatic connections permitted, excluding manual
@@ -1614,7 +1627,7 @@ private:
     struct ReconnectionInfo
     {
         CAddress addr_connect;
-        CSemaphoreGrant grant;
+        CountingSemaphoreGrant<> grant;
         std::string destination;
         ConnectionType conn_type;
         bool use_v2transport;
@@ -1679,7 +1692,7 @@ private:
 /** Defaults to `CaptureMessageToFile()`, but can be overridden by unit tests. */
 extern std::function<void(const CAddress& addr,
                           const std::string& msg_type,
-                          Span<const unsigned char> data,
+                          std::span<const unsigned char> data,
                           bool is_incoming)>
     CaptureMessage;
 

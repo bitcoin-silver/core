@@ -13,6 +13,19 @@ Run the following as root to install the base dependencies for building.
 pkg_add git cmake boost libevent
 ```
 
+SQLite is required for the wallet:
+
+```bash
+pkg_add sqlite3
+```
+
+To build BitcoinSilver without the wallet, use `-DENABLE_WALLET=OFF`.
+
+Cap'n Proto is needed for IPC functionality (see [multiprocess.md](multiprocess.md))
+and can be built from source: https://capnproto.org/install.html
+
+Compile with `-DENABLE_IPC=OFF` if you do not need IPC functionality.
+
 See [dependencies.md](dependencies.md) for a complete overview.
 
 ### 2. Clone BitcoinSilver Repo
@@ -23,46 +36,14 @@ git clone https://github.com/bitcoin/bitcoin.git
 
 ### 3. Install Optional Dependencies
 
-#### Wallet Dependencies
-
-It is not necessary to build wallet functionality to run either `bitcoinsilverd` or `bitcoinsilver-qt`.
-
-###### Descriptor Wallet Support
-
-SQLite is required to support [descriptor wallets](descriptors.md).
-
-``` bash
-pkg_add sqlite3
-```
-
-###### Legacy Wallet Support
-BerkeleyDB is only required to support legacy wallets.
-
-It is recommended to use Berkeley DB 4.8. You cannot use the BerkeleyDB library
-from ports. However you can build it yourself, [using depends](/depends).
-
-Refer to [depends/README.md](/depends/README.md) for detailed instructions.
-
-```bash
-gmake -C depends NO_BOOST=1 NO_LIBEVENT=1 NO_QT=1 NO_SQLITE=1 NO_ZMQ=1 NO_USDT=1
-...
-to: /path/to/bitcoinsilver/depends/*-unknown-openbsd*
-```
-
-Then set `BDB_PREFIX`:
-
-```bash
-export BDB_PREFIX="[path displayed above]"
-```
-
 #### GUI Dependencies
-###### Qt5
+###### Qt6
 
 BitcoinSilver includes a GUI built with the cross-platform Qt Framework. To compile the GUI, we need to install
 the necessary parts of Qt, the libqrencode and pass `-DBUILD_GUI=ON`. Skip if you don't intend to use the GUI.
 
 ```bash
-pkg_add qtbase qttools
+pkg_add qt6-qtbase qt6-qttools
 ```
 
 ###### libqrencode
@@ -80,7 +61,7 @@ Otherwise, if you don't need QR encoding support, use the `-DWITH_QRENCODE=OFF` 
 #### Notifications
 ###### ZeroMQ
 
-BitcoinSilver can provide notifications via ZeroMQ. To compile ZMQ support, install the following dependency and pass `-DWITH_ZMQ=ON` when configuring.
+BitcoinSilver can provide notifications via ZeroMQ. If the package is installed, support will be compiled in.
 ```bash
 pkg_add zeromq
 ```
@@ -99,21 +80,14 @@ pkg_add python py3-zmq  # Select the newest version of the python package if nec
 
 There are many ways to configure BitcoinSilver, here are a few common examples:
 
-##### Descriptor Wallet and GUI:
-This enables descriptor wallet support and the GUI, assuming SQLite and Qt 5 are installed.
+##### Wallet and GUI:
+This enables wallet support and the GUI, assuming SQLite and Qt 6 are installed.
 
 ```bash
-cmake -B build -DWITH_SQLITE=ON -DBUILD_GUI=ON
+cmake -B build -DBUILD_GUI=ON
 ```
 
 Run `cmake -B build -LH` to see the full list of available options.
-
-##### Descriptor & Legacy Wallet. No GUI:
-This enables support for both wallet types:
-
-```bash
-cmake -B build -DBerkeleyDB_INCLUDE_DIR:PATH="${BDB_PREFIX}/include" -DWITH_BDB=ON
-```
 
 ### 2. Compile
 

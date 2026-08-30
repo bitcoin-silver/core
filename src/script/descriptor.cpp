@@ -1,4 +1,4 @@
-// Copyright (c) 2018-2022 The Bitcoin Core developers
+// Copyright (c) 2018-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,6 +7,7 @@
 #include <hash.h>
 #include <key_io.h>
 #include <pubkey.h>
+#include <musig.h>
 #include <script/miniscript.h>
 #include <script/parsing.h>
 #include <script/script.h>
@@ -102,7 +103,7 @@ uint64_t PolyMod(uint64_t c, int val)
     return c;
 }
 
-std::string DescriptorChecksum(const Span<const char>& span)
+std::string DescriptorChecksum(const std::span<const char>& span)
 {
     /** A character set designed such that:
      *  - The most common 'unprotected' descriptor characters (hex, keypaths) are in the first group of 32.
@@ -174,22 +175,20 @@ public:
      * Used by the Miniscript descriptors to check for duplicate keys in the script.
      */
     bool operator<(PubkeyProvider& other) const {
-        CPubKey a, b;
-        SigningProvider dummy;
-        KeyOriginInfo dummy_info;
+        FlatSigningProvider dummy;
 
-        GetPubKey(0, dummy, a, dummy_info);
-        other.GetPubKey(0, dummy, b, dummy_info);
+        std::optional<CPubKey> a = GetPubKey(0, dummy, dummy);
+        std::optional<CPubKey> b = other.GetPubKey(0, dummy, dummy);
 
         return a < b;
     }
 
-    /** Derive a public key.
+    /** Derive a public key and put it into out.
      *  read_cache is the cache to read keys from (if not nullptr)
      *  write_cache is the cache to write keys to (if not nullptr)
      *  Caches are not exclusive but this is not tested. Currently we use them exclusively
      */
-    virtual bool GetPubKey(int pos, const SigningProvider& arg, CPubKey& key, KeyOriginInfo& info, const DescriptorCache* read_cache = nullptr, DescriptorCache* write_cache = nullptr) const = 0;
+    virtual std::optional<CPubKey> GetPubKey(int pos, const SigningProvider& arg, FlatSigningProvider& out, const DescriptorCache* read_cache = nullptr, DescriptorCache* write_cache = nullptr) const = 0;
 
     /** Whether this represent multiple public keys at different positions. */
     virtual bool IsRange() const = 0;
@@ -213,8 +212,8 @@ public:
      */
     virtual bool ToNormalizedString(const SigningProvider& arg, std::string& out, const DescriptorCache* cache = nullptr) const = 0;
 
-    /** Derive a private key, if private data is available in arg. */
-    virtual bool GetPrivKey(int pos, const SigningProvider& arg, CKey& key) const = 0;
+    /** Derive a private key, if private data is available in arg and put it into out. */
+    virtual void GetPrivKey(int pos, const SigningProvider& arg, FlatSigningProvider& out) const = 0;
 
     /** Return the non-extended public key for this PubkeyProvider, if it has one. */
     virtual std::optional<CPubKey> GetRootPubKey() const = 0;
@@ -223,6 +222,9 @@ public:
 
     /** Make a deep copy of this PubkeyProvider */
     virtual std::unique_ptr<PubkeyProvider> Clone() const = 0;
+
+    /** Whether this PubkeyProvider is a BIP 32 extended key that can be derived from */
+    virtual bool IsBIP32() const = 0;
 };
 
 class OriginPubkeyProvider final : public PubkeyProvider
@@ -240,15 +242,20 @@ class OriginPubkeyProvider final : public PubkeyProvider
 
 public:
     OriginPubkeyProvider(uint32_t exp_index, KeyOriginInfo info, std::unique_ptr<PubkeyProvider> provider, bool apostrophe) : PubkeyProvider(exp_index), m_origin(std::move(info)), m_provider(std::move(provider)), m_apostrophe(apostrophe) {}
-    bool GetPubKey(int pos, const SigningProvider& arg, CPubKey& key, KeyOriginInfo& info, const DescriptorCache* read_cache = nullptr, DescriptorCache* write_cache = nullptr) const override
+    std::optional<CPubKey> GetPubKey(int pos, const SigningProvider& arg, FlatSigningProvider& out, const DescriptorCache* read_cache = nullptr, DescriptorCache* write_cache = nullptr) const override
     {
-        if (!m_provider->GetPubKey(pos, arg, key, info, read_cache, write_cache)) return false;
-        std::copy(std::begin(m_origin.fingerprint), std::end(m_origin.fingerprint), info.fingerprint);
-        info.path.insert(info.path.begin(), m_origin.path.begin(), m_origin.path.end());
-        return true;
+        std::optional<CPubKey> pub = m_provider->GetPubKey(pos, arg, out, read_cache, write_cache);
+        if (!pub) return std::nullopt;
+        Assert(out.pubkeys.contains(pub->GetID()));
+        auto& [pubkey, suborigin] = out.origins[pub->GetID()];
+        Assert(pubkey == *pub); // m_provider must have a valid origin by this point.
+        std::copy(std::begin(m_origin.fingerprint), std::end(m_origin.fingerprint), suborigin.fingerprint);
+        suborigin.path.insert(suborigin.path.begin(), m_origin.path.begin(), m_origin.path.end());
+        return pub;
     }
     bool IsRange() const override { return m_provider->IsRange(); }
     size_t GetSize() const override { return m_provider->GetSize(); }
+    bool IsBIP32() const override { return m_provider->IsBIP32(); }
     std::string ToString(StringType type) const override { return "[" + OriginString(type) + "]" + m_provider->ToString(type); }
     bool ToPrivateString(const SigningProvider& arg, std::string& ret) const override
     {
@@ -272,9 +279,9 @@ public:
         }
         return true;
     }
-    bool GetPrivKey(int pos, const SigningProvider& arg, CKey& key) const override
+    void GetPrivKey(int pos, const SigningProvider& arg, FlatSigningProvider& out) const override
     {
-        return m_provider->GetPrivKey(pos, arg, key);
+        m_provider->GetPrivKey(pos, arg, out);
     }
     std::optional<CPubKey> GetRootPubKey() const override
     {
@@ -296,24 +303,34 @@ class ConstPubkeyProvider final : public PubkeyProvider
     CPubKey m_pubkey;
     bool m_xonly;
 
+    std::optional<CKey> GetPrivKey(const SigningProvider& arg) const
+    {
+        CKey key;
+        if (!(m_xonly ? arg.GetKeyByXOnly(XOnlyPubKey(m_pubkey), key) :
+                        arg.GetKey(m_pubkey.GetID(), key))) return std::nullopt;
+        return key;
+    }
+
 public:
     ConstPubkeyProvider(uint32_t exp_index, const CPubKey& pubkey, bool xonly) : PubkeyProvider(exp_index), m_pubkey(pubkey), m_xonly(xonly) {}
-    bool GetPubKey(int pos, const SigningProvider& arg, CPubKey& key, KeyOriginInfo& info, const DescriptorCache* read_cache = nullptr, DescriptorCache* write_cache = nullptr) const override
+    std::optional<CPubKey> GetPubKey(int pos, const SigningProvider&, FlatSigningProvider& out, const DescriptorCache* read_cache = nullptr, DescriptorCache* write_cache = nullptr) const override
     {
-        key = m_pubkey;
-        info.path.clear();
+        KeyOriginInfo info;
         CKeyID keyid = m_pubkey.GetID();
         std::copy(keyid.begin(), keyid.begin() + sizeof(info.fingerprint), info.fingerprint);
-        return true;
+        out.origins.emplace(keyid, std::make_pair(m_pubkey, info));
+        out.pubkeys.emplace(keyid, m_pubkey);
+        return m_pubkey;
     }
     bool IsRange() const override { return false; }
     size_t GetSize() const override { return m_pubkey.size(); }
+    bool IsBIP32() const override { return false; }
     std::string ToString(StringType type) const override { return m_xonly ? HexStr(m_pubkey).substr(2) : HexStr(m_pubkey); }
     bool ToPrivateString(const SigningProvider& arg, std::string& ret) const override
     {
-        CKey key;
-        if (!GetPrivKey(/*pos=*/0, arg, key)) return false;
-        ret = EncodeSecret(key);
+        std::optional<CKey> key = GetPrivKey(arg);
+        if (!key) return false;
+        ret = EncodeSecret(*key);
         return true;
     }
     bool ToNormalizedString(const SigningProvider& arg, std::string& ret, const DescriptorCache* cache) const override
@@ -321,10 +338,11 @@ public:
         ret = ToString(StringType::PUBLIC);
         return true;
     }
-    bool GetPrivKey(int pos, const SigningProvider& arg, CKey& key) const override
+    void GetPrivKey(int pos, const SigningProvider& arg, FlatSigningProvider& out) const override
     {
-        return m_xonly ? arg.GetKeyByXOnly(XOnlyPubKey(m_pubkey), key) :
-                         arg.GetKey(m_pubkey.GetID(), key);
+        std::optional<CKey> key = GetPrivKey(arg);
+        if (!key) return;
+        out.keys.emplace(key->GetPubKey().GetID(), *key);
     }
     std::optional<CPubKey> GetRootPubKey() const override
     {
@@ -394,18 +412,15 @@ public:
     BIP32PubkeyProvider(uint32_t exp_index, const CExtPubKey& extkey, KeyPath path, DeriveType derive, bool apostrophe) : PubkeyProvider(exp_index), m_root_extkey(extkey), m_path(std::move(path)), m_derive(derive), m_apostrophe(apostrophe) {}
     bool IsRange() const override { return m_derive != DeriveType::NO; }
     size_t GetSize() const override { return 33; }
-    bool GetPubKey(int pos, const SigningProvider& arg, CPubKey& key_out, KeyOriginInfo& final_info_out, const DescriptorCache* read_cache = nullptr, DescriptorCache* write_cache = nullptr) const override
+    bool IsBIP32() const override { return true; }
+    std::optional<CPubKey> GetPubKey(int pos, const SigningProvider& arg, FlatSigningProvider& out, const DescriptorCache* read_cache = nullptr, DescriptorCache* write_cache = nullptr) const override
     {
-        // Info of parent of the to be derived pubkey
-        KeyOriginInfo parent_info;
+        KeyOriginInfo info;
         CKeyID keyid = m_root_extkey.pubkey.GetID();
-        std::copy(keyid.begin(), keyid.begin() + sizeof(parent_info.fingerprint), parent_info.fingerprint);
-        parent_info.path = m_path;
-
-        // Info of the derived key itself which is copied out upon successful completion
-        KeyOriginInfo final_info_out_tmp = parent_info;
-        if (m_derive == DeriveType::UNHARDENED) final_info_out_tmp.path.push_back((uint32_t)pos);
-        if (m_derive == DeriveType::HARDENED) final_info_out_tmp.path.push_back(((uint32_t)pos) | 0x80000000L);
+        std::copy(keyid.begin(), keyid.begin() + sizeof(info.fingerprint), info.fingerprint);
+        info.path = m_path;
+        if (m_derive == DeriveType::UNHARDENED) info.path.push_back((uint32_t)pos);
+        if (m_derive == DeriveType::HARDENED) info.path.push_back(((uint32_t)pos) | 0x80000000L);
 
         // Derive keys or fetch them from cache
         CExtPubKey final_extkey = m_root_extkey;
@@ -414,16 +429,16 @@ public:
         bool der = true;
         if (read_cache) {
             if (!read_cache->GetCachedDerivedExtPubKey(m_expr_index, pos, final_extkey)) {
-                if (m_derive == DeriveType::HARDENED) return false;
+                if (m_derive == DeriveType::HARDENED) return std::nullopt;
                 // Try to get the derivation parent
-                if (!read_cache->GetCachedParentExtPubKey(m_expr_index, parent_extkey)) return false;
+                if (!read_cache->GetCachedParentExtPubKey(m_expr_index, parent_extkey)) return std::nullopt;
                 final_extkey = parent_extkey;
                 if (m_derive == DeriveType::UNHARDENED) der = parent_extkey.Derive(final_extkey, pos);
             }
         } else if (IsHardened()) {
             CExtKey xprv;
             CExtKey lh_xprv;
-            if (!GetDerivedExtKey(arg, xprv, lh_xprv)) return false;
+            if (!GetDerivedExtKey(arg, xprv, lh_xprv)) return std::nullopt;
             parent_extkey = xprv.Neuter();
             if (m_derive == DeriveType::UNHARDENED) der = xprv.Derive(xprv, pos);
             if (m_derive == DeriveType::HARDENED) der = xprv.Derive(xprv, pos | 0x80000000UL);
@@ -433,16 +448,16 @@ public:
             }
         } else {
             for (auto entry : m_path) {
-                if (!parent_extkey.Derive(parent_extkey, entry)) return false;
+                if (!parent_extkey.Derive(parent_extkey, entry)) return std::nullopt;
             }
             final_extkey = parent_extkey;
             if (m_derive == DeriveType::UNHARDENED) der = parent_extkey.Derive(final_extkey, pos);
             assert(m_derive != DeriveType::HARDENED);
         }
-        if (!der) return false;
+        if (!der) return std::nullopt;
 
-        final_info_out = final_info_out_tmp;
-        key_out = final_extkey.pubkey;
+        out.origins.emplace(final_extkey.pubkey.GetID(), std::make_pair(final_extkey.pubkey, info));
+        out.pubkeys.emplace(final_extkey.pubkey.GetID(), final_extkey.pubkey);
 
         if (write_cache) {
             // Only cache parent if there is any unhardened derivation
@@ -452,12 +467,12 @@ public:
                 if (last_hardened_extkey.pubkey.IsValid()) {
                     write_cache->CacheLastHardenedExtPubKey(m_expr_index, last_hardened_extkey);
                 }
-            } else if (final_info_out.path.size() > 0) {
+            } else if (info.path.size() > 0) {
                 write_cache->CacheDerivedExtPubKey(m_expr_index, pos, final_extkey);
             }
         }
 
-        return true;
+        return final_extkey.pubkey;
     }
     std::string ToString(StringType type, bool normalized) const
     {
@@ -543,15 +558,14 @@ public:
         }
         return true;
     }
-    bool GetPrivKey(int pos, const SigningProvider& arg, CKey& key) const override
+    void GetPrivKey(int pos, const SigningProvider& arg, FlatSigningProvider& out) const override
     {
         CExtKey extkey;
         CExtKey dummy;
-        if (!GetDerivedExtKey(arg, extkey, dummy)) return false;
-        if (m_derive == DeriveType::UNHARDENED && !extkey.Derive(extkey, pos)) return false;
-        if (m_derive == DeriveType::HARDENED && !extkey.Derive(extkey, pos | 0x80000000UL)) return false;
-        key = extkey.key;
-        return true;
+        if (!GetDerivedExtKey(arg, extkey, dummy)) return;
+        if (m_derive == DeriveType::UNHARDENED && !extkey.Derive(extkey, pos)) return;
+        if (m_derive == DeriveType::HARDENED && !extkey.Derive(extkey, pos | 0x80000000UL)) return;
+        out.keys.emplace(extkey.key.GetPubKey().GetID(), extkey.key);
     }
     std::optional<CPubKey> GetRootPubKey() const override
     {
@@ -564,6 +578,214 @@ public:
     std::unique_ptr<PubkeyProvider> Clone() const override
     {
         return std::make_unique<BIP32PubkeyProvider>(m_expr_index, m_root_extkey, m_path, m_derive, m_apostrophe);
+    }
+};
+
+/** PubkeyProvider for a musig() expression */
+class MuSigPubkeyProvider final : public PubkeyProvider
+{
+private:
+    //! PubkeyProvider for the participants
+    const std::vector<std::unique_ptr<PubkeyProvider>> m_participants;
+    //! Derivation path
+    const KeyPath m_path;
+    //! PubkeyProvider for the aggregate pubkey if it can be cached (i.e. participants are not ranged)
+    mutable std::unique_ptr<PubkeyProvider> m_aggregate_provider;
+    mutable std::optional<CPubKey> m_aggregate_pubkey;
+    const DeriveType m_derive;
+    const bool m_ranged_participants;
+
+    bool IsRangedDerivation() const { return m_derive != DeriveType::NO; }
+
+public:
+    MuSigPubkeyProvider(
+        uint32_t exp_index,
+        std::vector<std::unique_ptr<PubkeyProvider>> providers,
+        KeyPath path,
+        DeriveType derive
+    )
+        : PubkeyProvider(exp_index),
+        m_participants(std::move(providers)),
+        m_path(std::move(path)),
+        m_derive(derive),
+        m_ranged_participants(std::any_of(m_participants.begin(), m_participants.end(), [](const auto& pubkey) { return pubkey->IsRange(); }))
+    {
+        if (!Assume(!(m_ranged_participants && IsRangedDerivation()))) {
+            throw std::runtime_error("musig(): Cannot have both ranged participants and ranged derivation");
+        }
+        if (!Assume(m_derive != DeriveType::HARDENED)) {
+            throw std::runtime_error("musig(): Cannot have hardened derivation");
+        }
+    }
+
+    std::optional<CPubKey> GetPubKey(int pos, const SigningProvider& arg, FlatSigningProvider& out, const DescriptorCache* read_cache = nullptr, DescriptorCache* write_cache = nullptr) const override
+    {
+        FlatSigningProvider dummy;
+        // If the participants are not ranged, we can compute and cache the aggregate pubkey by creating a PubkeyProvider for it
+        if (!m_aggregate_provider && !m_ranged_participants) {
+            // Retrieve the pubkeys from the providers
+            std::vector<CPubKey> pubkeys;
+            for (const auto& prov : m_participants) {
+                std::optional<CPubKey> pubkey = prov->GetPubKey(0, arg, dummy, read_cache, write_cache);
+                if (!pubkey.has_value()) {
+                    return std::nullopt;
+                }
+                pubkeys.push_back(pubkey.value());
+            }
+            std::sort(pubkeys.begin(), pubkeys.end());
+
+            // Aggregate the pubkey
+            m_aggregate_pubkey = MuSig2AggregatePubkeys(pubkeys);
+            if (!Assume(m_aggregate_pubkey.has_value())) return std::nullopt;
+
+            // Make our pubkey provider
+            if (IsRangedDerivation() || !m_path.empty()) {
+                // Make the synthetic xpub and construct the BIP32PubkeyProvider
+                CExtPubKey extpub;
+                extpub.nDepth = 0;
+                std::memset(extpub.vchFingerprint, 0, 4);
+                extpub.nChild = 0;
+                extpub.chaincode = MUSIG_CHAINCODE;
+                extpub.pubkey = m_aggregate_pubkey.value();
+
+                m_aggregate_provider = std::make_unique<BIP32PubkeyProvider>(m_expr_index, extpub, m_path, m_derive, /*apostrophe=*/false);
+            } else {
+                m_aggregate_provider = std::make_unique<ConstPubkeyProvider>(m_expr_index, m_aggregate_pubkey.value(), /*xonly=*/false);
+            }
+        }
+
+        // Retrieve all participant pubkeys
+        std::vector<CPubKey> pubkeys;
+        for (const auto& prov : m_participants) {
+            std::optional<CPubKey> pub = prov->GetPubKey(pos, arg, out, read_cache, write_cache);
+            if (!pub) return std::nullopt;
+            pubkeys.emplace_back(*pub);
+        }
+        std::sort(pubkeys.begin(), pubkeys.end());
+
+        CPubKey pubout;
+        if (m_aggregate_provider) {
+            // When we have a cached aggregate key, we are either returning it or deriving from it
+            // Either way, we can passthrough to its GetPubKey
+            // Use a dummy signing provider as private keys do not exist for the aggregate pubkey
+            std::optional<CPubKey> pub = m_aggregate_provider->GetPubKey(pos, dummy, out, read_cache, write_cache);
+            if (!pub) return std::nullopt;
+            pubout = *pub;
+            out.aggregate_pubkeys.emplace(m_aggregate_pubkey.value(), pubkeys);
+        } else {
+            if (!Assume(m_ranged_participants) || !Assume(m_path.empty())) return std::nullopt;
+            // Compute aggregate key from derived participants
+            std::optional<CPubKey> aggregate_pubkey = MuSig2AggregatePubkeys(pubkeys);
+            if (!aggregate_pubkey) return std::nullopt;
+            pubout = *aggregate_pubkey;
+
+            std::unique_ptr<ConstPubkeyProvider> this_agg_provider = std::make_unique<ConstPubkeyProvider>(m_expr_index, aggregate_pubkey.value(), /*xonly=*/false);
+            this_agg_provider->GetPubKey(0, dummy, out, read_cache, write_cache);
+            out.aggregate_pubkeys.emplace(pubout, pubkeys);
+        }
+
+        if (!Assume(pubout.IsValid())) return std::nullopt;
+        return pubout;
+    }
+    bool IsRange() const override { return IsRangedDerivation() || m_ranged_participants; }
+    // musig() expressions can only be used in tr() contexts which have 32 byte xonly pubkeys
+    size_t GetSize() const override { return 32; }
+
+    std::string ToString(StringType type=StringType::PUBLIC) const override
+    {
+        std::string out = "musig(";
+        for (size_t i = 0; i < m_participants.size(); ++i) {
+            const auto& pubkey = m_participants.at(i);
+            if (i) out += ",";
+            out += pubkey->ToString(type);
+        }
+        out += ")";
+        out += FormatHDKeypath(m_path);
+        if (IsRangedDerivation()) {
+            out += "/*";
+        }
+        return out;
+    }
+    bool ToPrivateString(const SigningProvider& arg, std::string& out) const override
+    {
+        bool any_privkeys = false;
+        out = "musig(";
+        for (size_t i = 0; i < m_participants.size(); ++i) {
+            const auto& pubkey = m_participants.at(i);
+            if (i) out += ",";
+            std::string tmp;
+            if (pubkey->ToPrivateString(arg, tmp)) {
+                any_privkeys = true;
+                out += tmp;
+            } else {
+                out += pubkey->ToString();
+            }
+        }
+        out += ")";
+        out += FormatHDKeypath(m_path);
+        if (IsRangedDerivation()) {
+            out += "/*";
+        }
+        if (!any_privkeys) out.clear();
+        return any_privkeys;
+    }
+    bool ToNormalizedString(const SigningProvider& arg, std::string& out, const DescriptorCache* cache = nullptr) const override
+    {
+        out = "musig(";
+        for (size_t i = 0; i < m_participants.size(); ++i) {
+            const auto& pubkey = m_participants.at(i);
+            if (i) out += ",";
+            std::string tmp;
+            if (!pubkey->ToNormalizedString(arg, tmp, cache)) {
+                return false;
+            }
+            out += tmp;
+        }
+        out += ")";
+        out += FormatHDKeypath(m_path);
+        if (IsRangedDerivation()) {
+            out += "/*";
+        }
+        return true;
+    }
+
+    void GetPrivKey(int pos, const SigningProvider& arg, FlatSigningProvider& out) const override
+    {
+        // Get the private keys for any participants that we have
+        // If there is participant derivation, it will be done.
+        // If there is not, then the participant privkeys will be included directly
+        for (const auto& prov : m_participants) {
+            prov->GetPrivKey(pos, arg, out);
+        }
+    }
+
+    // Get RootPubKey and GetRootExtPubKey are used to return the single pubkey underlying the pubkey provider
+    // to be presented to the user in gethdkeys. As this is a multisig construction, there is no single underlying
+    // pubkey hence nothing should be returned.
+    // While the aggregate pubkey could be returned as the root (ext)pubkey, it is not a pubkey that anyone should
+    // be using by itself in a descriptor as it is unspendable without knowing its participants.
+    std::optional<CPubKey> GetRootPubKey() const override
+    {
+        return std::nullopt;
+    }
+    std::optional<CExtPubKey> GetRootExtPubKey() const override
+    {
+        return std::nullopt;
+    }
+
+    std::unique_ptr<PubkeyProvider> Clone() const override
+    {
+        std::vector<std::unique_ptr<PubkeyProvider>> providers;
+        providers.reserve(m_participants.size());
+        for (const std::unique_ptr<PubkeyProvider>& p : m_participants) {
+            providers.emplace_back(p->Clone());
+        }
+        return std::make_unique<MuSigPubkeyProvider>(m_expr_index, std::move(providers), m_path, m_derive);
+    }
+    bool IsBIP32() const override
+    {
+        // musig() can only be a BIP 32 key if all participants are bip32 too
+        return std::all_of(m_participants.begin(), m_participants.end(), [](const auto& pubkey) { return pubkey->IsBIP32(); });
     }
 };
 
@@ -595,7 +817,7 @@ protected:
      *             The origin info of the provided pubkeys is automatically added.
      *  @return A vector with scriptPubKeys for this descriptor.
      */
-    virtual std::vector<CScript> MakeScripts(const std::vector<CPubKey>& pubkeys, Span<const CScript> scripts, FlatSigningProvider& out) const = 0;
+    virtual std::vector<CScript> MakeScripts(const std::vector<CPubKey>& pubkeys, std::span<const CScript> scripts, FlatSigningProvider& out) const = 0;
 
 public:
     DescriptorImpl(std::vector<std::unique_ptr<PubkeyProvider>> pubkeys, const std::string& name) : m_pubkey_args(std::move(pubkeys)), m_name(name), m_subdescriptor_args() {}
@@ -700,16 +922,17 @@ public:
     // NOLINTNEXTLINE(misc-no-recursion)
     bool ExpandHelper(int pos, const SigningProvider& arg, const DescriptorCache* read_cache, std::vector<CScript>& output_scripts, FlatSigningProvider& out, DescriptorCache* write_cache) const
     {
-        std::vector<std::pair<CPubKey, KeyOriginInfo>> entries;
-        entries.reserve(m_pubkey_args.size());
+        FlatSigningProvider subprovider;
+        std::vector<CPubKey> pubkeys;
+        pubkeys.reserve(m_pubkey_args.size());
 
-        // Construct temporary data in `entries`, `subscripts`, and `subprovider` to avoid producing output in case of failure.
+        // Construct temporary data in `pubkeys`, `subscripts`, and `subprovider` to avoid producing output in case of failure.
         for (const auto& p : m_pubkey_args) {
-            entries.emplace_back();
-            if (!p->GetPubKey(pos, arg, entries.back().first, entries.back().second, read_cache, write_cache)) return false;
+            std::optional<CPubKey> pubkey = p->GetPubKey(pos, arg, subprovider, read_cache, write_cache);
+            if (!pubkey) return false;
+            pubkeys.push_back(pubkey.value());
         }
         std::vector<CScript> subscripts;
-        FlatSigningProvider subprovider;
         for (const auto& subarg : m_subdescriptor_args) {
             std::vector<CScript> outscripts;
             if (!subarg->ExpandHelper(pos, arg, read_cache, outscripts, subprovider, write_cache)) return false;
@@ -718,14 +941,7 @@ public:
         }
         out.Merge(std::move(subprovider));
 
-        std::vector<CPubKey> pubkeys;
-        pubkeys.reserve(entries.size());
-        for (auto& entry : entries) {
-            pubkeys.push_back(entry.first);
-            out.origins.emplace(entry.first.GetID(), std::make_pair<CPubKey, KeyOriginInfo>(CPubKey(entry.first), std::move(entry.second)));
-        }
-
-        output_scripts = MakeScripts(pubkeys, Span{subscripts}, out);
+        output_scripts = MakeScripts(pubkeys, std::span{subscripts}, out);
         return true;
     }
 
@@ -743,9 +959,7 @@ public:
     void ExpandPrivate(int pos, const SigningProvider& provider, FlatSigningProvider& out) const final
     {
         for (const auto& p : m_pubkey_args) {
-            CKey key;
-            if (!p->GetPrivKey(pos, provider, key)) continue;
-            out.keys.emplace(key.GetPubKey().GetID(), key);
+            p->GetPrivKey(pos, provider, out);
         }
         for (const auto& arg : m_subdescriptor_args) {
             arg->ExpandPrivate(pos, provider, out);
@@ -790,7 +1004,7 @@ class AddressDescriptor final : public DescriptorImpl
     const CTxDestination m_destination;
 protected:
     std::string ToStringExtra() const override { return EncodeDestination(m_destination); }
-    std::vector<CScript> MakeScripts(const std::vector<CPubKey>&, Span<const CScript>, FlatSigningProvider&) const override { return Vector(GetScriptForDestination(m_destination)); }
+    std::vector<CScript> MakeScripts(const std::vector<CPubKey>&, std::span<const CScript>, FlatSigningProvider&) const override { return Vector(GetScriptForDestination(m_destination)); }
 public:
     AddressDescriptor(CTxDestination destination) : DescriptorImpl({}, "addr"), m_destination(std::move(destination)) {}
     bool IsSolvable() const final { return false; }
@@ -815,7 +1029,7 @@ class RawDescriptor final : public DescriptorImpl
     const CScript m_script;
 protected:
     std::string ToStringExtra() const override { return HexStr(m_script); }
-    std::vector<CScript> MakeScripts(const std::vector<CPubKey>&, Span<const CScript>, FlatSigningProvider&) const override { return Vector(m_script); }
+    std::vector<CScript> MakeScripts(const std::vector<CPubKey>&, std::span<const CScript>, FlatSigningProvider&) const override { return Vector(m_script); }
 public:
     RawDescriptor(CScript script) : DescriptorImpl({}, "raw"), m_script(std::move(script)) {}
     bool IsSolvable() const final { return false; }
@@ -843,7 +1057,7 @@ class PKDescriptor final : public DescriptorImpl
 private:
     const bool m_xonly;
 protected:
-    std::vector<CScript> MakeScripts(const std::vector<CPubKey>& keys, Span<const CScript>, FlatSigningProvider&) const override
+    std::vector<CScript> MakeScripts(const std::vector<CPubKey>& keys, std::span<const CScript>, FlatSigningProvider&) const override
     {
         if (m_xonly) {
             CScript script = CScript() << ToByteVector(XOnlyPubKey(keys[0])) << OP_CHECKSIG;
@@ -881,10 +1095,9 @@ public:
 class PKHDescriptor final : public DescriptorImpl
 {
 protected:
-    std::vector<CScript> MakeScripts(const std::vector<CPubKey>& keys, Span<const CScript>, FlatSigningProvider& out) const override
+    std::vector<CScript> MakeScripts(const std::vector<CPubKey>& keys, std::span<const CScript>, FlatSigningProvider&) const override
     {
         CKeyID id = keys[0].GetID();
-        out.pubkeys.emplace(id, keys[0]);
         return Vector(GetScriptForDestination(PKHash(id)));
     }
 public:
@@ -915,10 +1128,9 @@ public:
 class WPKHDescriptor final : public DescriptorImpl
 {
 protected:
-    std::vector<CScript> MakeScripts(const std::vector<CPubKey>& keys, Span<const CScript>, FlatSigningProvider& out) const override
+    std::vector<CScript> MakeScripts(const std::vector<CPubKey>& keys, std::span<const CScript>, FlatSigningProvider&) const override
     {
         CKeyID id = keys[0].GetID();
-        out.pubkeys.emplace(id, keys[0]);
         return Vector(GetScriptForDestination(WitnessV0KeyHash(id)));
     }
 public:
@@ -949,11 +1161,10 @@ public:
 class ComboDescriptor final : public DescriptorImpl
 {
 protected:
-    std::vector<CScript> MakeScripts(const std::vector<CPubKey>& keys, Span<const CScript>, FlatSigningProvider& out) const override
+    std::vector<CScript> MakeScripts(const std::vector<CPubKey>& keys, std::span<const CScript>, FlatSigningProvider& out) const override
     {
         std::vector<CScript> ret;
         CKeyID id = keys[0].GetID();
-        out.pubkeys.emplace(id, keys[0]);
         ret.emplace_back(GetScriptForRawPubKey(keys[0])); // P2PK
         ret.emplace_back(GetScriptForDestination(PKHash(id))); // P2PKH
         if (keys[0].IsCompressed()) {
@@ -980,7 +1191,7 @@ class MultisigDescriptor final : public DescriptorImpl
     const bool m_sorted;
 protected:
     std::string ToStringExtra() const override { return strprintf("%i", m_threshold); }
-    std::vector<CScript> MakeScripts(const std::vector<CPubKey>& keys, Span<const CScript>, FlatSigningProvider&) const override {
+    std::vector<CScript> MakeScripts(const std::vector<CPubKey>& keys, std::span<const CScript>, FlatSigningProvider&) const override {
         if (m_sorted) {
             std::vector<CPubKey> sorted_keys(keys);
             std::sort(sorted_keys.begin(), sorted_keys.end());
@@ -1026,7 +1237,7 @@ class MultiADescriptor final : public DescriptorImpl
     const bool m_sorted;
 protected:
     std::string ToStringExtra() const override { return strprintf("%i", m_threshold); }
-    std::vector<CScript> MakeScripts(const std::vector<CPubKey>& keys, Span<const CScript>, FlatSigningProvider&) const override {
+    std::vector<CScript> MakeScripts(const std::vector<CPubKey>& keys, std::span<const CScript>, FlatSigningProvider&) const override {
         CScript ret;
         std::vector<XOnlyPubKey> xkeys;
         xkeys.reserve(keys.size());
@@ -1069,7 +1280,7 @@ public:
 class SHDescriptor final : public DescriptorImpl
 {
 protected:
-    std::vector<CScript> MakeScripts(const std::vector<CPubKey>&, Span<const CScript> scripts, FlatSigningProvider& out) const override
+    std::vector<CScript> MakeScripts(const std::vector<CPubKey>&, std::span<const CScript> scripts, FlatSigningProvider& out) const override
     {
         auto ret = Vector(GetScriptForDestination(ScriptHash(scripts[0])));
         if (ret.size()) out.scripts.emplace(CScriptID(scripts[0]), scripts[0]);
@@ -1119,7 +1330,7 @@ public:
 class WSHDescriptor final : public DescriptorImpl
 {
 protected:
-    std::vector<CScript> MakeScripts(const std::vector<CPubKey>&, Span<const CScript> scripts, FlatSigningProvider& out) const override
+    std::vector<CScript> MakeScripts(const std::vector<CPubKey>&, std::span<const CScript> scripts, FlatSigningProvider& out) const override
     {
         auto ret = Vector(GetScriptForDestination(WitnessV0ScriptHash(scripts[0])));
         if (ret.size()) out.scripts.emplace(CScriptID(scripts[0]), scripts[0]);
@@ -1161,7 +1372,7 @@ class TRDescriptor final : public DescriptorImpl
 {
     std::vector<int> m_depths;
 protected:
-    std::vector<CScript> MakeScripts(const std::vector<CPubKey>& keys, Span<const CScript> scripts, FlatSigningProvider& out) const override
+    std::vector<CScript> MakeScripts(const std::vector<CPubKey>& keys, std::span<const CScript> scripts, FlatSigningProvider& out) const override
     {
         TaprootBuilder builder;
         assert(m_depths.size() == scripts.size());
@@ -1175,7 +1386,6 @@ protected:
         builder.Finalize(xpk);
         WitnessV1Taproot output = builder.GetOutput();
         out.tr_trees[output] = builder;
-        out.pubkeys.emplace(keys[0].GetID(), keys[0]);
         return Vector(GetScriptForDestination(output));
     }
     bool ToStringSubScriptHelper(const SigningProvider* arg, std::string& ret, const StringType type, const DescriptorCache* cache = nullptr) const override
@@ -1304,7 +1514,7 @@ private:
     miniscript::NodeRef<uint32_t> m_node;
 
 protected:
-    std::vector<CScript> MakeScripts(const std::vector<CPubKey>& keys, Span<const CScript> scripts,
+    std::vector<CScript> MakeScripts(const std::vector<CPubKey>& keys, std::span<const CScript> scripts,
                                      FlatSigningProvider& provider) const override
     {
         const auto script_ctx{m_node->GetMsCtx()};
@@ -1361,7 +1571,7 @@ public:
 class RawTRDescriptor final : public DescriptorImpl
 {
 protected:
-    std::vector<CScript> MakeScripts(const std::vector<CPubKey>& keys, Span<const CScript> scripts, FlatSigningProvider& out) const override
+    std::vector<CScript> MakeScripts(const std::vector<CPubKey>& keys, std::span<const CScript> scripts, FlatSigningProvider& out) const override
     {
         assert(keys.size() == 1);
         XOnlyPubKey xpk(keys[0]);
@@ -1402,9 +1612,10 @@ enum class ParseScriptContext {
     P2WPKH,  //!< Inside wpkh() (no script, pubkey only)
     P2WSH,   //!< Inside wsh() (script becomes v0 witness script)
     P2TR,    //!< Inside tr() (either internal key, or BIP342 script leaf)
+    MUSIG,   //!< Inside musig() (implies P2TR, cannot have nested musig())
 };
 
-std::optional<uint32_t> ParseKeyPathNum(Span<const char> elem, bool& apostrophe, std::string& error)
+std::optional<uint32_t> ParseKeyPathNum(std::span<const char> elem, bool& apostrophe, std::string& error, bool& has_hardened)
 {
     bool hardened = false;
     if (elem.size() > 0) {
@@ -1415,16 +1626,17 @@ std::optional<uint32_t> ParseKeyPathNum(Span<const char> elem, bool& apostrophe,
             apostrophe = last == '\'';
         }
     }
-    uint32_t p;
-    if (!ParseUInt32(std::string(elem.begin(), elem.end()), &p)) {
-        error = strprintf("Key path value '%s' is not a valid uint32", std::string(elem.begin(), elem.end()));
+    const auto p{ToIntegral<uint32_t>(std::string_view{elem.begin(), elem.end()})};
+    if (!p) {
+        error = strprintf("Key path value '%s' is not a valid uint32", std::string_view{elem.begin(), elem.end()});
         return std::nullopt;
-    } else if (p > 0x7FFFFFFFUL) {
-        error = strprintf("Key path value %u is out of range", p);
+    } else if (*p > 0x7FFFFFFFUL) {
+        error = strprintf("Key path value %u is out of range", *p);
         return std::nullopt;
     }
+    has_hardened = has_hardened || hardened;
 
-    return std::make_optional<uint32_t>(p | (((uint32_t)hardened) << 31));
+    return std::make_optional<uint32_t>(*p | (((uint32_t)hardened) << 31));
 }
 
 /**
@@ -1437,69 +1649,94 @@ std::optional<uint32_t> ParseKeyPathNum(Span<const char> elem, bool& apostrophe,
  * @param[in] allow_multipath Allows the parsed path to use the multipath specifier
  * @returns false if parsing failed
  **/
-[[nodiscard]] bool ParseKeyPath(const std::vector<Span<const char>>& split, std::vector<KeyPath>& out, bool& apostrophe, std::string& error, bool allow_multipath)
+[[nodiscard]] bool ParseKeyPath(const std::vector<std::span<const char>>& split, std::vector<KeyPath>& out, bool& apostrophe, std::string& error, bool allow_multipath, bool& has_hardened)
 {
     KeyPath path;
-    std::optional<size_t> multipath_segment_index;
-    std::vector<uint32_t> multipath_values;
-    std::unordered_set<uint32_t> seen_multipath;
+    struct MultipathSubstitutes {
+        size_t placeholder_index;
+        std::vector<uint32_t> values;
+    };
+    std::optional<MultipathSubstitutes> substitutes;
+    has_hardened = false;
 
     for (size_t i = 1; i < split.size(); ++i) {
-        const Span<const char>& elem = split[i];
+        const std::span<const char>& elem = split[i];
 
-        // Check if element contain multipath specifier
+        // Check if element contains multipath specifier
         if (!elem.empty() && elem.front() == '<' && elem.back() == '>') {
             if (!allow_multipath) {
                 error = strprintf("Key path value '%s' specifies multipath in a section where multipath is not allowed", std::string(elem.begin(), elem.end()));
                 return false;
             }
-            if (multipath_segment_index) {
+            if (substitutes) {
                 error = "Multiple multipath key path specifiers found";
                 return false;
             }
 
             // Parse each possible value
-            std::vector<Span<const char>> nums = Split(Span(elem.begin()+1, elem.end()-1), ";");
+            std::vector<std::span<const char>> nums = Split(std::span(elem.begin()+1, elem.end()-1), ";");
             if (nums.size() < 2) {
                 error = "Multipath key path specifiers must have at least two items";
                 return false;
             }
 
+            substitutes.emplace();
+            std::unordered_set<uint32_t> seen_substitutes;
             for (const auto& num : nums) {
-                const auto& op_num = ParseKeyPathNum(num, apostrophe, error);
+                const auto& op_num = ParseKeyPathNum(num, apostrophe, error, has_hardened);
                 if (!op_num) return false;
-                auto [_, inserted] = seen_multipath.insert(*op_num);
+                auto [_, inserted] = seen_substitutes.insert(*op_num);
                 if (!inserted) {
                     error = strprintf("Duplicated key path value %u in multipath specifier", *op_num);
                     return false;
                 }
-                multipath_values.emplace_back(*op_num);
+                substitutes->values.emplace_back(*op_num);
             }
 
             path.emplace_back(); // Placeholder for multipath segment
-            multipath_segment_index = path.size()-1;
+            substitutes->placeholder_index = path.size() - 1;
         } else {
-            const auto& op_num = ParseKeyPathNum(elem, apostrophe, error);
+            const auto& op_num = ParseKeyPathNum(elem, apostrophe, error, has_hardened);
             if (!op_num) return false;
             path.emplace_back(*op_num);
         }
     }
 
-    if (!multipath_segment_index) {
+    if (!substitutes) {
         out.emplace_back(std::move(path));
     } else {
         // Replace the multipath placeholder with each value while generating paths
-        for (size_t i = 0; i < multipath_values.size(); i++) {
+        for (uint32_t substitute : substitutes->values) {
             KeyPath branch_path = path;
-            branch_path[*multipath_segment_index] = multipath_values[i];
+            branch_path[substitutes->placeholder_index] = substitute;
             out.emplace_back(std::move(branch_path));
         }
     }
     return true;
 }
 
+[[nodiscard]] bool ParseKeyPath(const std::vector<std::span<const char>>& split, std::vector<KeyPath>& out, bool& apostrophe, std::string& error, bool allow_multipath)
+{
+    bool dummy;
+    return ParseKeyPath(split, out, apostrophe, error, allow_multipath, /*has_hardened=*/dummy);
+}
+
+static DeriveType ParseDeriveType(std::vector<std::span<const char>>& split, bool& apostrophe)
+{
+    DeriveType type = DeriveType::NO;
+    if (std::ranges::equal(split.back(), std::span{"*"}.first(1))) {
+        split.pop_back();
+        type = DeriveType::UNHARDENED;
+    } else if (std::ranges::equal(split.back(), std::span{"*'"}.first(2)) || std::ranges::equal(split.back(), std::span{"*h"}.first(2))) {
+        apostrophe = std::ranges::equal(split.back(), std::span{"*'"}.first(2));
+        split.pop_back();
+        type = DeriveType::HARDENED;
+    }
+    return type;
+}
+
 /** Parse a public key that excludes origin information. */
-std::vector<std::unique_ptr<PubkeyProvider>> ParsePubkeyInner(uint32_t key_exp_index, const Span<const char>& sp, ParseScriptContext ctx, FlatSigningProvider& out, bool& apostrophe, std::string& error)
+std::vector<std::unique_ptr<PubkeyProvider>> ParsePubkeyInner(uint32_t key_exp_index, const std::span<const char>& sp, ParseScriptContext ctx, FlatSigningProvider& out, bool& apostrophe, std::string& error)
 {
     std::vector<std::unique_ptr<PubkeyProvider>> ret;
     bool permit_uncompressed = ctx == ParseScriptContext::TOP || ctx == ParseScriptContext::P2SH;
@@ -1507,6 +1744,10 @@ std::vector<std::unique_ptr<PubkeyProvider>> ParsePubkeyInner(uint32_t key_exp_i
     std::string str(split[0].begin(), split[0].end());
     if (str.size() == 0) {
         error = "No key provided";
+        return {};
+    }
+    if (IsSpace(str.front()) || IsSpace(str.back())) {
+        error = strprintf("Key '%s' is invalid due to whitespace", str);
         return {};
     }
     if (split.size() == 1) {
@@ -1557,15 +1798,7 @@ std::vector<std::unique_ptr<PubkeyProvider>> ParsePubkeyInner(uint32_t key_exp_i
         return {};
     }
     std::vector<KeyPath> paths;
-    DeriveType type = DeriveType::NO;
-    if (std::ranges::equal(split.back(), Span{"*"}.first(1))) {
-        split.pop_back();
-        type = DeriveType::UNHARDENED;
-    } else if (std::ranges::equal(split.back(), Span{"*'"}.first(2)) || std::ranges::equal(split.back(), Span{"*h"}.first(2))) {
-        apostrophe = std::ranges::equal(split.back(), Span{"*'"}.first(2));
-        split.pop_back();
-        type = DeriveType::HARDENED;
-    }
+    DeriveType type = ParseDeriveType(split, apostrophe);
     if (!ParseKeyPath(split, paths, apostrophe, error, /*allow_multipath=*/true)) return {};
     if (extkey.key.IsValid()) {
         extpubkey = extkey.Neuter();
@@ -1578,9 +1811,154 @@ std::vector<std::unique_ptr<PubkeyProvider>> ParsePubkeyInner(uint32_t key_exp_i
 }
 
 /** Parse a public key including origin information (if enabled). */
-std::vector<std::unique_ptr<PubkeyProvider>> ParsePubkey(uint32_t key_exp_index, const Span<const char>& sp, ParseScriptContext ctx, FlatSigningProvider& out, std::string& error)
+// NOLINTNEXTLINE(misc-no-recursion)
+std::vector<std::unique_ptr<PubkeyProvider>> ParsePubkey(uint32_t& key_exp_index, const std::span<const char>& sp, ParseScriptContext ctx, FlatSigningProvider& out, std::string& error)
 {
     std::vector<std::unique_ptr<PubkeyProvider>> ret;
+
+    using namespace script;
+
+    // musig cannot be nested inside of an origin
+    std::span<const char> span = sp;
+    if (Const("musig(", span, /*skip=*/false)) {
+        if (ctx != ParseScriptContext::P2TR) {
+            error = "musig() is only allowed in tr() and rawtr()";
+            return {};
+        }
+
+        // Split the span on the end parentheses. The end parentheses must
+        // be included in the resulting span so that Expr is happy.
+        auto split = Split(sp, ')', /*include_sep=*/true);
+        if (split.size() > 2) {
+            error = "Too many ')' in musig() expression";
+            return {};
+        }
+        std::span<const char> expr(split.at(0).begin(), split.at(0).end());
+        if (!Func("musig", expr)) {
+            error = "Invalid musig() expression";
+            return {};
+        }
+
+        // Parse the participant pubkeys
+        bool any_ranged = false;
+        bool all_bip32 = true;
+        std::vector<std::vector<std::unique_ptr<PubkeyProvider>>> providers;
+        bool any_key_parsed = true;
+        size_t max_multipath_len = 0;
+        while (expr.size()) {
+            if (!any_key_parsed && !Const(",", expr)) {
+                error = strprintf("musig(): expected ',', got '%c'", expr[0]);
+                return {};
+            }
+            any_key_parsed = false;
+            auto arg = Expr(expr);
+            auto pk = ParsePubkey(key_exp_index, arg, ParseScriptContext::MUSIG, out, error);
+            if (pk.empty()) {
+                error = strprintf("musig(): %s", error);
+                return {};
+            }
+
+            any_ranged = any_ranged || pk.at(0)->IsRange();
+            all_bip32 = all_bip32 &&  pk.at(0)->IsBIP32();
+
+            max_multipath_len = std::max(max_multipath_len, pk.size());
+
+            providers.emplace_back(std::move(pk));
+            key_exp_index++;
+        }
+        if (any_key_parsed) {
+            error = "musig(): Must contain key expressions";
+            return {};
+        }
+
+        // Parse any derivation
+        DeriveType deriv_type = DeriveType::NO;
+        std::vector<KeyPath> derivation_multipaths;
+        if (split.size() == 2 && Const("/", split.at(1), /*skip=*/false)) {
+            if (!all_bip32) {
+                error = "musig(): derivation requires all participants to be xpubs or xprvs";
+                return {};
+            }
+            if (any_ranged) {
+                error = "musig(): Cannot have ranged participant keys if musig() also has derivation";
+                return {};
+            }
+            bool dummy = false;
+            auto deriv_split = Split(split.at(1), '/');
+            deriv_type = ParseDeriveType(deriv_split, dummy);
+            if (deriv_type == DeriveType::HARDENED) {
+                error = "musig(): Cannot have hardened child derivation";
+                return {};
+            }
+            bool has_hardened = false;
+            if (!ParseKeyPath(deriv_split, derivation_multipaths, dummy, error, /*allow_multipath=*/true, has_hardened)) {
+                error = "musig(): " + error;
+                return {};
+            }
+            if (has_hardened) {
+                error = "musig(): cannot have hardened derivation steps";
+                return {};
+            }
+        } else {
+            derivation_multipaths.emplace_back();
+        }
+
+        // Makes sure that all providers vectors in providers are the given length, or exactly length 1
+        // Length 1 vectors have the single provider cloned until it matches the given length.
+        const auto& clone_providers = [&providers](size_t length) -> bool {
+            for (auto& multipath_providers : providers) {
+                if (multipath_providers.size() == 1) {
+                    for (size_t i = 1; i < length; ++i) {
+                        multipath_providers.emplace_back(multipath_providers.at(0)->Clone());
+                    }
+                } else if (multipath_providers.size() != length) {
+                    return false;
+                }
+            }
+            return true;
+        };
+
+        // Emplace the final MuSigPubkeyProvider into ret with the pubkey providers from the specified provider vectors index
+        // and the path from the specified path index
+        const auto& emplace_final_provider = [&ret, &key_exp_index, &deriv_type, &derivation_multipaths, &providers](size_t vec_idx, size_t path_idx) -> void {
+            KeyPath& path = derivation_multipaths.at(path_idx);
+            std::vector<std::unique_ptr<PubkeyProvider>> pubs;
+            pubs.reserve(providers.size());
+            for (auto& vec : providers) {
+                pubs.emplace_back(std::move(vec.at(vec_idx)));
+            }
+            ret.emplace_back(std::make_unique<MuSigPubkeyProvider>(key_exp_index, std::move(pubs), path, deriv_type));
+        };
+
+        if (max_multipath_len > 1 && derivation_multipaths.size() > 1) {
+            error = "musig(): Cannot have multipath participant keys if musig() is also multipath";
+            return {};
+        } else if (max_multipath_len > 1) {
+            if (!clone_providers(max_multipath_len)) {
+                error = strprintf("musig(): Multipath derivation paths have mismatched lengths");
+                return {};
+            }
+            for (size_t i = 0; i < max_multipath_len; ++i) {
+                // Final MuSigPubkeyProvider uses participant pubkey providers at each multipath position, and the first (and only) path
+                emplace_final_provider(i, 0);
+            }
+        } else if (derivation_multipaths.size() > 1) {
+            // All key provider vectors should be length 1. Clone them until they have the same length as paths
+            if (!Assume(clone_providers(derivation_multipaths.size()))) {
+                error = "musig(): Multipath derivation path with multipath participants is disallowed"; // This error is unreachable due to earlier check
+                return {};
+            }
+            for (size_t i = 0; i < derivation_multipaths.size(); ++i) {
+                // Final MuSigPubkeyProvider uses cloned participant pubkey providers, and the multipath derivation paths
+                emplace_final_provider(i, i);
+            }
+        } else {
+            // No multipath derivation, MuSigPubkeyProvider uses the first (and only) participant pubkey providers, and the first (and only) path
+            emplace_final_provider(0, 0);
+        }
+        return ret;
+    }
+
     auto origin_split = Split(sp, ']');
     if (origin_split.size() > 2) {
         error = "Multiple ']' characters found for a single pubkey";
@@ -1691,7 +2069,8 @@ struct KeyParser {
     {
         assert(m_out);
         Key key = m_keys.size();
-        auto pk = ParsePubkey(m_offset + key, {&*begin, &*end}, ParseContext(), *m_out, m_key_parsing_error);
+        uint32_t exp_index = m_offset + key;
+        auto pk = ParsePubkey(exp_index, {&*begin, &*end}, ParseContext(), *m_out, m_key_parsing_error);
         if (pk.empty()) return {};
         m_keys.emplace_back(std::move(pk));
         return key;
@@ -1751,7 +2130,7 @@ struct KeyParser {
 
 /** Parse a script in a particular context. */
 // NOLINTNEXTLINE(misc-no-recursion)
-std::vector<std::unique_ptr<DescriptorImpl>> ParseScript(uint32_t& key_exp_index, Span<const char>& sp, ParseScriptContext ctx, FlatSigningProvider& out, std::string& error)
+std::vector<std::unique_ptr<DescriptorImpl>> ParseScript(uint32_t& key_exp_index, std::span<const char>& sp, ParseScriptContext ctx, FlatSigningProvider& out, std::string& error)
 {
     using namespace script;
     Assume(ctx == ParseScriptContext::TOP || ctx == ParseScriptContext::P2SH || ctx == ParseScriptContext::P2WSH || ctx == ParseScriptContext::P2TR);
@@ -1805,7 +2184,9 @@ std::vector<std::unique_ptr<DescriptorImpl>> ParseScript(uint32_t& key_exp_index
         auto threshold = Expr(expr);
         uint32_t thres;
         std::vector<std::vector<std::unique_ptr<PubkeyProvider>>> providers; // List of multipath expanded pubkeys
-        if (!ParseUInt32(std::string(threshold.begin(), threshold.end()), &thres)) {
+        if (const auto maybe_thres{ToIntegral<uint32_t>(std::string_view{threshold.begin(), threshold.end()})}) {
+            thres = *maybe_thres;
+        } else {
             error = strprintf("Multi threshold '%s' is not valid", std::string(threshold.begin(), threshold.end()));
             return {};
         }
@@ -2178,7 +2559,7 @@ std::unique_ptr<DescriptorImpl> InferMultiA(const CScript& script, ParseScriptCo
 std::unique_ptr<DescriptorImpl> InferScript(const CScript& script, ParseScriptContext ctx, const SigningProvider& provider)
 {
     if (ctx == ParseScriptContext::P2TR && script.size() == 34 && script[0] == 32 && script[33] == OP_CHECKSIG) {
-        XOnlyPubKey key{Span{script}.subspan(1, 32)};
+        XOnlyPubKey key{std::span{script}.subspan(1, 32)};
         return std::make_unique<PKDescriptor>(InferXOnlyPubkey(key, ctx, provider), true);
     }
 
@@ -2321,7 +2702,7 @@ std::unique_ptr<DescriptorImpl> InferScript(const CScript& script, ParseScriptCo
 } // namespace
 
 /** Check a descriptor checksum, and update desc to be the checksum-less part. */
-bool CheckChecksum(Span<const char>& sp, bool require_checksum, std::string& error, std::string* out_checksum = nullptr)
+bool CheckChecksum(std::span<const char>& sp, bool require_checksum, std::string& error, std::string* out_checksum = nullptr)
 {
     auto check_split = Split(sp, '#');
     if (check_split.size() > 2) {
@@ -2356,7 +2737,7 @@ bool CheckChecksum(Span<const char>& sp, bool require_checksum, std::string& err
 
 std::vector<std::unique_ptr<Descriptor>> Parse(const std::string& descriptor, FlatSigningProvider& out, std::string& error, bool require_checksum)
 {
-    Span<const char> sp{descriptor};
+    std::span<const char> sp{descriptor};
     if (!CheckChecksum(sp, require_checksum, error)) return {};
     uint32_t key_exp_index = 0;
     auto ret = ParseScript(key_exp_index, sp, ParseScriptContext::TOP, out, error);
@@ -2375,7 +2756,7 @@ std::string GetDescriptorChecksum(const std::string& descriptor)
 {
     std::string ret;
     std::string error;
-    Span<const char> sp{descriptor};
+    std::span<const char> sp{descriptor};
     if (!CheckChecksum(sp, false, error, &ret)) return "";
     return ret;
 }

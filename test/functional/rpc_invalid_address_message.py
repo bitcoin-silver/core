@@ -40,12 +40,10 @@ INVALID_ADDRESS = 'asfah14i8fajz0123f'
 INVALID_ADDRESS_2 = '1q049ldschfnwystcqnsvyfpj23mpsg3jcedq9xv'
 
 class InvalidAddressErrorMessageTest(BitcoinTestFramework):
-    def add_options(self, parser):
-        self.add_wallet_options(parser)
-
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 1
+        self.uses_wallet = None
 
     def check_valid(self, addr):
         info = self.nodes[0].validateaddress(addr)
@@ -99,6 +97,8 @@ class InvalidAddressErrorMessageTest(BitcoinTestFramework):
 
         node = self.nodes[0]
 
+
+        if not self.options.usecli:
         # Missing arg returns the help text
         assert_raises_rpc_error(-1, "Return information about the given bitcoinsilver address.", node.validateaddress)
         # Explicit None is not allowed for required parameters

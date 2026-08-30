@@ -3,11 +3,22 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Helpful routines for mempool testing."""
+import random
 
 from .blocktools import (
     COINBASE_MATURITY,
 )
-from .messages import CTransaction
+from .messages import (
+    COutPoint,
+    CTransaction,
+    CTxIn,
+    CTxInWitness,
+    CTxOut,
+)
+from .script import (
+    CScript,
+    OP_RETURN,
+)
 from .util import (
     assert_equal,
     assert_greater_than,
@@ -18,11 +29,13 @@ from .wallet import (
     MiniWallet,
 )
 
-ORPHAN_TX_EXPIRE_TIME = 1200
 # Default for -minrelaytxfee in sat/kvB
 DEFAULT_MIN_RELAY_TX_FEE = 100
 # Default for -incrementalrelayfee in sat/kvB
 DEFAULT_INCREMENTAL_RELAY_FEE = 100
+
+TRUC_MAX_VSIZE = 10000
+TRUC_CHILD_MAX_VSIZE = 1000
 
 def assert_mempool_contents(test_framework, node, expected=None, sync=True):
     """Assert that all transactions in expected are in the mempool,
@@ -37,15 +50,14 @@ def assert_mempool_contents(test_framework, node, expected=None, sync=True):
     mempool = node.getrawmempool(verbose=False)
     assert_equal(len(mempool), len(expected))
     for tx in expected:
-        assert tx.rehash() in mempool
+        assert tx.txid_hex in mempool
 
 
 def fill_mempool(test_framework, node, *, tx_sync_fun=None):
     """Fill mempool until eviction.
 
     Allows for simpler testing of scenarios with floating mempoolminfee > minrelay
-    Requires -datacarriersize=100000 and -maxmempool=5 and assumes -minrelaytxfee
-    is 1 sat/vbyte.
+    Requires -maxmempool=5.
     To avoid unintentional tx dependencies, the mempool filling txs are created with a
     tagged ephemeral miniwallet instance.
     """
@@ -105,5 +117,15 @@ def fill_mempool(test_framework, node, *, tx_sync_fun=None):
 
 def tx_in_orphanage(node, tx: CTransaction) -> bool:
     """Returns true if the transaction is in the orphanage."""
-    found = [o for o in node.getorphantxs(verbosity=1) if o["txid"] == tx.rehash() and o["wtxid"] == tx.getwtxid()]
+    found = [o for o in node.getorphantxs(verbosity=1) if o["txid"] == tx.txid_hex and o["wtxid"] == tx.wtxid_hex]
     return len(found) == 1
+
+def create_large_orphan():
+    """Create huge orphan transaction"""
+    tx = CTransaction()
+    # Nonexistent UTXO
+    tx.vin = [CTxIn(COutPoint(random.randrange(1 << 256), random.randrange(1, 100)))]
+    tx.wit.vtxinwit = [CTxInWitness()]
+    tx.wit.vtxinwit[0].scriptWitness.stack = [CScript(b'X' * 390000)]
+    tx.vout = [CTxOut(100, CScript([OP_RETURN, b'a' * 20]))]
+    return tx

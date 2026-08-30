@@ -1,10 +1,10 @@
-// Copyright (c) 2011-2022 The BitcoinSilver Core developers
+// Copyright (c) 2011-2022 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <bitcoin-build-config.h> // IWYU pragma: keep
 
-#include <qt/bitcoinsilver.h>
+#include <qt/bitcoin.h>
 
 #include <chainparams.h>
 #include <common/args.h>
@@ -18,7 +18,7 @@
 #include <node/context.h>
 #include <node/interface_ui.h>
 #include <noui.h>
-#include <qt/bitcoinsilvergui.h>
+#include <qt/bitcoingui.h>
 #include <qt/clientmodel.h>
 #include <qt/guiconstants.h>
 #include <qt/guiutil.h>
@@ -90,12 +90,7 @@ static void RegisterMetaTypes()
     qRegisterMetaType<std::function<void()>>("std::function<void()>");
     qRegisterMetaType<QMessageBox::Icon>("QMessageBox::Icon");
     qRegisterMetaType<interfaces::BlockAndHeaderTipInfo>("interfaces::BlockAndHeaderTipInfo");
-
-#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-    qRegisterMetaTypeStreamOperators<BitcoinSilverUnit>("BitcoinSilverUnit");
-#else
-    qRegisterMetaType<BitcoinSilverUnit>("BitcoinSilverUnit");
-#endif
+    qRegisterMetaType<BitcoinUnit>("BitcoinUnit");
 }
 
 static QString GetLangTerritory()
@@ -134,11 +129,7 @@ static void initTranslations(QTranslator &qtTranslatorBase, QTranslator &qtTrans
     // - First load the translator for the base language, without territory
     // - Then load the more specific locale translator
 
-#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-    const QString translation_path{QLibraryInfo::location(QLibraryInfo::TranslationsPath)};
-#else
     const QString translation_path{QLibraryInfo::path(QLibraryInfo::TranslationsPath)};
-#endif
     // Load e.g. qt_de.qm
     if (qtTranslatorBase.load("qt_" + lang, translation_path)) {
         QApplication::installTranslator(&qtTranslatorBase);
@@ -149,12 +140,12 @@ static void initTranslations(QTranslator &qtTranslatorBase, QTranslator &qtTrans
         QApplication::installTranslator(&qtTranslator);
     }
 
-    // Load e.g. bitcoinsilver_de.qm (shortcut "de" needs to be defined in bitcoinsilver.qrc)
+    // Load e.g. bitcoin_de.qm (shortcut "de" needs to be defined in bitcoin.qrc)
     if (translatorBase.load(lang, ":/translations/")) {
         QApplication::installTranslator(&translatorBase);
     }
 
-    // Load e.g. bitcoinsilver_de_DE.qm (shortcut "de_DE" needs to be defined in bitcoinsilver.qrc)
+    // Load e.g. bitcoin_de_DE.qm (shortcut "de_DE" needs to be defined in bitcoin.qrc)
     if (translator.load(lang_territory, ":/translations/")) {
         QApplication::installTranslator(&translator);
     }
@@ -199,14 +190,14 @@ void DebugMessageHandler(QtMsgType type, const QMessageLogContext& context, cons
     if (type == QtDebugMsg) {
         LogDebug(BCLog::QT, "GUI: %s\n", msg.toStdString());
     } else {
-        LogPrintf("GUI: %s\n", msg.toStdString());
+        LogInfo("GUI: %s", msg.toStdString());
     }
 }
 
 static int qt_argc = 1;
-static const char* qt_argv = "bitcoinsilver-qt";
+static const char* qt_argv = "bitcoin-qt";
 
-BitcoinSilverApplication::BitcoinSilverApplication()
+BitcoinApplication::BitcoinApplication()
     : QApplication(qt_argc, const_cast<char**>(&qt_argv))
 {
     // Qt runs setlocale(LC_ALL, "") on initialization.
@@ -214,20 +205,20 @@ BitcoinSilverApplication::BitcoinSilverApplication()
     setQuitOnLastWindowClosed(false);
 }
 
-void BitcoinSilverApplication::setupPlatformStyle()
+void BitcoinApplication::setupPlatformStyle()
 {
     // UI per-platform customization
-    // This must be done inside the BitcoinSilverApplication constructor, or after it, because
+    // This must be done inside the BitcoinApplication constructor, or after it, because
     // PlatformStyle::instantiate requires a QApplication
     std::string platformName;
-    platformName = gArgs.GetArg("-uiplatform", BitcoinSilverGUI::DEFAULT_UIPLATFORM);
+    platformName = gArgs.GetArg("-uiplatform", BitcoinGUI::DEFAULT_UIPLATFORM);
     platformStyle = PlatformStyle::instantiate(QString::fromStdString(platformName));
     if (!platformStyle) // Fall back to "other" if specified name not found
         platformStyle = PlatformStyle::instantiate("other");
     assert(platformStyle);
 }
 
-BitcoinSilverApplication::~BitcoinSilverApplication()
+BitcoinApplication::~BitcoinApplication()
 {
     m_executor.reset();
 
@@ -238,13 +229,13 @@ BitcoinSilverApplication::~BitcoinSilverApplication()
 }
 
 #ifdef ENABLE_WALLET
-void BitcoinSilverApplication::createPaymentServer()
+void BitcoinApplication::createPaymentServer()
 {
     paymentServer = new PaymentServer(this);
 }
 #endif
 
-bool BitcoinSilverApplication::createOptionsModel(bool resetSettings)
+bool BitcoinApplication::createOptionsModel(bool resetSettings)
 {
     optionsModel = new OptionsModel(node(), this);
     if (resetSettings) {
@@ -266,10 +257,10 @@ bool BitcoinSilverApplication::createOptionsModel(bool resetSettings)
     return true;
 }
 
-void BitcoinSilverApplication::createWindow(const NetworkStyle *networkStyle)
+void BitcoinApplication::createWindow(const NetworkStyle *networkStyle)
 {
-    window = new BitcoinSilverGUI(node(), platformStyle, networkStyle, nullptr);
-    connect(window, &BitcoinSilverGUI::quitRequested, this, &BitcoinSilverApplication::requestShutdown);
+    window = new BitcoinGUI(node(), platformStyle, networkStyle, nullptr);
+    connect(window, &BitcoinGUI::quitRequested, this, &BitcoinApplication::requestShutdown);
 
     pollShutdownTimer = new QTimer(window);
     connect(pollShutdownTimer, &QTimer::timeout, [this]{
@@ -279,41 +270,41 @@ void BitcoinSilverApplication::createWindow(const NetworkStyle *networkStyle)
     });
 }
 
-void BitcoinSilverApplication::createSplashScreen(const NetworkStyle *networkStyle)
+void BitcoinApplication::createSplashScreen(const NetworkStyle *networkStyle)
 {
     assert(!m_splash);
     m_splash = new SplashScreen(networkStyle);
     m_splash->show();
 }
 
-void BitcoinSilverApplication::createNode(interfaces::Init& init)
+void BitcoinApplication::createNode(interfaces::Init& init)
 {
     assert(!m_node);
     m_node = init.makeNode();
     if (m_splash) m_splash->setNode(*m_node);
 }
 
-bool BitcoinSilverApplication::baseInitialize()
+bool BitcoinApplication::baseInitialize()
 {
     return node().baseInitialize();
 }
 
-void BitcoinSilverApplication::startThread()
+void BitcoinApplication::startThread()
 {
     assert(!m_executor);
     m_executor.emplace(node());
 
     /*  communication to and from thread */
-    connect(&m_executor.value(), &InitExecutor::initializeResult, this, &BitcoinSilverApplication::initializeResult);
+    connect(&m_executor.value(), &InitExecutor::initializeResult, this, &BitcoinApplication::initializeResult);
     connect(&m_executor.value(), &InitExecutor::shutdownResult, this, [] {
         QCoreApplication::exit(0);
     });
-    connect(&m_executor.value(), &InitExecutor::runawayException, this, &BitcoinSilverApplication::handleRunawayException);
-    connect(this, &BitcoinSilverApplication::requestedInitialize, &m_executor.value(), &InitExecutor::initialize);
-    connect(this, &BitcoinSilverApplication::requestedShutdown, &m_executor.value(), &InitExecutor::shutdown);
+    connect(&m_executor.value(), &InitExecutor::runawayException, this, &BitcoinApplication::handleRunawayException);
+    connect(this, &BitcoinApplication::requestedInitialize, &m_executor.value(), &InitExecutor::initialize);
+    connect(this, &BitcoinApplication::requestedShutdown, &m_executor.value(), &InitExecutor::shutdown);
 }
 
-void BitcoinSilverApplication::parameterSetup()
+void BitcoinApplication::parameterSetup()
 {
     // Default printtoconsole to false for the GUI. GUI programs should not
     // print to the console unnecessarily.
@@ -323,19 +314,19 @@ void BitcoinSilverApplication::parameterSetup()
     InitParameterInteraction(gArgs);
 }
 
-void BitcoinSilverApplication::InitPruneSetting(int64_t prune_MiB)
+void BitcoinApplication::InitPruneSetting(int64_t prune_MiB)
 {
     optionsModel->SetPruneTargetGB(PruneMiBtoGB(prune_MiB));
 }
 
-void BitcoinSilverApplication::requestInitialize()
+void BitcoinApplication::requestInitialize()
 {
     qDebug() << __func__ << ": Requesting initialize";
     startThread();
     Q_EMIT requestedInitialize();
 }
 
-void BitcoinSilverApplication::requestShutdown()
+void BitcoinApplication::requestShutdown()
 {
     for (const auto w : QGuiApplication::topLevelWindows()) {
         w->hide();
@@ -385,7 +376,7 @@ void BitcoinSilverApplication::requestShutdown()
     Q_EMIT requestedShutdown();
 }
 
-void BitcoinSilverApplication::initializeResult(bool success, interfaces::BlockAndHeaderTipInfo tip_info)
+void BitcoinApplication::initializeResult(bool success, interfaces::BlockAndHeaderTipInfo tip_info)
 {
     qDebug() << __func__ << ": Initialization result: " << success;
 
@@ -422,10 +413,10 @@ void BitcoinSilverApplication::initializeResult(bool success, interfaces::BlockA
 
 #ifdef ENABLE_WALLET
         // Now that initialization/startup is done, process any command-line
-        // bitcoinsilver: URIs or payment requests:
+        // bitcoin: URIs or payment requests:
         if (paymentServer) {
-            connect(paymentServer, &PaymentServer::receivedPaymentRequest, window, &BitcoinSilverGUI::handlePaymentRequest);
-            connect(window, &BitcoinSilverGUI::receivedURI, paymentServer, &PaymentServer::handleURIOrFile);
+            connect(paymentServer, &PaymentServer::receivedPaymentRequest, window, &BitcoinGUI::handlePaymentRequest);
+            connect(window, &BitcoinGUI::receivedURI, paymentServer, &PaymentServer::handleURIOrFile);
             connect(paymentServer, &PaymentServer::message, [this](const QString& title, const QString& message, unsigned int style) {
                 window->message(title, message, style);
             });
@@ -438,7 +429,7 @@ void BitcoinSilverApplication::initializeResult(bool success, interfaces::BlockA
     }
 }
 
-void BitcoinSilverApplication::handleRunawayException(const QString &message)
+void BitcoinApplication::handleRunawayException(const QString &message)
 {
     QMessageBox::critical(
         nullptr, tr("Runaway exception"),
@@ -447,7 +438,7 @@ void BitcoinSilverApplication::handleRunawayException(const QString &message)
     ::exit(EXIT_FAILURE);
 }
 
-void BitcoinSilverApplication::handleNonFatalException(const QString& message)
+void BitcoinApplication::handleNonFatalException(const QString& message)
 {
     assert(QThread::currentThread() == thread());
     QMessageBox::warning(
@@ -457,7 +448,7 @@ void BitcoinSilverApplication::handleNonFatalException(const QString& message)
         QLatin1String("<br><br>") + GUIUtil::MakeHtmlLink(message, CLIENT_BUGREPORT));
 }
 
-WId BitcoinSilverApplication::getMainWinId() const
+WId BitcoinApplication::getMainWinId() const
 {
     if (!window)
         return 0;
@@ -465,7 +456,7 @@ WId BitcoinSilverApplication::getMainWinId() const
     return window->winId();
 }
 
-bool BitcoinSilverApplication::event(QEvent* e)
+bool BitcoinApplication::event(QEvent* e)
 {
     if (e->type() == QEvent::Quit) {
         requestShutdown();
@@ -482,7 +473,7 @@ static void SetupUIArgs(ArgsManager& argsman)
     argsman.AddArg("-min", "Start minimized", ArgsManager::ALLOW_ANY, OptionsCategory::GUI);
     argsman.AddArg("-resetguisettings", "Reset all settings changed in the GUI", ArgsManager::ALLOW_ANY, OptionsCategory::GUI);
     argsman.AddArg("-splash", strprintf("Show splash screen on startup (default: %u)", DEFAULT_SPLASHSCREEN), ArgsManager::ALLOW_ANY, OptionsCategory::GUI);
-    argsman.AddArg("-uiplatform", strprintf("Select platform to customize UI for (one of windows, macosx, other; default: %s)", BitcoinSilverGUI::DEFAULT_UIPLATFORM), ArgsManager::ALLOW_ANY | ArgsManager::DEBUG_ONLY, OptionsCategory::GUI);
+    argsman.AddArg("-uiplatform", strprintf("Select platform to customize UI for (one of windows, macosx, other; default: %s)", BitcoinGUI::DEFAULT_UIPLATFORM), ArgsManager::ALLOW_ANY | ArgsManager::DEBUG_ONLY, OptionsCategory::GUI);
 }
 
 int GuiMain(int argc, char* argv[])
@@ -505,14 +496,8 @@ int GuiMain(int argc, char* argv[])
     // Do not refer to data directory yet, this can be overridden by Intro::pickDataDirectory
 
     /// 1. Basic Qt initialization (not dependent on parameters or configuration)
-    Q_INIT_RESOURCE(bitcoinsilver);
-    Q_INIT_RESOURCE(bitcoinsilver_locale);
-
-#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-    // Generate high-dpi pixmaps
-    QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-#endif
+    Q_INIT_RESOURCE(bitcoin);
+    Q_INIT_RESOURCE(bitcoin_locale);
 
 #if defined(QT_QPA_PLATFORM_ANDROID)
     QApplication::setAttribute(Qt::AA_DontUseNativeMenuBar);
@@ -520,7 +505,7 @@ int GuiMain(int argc, char* argv[])
     QApplication::setAttribute(Qt::AA_DontUseNativeDialogs);
 #endif
 
-    BitcoinSilverApplication app;
+    BitcoinApplication app;
     GUIUtil::LoadFont(QStringLiteral(":/fonts/monospace"));
 
     /// 2. Parse command-line options. We do this after qt in order to show an error if there are problems parsing these
@@ -544,7 +529,7 @@ int GuiMain(int argc, char* argv[])
         QString arg(argv[i]);
         bool invalid_token = !arg.startsWith("-");
 #ifdef ENABLE_WALLET
-        if (arg.startsWith(BITCOINSILVER_IPC_PREFIX, Qt::CaseInsensitive)) {
+        if (arg.startsWith(BITCOIN_IPC_PREFIX, Qt::CaseInsensitive)) {
             invalid_token &= false;
             payment_server_token_seen = true;
         }
@@ -557,10 +542,10 @@ int GuiMain(int argc, char* argv[])
             return EXIT_FAILURE;
         }
         if (invalid_token) {
-            InitError(Untranslated(strprintf("Command line contains unexpected token '%s', see bitcoinsilver-qt -h for a list of options.", argv[i])));
+            InitError(Untranslated(strprintf("Command line contains unexpected token '%s', see bitcoin-qt -h for a list of options.", argv[i])));
             QMessageBox::critical(nullptr, CLIENT_NAME,
                                   // message cannot be translated because translations have not been initialized
-                                  QString::fromStdString("Command line contains unexpected token '%1', see bitcoinsilver-qt -h for a list of options.").arg(QString::fromStdString(argv[i])));
+                                  QString::fromStdString("Command line contains unexpected token '%1', see bitcoin-qt -h for a list of options.").arg(QString::fromStdString(argv[i])));
             return EXIT_FAILURE;
         }
     }
@@ -598,7 +583,7 @@ int GuiMain(int argc, char* argv[])
     // Gracefully exit if the user cancels
     if (!Intro::showIfNeeded(did_show_intro, prune_MiB)) return EXIT_SUCCESS;
 
-    /// 6-7. Parse bitcoinsilver.conf, determine network, switch to network specific
+    /// 6-7. Parse bitcoin.conf, determine network, switch to network specific
     /// options, and create datadir and settings.json.
     // - Do not call gArgs.GetDataDirNet() before this step finishes
     // - Do not call Params() before this step
@@ -640,7 +625,7 @@ int GuiMain(int argc, char* argv[])
         exit(EXIT_SUCCESS);
 
     // Start up the payment server early, too, so impatient users that click on
-    // bitcoinsilver: links repeatedly have their payment requests routed to this process:
+    // bitcoin: links repeatedly have their payment requests routed to this process:
     if (WalletModel::isWalletEnabled()) {
         app.createPaymentServer();
     }

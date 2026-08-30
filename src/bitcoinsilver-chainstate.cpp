@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
     class KernelNotifications : public kernel::Notifications
     {
     public:
-        kernel::InterruptResult blockTip(SynchronizationState, CBlockIndex&) override
+        kernel::InterruptResult blockTip(SynchronizationState, CBlockIndex&, double) override
         {
             std::cout << "Block tip changed" << std::endl;
             return {};
@@ -200,9 +200,9 @@ int main(int argc, char* argv[])
             explicit submitblock_StateCatcher(const uint256& hashIn) : hash(hashIn), found(false), state() {}
 
         protected:
-            void BlockChecked(const CBlock& block, const BlockValidationState& stateIn) override
+            void BlockChecked(const std::shared_ptr<const CBlock>& block, const BlockValidationState& stateIn) override
             {
-                if (block.GetHash() != hash)
+                if (block->GetHash() != hash)
                     return;
                 found = true;
                 state = stateIn;
@@ -250,9 +250,6 @@ int main(int argc, char* argv[])
             break;
         case BlockValidationResult::BLOCK_TIME_FUTURE:
             std::cerr << "block timestamp was > 2 hours in the future (or our clock is bad)" << std::endl;
-            break;
-        case BlockValidationResult::BLOCK_CHECKPOINT:
-            std::cerr << "the block failed to meet one of our checkpoints" << std::endl;
             break;
         }
     }

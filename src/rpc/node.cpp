@@ -1,5 +1,5 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-2022 The BitcoinSilver Core developers
+// Copyright (c) 2009-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -26,7 +26,7 @@
 #include <util/check.h>
 #include <util/time.h>
 
-#include <stdint.h>
+#include <cstdint>
 #ifdef HAVE_MALLOC_INFO
 #include <malloc.h>
 #endif
@@ -35,8 +35,9 @@ using node::NodeContext;
 
 static RPCHelpMan setmocktime()
 {
-    return RPCHelpMan{"setmocktime",
-        "\nSet the local time to given timestamp (-regtest only)\n",
+    return RPCHelpMan{
+        "setmocktime",
+        "Set the local time to given timestamp (-regtest only)\n",
         {
             {"timestamp", RPCArg::Type::NUM, RPCArg::Optional::NO, UNIX_EPOCH_TIME + "\n"
              "Pass 0 to go back to using the system time."},
@@ -75,8 +76,9 @@ static RPCHelpMan setmocktime()
 
 static RPCHelpMan mockscheduler()
 {
-    return RPCHelpMan{"mockscheduler",
-        "\nBump the scheduler into the future (-regtest only)\n",
+    return RPCHelpMan{
+        "mockscheduler",
+        "Bump the scheduler into the future (-regtest only)\n",
         {
             {"delta_time", RPCArg::Type::NUM, RPCArg::Optional::NO, "Number of seconds to forward the scheduler into the future." },
         },
@@ -271,11 +273,12 @@ static RPCHelpMan logging()
 
 static RPCHelpMan echo(const std::string& name)
 {
-    return RPCHelpMan{name,
-                "\nSimply echo back the input arguments. This command is for testing.\n"
+    return RPCHelpMan{
+        name,
+        "Simply echo back the input arguments. This command is for testing.\n"
                 "\nIt will return an internal bug report when arg9='trigger_internal_bug' is passed.\n"
                 "\nThe difference between echo and echojson is that echojson has argument conversion enabled in the client-side table in "
-                "bitcoinsilver-cli and the GUI. There is no server-side difference.",
+                "bitcoin-cli and the GUI. There is no server-side difference.",
         {
             {"arg0", RPCArg::Type::STR, RPCArg::Optional::OMITTED, "", RPCArgOptions{.skip_type_check = true}},
             {"arg1", RPCArg::Type::STR, RPCArg::Optional::OMITTED, "", RPCArgOptions{.skip_type_check = true}},
@@ -308,7 +311,7 @@ static RPCHelpMan echoipc()
 {
     return RPCHelpMan{
         "echoipc",
-        "\nEcho back the input argument, passing it through a spawned process in a multiprocess build.\n"
+        "Echo back the input argument, passing it through a spawned process in a multiprocess build.\n"
         "This command is for testing.\n",
         {{"arg", RPCArg::Type::STR, RPCArg::Optional::NO, "The string to echo",}},
         RPCResult{RPCResult::Type::STR, "echo", "The echoed string."},
@@ -318,20 +321,20 @@ static RPCHelpMan echoipc()
             interfaces::Init& local_init = *EnsureAnyNodeContext(request.context).init;
             std::unique_ptr<interfaces::Echo> echo;
             if (interfaces::Ipc* ipc = local_init.ipc()) {
-                // Spawn a new bitcoinsilver-node process and call makeEcho to get a
+                // Spawn a new bitcoin-node process and call makeEcho to get a
                 // client pointer to a interfaces::Echo instance running in
                 // that process. This is just for testing. A slightly more
                 // realistic test spawning a different executable instead of
-                // the same executable would add a new bitcoinsilver-echo executable,
-                // and spawn bitcoinsilver-echo below instead of bitcoinsilver-node. But
-                // using bitcoinsilver-node avoids the need to build and install a
+                // the same executable would add a new bitcoin-echo executable,
+                // and spawn bitcoin-echo below instead of bitcoin-node. But
+                // using bitcoin-node avoids the need to build and install a
                 // new executable just for this one test.
-                auto init = ipc->spawnProcess("bitcoinsilver-node");
+                auto init = ipc->spawnProcess("bitcoin-node");
                 echo = init->makeEcho();
                 ipc->addCleanup(*echo, [init = init.release()] { delete init; });
             } else {
-                // IPC support is not available because this is a bitcoinsilverd
-                // process not a bitcoinsilverd-node process, so just create a local
+                // IPC support is not available because this is a bitcoind
+                // process not a bitcoind-node process, so just create a local
                 // interfaces::Echo object and return it so the `echoipc` RPC
                 // method will work, and the python test calling `echoipc`
                 // can expect the same result.
@@ -356,8 +359,9 @@ static UniValue SummaryToJSON(const IndexSummary&& summary, std::string index_na
 
 static RPCHelpMan getindexinfo()
 {
-    return RPCHelpMan{"getindexinfo",
-                "\nReturns the status of one or all available indices currently running in the node.\n",
+    return RPCHelpMan{
+        "getindexinfo",
+        "Returns the status of one or all available indices currently running in the node.\n",
                 {
                     {"index_name", RPCArg::Type::STR, RPCArg::Optional::OMITTED, "Filter results for an index with a specific name."},
                 },

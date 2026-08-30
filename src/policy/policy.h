@@ -75,10 +75,9 @@ static constexpr unsigned int DEFAULT_DESCENDANT_SIZE_LIMIT_KVB{101};
 /** Default for -datacarrier */
 static const bool DEFAULT_ACCEPT_DATACARRIER = true;
 /**
- * Default setting for -datacarriersize. 80 bytes of data, +1 for OP_RETURN,
- * +2 for the pushdata opcodes.
+ * Default setting for -datacarriersize in vbytes.
  */
-static const unsigned int MAX_OP_RETURN_RELAY = 83;
+static const unsigned int MAX_OP_RETURN_RELAY = MAX_STANDARD_TX_WEIGHT / WITNESS_SCALE_FACTOR;
 /**
  * An extra transaction can be added to a package, as long as it only has one
  * ancestor and is no larger than this. Not really any reason to make this
@@ -138,7 +137,7 @@ CAmount GetDustThreshold(const CTxOut& txout, const CFeeRate& dustRelayFee);
 
 bool IsDust(const CTxOut& txout, const CFeeRate& dustRelayFee);
 
-bool IsStandard(const CScript& scriptPubKey, const std::optional<unsigned>& max_datacarrier_bytes, TxoutType& whichType);
+bool IsStandard(const CScript& scriptPubKey, TxoutType& whichType);
 
 /** Get the vout index numbers of all dust outputs */
 std::vector<uint32_t> GetDust(const CTransaction& tx, CFeeRate dust_relay_rate);
@@ -146,6 +145,7 @@ std::vector<uint32_t> GetDust(const CTransaction& tx, CFeeRate dust_relay_rate);
 // Changing the default transaction version requires a two step process: first
 // adapting relay policy by bumping TX_MAX_STANDARD_VERSION, and then later
 // allowing the new transaction version in the wallet/RPC.
+static constexpr decltype(CTransaction::version) TX_MIN_STANDARD_VERSION{1};
 static constexpr decltype(CTransaction::version) TX_MAX_STANDARD_VERSION{3};
 
 /**

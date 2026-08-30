@@ -41,8 +41,7 @@ class TestP2PConn(P2PInterface):
         pass
 
     def on_block(self, message):
-        message.block.calc_sha256()
-        self.block_receive_map[message.block.sha256] += 1
+        self.block_receive_map[message.block.hash_int] += 1
 
 class MaxUploadTest(BitcoinTestFramework):
 
@@ -51,9 +50,7 @@ class MaxUploadTest(BitcoinTestFramework):
         self.num_nodes = 1
         self.extra_args = [[
             f"-maxuploadtarget={UPLOAD_TARGET_MB}M",
-            "-datacarriersize=100000",
         ]]
-        self.supports_cli = False
 
     def assert_uploadtarget_state(self, *, target_reached, serve_historical_blocks):
         """Verify the node's current upload target state via the `getnettotals` RPC call."""
@@ -124,7 +121,7 @@ class MaxUploadTest(BitcoinTestFramework):
         # the test has been running so far).
         with self.nodes[0].assert_debug_log(expected_msgs=["historical block serving limit reached, disconnecting peer=0"]):
             for _ in range(3):
-                p2p_conns[0].send_message(getdata_request)
+                p2p_conns[0].send_without_ping(getdata_request)
             p2p_conns[0].wait_for_disconnect()
         assert_equal(len(self.nodes[0].getpeerinfo()), 2)
         self.log.info("Peer 0 disconnected after downloading old block too many times")
@@ -148,7 +145,7 @@ class MaxUploadTest(BitcoinTestFramework):
         # But if p2p_conns[1] tries for an old block, it gets disconnected too.
         getdata_request.inv = [CInv(MSG_BLOCK, big_old_block)]
         with self.nodes[0].assert_debug_log(expected_msgs=["historical block serving limit reached, disconnecting peer=1"]):
-            p2p_conns[1].send_message(getdata_request)
+            p2p_conns[1].send_without_ping(getdata_request)
             p2p_conns[1].wait_for_disconnect()
         assert_equal(len(self.nodes[0].getpeerinfo()), 1)
 
@@ -198,7 +195,7 @@ class MaxUploadTest(BitcoinTestFramework):
 
         self.log.info("Peer gets disconnected for a mempool request after limit is reached")
         with self.nodes[0].assert_debug_log(expected_msgs=["mempool request with bandwidth limit reached, disconnecting peer=0"]):
-            peer.send_message(msg_mempool())
+            peer.send_without_ping(msg_mempool())
             peer.wait_for_disconnect()
 
         self.log.info("Test passing an unparsable value to -maxuploadtarget throws an error")

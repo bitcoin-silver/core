@@ -25,8 +25,7 @@ ExecStart=/usr/bin/bitcoinsilverd -pid=/run/bitcoinsilverd/bitcoinsilverd.pid \
                             -shutdownnotify='systemd-notify --stopping'
 
 # Make sure the config directory is readable by the service user
-PermissionsStartOnly=true
-ExecStartPre=/bin/chgrp bitcoinsilver /etc/bitcoinsilver
+ExecStartPre=!/bin/chgrp bitcoinsilver /etc/bitcoinsilver
 
 # Process management
 ####################
@@ -44,7 +43,6 @@ TimeoutStopSec=600
 
 # Run as bitcoinsilver:bitcoinsilver
 User=bitcoinsilver
-Group=bitcoinsilver
 
 # /run/bitcoinsilverd
 RuntimeDirectory=bitcoinsilverd

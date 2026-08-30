@@ -43,7 +43,6 @@ def cltv_modify_tx(tx, prepend_scriptsig, nsequence=None, nlocktime=None):
         tx.nLockTime = nlocktime
 
     tx.vin[0].scriptSig = CScript(prepend_scriptsig + list(CScript(tx.vin[0].scriptSig)))
-    tx.rehash()
 
 
 def cltv_invalidate(tx, failure_reason):
@@ -128,15 +127,15 @@ class BIP65Test(BitcoinTestFramework):
         self.test_cltv_info(is_active=False)  # Not active as of current tip and next block does not need to obey rules
         peer.send_and_ping(msg_block(block))
         self.test_cltv_info(is_active=True)  # Not active as of current tip, but next block must obey rules
-        assert_equal(self.nodes[0].getbestblockhash(), block.hash)
+        assert_equal(self.nodes[0].getbestblockhash(), block.hash_hex)
 
         self.log.info("Test that blocks must now be at least version 4")
-        tip = block.sha256
+        tip = block.hash_int
         block_time += 1
         block = create_block(tip, create_coinbase(CLTV_HEIGHT), block_time, version=3)
         block.solve()
 
-        with self.nodes[0].assert_debug_log(expected_msgs=[f'{block.hash}, bad-version(0x00000003)']):
+        with self.nodes[0].assert_debug_log(expected_msgs=[f'{block.hash_hex}, bad-version(0x00000003)']):
             peer.send_and_ping(msg_block(block))
             assert_equal(int(self.nodes[0].getbestblockhash(), 16), tip)
             peer.sync_with_ping()
@@ -154,7 +153,7 @@ class BIP65Test(BitcoinTestFramework):
             coin_vout = coin.prevout.n
             cltv_invalidate(spendtx, i)
 
-            blk_rej = "mandatory-script-verify-flag-failed"
+            blk_rej = "block-script-verify-flag-failed"
             tx_rej = "mempool-script-verify-flag-failed"
             expected_cltv_reject_reason = [
                 " (Operation not valid with the current stack size)",
@@ -165,8 +164,8 @@ class BIP65Test(BitcoinTestFramework):
             ][i]
             # First we show that this tx is valid except for CLTV by getting it
             # rejected from the mempool for exactly that reason.
-            spendtx_txid = spendtx.hash
-            spendtx_wtxid = spendtx.getwtxid()
+            spendtx_txid = spendtx.txid_hex
+            spendtx_wtxid = spendtx.wtxid_hex
             assert_equal(
                 [{
                     'txid': spendtx_txid,
@@ -199,7 +198,7 @@ class BIP65Test(BitcoinTestFramework):
         self.test_cltv_info(is_active=True)  # Not active as of current tip, but next block must obey rules
         peer.send_and_ping(msg_block(block))
         self.test_cltv_info(is_active=True)  # Active as of current tip
-        assert_equal(int(self.nodes[0].getbestblockhash(), 16), block.sha256)
+        assert_equal(self.nodes[0].getbestblockhash(), block.hash_hex)
 
 
 if __name__ == '__main__':
