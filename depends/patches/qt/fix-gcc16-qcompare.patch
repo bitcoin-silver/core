@@ -52,7 +52,7 @@ diff --git a/qtbase/src/corelib/global/qcompare.h b/qtbase/src/corelib/global/qc
 index d82cf5ab4a4e..7eee69db66a3 100644
 --- a/qtbase/src/corelib/global/qcompare.h
 +++ b/qtbase/src/corelib/global/qcompare.h
-@@ -35,6 +35,15 @@ enum class Ordering : CompareUnderlyingType
+@@ -36,6 +36,15 @@ enum class Ordering : CompareUnderlyingType
  
  enum class Uncomparable : CompareUnderlyingType
  {
@@ -68,17 +68,17 @@ index d82cf5ab4a4e..7eee69db66a3 100644
      Unordered =
          #if defined(_LIBCPP_VERSION) // libc++
                  -127
-@@ -43,12 +52,25 @@ enum class Uncomparable : CompareUnderlyingType
+@@ -44,12 +53,26 @@ enum class Uncomparable : CompareUnderlyingType
          #else                        // assume MSSTL
                  -128
          #endif
 +#endif // future Qt
  };
--
+ 
  } // namespace QtPrivate
  
  namespace QtOrderingPrivate {
-
+ 
 +using QtPrivate::Ordering;
 +using QtPrivate::Uncomparable;
 +
@@ -95,17 +95,17 @@ index d82cf5ab4a4e..7eee69db66a3 100644
  template <typename O>
  constexpr O reversed(O o) noexcept
  {
-@@ -60,6 +82,9 @@ constexpr O reversed(O o) noexcept
-
+@@ -61,6 +84,9 @@ constexpr O reversed(O o) noexcept
+ 
  } // namespace QtOrderingPrivate
-
+ 
 +QT_WARNING_PUSH
 +QT_WARNING_DISABLE_MSVC(4702)   // unreachable code
 +
  namespace Qt {
-
+ 
  class weak_ordering;
-@@ -156,12 +181,18 @@ class partial_ordering
+@@ -157,12 +183,18 @@ public:
      constexpr Q_IMPLICIT operator std::partial_ordering() const noexcept
      {
          static_assert(sizeof(*this) == sizeof(std::partial_ordering));
@@ -127,15 +127,15 @@ index d82cf5ab4a4e..7eee69db66a3 100644
          switch (m_order) {
          case qToUnderlying(O::Less):        return R::less;
          case qToUnderlying(O::Greater):     return R::greater;
-@@ -169,7 +200,6 @@ class partial_ordering
+@@ -170,7 +202,6 @@ public:
          case qToUnderlying(U::Unordered):   return R::unordered;
          }
          Q_UNREACHABLE_RETURN(R::unordered);
 -#endif // __cpp_lib_bit_cast
      }
-
+ 
      friend constexpr bool operator==(partial_ordering lhs, std::partial_ordering rhs) noexcept
-@@ -347,18 +377,18 @@ class weak_ordering
+@@ -349,18 +380,18 @@ public:
      constexpr Q_IMPLICIT operator std::weak_ordering() const noexcept
      {
          static_assert(sizeof(*this) == sizeof(std::weak_ordering));
@@ -156,9 +156,9 @@ index d82cf5ab4a4e..7eee69db66a3 100644
          Q_UNREACHABLE_RETURN(R::equivalent);
 -#endif // __cpp_lib_bit_cast
      }
-
+ 
      friend constexpr bool operator==(weak_ordering lhs, std::weak_ordering rhs) noexcept
-@@ -544,18 +574,18 @@ class strong_ordering
+@@ -547,18 +578,18 @@ public:
      constexpr Q_IMPLICIT operator std::strong_ordering() const noexcept
      {
          static_assert(sizeof(*this) == sizeof(std::strong_ordering));
@@ -179,16 +179,16 @@ index d82cf5ab4a4e..7eee69db66a3 100644
          Q_UNREACHABLE_RETURN(R::equal);
 -#endif // __cpp_lib_bit_cast
      }
-
+ 
      friend constexpr bool operator==(strong_ordering lhs, std::strong_ordering rhs) noexcept
-@@ -621,6 +651,8 @@ inline constexpr strong_ordering strong_ordering::greater(QtPrivate::Ordering::G
-
+@@ -625,6 +656,8 @@ inline constexpr strong_ordering strong_ordering::greater(QtPrivate::Ordering::G
+ 
  } // namespace Qt
-
+ 
 +QT_WARNING_POP
 +
  QT_BEGIN_INCLUDE_NAMESPACE
-
+ 
  // This is intentionally included after Qt::*_ordering types and before
 diff --git a/qtbase/tests/auto/corelib/global/qcompare/tst_qcompare.cpp b/qtbase/tests/auto/corelib/global/qcompare/tst_qcompare.cpp
 index b79a6661db33..ff5920134cc8 100644

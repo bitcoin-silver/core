@@ -38,7 +38,7 @@ diff --git a/qtbase/src/corelib/text/qregularexpression.h b/qtbase/src/corelib/t
 index 462786179cb5..ece094ca768f 100644
 --- a/qtbase/src/corelib/text/qregularexpression.h
 +++ b/qtbase/src/corelib/text/qregularexpression.h
-@@ -187,6 +187,11 @@ Q_CORE_EXPORT QDebug operator<<(QDebug debug, const QRegularExpression &re);
+@@ -191,6 +191,11 @@ Q_CORE_EXPORT QDebug operator<<(QDebug debug, const QRegularExpression &re);
  Q_CORE_EXPORT QDebug operator<<(QDebug debug, QRegularExpression::PatternOptions patternOptions);
  #endif
 
@@ -54,7 +54,7 @@ diff --git a/qtbase/src/corelib/text/qstringview.h b/qtbase/src/corelib/text/qst
 index d586620c8b09..6d5edfc06d7d 100644
 --- a/qtbase/src/corelib/text/qstringview.h
 +++ b/qtbase/src/corelib/text/qstringview.h
-@@ -321,10 +321,7 @@ class QStringView
+@@ -329,10 +329,7 @@ class QStringView
      {
          return QtPrivate::contains(*this, re, rmatch);
      }

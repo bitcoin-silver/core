@@ -35,7 +35,7 @@ diff --git a/qtbase/src/corelib/tools/qhashfunctions.h b/qtbase/src/corelib/tool
 index 8f1394c8ad35..beef80557865 100644
 --- a/qtbase/src/corelib/tools/qhashfunctions.h
 +++ b/qtbase/src/corelib/tools/qhashfunctions.h
-@@ -7,6 +7,9 @@
+@@ -8,6 +8,9 @@
 
  #include <QtCore/qstring.h>
  #include <QtCore/qstringfwd.h>
@@ -45,7 +45,7 @@ index 8f1394c8ad35..beef80557865 100644
 
  #include <numeric> // for std::accumulate
  #include <functional> // for std::hash
-@@ -24,8 +27,6 @@
+@@ -25,8 +28,6 @@
 
  QT_BEGIN_NAMESPACE
 

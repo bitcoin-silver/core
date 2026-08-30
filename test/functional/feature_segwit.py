@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2016-2022 The Bitcoin Core developers
+# Copyright (c) 2016-present The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the SegWit changeover logic."""
@@ -149,7 +149,7 @@ class SegWitTest(BitcoinTestFramework):
             assert_equal(self.nodes[i].deriveaddresses(sh_wpkh_desc)[0], key.p2sh_p2wpkh_addr)
             assert_equal(self.nodes[i].deriveaddresses(wpkh_desc)[0], key.p2wpkh_addr)
 
-                res = self.nodes[i].importdescriptors([
+            res = self.nodes[i].importdescriptors([
                 {"desc": p2sh_ms_desc, "timestamp": "now"},
                 {"desc": bip173_ms_desc, "timestamp": "now"},
                 {"desc": sh_wpkh_desc, "timestamp": "now"},

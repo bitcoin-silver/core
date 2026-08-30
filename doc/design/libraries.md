@@ -99,7 +99,7 @@ class bitcoinsilver-qt,bitcoinsilverd,bitcoinsilver-cli,bitcoinsilver-wallet bol
 
 - *libbitcoinsilver_util* should be a standalone dependency that any library can depend on, and it should not depend on other libraries except *libbitcoinsilver_crypto*. It provides basic utilities that fill in gaps in the C++ standard library and provide lightweight abstractions over platform-specific features. Since the util library is distributed with the kernel and is usable by kernel applications, it shouldn't contain functions that external code shouldn't call, like higher level code targeted at the node or wallet. (*libbitcoinsilver_common* is a better place for higher level code, or code that is meant to be used by internal applications only.)
 
-- *libbitcoinsilver_common* is a home for miscellaneous shared code used by different BitcoinSilver Core applications. It should not depend on anything other than *libbitcoinsilver_util*, *libbitcoinsilver_consensus*, and *libbitcoinsilver_crypto*.
+- *libbitcoinsilver_common* is a home for miscellaneous shared code used by different BitcoinSilver applications. It should not depend on anything other than *libbitcoinsilver_util*, *libbitcoinsilver_consensus*, and *libbitcoinsilver_crypto*.
 
 - *libbitcoinsilver_kernel* should only depend on *libbitcoinsilver_util*, *libbitcoinsilver_consensus*, and *libbitcoinsilver_crypto*.
 
@@ -109,4 +109,4 @@ class bitcoinsilver-qt,bitcoinsilverd,bitcoinsilver-cli,bitcoinsilver-wallet bol
 
 ## Work in progress
 
-- Validation code is moving from *libbitcoinsilver_node* to *libbitcoinsilver_kernel* as part of [The libbitcoinsilverkernel Project #27587](https://github.com/bitcoinsilver/bitcoinsilver/issues/27587)
+- Validation code is moving from *libbitcoinsilver_node* to *libbitcoinsilver_kernel* as part of [The libbitcoinsilverkernel Project #27587](https://github.com/bitcoin/bitcoin/issues/27587)

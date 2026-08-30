@@ -19,7 +19,7 @@ diff --git a/qtbase/src/corelib/text/qanystringview.cpp b/qtbase/src/corelib/tex
 index 7bf8a3fa1fd..3c993ff1da0 100644
 --- a/qtbase/src/corelib/text/qanystringview.cpp
 +++ b/qtbase/src/corelib/text/qanystringview.cpp
-@@ -237,6 +237,10 @@ QT_BEGIN_NAMESPACE
+@@ -243,6 +243,10 @@ QT_BEGIN_NAMESPACE
      \sa isNull(), isEmpty()
  */
  
@@ -34,7 +34,7 @@ diff --git a/qtbase/src/corelib/text/qanystringview.h b/qtbase/src/corelib/text/
 index 9617209059b..69b7fafb438 100644
 --- a/qtbase/src/corelib/text/qanystringview.h
 +++ b/qtbase/src/corelib/text/qanystringview.h
-@@ -97,10 +97,6 @@ private:
+@@ -96,10 +96,6 @@ private:
          std::is_convertible<T, QStringOrQByteArray>
      >, bool>;
  

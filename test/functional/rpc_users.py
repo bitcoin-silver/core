@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2015-2022 The Bitcoin Core developers
+# Copyright (c) 2015-present The BitcoinSilver developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test multiple RPC users."""
@@ -61,11 +61,11 @@ class HTTPBasicsTest(BitcoinTestFramework):
         rpcauth3 = lines[1]
         self.password = lines[3]
 
-        with open(self.nodes[0].datadir_path / "bitcoinsilver.conf", "a", encoding="utf8") as f:
+        with open(self.nodes[0].datadir_path / "bitcoinsilver.conf", "a") as f:
             f.write(rpcauth + "\n")
             f.write(rpcauth2 + "\n")
             f.write(rpcauth3 + "\n")
-        with open(self.nodes[1].datadir_path / "bitcoinsilver.conf", "a", encoding="utf8") as f:
+        with open(self.nodes[1].datadir_path / "bitcoinsilver.conf", "a") as f:
             f.write("rpcuser={}\n".format(self.rpcuser))
             f.write("rpcpassword={}\n".format(self.rpcpassword))
         self.restart_node(0)
@@ -168,7 +168,7 @@ class HTTPBasicsTest(BitcoinTestFramework):
         self.nodes[0].assert_start_raises_init_error(expected_msg=init_error, extra_args=['-rpcauth=foo$bar$baz'])
 
         self.log.info('Check interactions between blank and non-blank rpcauth')
-        # pw = bitcoin
+        # pw = bitcoinsilver
         rpcauth_user1 = '-rpcauth=user1:6dd184e5e69271fdd69103464630014f$eb3d7ce67c4d1ff3564270519b03b636c0291012692a5fa3dd1d2075daedd07b'
         rpcauth_user2 = '-rpcauth=user2:57b2f77c919eece63cfa46c2f06e46ae$266b63902f99f97eeaab882d4a87f8667ab84435c3799f2ce042ef5a994d620b'
         self.nodes[0].assert_start_raises_init_error(expected_msg=init_error, extra_args=[rpcauth_user1, rpcauth_user2, '-rpcauth='])
@@ -177,7 +177,7 @@ class HTTPBasicsTest(BitcoinTestFramework):
 
         self.log.info('Check -norpcauth disables previous -rpcauth params')
         self.restart_node(0, extra_args=[rpcauth_user1, rpcauth_user2, '-norpcauth'])
-        assert_equal(401, call_with_auth(self.nodes[0], 'user1', 'bitcoin').status)
+        assert_equal(401, call_with_auth(self.nodes[0], 'user1', 'bitcoinsilver').status)
         assert_equal(401, call_with_auth(self.nodes[0], 'rt', self.rtpassword).status)
         self.stop_node(0)
 

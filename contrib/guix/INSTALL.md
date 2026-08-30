@@ -64,10 +64,8 @@ Please refer to fanquake's instructions
 
 ## Option 4: Using a distribution-maintained package
 
-Note that this section is based on the distro packaging situation at the time of
-writing (July 2021). Guix is expected to be more widely packaged over time. For
-an up-to-date view on Guix's package status/version across distros, please see:
-https://repology.org/project/guix/versions
+For an up-to-date view on Guix's package status/version across
+distros, please see: https://repology.org/project/guix/versions
 
 ### Debian / Ubuntu
 

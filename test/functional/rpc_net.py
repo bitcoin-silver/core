@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2017-present The Bitcoin Core developers
+# Copyright (c) 2017-present The BitcoinSilver developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test RPC calls related to net.
@@ -49,20 +49,23 @@ def seed_addrman(node):
     # If the addrman positioning/bucketing is changed, these might collide
     # and adding them fails.
     success = { "success": True }
-    assert_equal(node.addpeeraddress(address="1.2.3.4", tried=True, port=8333), success)
-    assert_equal(node.addpeeraddress(address="2.0.0.0", port=8333), success)
-    assert_equal(node.addpeeraddress(address="1233:3432:2434:2343:3234:2345:6546:4534", tried=True, port=8333), success)
+    assert_equal(node.addpeeraddress(address="1.2.3.4", tried=True, port=10566), success)
+    assert_equal(node.addpeeraddress(address="2.0.0.0", port=10566), success)
+    assert_equal(node.addpeeraddress(address="1233:3432:2434:2343:3234:2345:6546:4534", tried=True, port=10566), success)
     assert_equal(node.addpeeraddress(address="2803:0:1234:abcd::1", port=45324), success)
-    assert_equal(node.addpeeraddress(address="fc00:1:2:3:4:5:6:7", port=8333), success)
-    assert_equal(node.addpeeraddress(address="pg6mmjiyjmcrsslvykfwnntlaru7p5svn6y2ymmju6nubxndf4pscryd.onion", tried=True, port=8333), success)
+    assert_equal(node.addpeeraddress(address="fc00:1:2:3:4:5:6:7", port=10566), success)
+    assert_equal(node.addpeeraddress(address="pg6mmjiyjmcrsslvykfwnntlaru7p5svn6y2ymmju6nubxndf4pscryd.onion", tried=True, port=10566), success)
     assert_equal(node.addpeeraddress(address="nrfj6inpyf73gpkyool35hcmne5zwfmse3jl3aw23vk7chdemalyaqad.onion", port=45324, tried=True), success)
-    assert_equal(node.addpeeraddress(address="c4gfnttsuwqomiygupdqqqyy5y5emnk5c73hrfvatri67prd7vyq.b32.i2p", port=8333), success)
+    assert_equal(node.addpeeraddress(address="c4gfnttsuwqomiygupdqqqyy5y5emnk5c73hrfvatri67prd7vyq.b32.i2p", port=10566), success)
 
 
 class NetTest(BitcoinTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
-        self.extra_args = [["-minrelaytxfee=0.00001000"], ["-minrelaytxfee=0.00000500"]]
+        self.extra_args = [
+            ["-minrelaytxfee=0.00001000", "-deprecatedrpc=startingheight"],
+            ["-minrelaytxfee=0.00000500"],
+        ]
         # Specify a non-working proxy to make sure no actual connections to public IPs are attempted
         for args in self.extra_args:
             args.append("-proxy=127.0.0.1:1")
@@ -166,6 +169,8 @@ class NetTest(BitcoinTestFramework):
                 "permissions": [],
                 "presynced_headers": -1,
                 "relaytxes": False,
+                "inv_to_send": 0,
+                "last_inv_sequence": 0,
                 "services": "0000000000000000",
                 "servicesnames": [],
                 "session_id": "" if not self.options.v2transport else no_version_peer.v2_state.peer['session_id'].hex(),
@@ -277,7 +282,7 @@ class NetTest(BitcoinTestFramework):
         if self.options.v2transport:
             assert_equal(['UNKNOWN[2^4]', 'P2P_V2', 'UNKNOWN[2^63]'], self.nodes[0].getpeerinfo()[-1]['servicesnames'])
         else:
-        assert_equal(['UNKNOWN[2^4]', 'UNKNOWN[2^63]'], self.nodes[0].getpeerinfo()[-1]['servicesnames'])
+            assert_equal(['UNKNOWN[2^4]', 'UNKNOWN[2^63]'], self.nodes[0].getpeerinfo()[-1]['servicesnames'])
         self.nodes[0].disconnect_p2ps()
 
     def test_getnodeaddresses(self):
@@ -344,8 +349,11 @@ class NetTest(BitcoinTestFramework):
         assert "unknown command: addpeeraddress" not in node.help("addpeeraddress")
 
         self.log.debug("Test that adding an empty address fails")
-        assert_equal(node.addpeeraddress(address="", port=10566), {"success": False})
+        assert_raises_rpc_error(-30, "Invalid IP address", node.addpeeraddress, address="", port=10566)
         assert_equal(node.getnodeaddresses(count=0), [])
+
+        self.log.debug("Test that adding a non-IP/hostname fails (no DNS lookup allowed)")
+        assert_raises_rpc_error(-30, "Invalid IP address", node.addpeeraddress, address="not_an_ip", port=10566)
 
         self.log.debug("Test that non-bool tried fails")
         assert_raises_rpc_error(-3, "JSON value of type string is not of expected type bool", self.nodes[0].addpeeraddress, address="1.2.3.4", tried="True", port=1234)
@@ -355,17 +363,17 @@ class NetTest(BitcoinTestFramework):
         assert_raises_rpc_error(-1, "JSON integer out of range", self.nodes[0].addpeeraddress, address="1.2.3.4", port=65536)
 
         self.log.debug("Test that adding a valid address to the new table succeeds")
-        assert_equal(node.addpeeraddress(address="1.0.0.0", tried=False, port=8333), {"success": True})
+        assert_equal(node.addpeeraddress(address="1.0.0.0", tried=False, port=10566), {"success": True})
         addrman = node.getrawaddrman()
         assert_equal(len(addrman["tried"]), 0)
         new_table = list(addrman["new"].values())
         assert_equal(len(new_table), 1)
         assert_equal(new_table[0]["address"], "1.0.0.0")
-        assert_equal(new_table[0]["port"], 8333)
+        assert_equal(new_table[0]["port"], 10566)
 
         self.log.debug("Test that adding an already-present new address to the new and tried tables fails")
         for value in [True, False]:
-            assert_equal(node.addpeeraddress(address="1.0.0.0", tried=value, port=8333), {"success": False, "error": "failed-adding-to-new"})
+            assert_equal(node.addpeeraddress(address="1.0.0.0", tried=value, port=10566), {"success": False, "error": "failed-adding-to-new"})
         assert_equal(len(node.getnodeaddresses(count=0)), 1)
 
         self.log.debug("Test that adding a valid address to the tried table succeeds")
@@ -410,8 +418,12 @@ class NetTest(BitcoinTestFramework):
 
         self.log.info("Test sendmsgtopeer")
         self.log.debug("Send a valid message")
+        msg_bytes_before = node.getpeerinfo()[0]["bytesrecv_per_msg"]["pong"]
+
         with self.nodes[1].assert_debug_log(expected_msgs=["received: addr"]):
             node.sendmsgtopeer(peer_id=0, msg_type="addr", msg="FFFFFF")
+            node.ping()
+            self.wait_until(lambda: node.getpeerinfo()[0]["bytesrecv_per_msg"]["pong"] > msg_bytes_before)
 
         self.log.debug("Test error for sending to non-existing peer")
         assert_raises_rpc_error(-1, "Error: Could not send message to peer", node.sendmsgtopeer, peer_id=100, msg_type="addr", msg="FF")
@@ -503,11 +515,11 @@ class NetTest(BitcoinTestFramework):
                         "network": "ipv4",
                         "source": "2.0.0.0",
                         "source_network": "ipv4",
-            },
+                    },
                     {
                         "bucket_position": "336/24",
                         "address": "fc00:1:2:3:4:5:6:7",
-                        "port": 8333,
+                        "port": 10566,
                         "services": 9,
                         "network": "cjdns",
                         "source": "fc00:1:2:3:4:5:6:7",
@@ -516,7 +528,7 @@ class NetTest(BitcoinTestFramework):
                     {
                         "bucket_position": "963/46",
                         "address": "c4gfnttsuwqomiygupdqqqyy5y5emnk5c73hrfvatri67prd7vyq.b32.i2p",
-                        "port": 8333,
+                        "port": 10566,
                         "services": 9,
                         "network": "i2p",
                         "source": "c4gfnttsuwqomiygupdqqqyy5y5emnk5c73hrfvatri67prd7vyq.b32.i2p",
@@ -545,16 +557,16 @@ class NetTest(BitcoinTestFramework):
                     {
                         "bucket_position": "197/34",
                         "address": "1233:3432:2434:2343:3234:2345:6546:4534",
-                        "port": 8333,
-            "services": 9,
-            "network": "ipv6",
+                        "port": 10566,
+                        "services": 9,
+                        "network": "ipv6",
                         "source": "1233:3432:2434:2343:3234:2345:6546:4534",
-            "source_network": "ipv6",
+                        "source_network": "ipv6",
                     },
                     {
                         "bucket_position": "72/61",
                         "address": "pg6mmjiyjmcrsslvykfwnntlaru7p5svn6y2ymmju6nubxndf4pscryd.onion",
-                        "port": 8333,
+                        "port": 10566,
                         "services": 9,
                         "network": "onion",
                         "source": "pg6mmjiyjmcrsslvykfwnntlaru7p5svn6y2ymmju6nubxndf4pscryd.onion",
@@ -562,11 +574,11 @@ class NetTest(BitcoinTestFramework):
                     },
                     {
                         "bucket_position": "139/46",
-            "address": "nrfj6inpyf73gpkyool35hcmne5zwfmse3jl3aw23vk7chdemalyaqad.onion",
-            "services": 9,
-            "network": "onion",
-            "source": "nrfj6inpyf73gpkyool35hcmne5zwfmse3jl3aw23vk7chdemalyaqad.onion",
-            "source_network": "onion",
+                        "address": "nrfj6inpyf73gpkyool35hcmne5zwfmse3jl3aw23vk7chdemalyaqad.onion",
+                        "services": 9,
+                        "network": "onion",
+                        "source": "nrfj6inpyf73gpkyool35hcmne5zwfmse3jl3aw23vk7chdemalyaqad.onion",
+                        "source_network": "onion",
                         "port": 45324,
                     }
             ]

@@ -32,9 +32,9 @@ index 7d3e82e72a02..b19f6fd5424e 100644
 +++ b/qtbase/src/corelib/text/qbytearrayview.h
 @@ -4,6 +4,7 @@
  #define QBYTEARRAYVIEW_H
- 
+
  #include <QtCore/qbytearrayalgorithms.h>
 +#include <QtCore/qchar.h>
+ #include <QtCore/qcompare.h>
+ #include <QtCore/qcontainerfwd.h>
  #include <QtCore/qstringfwd.h>
- #include <QtCore/qarraydata.h>
- 

@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2009-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -63,6 +63,12 @@ const std::string WATCHS{"watchs"};
 const std::unordered_set<std::string> LEGACY_TYPES{CRYPTED_KEY, CSCRIPT, DEFAULTKEY, HDCHAIN, KEYMETA, KEY, OLD_KEY, POOL, WATCHMETA, WATCHS};
 } // namespace DBKeys
 
+void LogDBInfo()
+{
+    // Add useful DB information here. This will be printed during startup.
+    LogInfo("Using SQLite Version %s", SQLiteDatabaseVersion());
+}
+
 //
 // WalletBatch
 //
@@ -111,12 +117,9 @@ bool WalletBatch::WriteKey(const CPubKey& vchPubKey, const CPrivKey& vchPrivKey,
     }
 
     // hash pubkey/privkey to accelerate wallet load
-    std::vector<unsigned char> vchKey;
-    vchKey.reserve(vchPubKey.size() + vchPrivKey.size());
-    vchKey.insert(vchKey.end(), vchPubKey.begin(), vchPubKey.end());
-    vchKey.insert(vchKey.end(), vchPrivKey.begin(), vchPrivKey.end());
+    const auto keypair_hash = Hash(vchPubKey, vchPrivKey);
 
-    return WriteIC(std::make_pair(DBKeys::KEY, vchPubKey), std::make_pair(vchPrivKey, Hash(vchKey)), false);
+    return WriteIC(std::make_pair(DBKeys::KEY, vchPubKey), std::make_pair(vchPrivKey, keypair_hash), false);
 }
 
 bool WalletBatch::WriteCryptedKey(const CPubKey& vchPubKey,
@@ -214,12 +217,9 @@ bool WalletBatch::EraseActiveScriptPubKeyMan(uint8_t type, bool internal)
 bool WalletBatch::WriteDescriptorKey(const uint256& desc_id, const CPubKey& pubkey, const CPrivKey& privkey)
 {
     // hash pubkey/privkey to accelerate wallet load
-    std::vector<unsigned char> key;
-    key.reserve(pubkey.size() + privkey.size());
-    key.insert(key.end(), pubkey.begin(), pubkey.end());
-    key.insert(key.end(), privkey.begin(), privkey.end());
+    const auto keypair_hash = Hash(pubkey, privkey);
 
-    return WriteIC(std::make_pair(DBKeys::WALLETDESCRIPTORKEY, std::make_pair(desc_id, pubkey)), std::make_pair(privkey, Hash(key)), false);
+    return WriteIC(std::make_pair(DBKeys::WALLETDESCRIPTORKEY, std::make_pair(desc_id, pubkey)), std::make_pair(privkey, keypair_hash), false);
 }
 
 bool WalletBatch::WriteCryptedDescriptorKey(const uint256& desc_id, const CPubKey& pubkey, const std::vector<unsigned char>& secret)
@@ -322,12 +322,9 @@ bool LoadKey(CWallet* pwallet, DataStream& ssKey, DataStream& ssValue, std::stri
         if (!hash.IsNull())
         {
             // hash pubkey/privkey to accelerate wallet load
-            std::vector<unsigned char> vchKey;
-            vchKey.reserve(vchPubKey.size() + pkey.size());
-            vchKey.insert(vchKey.end(), vchPubKey.begin(), vchPubKey.end());
-            vchKey.insert(vchKey.end(), pkey.begin(), pkey.end());
+            const auto keypair_hash = Hash(vchPubKey, pkey);
 
-            if (Hash(vchKey) != hash)
+            if (keypair_hash != hash)
             {
                 strErr = "Error reading wallet database: CPubKey/CPrivKey corrupt";
                 return false;
@@ -371,7 +368,7 @@ bool LoadCryptedKey(CWallet* pwallet, DataStream& ssKey, DataStream& ssValue, st
 
         // Get the checksum and check it
         bool checksum_valid = false;
-        if (!ssValue.eof()) {
+        if (!ssValue.empty()) {
             uint256 checksum;
             ssValue >> checksum;
             if (!(checksum_valid = Hash(vchPrivKey) == checksum)) {
@@ -403,7 +400,7 @@ bool LoadEncryptionKey(CWallet* pwallet, DataStream& ssKey, DataStream& ssValue,
         ssKey >> nID;
         CMasterKey kMasterKey;
         ssValue >> kMasterKey;
-        if(pwallet->mapMasterKeys.count(nID) != 0)
+        if(pwallet->mapMasterKeys.contains(nID))
         {
             strErr = strprintf("Error reading wallet database: duplicate CMasterKey id %u", nID);
             return false;
@@ -869,12 +866,9 @@ static DBErrors LoadDescriptorWalletRecords(CWallet* pwallet, DatabaseBatch& bat
             value >> hash;
 
             // hash pubkey/privkey to accelerate wallet load
-            std::vector<unsigned char> to_hash;
-            to_hash.reserve(pubkey.size() + pkey.size());
-            to_hash.insert(to_hash.end(), pubkey.begin(), pubkey.end());
-            to_hash.insert(to_hash.end(), pkey.begin(), pkey.end());
+            const auto keypair_hash = Hash(pubkey, pkey);
 
-            if (Hash(to_hash) != hash)
+            if (keypair_hash != hash)
             {
                 strErr = "Error reading wallet database: descriptor unencrypted key CPubKey/CPrivKey corrupt";
                 return DBErrors::CORRUPT;
@@ -1169,7 +1163,7 @@ DBErrors WalletBatch::LoadWallet(CWallet* pwallet)
         return result;
 
     if (!has_last_client || last_client != CLIENT_VERSION) // Update
-        m_batch->Write(DBKeys::VERSION, CLIENT_VERSION);
+        this->WriteVersion(CLIENT_VERSION);
 
     if (any_unordered)
         result = pwallet->ReorderTransactions();

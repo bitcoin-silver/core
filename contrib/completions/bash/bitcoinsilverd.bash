@@ -1,5 +1,5 @@
 # bash programmable completion for bitcoinsilverd(1) and bitcoinsilver-qt(1)
-# Copyright (c) 2012-2022 The Bitcoin Core developers
+# Copyright (c) 2012-present The BitcoinSilver developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 

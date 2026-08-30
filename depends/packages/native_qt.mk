@@ -6,7 +6,6 @@ $(package)_file_name=$(qt_details_qtbase_file_name)
 $(package)_sha256_hash=$(qt_details_qtbase_sha256_hash)
 $(package)_patches_path := $(qt_details_patches_path)
 $(package)_patches := dont_hardcode_pwd.patch
-$(package)_patches += qtbase-moc-ignore-gcc-macro.patch
 $(package)_patches += qtbase_skip_tools.patch
 $(package)_patches += rcc_hardcode_timestamp.patch
 $(package)_patches += qttools_skip_dependencies.patch
@@ -98,6 +97,11 @@ $(package)_cmake_opts := -DCMAKE_EXE_LINKER_FLAGS="$$(build_LDFLAGS)"
 ifneq ($(V),)
 $(package)_cmake_opts += --log-level=STATUS
 endif
+
+ifeq ($(build_os),darwin)
+$(package)_cmake_opts += -DQT_NO_APPLE_SDK_MAX_VERSION_CHECK=ON
+$(package)_cmake_opts += -DQT_NO_XCODE_MIN_VERSION_CHECK=ON
+endif
 endef
 
 define $(package)_fetch_cmds
@@ -132,7 +136,6 @@ endef
 
 define $(package)_preprocess_cmds
   patch -p1 -i $($(package)_patch_dir)/dont_hardcode_pwd.patch && \
-  patch -p1 -i $($(package)_patch_dir)/qtbase-moc-ignore-gcc-macro.patch && \
   patch -p1 -i $($(package)_patch_dir)/qtbase_skip_tools.patch && \
   patch -p1 -i $($(package)_patch_dir)/rcc_hardcode_timestamp.patch && \
   patch -p1 -i $($(package)_patch_dir)/qttools_skip_dependencies.patch && \
