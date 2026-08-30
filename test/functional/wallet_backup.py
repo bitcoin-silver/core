@@ -183,9 +183,6 @@ class WalletBackupTest(BitcoinTestFramework):
         self.log.info("Test restore into a default unnamed wallet")
         # This is also useful to test the migration recovery after failure logic
         node = self.nodes[3]
-        if not self.options.descriptors:
-            node.unloadwallet("")
-            os.rename(node.wallets_path / "wallet.dat", node.wallets_path / "default.wallet.dat")
         backup_file = self.nodes[0].datadir_path / 'wallet.bak'
         wallet_name = ""
         res = node.restorewallet(wallet_name, backup_file)
@@ -194,9 +191,6 @@ class WalletBackupTest(BitcoinTestFramework):
         # Clean for follow-up tests
         node.unloadwallet("")
         os.remove(node.wallets_path / "wallet.dat")
-        if not self.options.descriptors:
-            os.rename(node.wallets_path / "default.wallet.dat", node.wallets_path / "wallet.dat")
-            node.loadwallet("")
 
     def test_pruned_wallet_backup(self):
         self.log.info("Test loading backup on a pruned node when the backup was created close to the prune height of the restoring node")
@@ -218,17 +212,11 @@ class WalletBackupTest(BitcoinTestFramework):
         node.restorewallet('pruned', node.datadir_path / 'wallet_pruned.bak')
 
         self.log.info("Test restore on a pruned node when the backup was beyond the pruning point")
-        if not self.options.descriptors:
-            node.unloadwallet("")
-            os.rename(node.wallets_path / "wallet.dat", node.wallets_path / "default.wallet.dat")
         backup_file = self.nodes[0].datadir_path / 'wallet.bak'
         wallet_name = ""
-        error_message = "Wallet loading failed. Prune: last wallet synchronisation goes beyond pruned data. You need to -reindex (download the whole blockchain again in case of pruned node)"
+        error_message = "Wallet loading failed. Prune: last wallet synchronisation goes beyond pruned data. You need to -reindex (download the whole blockchain again in case of a pruned node)"
         assert_raises_rpc_error(-4, error_message, node.restorewallet, wallet_name, backup_file)
         assert node.wallets_path.exists() # ensure the wallets dir exists
-        if not self.options.descriptors:
-            os.rename(node.wallets_path / "default.wallet.dat", node.wallets_path / "wallet.dat")
-            node.loadwallet("")
 
     def run_test(self):
         self.log.info("Generating initial blockchain")
