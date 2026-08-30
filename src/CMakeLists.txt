@@ -197,11 +197,12 @@ if(ENABLE_WALLET)
 
   if(BUILD_WALLET_TOOL)
     add_executable(bitcoin-wallet
-      bitcoin-wallet.cpp
-      init/bitcoin-wallet.cpp
+      bitcoinsilver-wallet.cpp
+      init/bitcoinsilver-wallet.cpp
       wallet/wallettool.cpp
     )
-    add_windows_resources(bitcoin-wallet bitcoin-wallet-res.rc)
+    set_target_properties(bitcoin-wallet PROPERTIES OUTPUT_NAME bitcoinsilver-wallet)
+    add_windows_resources(bitcoin-wallet bitcoinsilver-wallet-res.rc)
     target_link_libraries(bitcoin-wallet
       core_interface
       bitcoin_wallet
@@ -330,10 +331,11 @@ target_link_libraries(bitcoin_node
 # Bitcoin Core bitcoind.
 if(BUILD_DAEMON)
   add_executable(bitcoind
-    bitcoind.cpp
-    init/bitcoind.cpp
+    bitcoinsilverd.cpp
+    init/bitcoinsilverd.cpp
   )
-  add_windows_resources(bitcoind bitcoind-res.rc)
+  set_target_properties(bitcoind PROPERTIES OUTPUT_NAME bitcoinsilverd)
+  add_windows_resources(bitcoind bitcoinsilverd-res.rc)
   target_link_libraries(bitcoind
     core_interface
     bitcoin_node
@@ -343,9 +345,10 @@ if(BUILD_DAEMON)
 endif()
 if(WITH_MULTIPROCESS AND BUILD_DAEMON)
   add_executable(bitcoin-node
-    bitcoind.cpp
-    init/bitcoin-node.cpp
+    bitcoinsilverd.cpp
+    init/bitcoinsilver-node.cpp
   )
+  set_target_properties(bitcoin-node PROPERTIES OUTPUT_NAME bitcoinsilver-node)
   target_link_libraries(bitcoin-node
     core_interface
     bitcoin_node
@@ -385,8 +388,9 @@ target_link_libraries(bitcoin_cli
 
 # Bitcoin Core RPC client
 if(BUILD_CLI)
-  add_executable(bitcoin-cli bitcoin-cli.cpp)
-  add_windows_resources(bitcoin-cli bitcoin-cli-res.rc)
+  add_executable(bitcoin-cli bitcoinsilver-cli.cpp)
+  set_target_properties(bitcoin-cli PROPERTIES OUTPUT_NAME bitcoinsilver-cli)
+  add_windows_resources(bitcoin-cli bitcoinsilver-cli-res.rc)
   target_link_libraries(bitcoin-cli
     core_interface
     bitcoin_cli
@@ -400,8 +404,9 @@ endif()
 
 
 if(BUILD_TX)
-  add_executable(bitcoin-tx bitcoin-tx.cpp)
-  add_windows_resources(bitcoin-tx bitcoin-tx-res.rc)
+  add_executable(bitcoin-tx bitcoinsilver-tx.cpp)
+  set_target_properties(bitcoin-tx PROPERTIES OUTPUT_NAME bitcoinsilver-tx)
+  add_windows_resources(bitcoin-tx bitcoinsilver-tx-res.rc)
   target_link_libraries(bitcoin-tx
     core_interface
     bitcoin_common
@@ -413,8 +418,9 @@ endif()
 
 
 if(BUILD_UTIL)
-  add_executable(bitcoin-util bitcoin-util.cpp)
-  add_windows_resources(bitcoin-util bitcoin-util-res.rc)
+  add_executable(bitcoin-util bitcoinsilver-util.cpp)
+  set_target_properties(bitcoin-util PROPERTIES OUTPUT_NAME bitcoinsilver-util)
+  add_windows_resources(bitcoin-util bitcoinsilver-util-res.rc)
   target_link_libraries(bitcoin-util
     core_interface
     bitcoin_common
@@ -435,8 +441,9 @@ endif()
 
 if(BUILD_UTIL_CHAINSTATE)
   add_executable(bitcoin-chainstate
-    bitcoin-chainstate.cpp
+    bitcoinsilver-chainstate.cpp
   )
+  set_target_properties(bitcoin-chainstate PROPERTIES OUTPUT_NAME bitcoinsilver-chainstate)
   # TODO: The `SKIP_BUILD_RPATH` property setting can be deleted
   #       in the future after reordering Guix script commands to
   #       perform binary checks after the installation step.

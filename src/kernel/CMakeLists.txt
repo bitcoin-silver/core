@@ -9,7 +9,7 @@ include(GNUInstallDirs)
 #       consensus engine, this list will shrink to only those
 #       which are absolutely necessary.
 add_library(bitcoinkernel
-  bitcoinkernel.cpp
+  bitcoinsilverkernel.cpp
   chain.cpp
   checks.cpp
   chainparams.cpp

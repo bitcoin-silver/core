@@ -54,40 +54,32 @@ Before you begin, ensure you have met the following requirements:
 
 2. **Build the Source Code**
 
-```bash
-make clean
-make distclean
-./autogen.sh
-```
-
 **Linux:**
 ```bash
-./configure --disable-tests --disable-bench --with-wallet
-make
+cmake -B build -DBUILD_TESTS=OFF -DBUILD_BENCH=OFF -DENABLE_WALLET=ON
+cmake --build build -j$(nproc)
 ```
-> **Note:** On newer Linux distros (Ubuntu 22.04+, Ubuntu 25.10, etc.) BerkeleyDB 4.8 is no longer available. Install BerkeleyDB dev libraries and add `--with-incompatible-bdb`:
+> **Note:** On newer Linux distros (Ubuntu 22.04+, Ubuntu 25.10, etc.) BerkeleyDB 4.8 is no longer available. Install BerkeleyDB dev libraries and add `-DWITH_BDB=ON`:
 > ```bash
 > sudo apt install libdb-dev libdb++-dev
-> ./configure --disable-tests --disable-bench --with-incompatible-bdb
-> make
+> cmake -B build -DBUILD_TESTS=OFF -DBUILD_BENCH=OFF -DWITH_BDB=ON
+> cmake --build build -j$(nproc)
 > ```
-> After `./configure` completes, verify the summary shows `with wallet = yes` before running `make`.
 
-Optional configure arguments: `--with-gui=qt5`, `--without-gui`, `--disable-wallet`
+Optional CMake arguments: `-DBUILD_GUI=ON`, `-DENABLE_WALLET=OFF`
 
 **Windows (cross-compile):**
 ```bash
-make clean
 cd depends
 make HOST=x86_64-w64-mingw32
 cd ..
-./configure --prefix=`pwd`/depends/x86_64-w64-mingw32 --with-gui=qt5 --disable-tests --disable-bench
-make
+cmake -B build --toolchain depends/x86_64-w64-mingw32/toolchain.cmake -DBUILD_GUI=ON -DBUILD_TESTS=OFF -DBUILD_BENCH=OFF
+cmake --build build -j$(nproc)
 ```
 
    3. **Run the Node**
 ```bash
-   ./bitcoinsilverd
+   ./build/bin/bitcoinsilverd
 ```
 ## Usage
 

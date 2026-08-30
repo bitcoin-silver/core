@@ -47,23 +47,23 @@ file(GLOB ts_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} locale/*.ts)
 set_source_files_properties(${ts_files} PROPERTIES OUTPUT_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/locale)
 qt5_add_translation(qm_files ${ts_files})
 
-configure_file(bitcoin_locale.qrc bitcoin_locale.qrc USE_SOURCE_PERMISSIONS COPYONLY)
+configure_file(bitcoinsilver_locale.qrc bitcoinsilver_locale.qrc USE_SOURCE_PERMISSIONS COPYONLY)
 
 # The bitcoinqt sources have to include headers in
 # order to parse them to collect translatable strings.
 add_library(bitcoinqt STATIC EXCLUDE_FROM_ALL
   bantablemodel.cpp
   bantablemodel.h
-  bitcoin.cpp
-  bitcoin.h
-  bitcoinaddressvalidator.cpp
-  bitcoinaddressvalidator.h
-  bitcoinamountfield.cpp
-  bitcoinamountfield.h
-  bitcoingui.cpp
-  bitcoingui.h
-  bitcoinunits.cpp
-  bitcoinunits.h
+  bitcoinsilver.cpp
+  bitcoinsilver.h
+  bitcoinsilveraddressvalidator.cpp
+  bitcoinsilveraddressvalidator.h
+  bitcoinsilveramountfield.cpp
+  bitcoinsilveramountfield.h
+  bitcoinsilvergui.cpp
+  bitcoinsilvergui.h
+  bitcoinsilverunits.cpp
+  bitcoinsilverunits.h
   clientmodel.cpp
   clientmodel.h
   csvmodelwriter.cpp
@@ -110,8 +110,8 @@ add_library(bitcoinqt STATIC EXCLUDE_FROM_ALL
   utilitydialog.h
   $<$<PLATFORM_ID:Windows>:winshutdownmonitor.cpp>
   $<$<PLATFORM_ID:Windows>:winshutdownmonitor.h>
-  bitcoin.qrc
-  ${CMAKE_CURRENT_BINARY_DIR}/bitcoin_locale.qrc
+  bitcoinsilver.qrc
+  ${CMAKE_CURRENT_BINARY_DIR}/bitcoinsilver_locale.qrc
 )
 target_compile_definitions(bitcoinqt
   PUBLIC
@@ -224,10 +224,11 @@ endif()
 
 add_executable(bitcoin-qt
   main.cpp
-  ../init/bitcoin-qt.cpp
+  ../init/bitcoinsilver-qt.cpp
 )
 
-add_windows_resources(bitcoin-qt res/bitcoin-qt-res.rc)
+add_windows_resources(bitcoin-qt res/bitcoinsilver-qt-res.rc)
+set_target_properties(bitcoin-qt PROPERTIES OUTPUT_NAME bitcoinsilver-qt)
 
 target_link_libraries(bitcoin-qt
   core_interface
@@ -244,8 +245,9 @@ endif()
 if(WITH_MULTIPROCESS)
   add_executable(bitcoin-gui
     main.cpp
-    ../init/bitcoin-gui.cpp
+    ../init/bitcoinsilver-gui.cpp
   )
+  set_target_properties(bitcoin-gui PROPERTIES OUTPUT_NAME bitcoinsilver-gui)
   target_link_libraries(bitcoin-gui
     core_interface
     bitcoinqt
@@ -321,7 +323,7 @@ else()
   file(GLOB ui_files ${CMAKE_CURRENT_SOURCE_DIR}/forms/*.ui)
   add_custom_target(translate
     COMMAND ${CMAKE_COMMAND} -E env XGETTEXT=${XGETTEXT_EXECUTABLE} COPYRIGHT_HOLDERS=${COPYRIGHT_HOLDERS} ${Python3_EXECUTABLE} ${PROJECT_SOURCE_DIR}/share/qt/extract_strings_qt.py ${translatable_sources}
-    COMMAND Qt5::lupdate -no-obsolete -I ${PROJECT_SOURCE_DIR}/src -locations relative ${CMAKE_CURRENT_SOURCE_DIR}/bitcoinstrings.cpp ${ui_files} ${qt_translatable_sources} -ts ${CMAKE_CURRENT_SOURCE_DIR}/locale/bitcoin_en.ts
+    COMMAND Qt5::lupdate -no-obsolete -I ${PROJECT_SOURCE_DIR}/src -locations relative ${CMAKE_CURRENT_SOURCE_DIR}/bitcoinsilverstrings.cpp ${ui_files} ${qt_translatable_sources} -ts ${CMAKE_CURRENT_SOURCE_DIR}/locale/bitcoin_en.ts
     COMMAND Qt5::lconvert -drop-translations -o ${CMAKE_CURRENT_SOURCE_DIR}/locale/bitcoin_en.xlf -i ${CMAKE_CURRENT_SOURCE_DIR}/locale/bitcoin_en.ts
     COMMAND ${SED_EXECUTABLE} -i.old -e "s|source-language=\"en\" target-language=\"en\"|source-language=\"en\"|" -e "/<target xml:space=\"preserve\"><\\/target>/d" ${CMAKE_CURRENT_SOURCE_DIR}/locale/bitcoin_en.xlf
     COMMAND ${CMAKE_COMMAND} -E rm ${CMAKE_CURRENT_SOURCE_DIR}/locale/bitcoin_en.xlf.old

@@ -11,8 +11,9 @@ add_executable(test_bitcoin-qt
   test_main.cpp
   uritests.cpp
   util.cpp
-  ../../init/bitcoin-qt.cpp
+  ../../init/bitcoinsilver-qt.cpp
 )
+set_target_properties(test_bitcoin-qt PROPERTIES OUTPUT_NAME test_bitcoinsilver-qt)
 
 target_link_libraries(test_bitcoin-qt
   core_interface

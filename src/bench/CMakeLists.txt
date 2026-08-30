@@ -3,7 +3,7 @@
 # file COPYING or https://opensource.org/license/mit/.
 
 add_executable(bench_bitcoin
-  bench_bitcoin.cpp
+  bench_bitcoinsilver.cpp
   bench.cpp
   nanobench.cpp
 # Benchmarks:
@@ -56,6 +56,7 @@ include(TargetDataSources)
 target_raw_data_sources(bench_bitcoin NAMESPACE benchmark::data
   data/block413567.raw
 )
+set_target_properties(bench_bitcoin PROPERTIES OUTPUT_NAME bench_bitcoinsilver)
 
 target_link_libraries(bench_bitcoin
   core_interface

@@ -139,6 +139,7 @@ target_json_data_sources(test_bitcoin
 target_raw_data_sources(test_bitcoin NAMESPACE test::data
   data/asmap.raw
 )
+set_target_properties(test_bitcoin PROPERTIES OUTPUT_NAME test_bitcoinsilver)
 
 target_link_libraries(test_bitcoin
   core_interface
