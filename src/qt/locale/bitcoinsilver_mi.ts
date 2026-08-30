@@ -55,13 +55,13 @@ Right-click to edit address or label</translation>
         <translation type="unfinished">Whiriwhiria te wāhitau hei whiwhi moni</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">Ko ēnei ngā whakamāoritanga mō ō whakamahi BitcoinSilver hei tuku moni. Tirohia i te moni me te wāhi whiwhi i mua i te tuku i ngā moni.</translation>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">Ko ēnei ngā whakamāoritanga mō ō whakamahi Bitcoin hei tuku moni. Tirohia i te moni me te wāhi whiwhi i mua i te tuku i ngā moni.</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">Ko ēnei ngā whakamāoritanga mō ō whakaaetanga BitcoinSilver hei whiwhi utu. Whakamahi i te pātene 'Waihanga whakaaronga hōu' i te pae whiwhi ki te whakapūmau i ngā whakaaronga hōu.
+        <translation type="unfinished">Ko ēnei ngā whakamāoritanga mō ō whakaaetanga Bitcoin hei whiwhi utu. Whakamahi i te pātene 'Waihanga whakaaronga hōu' i te pae whiwhi ki te whakapūmau i ngā whakaaronga hōu.
 Ko te whakakī i ēnei whakaaronga e taea ana anake ki ngā whakararuraru o te momo 'tawhito'.</translation>
     </message>
     <message>
@@ -145,8 +145,8 @@ Ko te whakakī i ēnei whakaaronga e taea ana anake ki ngā whakararuraru o te m
         <translation type="unfinished">Whakamana te whakakītanga pūtea</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINSILVERS&lt;/b&gt;!</source>
-        <translation type="unfinished">Whakatūpato: Ki te whakakino i tō pēke moni me te ngaro i tō kupuhipa, ka &lt;b&gt;NGARO KATOA ŌU PĪNIHA BITCOINSILVER&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
+        <translation type="unfinished">Whakatūpato: Ki te whakakino i tō pēke moni me te ngaro i tō kupuhipa, ka &lt;b&gt;NGARO KATOA ŌU PĪNIHA BITCOIN&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -321,7 +321,7 @@ Ko te whakakī i ēnei whakaaronga e taea ana anake ki ngā whakararuraru o te m
         </translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
             <numerusform />
@@ -442,7 +442,7 @@ Ko te whakakī i ēnei whakaaronga e taea ana anake ki ngā whakararuraru o te m
     </message>
     </context>
 <context>
-    <name>bitcoinsilver-core</name>
+    <name>bitcoin-core</name>
     <message>
         <source>Input not found or already spent</source>
         <translation type="unfinished">Kāore i kitea te urupare, kua whiwhi i mua, kua whiwhi rānei.</translation>
@@ -618,10 +618,6 @@ Ko te whakakī i ēnei whakaaronga e taea ana anake ki ngā whakararuraru o te m
     <message>
         <source>Transaction change output index out of range</source>
         <translation type="unfinished">He whakawhitiwhitinga whakaputanga hōputu whakararuraru te tūnga</translation>
-    </message>
-    <message>
-        <source>Transaction has too long of a mempool chain</source>
-        <translation type="unfinished">He whakawhitiwhitinga whakapau kaha te whakapau kaha o te whakapau kaha.</translation>
     </message>
     <message>
         <source>Transaction must have at least one recipient</source>

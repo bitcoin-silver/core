@@ -76,12 +76,12 @@
     </message>
     <message>
         <location line="+6"/>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>These are your BitcoinSilver addresses for receiving payments. Use the &apos;Create new receiving address&apos; button in the receive tab to create new addresses.
+        <source>These are your Bitcoin addresses for receiving payments. Use the &apos;Create new receiving address&apos; button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -205,7 +205,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
     <message>
         <location line="+1"/>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINSILVERS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -329,7 +329,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
 <context>
     <name>BitcoinApplication</name>
     <message>
-        <location filename="../bitcoinsilver.cpp" line="+275"/>
+        <location filename="../bitcoin.cpp" line="+275"/>
         <source>Settings file %1 might be corrupt or invalid.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -357,7 +357,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <location filename="../bitcoinsilvergui.cpp" line="+250"/>
+        <location filename="../bitcoingui.cpp" line="+250"/>
         <source>&amp;Overview</source>
         <translation>&amp;Overview</translation>
     </message>
@@ -427,7 +427,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+412"/>
+        <location line="+417"/>
         <source>Network activity disabled.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished"></translation>
@@ -438,9 +438,9 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1194"/>
-        <source>Send coins to a BitcoinSilver address</source>
-        <translation>Send coins to a BitcoinSilver address</translation>
+        <location line="-1199"/>
+        <source>Send coins to a Bitcoin address</source>
+        <translation>Send coins to a Bitcoin address</translation>
     </message>
     <message>
         <location line="+53"/>
@@ -494,8 +494,8 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
     <message>
         <location line="+1"/>
-        <source>Sign messages with your BitcoinSilver addresses to prove you own them</source>
-        <translation>Sign messages with your BitcoinSilver addresses to prove you own them</translation>
+        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
+        <translation>Sign messages with your Bitcoin addresses to prove you own them</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -504,8 +504,8 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
     <message>
         <location line="+1"/>
-        <source>Verify messages to ensure they were signed with specified BitcoinSilver addresses</source>
-        <translation>Verify messages to ensure they were signed with specified BitcoinSilver addresses</translation>
+        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
+        <translation>Verify messages to ensure they were signed with specified Bitcoin addresses</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -553,7 +553,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
         <translation>Tabs toolbar</translation>
     </message>
     <message>
-        <location line="+476"/>
+        <location line="+481"/>
         <source>Syncing Headers (%1%)…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -578,8 +578,8 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-852"/>
-        <source>Request payments (generates QR codes and bitcoinsilver: URIs)</source>
+        <location line="-857"/>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -598,7 +598,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location line="+764"/>
+        <location line="+769"/>
         <source>Processed %n block(s) of transaction history.</source>
         <translation>
             <numerusform>Processed %n block of transaction history.</numerusform>
@@ -646,13 +646,13 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
         <translation>Up to date</translation>
     </message>
     <message>
-        <location line="-837"/>
+        <location line="-842"/>
         <source>Ctrl+Q</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+26"/>
-        <source>Load Partially Signed BitcoinSilver Transaction</source>
+        <source>Load Partially Signed Bitcoin Transaction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -662,7 +662,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
     <message>
         <location line="+1"/>
-        <source>Load Partially Signed BitcoinSilver Transaction from clipboard</source>
+        <source>Load Partially Signed Bitcoin Transaction from clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -687,7 +687,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
     <message>
         <location line="+4"/>
-        <source>Open a bitcoinsilver: URI</source>
+        <source>Open a bitcoin: URI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -734,7 +734,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
     <message>
         <location line="+4"/>
-        <source>Show the %1 help message to get a list with possible BitcoinSilver command-line options</source>
+        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -802,7 +802,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+274"/>
+        <location line="+279"/>
         <source>%1 client</source>
         <translation type="unfinished"></translation>
     </message>
@@ -818,11 +818,11 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
     <message numerus="yes">
         <location line="+117"/>
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>%n active connection to BitcoinSilver network.</numerusform>
-            <numerusform>%n active connections to BitcoinSilver network.</numerusform>
+            <numerusform>%n active connection to Bitcoin network.</numerusform>
+            <numerusform>%n active connections to Bitcoin network.</numerusform>
         </translation>
     </message>
     <message>
@@ -1099,7 +1099,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+153"/>
+        <location line="+165"/>
         <source>Can vary +/- %1 satoshi(s) per input.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1283,7 +1283,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
     <message>
         <location line="+77"/>
-        <source>The entered address &quot;%1&quot; is not a valid BitcoinSilver address.</source>
+        <source>The entered address &quot;%1&quot; is not a valid Bitcoin address.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1412,11 +1412,11 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
     <message>
         <location filename="../intro.cpp" line="+30"/>
-        <source>BitcoinSilver</source>
-        <translation type="unfinished">BitcoinSilver</translation>
+        <source>Bitcoin</source>
+        <translation type="unfinished">Bitcoin</translation>
     </message>
     <message numerus="yes">
-        <location line="+162"/>
+        <location line="+164"/>
         <source>%n GB of space available</source>
         <translation type="unfinished">
             <numerusform>%n GB of space available</numerusform>
@@ -1465,7 +1465,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
     <message>
         <location line="+2"/>
-        <source>%1 will download and store a copy of the BitcoinSilver block chain.</source>
+        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1537,12 +1537,12 @@ The migration process will create a backup of the wallet before migrating. This 
     </message>
     <message>
         <location line="+2"/>
-        <source> Watchonly scripts have been migrated to a new wallet named &apos;%1&apos;.</source>
+        <source>Watchonly scripts have been migrated to a new wallet named &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
-        <source> Solvable but not watched scripts have been migrated to a new wallet named &apos;%1&apos;.</source>
+        <source>Solvable but not watched scripts have been migrated to a new wallet named &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1565,7 +1565,7 @@ The migration process will create a backup of the wallet before migrating. This 
     </message>
     <message>
         <location line="+119"/>
-        <source>Recent transactions may not yet be visible, and therefore your wallet&apos;s balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoinsilver network, as detailed below.</source>
+        <source>Recent transactions may not yet be visible, and therefore your wallet&apos;s balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoin network, as detailed below.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1641,7 +1641,7 @@ The migration process will create a backup of the wallet before migrating. This 
     <name>OpenURIDialog</name>
     <message>
         <location filename="../forms/openuridialog.ui" line="+14"/>
-        <source>Open bitcoinsilver URI</source>
+        <source>Open bitcoin URI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1747,7 +1747,12 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+227"/>
+        <location line="+107"/>
+        <source>Font in the Overview tab: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+45"/>
         <source>Options set in this dialog are overridden by the command line:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1772,7 +1777,7 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation>&amp;Reset Options</translation>
     </message>
     <message>
-        <location line="-645"/>
+        <location line="-570"/>
         <source>&amp;Network</source>
         <translation>&amp;Network</translation>
     </message>
@@ -1886,8 +1891,8 @@ The migration process will create a backup of the wallet before migrating. This 
     </message>
     <message>
         <location line="+42"/>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Automatically open the BitcoinSilver client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
+        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1896,7 +1901,7 @@ The migration process will create a backup of the wallet before migrating. This 
     </message>
     <message>
         <location line="+7"/>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports NAT-PMP and it is enabled. The external port could be random.</source>
+        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports NAT-PMP and it is enabled. The external port could be random.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1916,7 +1921,7 @@ The migration process will create a backup of the wallet before migrating. This 
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the BitcoinSilver network through a SOCKS5 proxy.</source>
+        <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2035,7 +2040,7 @@ The migration process will create a backup of the wallet before migrating. This 
     </message>
     <message>
         <location line="+300"/>
-        <source>Connect to the BitcoinSilver network through a separate SOCKS5 proxy for Tor onion services.</source>
+        <source>Connect to the Bitcoin network through a separate SOCKS5 proxy for Tor onion services.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2044,22 +2049,7 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+236"/>
-        <source>Monospaced font in the Overview tab:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+8"/>
-        <source>embedded &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+49"/>
-        <source>closest matching &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+206"/>
+        <location line="+424"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
@@ -2069,7 +2059,7 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation>&amp;Cancel</translation>
     </message>
     <message>
-        <location filename="../optionsdialog.cpp" line="+96"/>
+        <location filename="../optionsdialog.cpp" line="+152"/>
         <source>Compiled without external signing support (required for external signing)</source>
         <extracomment>&quot;External signing&quot; means using devices such as hardware wallets.</extracomment>
         <translation type="unfinished"></translation>
@@ -2080,25 +2070,25 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation>default</translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+74"/>
         <source>none</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+107"/>
+        <location line="+109"/>
         <source>Confirm options reset</source>
         <extracomment>Window title text of pop-up window shown when the user has chosen to reset options.</extracomment>
         <translation>Confirm options reset</translation>
     </message>
     <message>
         <location line="-9"/>
-        <location line="+79"/>
+        <location line="+81"/>
         <source>Client restart required to activate changes.</source>
         <extracomment>Text explaining that the settings changed will not come into effect until the client is restarted.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-75"/>
+        <location line="-77"/>
         <source>Current settings will be backed up at &quot;%1&quot;.</source>
         <extracomment>Text explaining to the user that the client&apos;s current settings will be backed up at a specific location. %1 is a stand-in argument for the backup location&apos;s path.</extracomment>
         <translation type="unfinished"></translation>
@@ -2142,7 +2132,7 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+42"/>
         <source>This change would require a client restart.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2155,7 +2145,7 @@ The migration process will create a backup of the wallet before migrating. This 
 <context>
     <name>OptionsModel</name>
     <message>
-        <location filename="../optionsmodel.cpp" line="+198"/>
+        <location filename="../optionsmodel.cpp" line="+230"/>
         <source>Could not read setting &quot;%1&quot;, %2.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2170,8 +2160,8 @@ The migration process will create a backup of the wallet before migrating. This 
     <message>
         <location line="+62"/>
         <location line="+335"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BitcoinSilver network after a connection is established, but this process has not completed yet.</source>
-        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the BitcoinSilver network after a connection is established, but this process has not completed yet.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
+        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</translation>
     </message>
     <message>
         <location line="-127"/>
@@ -2358,8 +2348,8 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+16"/>
-        <source> * Sends %1 to %2</source>
+        <location line="+17"/>
+        <source>Sends %1 to %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2437,7 +2427,7 @@ The migration process will create a backup of the wallet before migrating. This 
     </message>
     <message>
         <location line="+1"/>
-        <source>Cannot start bitcoinsilver: click-to-pay handler</source>
+        <source>Cannot start bitcoin: click-to-pay handler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2450,7 +2440,7 @@ The migration process will create a backup of the wallet before migrating. This 
     </message>
     <message>
         <location line="-29"/>
-        <source>&apos;bitcoinsilver://&apos; is not a valid URI. Use &apos;bitcoinsilver:&apos; instead.</source>
+        <source>&apos;bitcoin://&apos; is not a valid URI. Use &apos;bitcoin:&apos; instead.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2463,7 +2453,7 @@ If you are receiving this error you should request the merchant provide a BIP21 
     </message>
     <message>
         <location line="-10"/>
-        <source>URI cannot be parsed! This can be caused by an invalid BitcoinSilver address or malformed URI parameters.</source>
+        <source>URI cannot be parsed! This can be caused by an invalid Bitcoin address or malformed URI parameters.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2550,13 +2540,13 @@ If you are receiving this error you should request the merchant provide a BIP21 
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../bitcoinsilverunits.cpp" line="+197"/>
+        <location filename="../bitcoinunits.cpp" line="+197"/>
         <source>Amount</source>
         <translation type="unfinished">Amount</translation>
     </message>
     <message>
         <location filename="../guiutil.cpp" line="+133"/>
-        <source>Enter a BitcoinSilver address (e.g. %1)</source>
+        <source>Enter a Bitcoin address (e.g. %1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2647,7 +2637,7 @@ If you are receiving this error you should request the merchant provide a BIP21 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+12"/>
         <location line="+12"/>
         <source>%1 d</source>
         <translation type="unfinished"></translation>
@@ -2747,7 +2737,7 @@ If you are receiving this error you should request the merchant provide a BIP21 
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../rpcconsole.cpp" line="+1004"/>
+        <location filename="../rpcconsole.cpp" line="+1006"/>
         <source>%1 kB</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2763,7 +2753,7 @@ If you are receiving this error you should request the merchant provide a BIP21 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bitcoinsilver.cpp" line="-282"/>
+        <location filename="../bitcoin.cpp" line="-282"/>
         <source>Do you want to reset settings to default values, or to abort without making changes?</source>
         <extracomment>Explanatory text shown on startup when the settings file cannot be read. Prompts user to make a choice between resetting or aborting.</extracomment>
         <translation type="unfinished"></translation>
@@ -2775,18 +2765,33 @@ If you are receiving this error you should request the merchant provide a BIP21 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+395"/>
+        <location line="+423"/>
         <source>Error: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+73"/>
         <source>%1 didn&apos;t yet exit safely…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../modaloverlay.cpp" line="-40"/>
         <source>unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optionsdialog.cpp" line="-389"/>
+        <source>Embedded &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Default system font &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Custom…</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3293,7 +3298,7 @@ If you are receiving this error you should request the merchant provide a BIP21 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../rpcconsole.cpp" line="-473"/>
+        <location filename="../rpcconsole.cpp" line="-475"/>
         <source>Inbound: initiated by peer</source>
         <extracomment>Explanatory text for an inbound peer connection.</extracomment>
         <translation type="unfinished"></translation>
@@ -3386,7 +3391,7 @@ If you are receiving this error you should request the merchant provide a BIP21 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+151"/>
+        <location line="+153"/>
         <source>&amp;Copy address</source>
         <extracomment>Context menu action to copy the address of a peer.</extracomment>
         <translation type="unfinished"></translation>
@@ -3458,7 +3463,12 @@ If you are receiving this error you should request the merchant provide a BIP21 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-330"/>
+        <location line="+18"/>
+        <source>Node window - [%1]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-348"/>
         <source>Executing command using &quot;%1&quot; wallet</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3515,7 +3525,7 @@ For more information on using this console, type %6.
     </message>
     <message>
         <location line="-3"/>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the BitcoinSilver network.</source>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3936,7 +3946,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="+35"/>
-        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoinsilver transactions than the network can process.</source>
+        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4043,16 +4053,11 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="+1"/>
-        <source>Creates a Partially Signed BitcoinSilver Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Creates a Partially Signed Bitcoin Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+92"/>
-        <source> from wallet &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+11"/>
+        <location line="+103"/>
         <source>%1 to &apos;%2&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4117,19 +4122,24 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="-31"/>
-        <source>Please, review your transaction proposal. This will produce a Partially Signed BitcoinSilver Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction proposal. This will produce a Partially Signed Bitcoin Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can only create a PSBT. This string is displayed when private keys are disabled and an external signer is not available.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location line="-30"/>
+        <source>%1 from wallet &apos;%2&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+24"/>
         <source>Do you want to create this transaction?</source>
         <extracomment>Message displayed when attempting to create a transaction. Cautionary text to prompt the user to verify that the displayed transaction details represent the transaction the user intends to create.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+11"/>
-        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed BitcoinSilver Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed Bitcoin Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can send their transaction or create a PSBT. This string is displayed when both private keys and PSBT controls are enabled.</extracomment>
         <translation type="unfinished"></translation>
     </message>
@@ -4239,7 +4249,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="+95"/>
-        <source>Warning: Invalid BitcoinSilver address</source>
+        <source>Warning: Invalid Bitcoin address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4287,7 +4297,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="-7"/>
-        <source>The BitcoinSilver address to send the payment to</source>
+        <source>The Bitcoin address to send the payment to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4343,7 +4353,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="+58"/>
-        <source>A message that was attached to the bitcoinsilver: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the BitcoinSilver network.</source>
+        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4363,7 +4373,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <location filename="../utilitydialog.cpp" line="+85"/>
+        <location filename="../utilitydialog.cpp" line="+86"/>
         <source>%1 is shutting down…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4392,7 +4402,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="+18"/>
-        <source>The BitcoinSilver address to sign the message with</source>
+        <source>The Bitcoin address to sign the message with</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4435,8 +4445,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this BitcoinSilver address</source>
-        <translation>Sign the message to prove you own this BitcoinSilver address</translation>
+        <source>Sign the message to prove you own this Bitcoin address</source>
+        <translation>Sign the message to prove you own this Bitcoin address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4466,7 +4476,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="+21"/>
-        <source>The BitcoinSilver address the message was signed with</source>
+        <source>The Bitcoin address the message was signed with</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4483,8 +4493,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="+9"/>
-        <source>Verify the message to ensure it was signed with the specified BitcoinSilver address</source>
-        <translation>Verify the message to ensure it was signed with the specified BitcoinSilver address</translation>
+        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
+        <translation>Verify the message to ensure it was signed with the specified Bitcoin address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4771,7 +4781,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="+16"/>
-        <source> (Certificate was not verified)</source>
+        <source>%1 (Certificate was not verified)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4800,7 +4810,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+19"/>
         <source>Amount</source>
         <translation type="unfinished">Amount</translation>
     </message>
@@ -5139,7 +5149,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+170"/>
+        <location line="+173"/>
         <source>Range:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5152,7 +5162,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
 <context>
     <name>UnitDisplayStatusBarControl</name>
     <message>
-        <location filename="../bitcoinsilvergui.cpp" line="+39"/>
+        <location filename="../bitcoingui.cpp" line="+39"/>
         <source>Unit to show amounts in. Click to select another unit.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5235,13 +5245,13 @@ Go to File &gt; Open Wallet to load a wallet.
 <context>
     <name>WalletModel</name>
     <message>
-        <location filename="../walletmodel.cpp" line="+228"/>
+        <location filename="../walletmodel.cpp" line="+227"/>
         <location line="+13"/>
         <source>Send Coins</source>
         <translation type="unfinished">Send Coins</translation>
     </message>
     <message>
-        <location line="+247"/>
+        <location line="+254"/>
         <location line="+55"/>
         <location line="+15"/>
         <location line="+5"/>
@@ -5371,7 +5381,7 @@ Go to File &gt; Open Wallet to load a wallet.
     </message>
 </context>
 <context>
-    <name>bitcoinsilver-core</name>
+    <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+12"/>
         <source>The %s developers</source>
@@ -5379,7 +5389,7 @@ Go to File &gt; Open Wallet to load a wallet.
     </message>
     <message>
         <location line="+1"/>
-        <source>%s corrupt. Try using the wallet tool bitcoinsilver-wallet to salvage or restoring a backup.</source>
+        <source>%s corrupt. Try using the wallet tool bitcoin-wallet to salvage or restoring a backup.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5439,7 +5449,7 @@ Go to File &gt; Open Wallet to load a wallet.
     </message>
     <message>
         <location line="+2"/>
-        <source>Error: Dumpfile version is not supported. This version of bitcoinsilver-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
+        <source>Error: Dumpfile version is not supported. This version of bitcoin-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5833,6 +5843,11 @@ Unable to restore backup of wallet.</source>
     </message>
     <message>
         <location line="+1"/>
+        <source>Error committing db txn for wallet transactions removal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Error creating %s</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5893,21 +5908,16 @@ Unable to restore backup of wallet.</source>
     </message>
     <message>
         <location line="+1"/>
+        <source>Error starting db txn for wallet transactions removal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Error: Cannot extract destination from the generated scriptpubkey</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Error: Could not add watchonly tx to watchonly wallet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Error: Could not delete watchonly transactions</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+3"/>
         <source>Error: Couldn&apos;t create cursor into database</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5953,11 +5963,6 @@ Unable to restore backup of wallet.</source>
     </message>
     <message>
         <location line="+1"/>
-        <source>Error: Not all watchonly txs could be deleted</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>Error: This wallet already uses SQLite</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5988,12 +5993,37 @@ Unable to restore backup of wallet.</source>
     </message>
     <message>
         <location line="+1"/>
+        <source>Error: Unable to read wallet&apos;s best block locator record</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Error: Unable to remove watchonly address book data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Error: Unable to write record to new wallet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Error: Unable to write solvable wallet best block locator record</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Error: Unable to write watchonly wallet best block locator record</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Error: address book copy failed for wallet %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Error: database transaction cannot be executed for wallet %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6014,6 +6044,11 @@ Unable to restore backup of wallet.</source>
     <message>
         <location line="+1"/>
         <source>Failed to verify database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Failure removing transaction: %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6293,6 +6328,11 @@ Unable to restore backup of wallet.</source>
     </message>
     <message>
         <location line="+1"/>
+        <source>Transaction %s does not belong to this wallet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Transaction amount too small</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6304,11 +6344,6 @@ Unable to restore backup of wallet.</source>
     <message>
         <location line="+1"/>
         <source>Transaction change output index out of range</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Transaction has too long of a mempool chain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6412,17 +6447,32 @@ Unable to restore backup of wallet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+5"/>
+        <source>Wallet file creation failed: %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>acceptstalefeeestimates is not supported on %s chain.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-5"/>
+        <location line="-6"/>
         <source>Unsupported logging category %s=%s.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location line="-110"/>
+        <source>Error: Could not add watchonly tx %s to watchonly wallet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+1"/>
+        <source>Error: Could not delete watchonly transactions. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+110"/>
         <source>User Agent comment (%s) contains unsafe characters.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6437,12 +6487,12 @@ Unable to restore backup of wallet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Wallet needed to be rewritten: restart %s to complete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-44"/>
+        <location line="-45"/>
         <source>Settings file could not be read</source>
         <translation type="unfinished"></translation>
     </message>

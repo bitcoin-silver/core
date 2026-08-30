@@ -54,11 +54,11 @@
         <translation type="unfinished">&amp;Zvol</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation type="unfinished">Tohle jsou tvé bitcoinové adresy pro posílání plateb. Před odesláním mincí si vždy zkontroluj částku a cílovou adresu.</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Tohle jsou tvé bitcoinové adresy pro přijmaní plateb. Použij "Vytvoř novou přijimací adresu" pro vytvoření nových adres. Přihlašování je povoleno jen s adresami typu "Legacy"</translation>
     </message>
@@ -151,8 +151,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Potvrď zašifrování peněženky</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINSILVERS&lt;/b&gt;!</source>
-        <translation type="unfinished">Upozornění: Pokud si zašifruješ peněženku a ztratíš či zapomeneš heslo, &lt;b&gt;PŘIJDEŠ O VŠECHNY BITCOINSILVERY&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
+        <translation type="unfinished">Upozornění: Pokud si zašifruješ peněženku a ztratíš či zapomeneš heslo, &lt;b&gt;PŘIJDEŠ O VŠECHNY BITCOINY&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -294,7 +294,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Částka</translation>
     </message>
     <message>
-        <source>Enter a BitcoinSilver address (e.g. %1)</source>
+        <source>Enter a Bitcoin address (e.g. %1)</source>
         <translation type="unfinished">Zadej bitcoinovou adresu (např. %1)</translation>
     </message>
     <message>
@@ -465,7 +465,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Proxy je &lt;b&gt;zapnutá&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a BitcoinSilver address</source>
+        <source>Send coins to a Bitcoin address</source>
         <translation type="unfinished">Pošli mince na bitcoinovou adresu</translation>
     </message>
     <message>
@@ -509,7 +509,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Podepiš &amp;zprávu...</translation>
     </message>
     <message>
-        <source>Sign messages with your BitcoinSilver addresses to prove you own them</source>
+        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
         <translation type="unfinished">Podepiš zprávy svými bitcoinovými adresami, čímž prokážeš, že jsi jejich vlastníkem</translation>
     </message>
     <message>
@@ -517,7 +517,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;Ověř zprávu...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified BitcoinSilver addresses</source>
+        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
         <translation type="unfinished">Ověř zprávy, aby ses ujistil, že byly podepsány danými bitcoinovými adresami</translation>
     </message>
     <message>
@@ -577,8 +577,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Připojuji se…</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoinsilver: URIs)</source>
-        <translation type="unfinished">Požaduj platby (generuje QR kódy a bitcoinsilver: URI)</translation>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
+        <translation type="unfinished">Požaduj platby (generuje QR kódy a bitcoin: URI)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -633,7 +633,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Aktuální</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction</source>
+        <source>Load Partially Signed Bitcoin Transaction</source>
         <translation type="unfinished">Načíst částečně podepsanou Bitcoinovou transakci</translation>
     </message>
     <message>
@@ -641,7 +641,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Načíst PSBT ze &amp;schránky</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction from clipboard</source>
+        <source>Load Partially Signed Bitcoin Transaction from clipboard</source>
         <translation type="unfinished">Načíst částečně podepsanou Bitcoinovou transakci ze schránky</translation>
     </message>
     <message>
@@ -661,8 +661,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Přijímací adresy</translation>
     </message>
     <message>
-        <source>Open a bitcoinsilver: URI</source>
-        <translation type="unfinished">Načíst BitcoinSilver: URI</translation>
+        <source>Open a bitcoin: URI</source>
+        <translation type="unfinished">Načíst Bitcoin: URI</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -691,7 +691,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Zavřít všechny peněženky</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible BitcoinSilver command-line options</source>
+        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
         <translation type="unfinished">Seznam argumentů Bitcoinu pro příkazovou řádku získáš v nápovědě %1</translation>
     </message>
     <message>
@@ -755,7 +755,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Zobraz</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
             <numerusform>%n aktivní spojení s Bitcoinovou sítí.</numerusform>
@@ -1219,7 +1219,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Uprav odesílací adresu</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid BitcoinSilver address.</source>
+        <source>The entered address "%1" is not a valid Bitcoin address.</source>
         <translation type="unfinished">Zadaná adresa „%1“ není platná bitcoinová adresa.</translation>
     </message>
     <message>
@@ -1310,7 +1310,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         </translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the BitcoinSilver block chain.</source>
+        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
         <translation type="unfinished">%1 bude stahovat kopii blockchainu.</translation>
     </message>
     <message>
@@ -1403,7 +1403,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Formulář</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoinsilver network, as detailed below.</source>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoin network, as detailed below.</source>
         <translation type="unfinished">Nedávné transakce ještě nemusí být vidět, takže stav tvého účtu nemusí být platný. Jakmile se však tvá peněženka dosynchronizuje s bitcoinovou sítí (viz informace níže), tak už bude stav správně.</translation>
     </message>
     <message>
@@ -1462,8 +1462,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
 <context>
     <name>OpenURIDialog</name>
     <message>
-        <source>Open bitcoinsilver URI</source>
-        <translation type="unfinished">Otevřít bitcoinsilver URI</translation>
+        <source>Open bitcoin URI</source>
+        <translation type="unfinished">Otevřít bitcoin URI</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
@@ -1622,7 +1622,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Cesta ke skriptu &amp;Externího podepisovatele</translation>
     </message>
     <message>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
         <translation type="unfinished">Automaticky otevře potřebný port na routeru. Tohle funguje jen za předpokladu, že tvůj router podporuje UPnP a že je UPnP povolené.</translation>
     </message>
     <message>
@@ -1630,7 +1630,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Namapovat port přes &amp;UPnP</translation>
     </message>
     <message>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports NAT-PMP and it is enabled. The external port could be random.</source>
+        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports NAT-PMP and it is enabled. The external port could be random.</source>
         <translation type="unfinished">Automaticky otevřít port pro Bitcoinový klient na routeru. Toto funguje pouze pokud váš router podporuje a má zapnutou funkci NAT-PMP. Vnější port může být zvolen náhodně.</translation>
     </message>
     <message>
@@ -1646,7 +1646,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;Přijímat příchozí spojení</translation>
     </message>
     <message>
-        <source>Connect to the BitcoinSilver network through a SOCKS5 proxy.</source>
+        <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
         <translation type="unfinished">Připojí se do bitcoinové sítě přes SOCKS5 proxy.</translation>
     </message>
     <message>
@@ -1726,24 +1726,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Zda ukazovat možnosti pro ruční správu mincí nebo ne.</translation>
     </message>
     <message>
-        <source>Connect to the BitcoinSilver network through a separate SOCKS5 proxy for Tor onion services.</source>
+        <source>Connect to the Bitcoin network through a separate SOCKS5 proxy for Tor onion services.</source>
         <translation type="unfinished">Připojí se do Bitcoinové sítě přes vyhrazenou SOCKS5 proxy pro služby v Tor síti.</translation>
     </message>
     <message>
         <source>Use separate SOCKS&amp;5 proxy to reach peers via Tor onion services:</source>
         <translation type="unfinished">Použít samostatnou SOCKS&amp;5 proxy ke spojení s protějšky přes skryté služby v Toru:</translation>
-    </message>
-    <message>
-        <source>Monospaced font in the Overview tab:</source>
-        <translation type="unfinished">Písmo s pevnou šířkou v panelu Přehled:</translation>
-    </message>
-    <message>
-        <source>embedded "%1"</source>
-        <translation type="unfinished">zahrnuto "%1"</translation>
-    </message>
-    <message>
-        <source>closest matching "%1"</source>
-        <translation type="unfinished">nejbližší shoda "%1"</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -1835,7 +1823,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Formulář</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BitcoinSilver network after a connection is established, but this process has not completed yet.</source>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
         <translation type="unfinished">Zobrazené informace nemusí být aktuální. Tvá peněženka se automaticky sesynchronizuje s bitcoinovou sítí, jakmile se s ní spojí. Zatím ale ještě není synchronizace dokončena.</translation>
     </message>
     <message>
@@ -1987,10 +1975,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">PSBT uložena na disk.</translation>
     </message>
     <message>
-        <source> * Sends %1 to %2</source>
-        <translation type="unfinished"> * Odešle %1 na %2</translation>
-    </message>
-    <message>
         <source>own address</source>
         <translation type="unfinished">vlastní adresa</translation>
     </message>
@@ -2050,16 +2034,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Chyba platebního požadavku</translation>
     </message>
     <message>
-        <source>Cannot start bitcoinsilver: click-to-pay handler</source>
-        <translation type="unfinished">Nemůžu spustit bitcoinsilver: obsluha click-to-pay</translation>
+        <source>Cannot start bitcoin: click-to-pay handler</source>
+        <translation type="unfinished">Nemůžu spustit bitcoin: obsluha click-to-pay</translation>
     </message>
     <message>
         <source>URI handling</source>
         <translation type="unfinished">Zpracování URI</translation>
     </message>
     <message>
-        <source>'bitcoinsilver://' is not a valid URI. Use 'bitcoinsilver:' instead.</source>
-        <translation type="unfinished">'bitcoinsilver://' není platné URI. Místo toho použij 'bitcoinsilver:'.</translation>
+        <source>'bitcoin://' is not a valid URI. Use 'bitcoin:' instead.</source>
+        <translation type="unfinished">'bitcoin://' není platné URI. Místo toho použij 'bitcoin:'.</translation>
     </message>
     <message>
         <source>Cannot process payment request because BIP70 is not supported.
@@ -2070,7 +2054,7 @@ Vzhledem k rozšířeným bezpečnostním chybám v BIP70 je důrazně doporuče
 Pokud vidíte tuto chybu, měli byste požádat, aby obchodník poskytl adresu kompatibilní s BIP21.</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid BitcoinSilver address or malformed URI parameters.</source>
+        <source>URI cannot be parsed! This can be caused by an invalid Bitcoin address or malformed URI parameters.</source>
         <translation type="unfinished">Nepodařilo se analyzovat URI! Důvodem může být neplatná bitcoinová adresa nebo poškozené parametry URI.</translation>
     </message>
     <message>
@@ -2607,7 +2591,7 @@ Pokud vidíte tuto chybu, měli byste požádat, aby obchodník poskytl adresu k
         <translation type="unfinished">&amp;Zpráva:</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the BitcoinSilver network.</source>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
         <translation type="unfinished">Volitelná zpráva, která se připojí k platebnímu požadavku a která se zobrazí, když se požadavek otevře. Poznámka: tahle zpráva se neposílá s platbou po bitcoinové síti.</translation>
     </message>
     <message>
@@ -2908,7 +2892,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
  Poznámka: Vzhledem k tomu, že poplatek se vypočítává na bázi za bajt, sazba poplatku „100 satoshi za kvB“ za velikost transakce 500 virtuálních bajtů (polovina z 1 kvB) by nakonec přinesla poplatek pouze 50 satoshi.</translation>
     </message>
     <message>
-        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoinsilver transactions than the network can process.</source>
+        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
         <translation type="unfinished">Když je zde měně transakcí než místa na bloky, mineři stejně tak relay-e mohou nasadit minimální poplatky. Zaplacením pouze minimálního poplatku je v pohodě, ale mějte na paměti že toto může mít za následek nikdy neověřenou transakci pokud zde bude více bitcoinových transakcí než může síť zvládnout.</translation>
     </message>
     <message>
@@ -2994,12 +2978,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">Vytvořit bez podpisu</translation>
     </message>
     <message>
-        <source>Creates a Partially Signed BitcoinSilver Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
-        <translation type="unfinished">Vytvořit částečně podepsanou BitcoinSilver transakci (Partially Signed BitcoinSilver Transaction - PSBT) k použtí kupříkladu s offline %1 peněženkou nebo s jinou kompatibilní PSBT hardware peněženkou.</translation>
-    </message>
-    <message>
-        <source> from wallet '%1'</source>
-        <translation type="unfinished">z peněženky '%1'</translation>
+        <source>Creates a Partially Signed Bitcoin Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <translation type="unfinished">Vytvořit částečně podepsanou Bitcoin transakci (Partially Signed Bitcoin Transaction - PSBT) k použtí kupříkladu s offline %1 peněženkou nebo s jinou kompatibilní PSBT hardware peněženkou.</translation>
     </message>
     <message>
         <source>%1 to '%2'</source>
@@ -3054,7 +3034,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">Poplatek můžete navýšit později (vysílá se "Replace-By-Fee" - nahrazení poplatkem, BIP-125).</translation>
     </message>
     <message>
-        <source>Please, review your transaction proposal. This will produce a Partially Signed BitcoinSilver Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction proposal. This will produce a Partially Signed Bitcoin Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can only create a PSBT. This string is displayed when private keys are disabled and an external signer is not available.</extracomment>
         <translation type="unfinished">Zkontrolujte prosím svůj návrh transakce. Výsledkem bude částečně podepsaná bitcoinová transakce (PSBT), kterou můžete uložit nebo kopírovat a poté podepsat např. pomocí offline %1 peněženky nebo hardwarové peněženky kompatibilní s PSBT.</translation>
     </message>
@@ -3064,7 +3044,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">Přejete si vytvořit tuto transakci?</translation>
     </message>
     <message>
-        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed BitcoinSilver Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed Bitcoin Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can send their transaction or create a PSBT. This string is displayed when both private keys and PSBT controls are enabled.</extracomment>
         <translation type="unfinished">Prosím ověř svojí transakci. Můžeš vytvořit a odeslat tuto transakci nebo vytvořit Částečně Podepsanou Bitcoinovou Transakci (PSBT), kterou můžeš uložit nebo zkopírovat a poté podepsat např. v offline %1 peněžence, nebo hardwarové peněžence kompatibilní s PSBT.</translation>
     </message>
@@ -3144,7 +3124,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         </translation>
     </message>
     <message>
-        <source>Warning: Invalid BitcoinSilver address</source>
+        <source>Warning: Invalid Bitcoin address</source>
         <translation type="unfinished">Upozornění: Neplatná bitcoinová adresa</translation>
     </message>
     <message>
@@ -3183,7 +3163,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">Vyber již použitou adresu</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address to send the payment to</source>
+        <source>The Bitcoin address to send the payment to</source>
         <translation type="unfinished">Bitcoinová adresa příjemce</translation>
     </message>
     <message>
@@ -3219,8 +3199,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">Zadej označení této adresy; obojí se ti pak uloží do adresáře</translation>
     </message>
     <message>
-        <source>A message that was attached to the bitcoinsilver: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the BitcoinSilver network.</source>
-        <translation type="unfinished">Zpráva, která byla připojena k bitcoinsilver: URI a která se ti pro přehled uloží k transakci. Poznámka: Tahle zpráva se neposílá s platbou po bitcoinové síti.</translation>
+        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
+        <translation type="unfinished">Zpráva, která byla připojena k bitcoin: URI a která se ti pro přehled uloží k transakci. Poznámka: Tahle zpráva se neposílá s platbou po bitcoinové síti.</translation>
     </message>
 </context>
 <context>
@@ -3249,7 +3229,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">Podepsáním zprávy/smlouvy svými adresami můžeš prokázat, že jsi na ně schopen přijmout bitcoiny. Buď opatrný a nepodepisuj nic vágního nebo náhodného; například při phishingových útocích můžeš být lákán, abys něco takového podepsal. Podepisuj pouze naprosto úplná a detailní prohlášení, se kterými souhlasíš.</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address to sign the message with</source>
+        <source>The Bitcoin address to sign the message with</source>
         <translation type="unfinished">Bitcoinová adresa, kterou se zpráva podepíše</translation>
     </message>
     <message>
@@ -3273,7 +3253,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">Zkopíruj tento podpis do schránky</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this BitcoinSilver address</source>
+        <source>Sign the message to prove you own this Bitcoin address</source>
         <translation type="unfinished">Podepiš zprávu, čímž prokážeš, že jsi vlastníkem této bitcoinové adresy</translation>
     </message>
     <message>
@@ -3297,7 +3277,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">K ověření podpisu zprávy zadej adresu příjemce, zprávu (ověř si, že správně kopíruješ zalomení řádků, mezery, tabulátory apod.) a podpis. Dávej pozor na to, abys nezkopíroval do podpisu víc, než co je v samotné podepsané zprávě, abys nebyl napálen man-in-the-middle útokem. Poznamenejme však, že takto lze pouze prokázat, že podepisující je schopný na dané adrese přijmout platbu, ale není možnéprokázat, že odeslal jakoukoli transakci!</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address the message was signed with</source>
+        <source>The Bitcoin address the message was signed with</source>
         <translation type="unfinished">Bitcoinová adresa, kterou je zpráva podepsána</translation>
     </message>
     <message>
@@ -3309,7 +3289,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">Podpis daný při podpisu zprávy</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified BitcoinSilver address</source>
+        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
         <translation type="unfinished">Ověř zprávu, aby ses ujistil, že byla podepsána danou bitcoinovou adresou</translation>
     </message>
     <message>
@@ -3519,10 +3499,6 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
     <message>
         <source>Output index</source>
         <translation type="unfinished">Pořadí výstupu</translation>
-    </message>
-    <message>
-        <source> (Certificate was not verified)</source>
-        <translation type="unfinished">(Certifikát nebyl ověřen)</translation>
     </message>
     <message>
         <source>Merchant</source>
@@ -3953,14 +3929,14 @@ Přejděte do Soubor &gt; Otevřít peněženku pro načtení peněženky.
     </message>
 </context>
 <context>
-    <name>bitcoinsilver-core</name>
+    <name>bitcoin-core</name>
     <message>
         <source>The %s developers</source>
         <translation type="unfinished">Vývojáři %s</translation>
     </message>
     <message>
-        <source>%s corrupt. Try using the wallet tool bitcoinsilver-wallet to salvage or restoring a backup.</source>
-        <translation type="unfinished">Soubor %s je poškozen. Zkus použít bitcoinsilver-wallet pro opravu nebo obnov zálohu.</translation>
+        <source>%s corrupt. Try using the wallet tool bitcoin-wallet to salvage or restoring a backup.</source>
+        <translation type="unfinished">Soubor %s je poškozen. Zkus použít bitcoin-wallet pro opravu nebo obnov zálohu.</translation>
     </message>
     <message>
         <source>%s request to listen on port %u. This port is considered "bad" and thus it is unlikely that any peer will connect to it. See doc/p2p-bad-ports.md for details and a full list.</source>
@@ -4004,8 +3980,8 @@ Ověřuji peněženku.</translation>
         <translation type="unfinished">Chyba: záznam identifikátoru souboru výpisu je nesprávný. Získáno "%s", očekáváno "%s".</translation>
     </message>
     <message>
-        <source>Error: Dumpfile version is not supported. This version of bitcoinsilver-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
-        <translation type="unfinished">Chyba: verze souboru výpisu není podporována. Tato verze peněženky BitcoinSilver podporuje pouze soubory výpisu verze 1. Získán soubor výpisu verze %s</translation>
+        <source>Error: Dumpfile version is not supported. This version of bitcoin-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
+        <translation type="unfinished">Chyba: verze souboru výpisu není podporována. Tato verze peněženky Bitcoin podporuje pouze soubory výpisu verze 1. Získán soubor výpisu verze %s</translation>
     </message>
     <message>
         <source>Error: Legacy wallets only support the "legacy", "p2sh-segwit", and "bech32" address types</source>
@@ -4170,12 +4146,6 @@ Ověřuji peněženku.</translation>
     <message>
         <source>Error loading %s: External signer wallet being loaded without external signer support compiled</source>
         <translation type="unfinished">Chyba při načtení %s: Externí podepisovací peněženka se načítá bez zkompilované podpory externího podpisovatele.</translation>
-    </message>
-    <message>
-        <source>Error reading %s! All keys read correctly, but transaction data or address metadata may be missing or incorrect.</source>
-        <translation type="unfinished">Nastala chyba při čtení souboru %s! Všechny klíče se přečetly správně, ale data o transakcích nebo záznamy v adresáři moho
-u chybět či být nesprávné.
-</translation>
     </message>
     <message>
         <source>Error: Address book data in wallet cannot be identified to belong to migrated wallets</source>
@@ -4368,14 +4338,6 @@ Nelze obnovit zálohu peněženky.</translation>
         <translation type="unfinished">Chyba: Nelze extrahovat cíl z generovaného scriptpubkey</translation>
     </message>
     <message>
-        <source>Error: Could not add watchonly tx to watchonly wallet</source>
-        <translation type="unfinished">Chyba: Nelze přidat pouze-sledovací tx do peněženky pro čtení</translation>
-    </message>
-    <message>
-        <source>Error: Could not delete watchonly transactions</source>
-        <translation type="unfinished">Chyba: Nelze odstranit transakce které jsou pouze pro čtení</translation>
-    </message>
-    <message>
         <source>Error: Couldn't create cursor into database</source>
         <translation type="unfinished">Chyba: nebylo možno vytvořit kurzor do databáze</translation>
     </message>
@@ -4410,10 +4372,6 @@ Nelze obnovit zálohu peněženky.</translation>
     <message>
         <source>Error: No %s addresses available.</source>
         <translation type="unfinished">Chyba: Žádné %s adresy nejsou dostupné.</translation>
-    </message>
-    <message>
-        <source>Error: Not all watchonly txs could be deleted</source>
-        <translation type="unfinished">Chyba: Ne všechny pouze-sledovací tx bylo možné smazat</translation>
     </message>
     <message>
         <source>Error: This wallet already uses SQLite</source>
@@ -4690,10 +4648,6 @@ Nelze obnovit zálohu peněženky.</translation>
     <message>
         <source>Transaction change output index out of range</source>
         <translation type="unfinished">Výstupní index změny transakce mimo rozsah</translation>
-    </message>
-    <message>
-        <source>Transaction has too long of a mempool chain</source>
-        <translation type="unfinished">Transakce má v transakčním zásobníku příliš dlouhý řetězec</translation>
     </message>
     <message>
         <source>Transaction must have at least one recipient</source>

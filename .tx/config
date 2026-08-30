@@ -1,7 +1,7 @@
 [main]
 host = https://www.transifex.com
 
-[o:bitcoinsilver:p:bitcoinsilver:r:qt-translation-026x]
-file_filter = src/qt/locale/bitcoinsilver_<lang>.xlf
-source_file = src/qt/locale/bitcoinsilver_en.xlf
+[o:bitcoinsilver:p:bitcoinsilver:r:qt-translation-027x]
+file_filter = src/qt/locale/bitcoinsilversilver_<lang>.xlf
+source_file = src/qt/locale/bitcoinsilversilver_en.xlf
 source_lang = en

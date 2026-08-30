@@ -50,7 +50,7 @@
         <translation type="unfinished">কয়েন গ্রহণ করার ঠিকানা বাছাই করুন।</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">পেমেন্ট পাওয়ার জন্য এটি আপনার বিটকয়েন ঠিকানা। নতুন ঠিকানা তৈরী করতে "নতুন গ্রহণের ঠিকানা তৈরী করুন" বোতাম ব্যবহার করুন। সাইন ইন করা শুধুমাত্র "উত্তরাধিকার" ঠিকানার মাধ্যমেই সম্ভব।</translation>
     </message>
@@ -59,7 +59,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <extracomment>Expanded name of the CSV file format. See: https://en.wikipedia.org/wiki/Comma-separated_values.</extracomment>
         <translation type="unfinished">কমা দিয়ে আলাদা করা ফাইল</translation>
     </message>
-    </context>
+    <message>
+        <source>Exporting Failed</source>
+        <translation type="unfinished">রপ্তানি ব্যর্থ হয়েছে৷</translation>
+    </message>
+</context>
 <context>
     <name>AddressTableModel</name>
     <message>
@@ -70,7 +74,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>Address</source>
         <translation type="unfinished">ঠিকানা</translation>
     </message>
-    </context>
+    <message>
+        <source>(no label)</source>
+        <translation type="unfinished">(কোন লেবেল নেই)</translation>
+    </message>
+</context>
 <context>
     <name>AskPassphraseDialog</name>
     <message>
@@ -264,11 +272,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ধরা…</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction</source>
+        <source>Load Partially Signed Bitcoin Transaction</source>
         <translation type="unfinished">আংশিক স্বাক্ষরিত বিটকয়েন লেনদেন লোড করুন</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction from clipboard</source>
+        <source>Load Partially Signed Bitcoin Transaction from clipboard</source>
         <translation type="unfinished">ক্লিপবোর্ড থেকে আংশিক স্বাক্ষরিত বিটকয়েন লেনদেন লোড করুন</translation>
     </message>
     <message>
@@ -284,7 +292,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ওভারভিউ ট্যাবে মানগুলি আড়াল করুন</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
             <numerusform />
@@ -606,6 +614,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">আইডি</translation>
     </message>
     <message>
+        <source>Exporting Failed</source>
+        <translation type="unfinished">রপ্তানি ব্যর্থ হয়েছে৷</translation>
+    </message>
+    <message>
         <source>Exporting Successful</source>
         <translation type="unfinished">রপ্তানি সফল হয়েছে</translation>
     </message>
@@ -637,7 +649,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     </context>
 <context>
-    <name>bitcoinsilver-core</name>
+    <name>bitcoin-core</name>
     <message>
         <source>SQLiteDatabase: Unexpected application id. Expected %u, got %u</source>
         <translation type="unfinished">এস. কিয়ু. লাইট ডাটাবেস : অপ্রত্যাশিত এপ্লিকেশন আই.ডি. প্রত্যাশিত %u, পাওয়া গেলো %u </translation>

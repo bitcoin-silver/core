@@ -15,19 +15,19 @@
     </message>
     <message>
         <source>Copy the currently selected address to the system clipboard</source>
-        <translation type="unfinished">አሁን የተመረጠውን አድራሻ ወደ ስርዓቱ ቅንጥብ ሰሌዳ ቅዳ</translation>
+        <translation type="unfinished">አሁን የተመረጠውን አድራሻ ወደ ስርዓቱ ቅንጥብ ሰሌዳ ይቅዱ</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;ቅዳ</translation>
+        <translation type="unfinished">&amp;ይቅዱ</translation>
     </message>
     <message>
         <source>C&amp;lose</source>
-        <translation type="unfinished">ዝጋ</translation>
+        <translation type="unfinished">ይዝጉ</translation>
     </message>
     <message>
         <source>Delete the currently selected address from the list</source>
-        <translation type="unfinished">አሁን የተመረጠውን አድራሻ ከዝርዝሩ ውስጥ አጥፋ</translation>
+        <translation type="unfinished">አሁን የተመረጠውን አድራሻ ከዝርዝሩ ውስጥ ያጥፉ</translation>
     </message>
     <message>
         <source>Enter address or label to search</source>
@@ -35,15 +35,15 @@
     </message>
     <message>
         <source>Export the data in the current tab to a file</source>
-        <translation type="unfinished">በዚህ ማውጫ ውስጥ ያለውን ውሂብ ወደ አንድ ፋይል ቀይረህ አስቀምጥ</translation>
+        <translation type="unfinished">በዚህ ማውጫ ውስጥ ያለውን ውሂብ ወደ ፋይል አዛውረው ያስቀምጡ</translation>
     </message>
     <message>
         <source>&amp;Export</source>
-        <translation type="unfinished">&amp;ላክ</translation>
+        <translation type="unfinished">&amp;ይላኩ</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;ሰርዝ</translation>
+        <translation type="unfinished">&amp;ይሰርዙ</translation>
     </message>
     <message>
         <source>Choose the address to send coins to</source>
@@ -58,11 +58,11 @@
         <translation type="unfinished">ምረጥ</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation type="unfinished">ክፍያዎችን ለመላክ እነዚህ  የእርስዎ ቢትኮይን አድራሻዎች ናቸው። ሳንቲሞችን/ኮይኖች ከመላክዎ በፊት ሁል ጊዜ መጠኑን እና የተቀባዩን አድራሻ ያረጋግጡ።</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">እነኚህ የቢትኮይን አድራሻዎች የክፍያ መቀበያ አድራሻዎችዎ ናችው። "ተቀበል" በሚለው መደብ ውስጥ ያለውን "አዲስ የመቀበያ አድራሻ ይፍጠሩ" የሚለውን አዝራር ይጠቀሙ።
 መፈረም የሚቻለው "ሌጋሲ" በሚል ምድብ ስር በተመደቡ አድራሻዎች ብቻ ነው።</translation>
@@ -164,7 +164,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">የቢትኮይን ቦርሳዎን ማመስጠር ያረጋግጡ</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINSILVERS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
         <translation type="unfinished">ማስጠንቀቂያ: የቢትኮይን ቦርሳዎን አመስጥረው የይለፍ-ሐረግዎን ካጡት&lt;b&gt;ቢትኮይኖቾን በሙሉ ያጣሉ&lt;/b&gt;!</translation>
     </message>
     <message>
@@ -415,11 +415,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">እሳድግ</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>%n active connection(s) to BitcoinSilver network.</numerusform>
-            <numerusform>%n active connection(s) to BitcoinSilver network.</numerusform>
+            <numerusform>%n active connection(s) to Bitcoin network.</numerusform>
+            <numerusform>%n active connection(s) to Bitcoin network.</numerusform>
         </translation>
     </message>
     <message>
@@ -524,7 +524,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
 <context>
     <name>Intro</name>
     <message>
-        <source>BitcoinSilver</source>
+        <source>Bitcoin</source>
         <translation type="unfinished">ቢትኮይን</translation>
     </message>
     <message numerus="yes">
@@ -756,11 +756,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <name>WalletView</name>
     <message>
         <source>&amp;Export</source>
-        <translation type="unfinished">&amp;ላክ</translation>
+        <translation type="unfinished">&amp;ይላኩ</translation>
     </message>
     <message>
         <source>Export the data in the current tab to a file</source>
-        <translation type="unfinished">በዚህ ማውጫ ውስጥ ያለውን ውሂብ ወደ አንድ ፋይል ቀይረህ አስቀምጥ</translation>
+        <translation type="unfinished">በዚህ ማውጫ ውስጥ ያለውን ውሂብ ወደ ፋይል አዛውረው ያስቀምጡ</translation>
     </message>
     </context>
 </TS>

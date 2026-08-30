@@ -5,10 +5,6 @@
 #ifndef BITCOINSILVER_CRYPTO_MUHASH_H
 #define BITCOINSILVER_CRYPTO_MUHASH_H
 
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoinsilver-config.h>
-#endif
-
 #include <serialize.h>
 #include <uint256.h>
 

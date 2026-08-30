@@ -73,8 +73,10 @@ Release Process
 
 #### Before final release
 
-- Merge the release notes from [the wiki](https://github.com/bitcoinsilver-core/bitcoinsilver-devwiki/wiki/) into the branch.
-- Ensure the "Needs release note" label is removed from all relevant pull requests and issues.
+- Merge the release notes from [the wiki](https://github.com/bitcoinsilversilver-core/bitcoinsilversilver-devwiki/wiki/) into the branch.
+- Ensure the "Needs release note" label is removed from all relevant pull
+  requests and issues:
+  https://github.com/bitcoinsilver/bitcoinsilver/issues?q=label%3A%22Needs+release+note%22
 
 #### Tagging a release (candidate)
 

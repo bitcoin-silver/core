@@ -58,13 +58,13 @@
         <translation type="unfinished">Agħżel</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">Dawn huma l-indirizzi BitcoinSilver tiegħek biex tibgħat il-ħlasijiet. Dejjem iċċekkja l-ammont u l-indirizz li tirċievi qabel ma tibgħat muniti.</translation>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">Dawn huma l-indirizzi Bitcoin tiegħek biex tibgħat il-ħlasijiet. Dejjem iċċekkja l-ammont u l-indirizz li tirċievi qabel ma tibgħat muniti.</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">Dawn huma l-indirizzi BitcoinSilver tiegħek biex tirċievi ħlasijiet. Uża l-buttuna 'Oħloq indirizz riċevitur ġdid' fit-tab tar-riċeviment biex toħloq indirizzi ġodda.
+        <translation type="unfinished">Dawn huma l-indirizzi Bitcoin tiegħek biex tirċievi ħlasijiet. Uża l-buttuna 'Oħloq indirizz riċevitur ġdid' fit-tab tar-riċeviment biex toħloq indirizzi ġodda.
 L-iffirmar huwa possibbli biss b'indirizzi tat-tip 'legacy'.</translation>
     </message>
     <message>
@@ -156,8 +156,8 @@ L-iffirmar huwa possibbli biss b'indirizzi tat-tip 'legacy'.</translation>
         <translation type="unfinished">Ikkonferma l-kriptaġġ tal-kartiera</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINSILVERS&lt;/b&gt;!</source>
-        <translation type="unfinished">Twissija: Jekk tikkodifika l-kartiera tiegħek u titlef il-passphrase tiegħek, int se &lt;b&gt;TILEF IL-BITCOINSILVERS KOLLHA TIEGĦEK&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
+        <translation type="unfinished">Twissija: Jekk tikkodifika l-kartiera tiegħek u titlef il-passphrase tiegħek, int se &lt;b&gt;TILEF IL-BITCOINS KOLLHA TIEGĦEK&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -409,8 +409,8 @@ L-iffirmar huwa possibbli biss b'indirizzi tat-tip 'legacy'.</translation>
         <translation type="unfinished">Proxy huwa &lt;b&gt;attivat&lt;/b&gt;:%1</translation>
     </message>
     <message>
-        <source>Send coins to a BitcoinSilver address</source>
-        <translation type="unfinished">Ibgħat muniti f'indirizz BitcoinSilver</translation>
+        <source>Send coins to a Bitcoin address</source>
+        <translation type="unfinished">Ibgħat muniti f'indirizz Bitcoin</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -453,16 +453,16 @@ L-iffirmar huwa possibbli biss b'indirizzi tat-tip 'legacy'.</translation>
         <translation type="unfinished">Iffirma &amp;messaġġ...</translation>
     </message>
     <message>
-        <source>Sign messages with your BitcoinSilver addresses to prove you own them</source>
-        <translation type="unfinished">Iffirma messaġġi bl-indirizzi BitcoinSilver tiegħek biex tipprova li inti stess</translation>
+        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
+        <translation type="unfinished">Iffirma messaġġi bl-indirizzi Bitcoin tiegħek biex tipprova li inti stess</translation>
     </message>
     <message>
         <source>&amp;Verify message…</source>
         <translation type="unfinished">&amp;Ivverifika l-messaġġ...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified BitcoinSilver addresses</source>
-        <translation type="unfinished">Ivverifika l-messaġġi biex tiżgura li ġew iffirmati b'indirizzi BitcoinSilver speċifikati</translation>
+        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
+        <translation type="unfinished">Ivverifika l-messaġġi biex tiżgura li ġew iffirmati b'indirizzi Bitcoin speċifikati</translation>
     </message>
     <message>
         <source>&amp;Load PSBT from file…</source>
@@ -513,8 +513,8 @@ L-iffirmar huwa possibbli biss b'indirizzi tat-tip 'legacy'.</translation>
         <translation type="unfinished">Konnessjoni ma' sħabhom...</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoinsilver: URIs)</source>
-        <translation type="unfinished">Itlob ħlasijiet (jiġġenera kodiċijiet QR u bitcoinsilver: URIs)</translation>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
+        <translation type="unfinished">Itlob ħlasijiet (jiġġenera kodiċijiet QR u bitcoin: URIs)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -570,16 +570,16 @@ L-iffirmar huwa possibbli biss b'indirizzi tat-tip 'legacy'.</translation>
         <translation type="unfinished">Aġġornat</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction</source>
-        <translation type="unfinished">Tagħbija Transazzjoni BitcoinSilver iffirmata parzjalment</translation>
+        <source>Load Partially Signed Bitcoin Transaction</source>
+        <translation type="unfinished">Tagħbija Transazzjoni Bitcoin iffirmata parzjalment</translation>
     </message>
     <message>
         <source>Load PSBT from &amp;clipboard…</source>
         <translation type="unfinished">Tagħbija PSBT minn &amp;clipboard...</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction from clipboard</source>
-        <translation type="unfinished">Tagħbija Transazzjoni BitcoinSilver iffirmata parzjalment mill-clipboard</translation>
+        <source>Load Partially Signed Bitcoin Transaction from clipboard</source>
+        <translation type="unfinished">Tagħbija Transazzjoni Bitcoin iffirmata parzjalment mill-clipboard</translation>
     </message>
     <message>
         <source>Node window</source>
@@ -598,8 +598,8 @@ L-iffirmar huwa possibbli biss b'indirizzi tat-tip 'legacy'.</translation>
         <translation type="unfinished">&amp;Riċeviment indirizzi</translation>
     </message>
     <message>
-        <source>Open a bitcoinsilver: URI</source>
-        <translation type="unfinished">Iftaħ bitcoinsilver: URI</translation>
+        <source>Open a bitcoin: URI</source>
+        <translation type="unfinished">Iftaħ bitcoin: URI</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -628,8 +628,8 @@ L-iffirmar huwa possibbli biss b'indirizzi tat-tip 'legacy'.</translation>
         <translation type="unfinished">Agħlaq il-kartieri kollha</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible BitcoinSilver command-line options</source>
-        <translation type="unfinished">Uri %1l-messaġġ ta 'għajnuna biex tikseb lista b'għażliet possibbli tal-linja tal-kmand BitcoinSilver</translation>
+        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
+        <translation type="unfinished">Uri %1l-messaġġ ta 'għajnuna biex tikseb lista b'għażliet possibbli tal-linja tal-kmand Bitcoin</translation>
     </message>
     <message>
         <source>&amp;Mask values</source>
@@ -688,13 +688,13 @@ L-iffirmar huwa possibbli biss b'indirizzi tat-tip 'legacy'.</translation>
         <translation type="unfinished">Uri</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>%nkonnessjoni(jiet) attiva(i) man-netwerk BitcoinSilver.</numerusform>
-            <numerusform>%nkonnessjoni(jiet) attiva(i) man-netwerk BitcoinSilver.</numerusform>
-            <numerusform>%nkonnessjoni(jiet) attiva(i) man-netwerk BitcoinSilver.</numerusform>
-            <numerusform>%nkonnessjoni(jiet) attiva(i) man-netwerk BitcoinSilver.</numerusform>
+            <numerusform>%nkonnessjoni(jiet) attiva(i) man-netwerk Bitcoin.</numerusform>
+            <numerusform>%nkonnessjoni(jiet) attiva(i) man-netwerk Bitcoin.</numerusform>
+            <numerusform>%nkonnessjoni(jiet) attiva(i) man-netwerk Bitcoin.</numerusform>
+            <numerusform>%nkonnessjoni(jiet) attiva(i) man-netwerk Bitcoin.</numerusform>
         </translation>
     </message>
     <message>

@@ -1,5 +1,16 @@
 <TS version="2.1" language="fa">
 <context>
+    <name>AddressBookPage</name>
+    <message>
+        <source>Create a new address</source>
+        <translation type="unfinished">یک آدرس جدید ایجاد کنید</translation>
+    </message>
+    <message>
+        <source>Copy the currently selected address to the system clipboard</source>
+        <translation type="unfinished">کپی آدرسی که اکنون انتخاب کردید در کلیپ بورد سیستم</translation>
+    </message>
+    </context>
+<context>
     <name>AskPassphraseDialog</name>
     <message>
         <source>Your wallet is about to be encrypted. </source>
@@ -103,7 +114,7 @@
         <translation type="unfinished">ناشناس</translation>
     </message>
     <message>
-        <source>Enter a BitcoinSilver address (e.g. %1)</source>
+        <source>Enter a Bitcoin address (e.g. %1)</source>
         <translation type="unfinished">آدرس بیت کوین را وارد کنید (به طور مثال %1)</translation>
     </message>
     <message>
@@ -292,7 +303,7 @@
         <translation type="unfinished">پراکسی &lt;br&gt;فعال شده است: %1&lt;/br&gt;</translation>
     </message>
     <message>
-        <source>Send coins to a BitcoinSilver address</source>
+        <source>Send coins to a Bitcoin address</source>
         <translation type="unfinished">ارسال کوین به آدرس بیت کوین</translation>
     </message>
     <message>
@@ -338,7 +349,7 @@
         <translation type="unfinished">ثبت &amp;پیام</translation>
     </message>
     <message>
-        <source>Sign messages with your BitcoinSilver addresses to prove you own them</source>
+        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
         <translation type="unfinished">پیام‌ها را با آدرس بیت‌کوین خود امضا کنید تا مالکیت آن‌ها را اثبات کنید</translation>
     </message>
     <message>
@@ -402,7 +413,7 @@
         <translation type="unfinished">در حال اتصال به همتاهای شبکه(پیِر ها)...</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoinsilver: URIs)</source>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
         <translation type="unfinished">درخواست پرداخت (ساخت کد QR و بیت‌کوین: URIs)</translation>
     </message>
     <message>
@@ -476,7 +487,7 @@
         <translation type="unfinished">ادرس درسافت</translation>
     </message>
     <message>
-        <source>Open a bitcoinsilver: URI</source>
+        <source>Open a bitcoin: URI</source>
         <translation type="unfinished">بارک کردن یک بیت‌کوین: URI</translation>
     </message>
     <message>
@@ -557,10 +568,10 @@
         <translation type="unfinished">مخفی کن</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>%n active connection(s) to BitcoinSilver network.</numerusform>
+            <numerusform>%n active connection(s) to Bitcoin network.</numerusform>
         </translation>
     </message>
     <message>
@@ -969,7 +980,7 @@
         <translation type="unfinished">ویرایش آدرس ارسالی</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid BitcoinSilver address.</source>
+        <source>The entered address "%1" is not a valid Bitcoin address.</source>
         <translation type="unfinished">آدرس وارد شده "%1" آدرس معتبر بیت کوین نیست.</translation>
     </message>
     <message>
@@ -1008,7 +1019,7 @@
 <context>
     <name>Intro</name>
     <message>
-        <source>BitcoinSilver</source>
+        <source>Bitcoin</source>
         <translation type="unfinished">بیت کوین</translation>
     </message>
     <message numerus="yes">
@@ -1132,7 +1143,7 @@
         <translation type="unfinished">فرم</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoinsilver network, as detailed below.</source>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoin network, as detailed below.</source>
         <translation type="unfinished">معاملات اخیر ممکن است هنوز قابل مشاهده نباشند ، بنابراین ممکن است موجودی کیف پول شما نادرست باشد. به محض اینکه همگام سازی کیف پول شما با شبکه بیت کوین به پایان رسید ، این اطلاعات درست خواهد بود ، همانطور که در زیر توضیح داده شده است.
  </translation>
     </message>
@@ -1309,7 +1320,7 @@
         <translation type="unfinished">مسیر اسکریپت امضاکنندهٔ جانبی</translation>
     </message>
     <message>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
         <translation type="unfinished">باز کردن خودکار درگاه شبکهٔ بیت‌کوین روی روترها. تنها زمانی کار می‌کند که روتر از پروتکل UPnP پشتیبانی کند و این پروتکل فعال باشد.</translation>
     </message>
     <message>
@@ -1317,7 +1328,7 @@
         <translation type="unfinished">نگاشت درگاه شبکه با استفاده از پروتکل &amp;UPnP</translation>
     </message>
     <message>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports NAT-PMP and it is enabled. The external port could be random.</source>
+        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports NAT-PMP and it is enabled. The external port could be random.</source>
         <translation type="unfinished">باز کردن خودکار درگاه شبکهٔ بیت‌کوین روی روتر. این پروسه تنها زمانی کار می‌کند که روتر از پروتکل NAT-PMP  پشتیبانی کند و این پروتکل فعال باشد. پورت خارجی میتواند تصادفی باشد </translation>
     </message>
     <message>
@@ -1333,7 +1344,7 @@
         <translation type="unfinished">اجازه ورود و اتصالات</translation>
     </message>
     <message>
-        <source>Connect to the BitcoinSilver network through a SOCKS5 proxy.</source>
+        <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
         <translation type="unfinished">از طریق یک پروکسی SOCKS5 به شبکه بیت کوین متصل شوید.</translation>
     </message>
     <message>
@@ -1411,18 +1422,6 @@
         <source>Whether to show coin control features or not.</source>
         <translation type="unfinished">آیا ویژگی های کنترل سکه را نشان می دهد یا خیر.
  </translation>
-    </message>
-    <message>
-        <source>Monospaced font in the Overview tab:</source>
-        <translation type="unfinished">فونت تک فضا(منو اسپیس) در برگه مرور کلی </translation>
-    </message>
-    <message>
-        <source>embedded "%1"</source>
-        <translation type="unfinished">تعبیه شده%1</translation>
-    </message>
-    <message>
-        <source>closest matching "%1"</source>
-        <translation type="unfinished">%1نزدیک ترین تطابق</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -1517,8 +1516,8 @@
         <translation type="unfinished">فرم</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BitcoinSilver network after a connection is established, but this process has not completed yet.</source>
-        <translation type="unfinished">اطلاعات نمایش داده شده ممکن است قدیمی باشد. کیف پول شما پس از برقراری اتصال به طور خودکار با شبکه BitcoinSilver همگام سازی می شود ، اما این روند هنوز کامل نشده است.
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
+        <translation type="unfinished">اطلاعات نمایش داده شده ممکن است قدیمی باشد. کیف پول شما پس از برقراری اتصال به طور خودکار با شبکه Bitcoin همگام سازی می شود ، اما این روند هنوز کامل نشده است.
  </translation>
     </message>
     <message>
@@ -1654,7 +1653,7 @@
         <translation type="unfinished">درخواست پرداخت با خطا مواجه شد</translation>
     </message>
     <message>
-        <source>Cannot start bitcoinsilver: click-to-pay handler</source>
+        <source>Cannot start bitcoin: click-to-pay handler</source>
         <translation type="unfinished">نمی توان بیت کوین را شروع کرد: کنترل کننده کلیک برای پرداخت
  </translation>
     </message>
@@ -2163,7 +2162,7 @@ If you are receiving this error you should request the merchant provide a BIP21 
         <translation type="unfinished">پیام:</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the BitcoinSilver network.</source>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
         <translation type="unfinished">یک پیام اختیاری برای پیوست به درخواست پرداخت ، که با باز شدن درخواست نمایش داده می شود. توجه: پیام با پرداخت از طریق شبکه بیت کوین ارسال نمی شود.
  </translation>
     </message>
@@ -2360,6 +2359,10 @@ If you are receiving this error you should request the merchant provide a BIP21 
     <message>
         <source>Insufficient funds!</source>
         <translation type="unfinished">وجوه ناکافی</translation>
+    </message>
+    <message>
+        <source>Quantity:</source>
+        <translation type="unfinished">مقدار</translation>
     </message>
     <message>
         <source>Bytes:</source>
@@ -2565,7 +2568,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">آیا می خواهید این تراکنش را ایجاد کنید؟</translation>
     </message>
     <message>
-        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed BitcoinSilver Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed Bitcoin Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can send their transaction or create a PSBT. This string is displayed when both private keys and PSBT controls are enabled.</extracomment>
         <translation type="unfinished">لطفا معامله خود را بررسی کنید  می توانید این تراکنش را ایجاد و ارسال کنید یا یک تراکنش بیت کوین با امضای جزئی (PSBT) ایجاد کنید، که می توانید آن را ذخیره یا کپی کنید و سپس با آن امضا کنید، به عنوان مثال، یک کیف پول آفلاین %1، یا یک کیف پول سخت افزاری سازگار با PSBT.</translation>
     </message>
@@ -2640,7 +2643,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         </translation>
     </message>
     <message>
-        <source>Warning: Invalid BitcoinSilver address</source>
+        <source>Warning: Invalid Bitcoin address</source>
         <translation type="unfinished">هشدار: آدرس بیت کوین نامعتبر</translation>
     </message>
     <message>
@@ -2676,8 +2679,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">آدرس استفاده شده قبلی را انتخاب کنید</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address to send the payment to</source>
-        <translation type="unfinished">آدرس BitcoinSilver برای ارسال پرداخت به
+        <source>The Bitcoin address to send the payment to</source>
+        <translation type="unfinished">آدرس Bitcoin برای ارسال پرداخت به
  </translation>
     </message>
     <message>
@@ -2715,7 +2718,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">&amp;ثبت پیام</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address to sign the message with</source>
+        <source>The Bitcoin address to sign the message with</source>
         <translation type="unfinished">نشانی بیت‌کوین برای امضاء پیغام با آن</translation>
     </message>
     <message>
@@ -2739,7 +2742,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">جریان را کپی کنید امضا به سیستم کلیپ بورد</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this BitcoinSilver address</source>
+        <source>Sign the message to prove you own this Bitcoin address</source>
         <translation type="unfinished">پیام را امضا کنید تا ثابت کنید این آدرس بیت‌کوین متعلق به شماست</translation>
     </message>
     <message>
@@ -2759,7 +2762,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">&amp; تأیید پیام</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address the message was signed with</source>
+        <source>The Bitcoin address the message was signed with</source>
         <translation type="unfinished">نشانی بیت‌کوین که پیغام با آن امضاء شده</translation>
     </message>
     <message>
@@ -2768,8 +2771,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
  </translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified BitcoinSilver address</source>
-        <translation type="unfinished">پیام را تأیید کنید تا مطمئن شوید با آدرس BitcoinSilver مشخص شده امضا شده است
+        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
+        <translation type="unfinished">پیام را تأیید کنید تا مطمئن شوید با آدرس Bitcoin مشخص شده امضا شده است
  </translation>
     </message>
     <message>
@@ -3278,7 +3281,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
     </message>
 </context>
 <context>
-    <name>bitcoinsilver-core</name>
+    <name>bitcoin-core</name>
     <message>
         <source>The %s developers</source>
         <translation type="unfinished">%s توسعه دهندگان</translation>
@@ -3316,7 +3319,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">خطا: رکورد شناسه Dumpfile نادرست است. دریافت "%s"، انتظار می رود "%s".</translation>
     </message>
     <message>
-        <source>Error: Dumpfile version is not supported. This version of bitcoinsilver-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
+        <source>Error: Dumpfile version is not supported. This version of bitcoin-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
         <translation type="unfinished">خطا: نسخه Dumpfile پشتیبانی نمی شود.  این نسخه کیف پول بیت کوین فقط از فایل های dumpfiles نسخه 1 پشتیبانی می کند.  Dumpfile با نسخه %s دریافت شد</translation>
     </message>
     <message>
@@ -3655,11 +3658,6 @@ The wallet might have been tampered with or created with malicious intent.
     <message>
         <source>Transaction amounts must not be negative</source>
         <translation type="unfinished">مقدار تراکنش نمی‌تواند منفی باشد.</translation>
-    </message>
-    <message>
-        <source>Transaction has too long of a mempool chain</source>
-        <translation type="unfinished">معاملات بسیار طولانی از یک زنجیره ممپول است
- </translation>
     </message>
     <message>
         <source>Transaction must have at least one recipient</source>

@@ -3,7 +3,7 @@
     <name>AddressBookPage</name>
     <message>
         <source>Right-click to edit address or label</source>
-        <translation type="unfinished">पते या लेबल में बदलाव करने के लिए राइट-क्लिक करें</translation>
+        <translation type="unfinished">पता या लेबल संपादित करने के लिए राइट-क्लिक करें</translation>
     </message>
     <message>
         <source>Create a new address</source>
@@ -15,7 +15,7 @@
     </message>
     <message>
         <source>Copy the currently selected address to the system clipboard</source>
-        <translation type="unfinished">चुने गए मौजूदा पते को सिस्टम क्लिपबोर्ड पर कॉपी करें</translation>
+        <translation type="unfinished">मौजूदा चयनित पते को सिस्टम क्लिपबोर्ड पर कॉपी करें</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -27,7 +27,7 @@
     </message>
     <message>
         <source>Delete the currently selected address from the list</source>
-        <translation type="unfinished">सूची से अभी चुना गया पता डिलीट करें</translation>
+        <translation type="unfinished">सूची से मौजूदा चयनित पता हटाएं</translation>
     </message>
     <message>
         <source>Enter address or label to search</source>
@@ -35,7 +35,7 @@
     </message>
     <message>
         <source>Export the data in the current tab to a file</source>
-        <translation type="unfinished">मौजूदा टैब में डेटा को फ़ाइल में एक्सपोर्ट करें</translation>
+        <translation type="unfinished">मौजूदा टैब में डेटा को फ़ाइल में निर्यात करें</translation>
     </message>
     <message>
         <source>&amp;Export</source>
@@ -43,7 +43,7 @@
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">डिलीट करें</translation>
+        <translation type="unfinished">मिटाना</translation>
     </message>
     <message>
         <source>Choose the address to send coins to</source>
@@ -55,33 +55,33 @@
     </message>
     <message>
         <source>C&amp;hoose</source>
-        <translation type="unfinished">&amp;चुनें</translation>
+        <translation type="unfinished">&amp;चुज़</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation type="unfinished">भुगतान भेजने के लिए ये आपके बिटकॉइन पते हैं। कॉइन्स भेजने से पहले हमेशा राशि और प्राप्त करने वाले पते की जांच करें।</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">भुगतान प्राप्त करने के लिए ये आपके बिटकॉइन पते हैं। नए पते बनाने के लिए रिसिव टैब में 'नया प्राप्तकर्ता पता बनाएं' बटन का उपयोग करें।
 हस्ताक्षर केवल 'लेगसी' प्रकार के पते के साथ ही संभव है।</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
-        <translation type="unfinished">&amp;पता कॉपी करें</translation>
+        <translation type="unfinished">&amp;कॉपी पता</translation>
     </message>
     <message>
         <source>Copy &amp;Label</source>
-        <translation type="unfinished">&amp;लेबल कॉपी करें</translation>
+        <translation type="unfinished">कॉपी और लेबल</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;बदलाव करें</translation>
+        <translation type="unfinished">&amp;एडीट</translation>
     </message>
     <message>
         <source>Export Address List</source>
-        <translation type="unfinished">पते की सूची को एक्सपोर्ट करें</translation>
+        <translation type="unfinished">पता की सूची को निर्यात करें</translation>
     </message>
     <message>
         <source>Comma separated file</source>
@@ -94,12 +94,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">पता सूची को %1यहां सहेजने का प्रयास करते समय एक त्रुटि हुई . कृपया पुन: प्रयास करें।</translation>
     </message>
     <message>
-        <source>Sending addresses - %1</source>
-        <translation type="unfinished">पते भेजे जा रहे हैं - %1</translation>
-    </message>
-    <message>
         <source>Exporting Failed</source>
-        <translation type="unfinished">एक्सपोर्ट नहीं हो पाया</translation>
+        <translation type="unfinished">निर्यात विफल हो गया है</translation>
     </message>
 </context>
 <context>
@@ -125,7 +121,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Enter passphrase</source>
-        <translation type="unfinished">पासफ्रेज़ दर्ज करें</translation>
+        <translation type="unfinished">पासफ़्रेज़ मे प्रवेश करें</translation>
     </message>
     <message>
         <source>New passphrase</source>
@@ -160,7 +156,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">वॉलेट एन्क्रिप्शन की पुष्टि करें</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINSILVERS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
         <translation type="unfinished">चेतावनी: यदि आप अपना वॉलेट एन्क्रिप्ट करते हैं और अपना पासफ़्रेज़ खो देते हैं, तो आपअपने सभी बिटकॉइन &lt;b&gt; खो देंगे&lt;/b&gt; !</translation>
     </message>
     <message>
@@ -401,7 +397,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">प्रॉक्सी &lt;b&gt;अक्षम&lt;/b&gt; है: %1</translation>
     </message>
     <message>
-        <source>Send coins to a BitcoinSilver address</source>
+        <source>Send coins to a Bitcoin address</source>
         <translation type="unfinished">बिटकॉइन पते पर कॉइन्स भेजें</translation>
     </message>
     <message>
@@ -446,7 +442,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">साइन &amp;मैसेज...</translation>
     </message>
     <message>
-        <source>Sign messages with your BitcoinSilver addresses to prove you own them</source>
+        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
         <translation type="unfinished">अपने बिटकॉइन पतों के साथ संदेशों पर हस्ताक्षर करके साबित करें कि वे आपके हैं |</translation>
     </message>
     <message>
@@ -454,7 +450,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;संदेश सत्यापित करें…</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified BitcoinSilver addresses</source>
+        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
         <translation type="unfinished">यह सुनिश्चित करने के लिए संदेशों को सत्यापित करें कि वे निर्दिष्ट बिटकॉइन पते के साथ हस्ताक्षरित थे |</translation>
     </message>
     <message>
@@ -529,11 +525,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">कोई वॉलेट माइग्रेट करें</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>%n active connection(s) to BitcoinSilver network.</numerusform>
-            <numerusform>%n active connection(s) to BitcoinSilver network.</numerusform>
+            <numerusform>%n active connection(s) to Bitcoin network.</numerusform>
+            <numerusform>%n active connection(s) to Bitcoin network.</numerusform>
         </translation>
     </message>
     <message>
@@ -1227,7 +1223,7 @@ For more information on using this console, type %6.
         <translation type="unfinished">&amp;संदेश:</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the BitcoinSilver network.</source>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
         <translation type="unfinished">भुगतान अनुरोध के साथ संलग्न करने के लिए एक वैकल्पिक संदेश, जिसे अनुरोध खोले जाने पर प्रदर्शित किया जाएगा। नोट: बिटकॉइन नेटवर्क पर भुगतान के साथ संदेश नहीं भेजा जाएगा।</translation>
     </message>
     <message>
@@ -1500,7 +1496,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
 नोट: चूंकि शुल्क की गणना प्रति-बाइट के आधार पर की जाती है, इसलिए 500 वर्चुअल बाइट्स (1 केवीबी का आधा) के लेन-देन के आकार के लिए "100 सतोशी प्रति केवीबी" की शुल्क दर अंततः केवल 50 सतोशी का शुल्क देगी।</translation>
     </message>
     <message>
-        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoinsilver transactions than the network can process.</source>
+        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
         <translation type="unfinished">जब ब्लॉक में स्थान की तुलना में कम लेन-देन की मात्रा होती है, तो खनिकों के साथ-साथ रिलेइंग नोड्स न्यूनतम शुल्क लागू कर सकते हैं। केवल इस न्यूनतम शुल्क का भुगतान करना ठीक है, लेकिन ध्यान रखें कि नेटवर्क की प्रक्रिया की तुलना में बिटकॉइन लेनदेन की अधिक मांग होने पर इसका परिणाम कभी भी पुष्टिकरण लेनदेन में नहीं हो सकता है।</translation>
     </message>
     <message>
@@ -1560,10 +1556,6 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">कॉपी बाइट्स</translation>
     </message>
     <message>
-        <source>Copy change</source>
-        <translation type="unfinished">कॉपी चैंज</translation>
-    </message>
-    <message>
         <source>%1 (%2 blocks)</source>
         <translation type="unfinished">%1 (%2 ब्लाकस)</translation>
     </message>
@@ -1586,12 +1578,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">&amp;अहस्ताक्षरित बनाएं</translation>
     </message>
     <message>
-        <source>Creates a Partially Signed BitcoinSilver Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Creates a Partially Signed Bitcoin Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <translation type="unfinished">उदाहरण के लिए उपयोग के लिए आंशिक रूप से हस्ताक्षरित बिटकॉइन लेनदेन (PSBT) बनाता है। एक ऑफ़लाइन% 1 %1  वॉलेट, या एक PSBT-संगत हार्डवेयर वॉलेट।</translation>
-    </message>
-    <message>
-        <source> from wallet '%1'</source>
-        <translation type="unfinished">वॉलिट से '%1'</translation>
     </message>
     <message>
         <source>%1 to '%2'</source>
@@ -1647,7 +1635,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">आप बाद में शुल्क बढ़ा सकते हैं (सिग्नलस रिप्लेसमेंट-बाय-फी, बीआईपी-125)।</translation>
     </message>
     <message>
-        <source>Please, review your transaction proposal. This will produce a Partially Signed BitcoinSilver Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction proposal. This will produce a Partially Signed Bitcoin Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can only create a PSBT. This string is displayed when private keys are disabled and an external signer is not available.</extracomment>
         <translation type="unfinished">कृपया, अपने लेनदेन प्रस्ताव की समीक्षा करें। यह एक आंशिक रूप से हस्ताक्षरित बिटकॉइन लेनदेन (PSBT) का उत्पादन करेगा जिसे आप सहेज सकते हैं या कॉपी कर सकते हैं और फिर उदा। एक ऑफ़लाइन %1  वॉलेट, या एक PSBT-संगत हार्डवेयर वॉलेट।</translation>
     </message>
@@ -1657,7 +1645,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">क्या आप यह लेन-देन बनाना चाहते हैं?</translation>
     </message>
     <message>
-        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed BitcoinSilver Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed Bitcoin Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can send their transaction or create a PSBT. This string is displayed when both private keys and PSBT controls are enabled.</extracomment>
         <translation type="unfinished">कृपया, अपने लेन-देन की समीक्षा करें। आप इस लेन-देन को बना और भेज सकते हैं या आंशिक रूप से हस्ताक्षरित बिटकॉइन लेनदेन (पीएसबीटी) बना सकते हैं, जिसे आप सहेज सकते हैं या कॉपी कर सकते हैं और फिर हस्ताक्षर कर सकते हैं, उदाहरण के लिए, ऑफ़लाइन %1 वॉलेट, या पीएसबीटी-संगत हार्डवेयर वॉलेट।</translation>
     </message>
@@ -1729,7 +1717,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         </translation>
     </message>
     <message>
-        <source>Warning: Invalid BitcoinSilver address</source>
+        <source>Warning: Invalid Bitcoin address</source>
         <translation type="unfinished">चेतावनी: अमान्य बिटकॉइन पता</translation>
     </message>
     <message>
@@ -1768,7 +1756,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">पहले इस्तेमाल किया गया पता चुनें</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address to send the payment to</source>
+        <source>The Bitcoin address to send the payment to</source>
         <translation type="unfinished">भुगतान भेजने के लिए बिटकॉइन पता</translation>
     </message>
     <message>
@@ -1812,7 +1800,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">इस पते के लिए उपयोग किए गए पतों की सूची में जोड़ने के लिए एक लेबल दर्ज करें</translation>
     </message>
     <message>
-        <source>A message that was attached to the bitcoinsilver: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the BitcoinSilver network.</source>
+        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
         <translation type="unfinished">एक संदेश जो बिटकॉइन से जुड़ा था: यूआरआई जो आपके संदर्भ के लिए लेनदेन के साथ संग्रहीत किया जाएगा। नोट: यह संदेश बिटकॉइन नेटवर्क पर नहीं भेजा जाएगा।</translation>
     </message>
 </context>
@@ -1842,7 +1830,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">आप अपने पते के साथ संदेशों/समझौतों पर हस्ताक्षर करके यह साबित कर सकते हैं कि आप उन्हें भेजे गए बिटकॉइन प्राप्त कर सकते हैं। सावधान रहें कि कुछ भी अस्पष्ट या यादृच्छिक पर हस्ताक्षर न करें, क्योंकि फ़िशिंग हमले आपको अपनी पहचान पर हस्ताक्षर करने के लिए छल करने का प्रयास कर सकते हैं। केवल पूरी तरह से विस्तृत बयानों पर हस्ताक्षर करें जिनसे आप सहमत हैं।</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address to sign the message with</source>
+        <source>The Bitcoin address to sign the message with</source>
         <translation type="unfinished">संदेश पर हस्ताक्षर करने के लिए बिटकॉइन पता</translation>
     </message>
     <message>
@@ -1874,7 +1862,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">वर्तमान हस्ताक्षर को सिस्टम क्लिपबोर्ड पर कॉपी करें</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this BitcoinSilver address</source>
+        <source>Sign the message to prove you own this Bitcoin address</source>
         <translation type="unfinished">यह साबित करने के लिए संदेश पर हस्ताक्षर करें कि आप इस बिटकॉइन पते के स्वामी हैं</translation>
     </message>
     <message>
@@ -1898,7 +1886,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">संदेश को सत्यापित करने के लिए नीचे प्राप्तकर्ता का पता, संदेश (सुनिश्चित करें कि आप लाइन ब्रेक, रिक्त स्थान, टैब आदि की प्रतिलिपि बनाते हैं) और हस्ताक्षर दर्ज करें। सावधान रहें कि हस्ताक्षरित संदेश में जो लिखा है, उससे अधिक हस्ताक्षर में न पढ़ें, ताकि बीच-बीच में किसी व्यक्ति द्वारा छल किए जाने से बचा जा सके। ध्यान दें कि यह केवल यह साबित करता है कि हस्ताक्षर करने वाला पक्ष पते के साथ प्राप्त करता है, यह किसी भी लेनदेन की प्रेषकता साबित नहीं कर सकता है!</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address the message was signed with</source>
+        <source>The Bitcoin address the message was signed with</source>
         <translation type="unfinished">संदेश के साथ हस्ताक्षर किए गए बिटकॉइन पते</translation>
     </message>
     <message>
@@ -1910,7 +1898,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">संदेश पर हस्ताक्षर किए जाने पर दिए गए हस्ताक्षर</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified BitcoinSilver address</source>
+        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
         <translation type="unfinished">यह सुनिश्चित करने के लिए संदेश सत्यापित करें कि यह निर्दिष्ट बिटकॉइन पते के साथ हस्ताक्षरित था</translation>
     </message>
     <message>
@@ -2117,10 +2105,6 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
     <message>
         <source>Output index</source>
         <translation type="unfinished">आउटपुट इंडेक्स</translation>
-    </message>
-    <message>
-        <source> (Certificate was not verified)</source>
-        <translation type="unfinished">(प्रमाणपत्र सत्यापित नहीं किया गया था)</translation>
     </message>
     <message>
         <source>Merchant</source>
@@ -2346,7 +2330,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
     </message>
     <message>
         <source>Exporting Failed</source>
-        <translation type="unfinished">निर्यात विफल हो गया है</translation>
+        <translation type="unfinished">एक्सपोर्ट नहीं हो पाया</translation>
     </message>
     </context>
 <context>
@@ -2376,11 +2360,11 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
     </message>
     <message>
         <source>Export the data in the current tab to a file</source>
-        <translation type="unfinished">मौजूदा टैब में डेटा को फ़ाइल में निर्यात करें</translation>
+        <translation type="unfinished">मौजूदा टैब में डेटा को फ़ाइल में एक्सपोर्ट करें</translation>
     </message>
     </context>
 <context>
-    <name>bitcoinsilver-core</name>
+    <name>bitcoin-core</name>
     <message>
         <source>Disk space for %s may not accommodate the block files. Approximately %u GB of data will be stored in this directory.</source>
         <translation type="unfinished">%s के लिए डिस्क स्थान ब्लॉक फ़ाइलों को समायोजित नहीं कर सकता है। इस निर्देशिका में लगभग %u GB डेटा संग्रहीत किया जाएगा।</translation>

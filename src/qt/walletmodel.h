@@ -5,10 +5,6 @@
 #ifndef BITCOINSILVER_QT_WALLETMODEL_H
 #define BITCOINSILVER_QT_WALLETMODEL_H
 
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoinsilver-config.h>
-#endif
-
 #include <key.h>
 
 #include <qt/walletmodeltransaction.h>

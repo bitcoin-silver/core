@@ -5,10 +5,6 @@
 #ifndef BITCOINSILVER_QT_SENDCOINSRECIPIENT_H
 #define BITCOINSILVER_QT_SENDCOINSRECIPIENT_H
 
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoinsilver-config.h>
-#endif
-
 #include <consensus/amount.h>
 #include <serialize.h>
 

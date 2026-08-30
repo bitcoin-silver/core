@@ -58,13 +58,13 @@
         <translation type="unfinished">&amp;Escoller</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">Estas son as túas direccións BitcoinSilver para enviar pagos. Revisa sempre a cantidade e a dirección receptora antes de enviar moedas.</translation>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">Estas son as túas direccións Bitcoin para enviar pagos. Revisa sempre a cantidade e a dirección receptora antes de enviar moedas.</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">Estes son os teus enderezos de BitcoinSilver para recibir pagamentos. Emprega o botón 'Crear novo enderezo para recibir pagamentos' na solapa de recibir para crear novos enderezos.
+        <translation type="unfinished">Estes son os teus enderezos de Bitcoin para recibir pagamentos. Emprega o botón 'Crear novo enderezo para recibir pagamentos' na solapa de recibir para crear novos enderezos.
 Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
     </message>
     <message>
@@ -82,11 +82,6 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
     <message>
         <source>Export Address List</source>
         <translation type="unfinished">Exportar Lista de Enderezos</translation>
-    </message>
-    <message>
-        <source>Comma separated file</source>
-        <extracomment>Expanded name of the CSV file format. See: https://en.wikipedia.org/wiki/Comma-separated_values.</extracomment>
-        <translation type="unfinished">Ficheiro separado por comas</translation>
     </message>
     <message>
         <source>There was an error trying to save the address list to %1. Please try again.</source>
@@ -156,8 +151,8 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">Confirmar encriptación de moedeiro</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINSILVERS&lt;/b&gt;!</source>
-        <translation type="unfinished">Precaución: Se encriptas o teu moedeiro e perdes o teu contrasinal, ti &lt;b&gt;PERDERÁS TÓDOLOS TEUS BITCOINSILVERS&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
+        <translation type="unfinished">Precaución: Se encriptas o teu moedeiro e perdes o teu contrasinal, ti &lt;b&gt;PERDERÁS TÓDOLOS TEUS BITCOINS&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -216,20 +211,8 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">O contrasinal introducido para a desencriptación do moedeiro foi incorrecto.</translation>
     </message>
     <message>
-        <source>The passphrase entered for the wallet decryption is incorrect. It contains a null character (ie - a zero byte). If the passphrase was set with a version of this software prior to 25.0, please try again with only the characters up to — but not including — the first null character. If this is successful, please set a new passphrase to avoid this issue in the future.</source>
-        <translation type="unfinished">A frase de acceso introducida para o descifrado da carteira é incorrecta. Contén un carácter nulo (é dicir, un byte cero). Se a frase de paso se estableceu cunha versión deste software anterior á 25.0, téntao de novo con só os caracteres ata, pero sen incluír, o primeiro carácter nulo. Se se realiza correctamente, establece unha nova frase de acceso para evitar este problema no futuro.</translation>
-    </message>
-    <message>
         <source>Wallet passphrase was successfully changed.</source>
         <translation type="unfinished">Cambiouse con éxito o contrasinal do moedeiro.</translation>
-    </message>
-    <message>
-        <source>Passphrase change failed</source>
-        <translation type="unfinished">Produciuse un erro no cambio de frase de contrasinal</translation>
-    </message>
-    <message>
-        <source>The old passphrase entered for the wallet decryption is incorrect. It contains a null character (ie - a zero byte). If the passphrase was set with a version of this software prior to 25.0, please try again with only the characters up to — but not including — the first null character.</source>
-        <translation type="unfinished">Produciuse un erro non cambio de frase de contrasinal</translation>
     </message>
     <message>
         <source>Warning: The Caps Lock key is on!</source>
@@ -250,22 +233,10 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
 <context>
     <name>BitcoinApplication</name>
     <message>
-        <source>Runaway exception</source>
-        <translation type="unfinished">Excepción de fuga</translation>
-    </message>
-    <message>
-        <source>A fatal error occurred. %1 can no longer continue safely and will quit.</source>
-        <translation type="unfinished">Produciuse un erro fatal. %1 xa non pode continuar con seguridade e sairá.</translation>
-    </message>
-    <message>
         <source>Internal error</source>
         <translation type="unfinished">Erro interno</translation>
     </message>
-    <message>
-        <source>An internal error occurred. %1 will attempt to continue safely. This is an unexpected bug which can be reported as described below.</source>
-        <translation type="unfinished">Produciuse un erro interno. %1 tentará continuar con seguridade. Este é un erro inesperado que se pode informar como se describe a continuación.</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>QObject</name>
     <message>
@@ -387,8 +358,8 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">Proxy &lt;b&gt;activado&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a BitcoinSilver address</source>
-        <translation type="unfinished">Enviar moedas a unha dirección BitcoinSilver</translation>
+        <source>Send coins to a Bitcoin address</source>
+        <translation type="unfinished">Enviar moedas a unha dirección Bitcoin</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -411,32 +382,20 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">&amp;Opcións...</translation>
     </message>
     <message>
-        <source>&amp;Encrypt Wallet…</source>
-        <translation type="unfinished">&amp;Cifrar carteira...</translation>
-    </message>
-    <message>
         <source>Encrypt the private keys that belong to your wallet</source>
         <translation type="unfinished">Encriptar as claves privadas que pertencen ao teu moedeiro</translation>
     </message>
     <message>
-        <source>&amp;Backup Wallet…</source>
-        <translation type="unfinished">&amp;Copia de seguranza da carteira...</translation>
-    </message>
-    <message>
-        <source>&amp;Change Passphrase…</source>
-        <translation type="unfinished">&amp;Cambiar a frase de contrasinal...</translation>
-    </message>
-    <message>
-        <source>Sign messages with your BitcoinSilver addresses to prove you own them</source>
-        <translation type="unfinished">Asina mensaxes cos teus enderezos BitcoinSilver para probar que che pertencen</translation>
+        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
+        <translation type="unfinished">Asina mensaxes cos teus enderezos Bitcoin para probar que che pertencen</translation>
     </message>
     <message>
         <source>&amp;Verify message…</source>
         <translation type="unfinished">&amp;Verifica a mensaxe...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified BitcoinSilver addresses</source>
-        <translation type="unfinished">Verifica mensaxes para asegurar que foron asinados con enderezos BitcoinSilver específicos.</translation>
+        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
+        <translation type="unfinished">Verifica mensaxes para asegurar que foron asinados con enderezos Bitcoin específicos.</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -455,8 +414,8 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">Barra de ferramentas</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoinsilver: URIs)</source>
-        <translation type="unfinished">Solicitar pagamentos (xera códigos QR e bitcoinsilver: URIs)</translation>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
+        <translation type="unfinished">Solicitar pagamentos (xera códigos QR e bitcoin: URIs)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -522,8 +481,8 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">&amp;Enderezos de recepción</translation>
     </message>
     <message>
-        <source>Open a bitcoinsilver: URI</source>
-        <translation type="unfinished">Abre una URI de BitcoinSilver</translation>
+        <source>Open a bitcoin: URI</source>
+        <translation type="unfinished">Abre una URI de Bitcoin</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -538,8 +497,8 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">Pechar moedeiro</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible BitcoinSilver command-line options</source>
-        <translation type="unfinished">Mostra a %1 mensaxe de axuda para obter unha lista cas posibles opcións de línea de comando de BitcoinSilver </translation>
+        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
+        <translation type="unfinished">Mostra a %1 mensaxe de axuda para obter unha lista cas posibles opcións de línea de comando de Bitcoin </translation>
     </message>
     <message>
         <source>default wallet</source>
@@ -567,7 +526,7 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">%1 cliente</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
             <numerusform />
@@ -875,8 +834,8 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">Modificar dirección para enviar</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid BitcoinSilver address.</source>
-        <translation type="unfinished">A dirección introducida '%1' non é unha dirección BitcoinSilver válida.</translation>
+        <source>The entered address "%1" is not a valid Bitcoin address.</source>
+        <translation type="unfinished">A dirección introducida '%1' non é unha dirección Bitcoin válida.</translation>
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -1035,8 +994,8 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">Experto</translation>
     </message>
     <message>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation type="unfinished">Abrir automáticamente o porto do cliente BitcoinSilver no router. Esto so funciona se o teu router soporta UPnP e está habilitado.</translation>
+        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation type="unfinished">Abrir automáticamente o porto do cliente Bitcoin no router. Esto so funciona se o teu router soporta UPnP e está habilitado.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1132,8 +1091,8 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">Formulario</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BitcoinSilver network after a connection is established, but this process has not completed yet.</source>
-        <translation type="unfinished">A información amosada por estar desactualizada. O teu moedeiro sincronízase automáticamente coa rede BitcoinSilver despois de que se estableza unha conexión, mais este proceso non está todavía rematado.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
+        <translation type="unfinished">A información amosada por estar desactualizada. O teu moedeiro sincronízase automáticamente coa rede Bitcoin despois de que se estableza unha conexión, mais este proceso non está todavía rematado.</translation>
     </message>
     <message>
         <source>Your current spendable balance</source>
@@ -1514,8 +1473,8 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         </translation>
     </message>
     <message>
-        <source>Warning: Invalid BitcoinSilver address</source>
-        <translation type="unfinished">Atención:  Enderezo BitcoinSilver non válido</translation>
+        <source>Warning: Invalid Bitcoin address</source>
+        <translation type="unfinished">Atención:  Enderezo Bitcoin non válido</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -1592,8 +1551,8 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">Copiar a sinatura actual ao portapapeis do sistema</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this BitcoinSilver address</source>
-        <translation type="unfinished">Asina a mensaxe para probar que posúes este enderezo BitcoinSilver</translation>
+        <source>Sign the message to prove you own this Bitcoin address</source>
+        <translation type="unfinished">Asina a mensaxe para probar que posúes este enderezo Bitcoin</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -1612,8 +1571,8 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">&amp;Verificar Mensaxe</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified BitcoinSilver address</source>
-        <translation type="unfinished">Verificar a mensaxe para asegurar que foi asinada coa dirección BitcoinSilver especificada</translation>
+        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
+        <translation type="unfinished">Verificar a mensaxe para asegurar que foi asinada coa dirección Bitcoin especificada</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -1917,11 +1876,6 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">Exportar Historial de Transaccións</translation>
     </message>
     <message>
-        <source>Comma separated file</source>
-        <extracomment>Expanded name of the CSV file format. See: https://en.wikipedia.org/wiki/Comma-separated_values.</extracomment>
-        <translation type="unfinished">Ficheiro separado por comas</translation>
-    </message>
-    <message>
         <source>Confirmed</source>
         <translation type="unfinished">Confirmado</translation>
     </message>
@@ -2020,7 +1974,7 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
     </message>
     </context>
 <context>
-    <name>bitcoinsilver-core</name>
+    <name>bitcoin-core</name>
     <message>
         <source>This is a pre-release test build - use at your own risk - do not use for mining or merchant applications</source>
         <translation type="unfinished">Esta é unha build de test pre-lanzamento - emprégaa baixo o teu propio risco - non empregar para minado ou aplicacións de comerciantes</translation>

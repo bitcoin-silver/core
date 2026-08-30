@@ -58,13 +58,13 @@
         <translation type="unfinished">P&amp;asirinkti</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">Tai yra jūsų BitcoinSilver adresai išeinantiems mokėjimams. Visada pasitikrinkite sumą ir gavėjo adresą prieš siunčiant lėšas.</translation>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">Tai yra jūsų Bitcoin adresai išeinantiems mokėjimams. Visada pasitikrinkite sumą ir gavėjo adresą prieš siunčiant lėšas.</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">Tai jūsų BitcoinSilver mokėjimų gavimo adresai. Naudokite 'Sukurti naują gavimo adresą' mygtuką gavimų skirtuke kad sukurtumėte naujus adresus.
+        <translation type="unfinished">Tai jūsų Bitcoin mokėjimų gavimo adresai. Naudokite 'Sukurti naują gavimo adresą' mygtuką gavimų skirtuke kad sukurtumėte naujus adresus.
 Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
     </message>
     <message>
@@ -156,8 +156,8 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">Patvirtinkite piniginės užšifravimą</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINSILVERS&lt;/b&gt;!</source>
-        <translation type="unfinished">Dėmesio: jei užšifruosite savo piniginę ir pamesite slaptafrazę, jūs&lt;b&gt;PRARASITE VISUS SAVO BITCOINSILVERUS&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
+        <translation type="unfinished">Dėmesio: jei užšifruosite savo piniginę ir pamesite slaptafrazę, jūs&lt;b&gt;PRARASITE VISUS SAVO BITCOINUS&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -257,8 +257,8 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">Suma</translation>
     </message>
     <message>
-        <source>Enter a BitcoinSilver address (e.g. %1)</source>
-        <translation type="unfinished">Įveskite BitcoinSilver adresą (pvz., %1)</translation>
+        <source>Enter a Bitcoin address (e.g. %1)</source>
+        <translation type="unfinished">Įveskite Bitcoin adresą (pvz., %1)</translation>
     </message>
     <message>
         <source>Inbound</source>
@@ -404,8 +404,8 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">Tarpinis serveris yra &lt;b&gt;įgalintas&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a BitcoinSilver address</source>
-        <translation type="unfinished">Siųsti monetas BitcoinSilver adresui</translation>
+        <source>Send coins to a Bitcoin address</source>
+        <translation type="unfinished">Siųsti monetas Bitcoin adresui</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -432,12 +432,12 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">Užšifruoti privačius raktus, kurie priklauso jūsų piniginei</translation>
     </message>
     <message>
-        <source>Sign messages with your BitcoinSilver addresses to prove you own them</source>
-        <translation type="unfinished">Pasirašydami žinutes su savo BitcoinSilver adresais įrodysite jog esate jų savininkas</translation>
+        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
+        <translation type="unfinished">Pasirašydami žinutes su savo Bitcoin adresais įrodysite jog esate jų savininkas</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified BitcoinSilver addresses</source>
-        <translation type="unfinished">Patikrinkite žinutę, jog įsitikintumėte, kad ją pasirašė nurodytas BitcoinSilver adresas</translation>
+        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
+        <translation type="unfinished">Patikrinkite žinutę, jog įsitikintumėte, kad ją pasirašė nurodytas Bitcoin adresas</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -456,8 +456,8 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">Kortelių įrankinė</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoinsilver: URIs)</source>
-        <translation type="unfinished">Reikalauti mokėjimų (sukuria QR kodus ir bitcoinsilver: URI)</translation>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
+        <translation type="unfinished">Reikalauti mokėjimų (sukuria QR kodus ir bitcoin: URI)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -508,12 +508,12 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">Atnaujinta</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction</source>
-        <translation type="unfinished">Užkraukite dalinai pasirašytą BitcoinSilver transakciją</translation>
+        <source>Load Partially Signed Bitcoin Transaction</source>
+        <translation type="unfinished">Užkraukite dalinai pasirašytą Bitcoin transakciją</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction from clipboard</source>
-        <translation type="unfinished">Užkraukite dalinai pasirašytas BitcoinSilver transakcijas iš iškarpinės...</translation>
+        <source>Load Partially Signed Bitcoin Transaction from clipboard</source>
+        <translation type="unfinished">Užkraukite dalinai pasirašytas Bitcoin transakcijas iš iškarpinės...</translation>
     </message>
     <message>
         <source>Node window</source>
@@ -544,8 +544,8 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">Uždaryti visas pinigines</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible BitcoinSilver command-line options</source>
-        <translation type="unfinished">Rodyti %1 pagalbos žinutę su BitcoinSilver pasirinkimo komandomis</translation>
+        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
+        <translation type="unfinished">Rodyti %1 pagalbos žinutę su Bitcoin pasirinkimo komandomis</translation>
     </message>
     <message>
         <source>default wallet</source>
@@ -577,7 +577,7 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">%1 klientas</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
             <numerusform />
@@ -925,8 +925,8 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">Keisti siuntimo adresą</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid BitcoinSilver address.</source>
-        <translation type="unfinished">Įvestas adresas „%1“ nėra galiojantis BitcoinSilver adresas.</translation>
+        <source>The entered address "%1" is not a valid Bitcoin address.</source>
+        <translation type="unfinished">Įvestas adresas „%1“ nėra galiojantis Bitcoin adresas.</translation>
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -1012,8 +1012,8 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         </translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the BitcoinSilver block chain.</source>
-        <translation type="unfinished">%1 bus atsisiųsta ir išsaugota BitcoinSilver blokų grandinės kopiją.</translation>
+        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
+        <translation type="unfinished">%1 bus atsisiųsta ir išsaugota Bitcoin blokų grandinės kopiją.</translation>
     </message>
     <message>
         <source>The wallet will also be stored in this directory.</source>
@@ -1089,8 +1089,8 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">Forma</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoinsilver network, as detailed below.</source>
-        <translation type="unfinished">Naujausi sandoriai gali būti dar nematomi, todėl jūsų piniginės likutis gali būti neteisingas. Ši informacija bus teisinga, kai jūsų piniginė bus baigta sinchronizuoti su bitcoinsilver tinklu, kaip nurodyta žemiau.</translation>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoin network, as detailed below.</source>
+        <translation type="unfinished">Naujausi sandoriai gali būti dar nematomi, todėl jūsų piniginės likutis gali būti neteisingas. Ši informacija bus teisinga, kai jūsų piniginė bus baigta sinchronizuoti su bitcoin tinklu, kaip nurodyta žemiau.</translation>
     </message>
     <message>
         <source>Attempting to spend bitcoins that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
@@ -1228,8 +1228,8 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">&amp;Išleiskite nepatvirtintus pakeitimus</translation>
     </message>
     <message>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation type="unfinished">Automatiškai atidaryti BitcoinSilver kliento prievadą maršrutizatoriuje. Tai veikia tik tada, kai jūsų maršrutizatorius palaiko UPnP ir ji įjungta.</translation>
+        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation type="unfinished">Automatiškai atidaryti Bitcoin kliento prievadą maršrutizatoriuje. Tai veikia tik tada, kai jūsų maršrutizatorius palaiko UPnP ir ji įjungta.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1244,8 +1244,8 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">Leisti gaunamu&amp;s ryšius</translation>
     </message>
     <message>
-        <source>Connect to the BitcoinSilver network through a SOCKS5 proxy.</source>
-        <translation type="unfinished">Prisijunkite prie „BitcoinSilver“ tinklo per SOCKS5 proxy.</translation>
+        <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
+        <translation type="unfinished">Prisijunkite prie „Bitcoin“ tinklo per SOCKS5 proxy.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1376,8 +1376,8 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">Forma</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BitcoinSilver network after a connection is established, but this process has not completed yet.</source>
-        <translation type="unfinished">Rodoma informacija gali būti pasenusi. Piniginė automatiškai sinchronizuojasi su „BitcoinSilver“ tinklu po ryšio užmezgimo, tačiau šis procesas dar nebaigtas.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
+        <translation type="unfinished">Rodoma informacija gali būti pasenusi. Piniginė automatiškai sinchronizuojasi su „Bitcoin“ tinklu po ryšio užmezgimo, tačiau šis procesas dar nebaigtas.</translation>
     </message>
     <message>
         <source>Watch-only:</source>
@@ -1474,20 +1474,20 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">Mokėjimo užklausos klaida</translation>
     </message>
     <message>
-        <source>Cannot start bitcoinsilver: click-to-pay handler</source>
-        <translation type="unfinished">Negalima paleisti bitcoinsilver: paspauskite sumokėti tvarkytojui</translation>
+        <source>Cannot start bitcoin: click-to-pay handler</source>
+        <translation type="unfinished">Negalima paleisti bitcoin: paspauskite sumokėti tvarkytojui</translation>
     </message>
     <message>
         <source>URI handling</source>
         <translation type="unfinished">URI tvarkymas</translation>
     </message>
     <message>
-        <source>'bitcoinsilver://' is not a valid URI. Use 'bitcoinsilver:' instead.</source>
-        <translation type="unfinished">„bitcoinsilver: //“ nėra galiojantis URI. Vietoj to naudokite „bitcoinsilver:“.</translation>
+        <source>'bitcoin://' is not a valid URI. Use 'bitcoin:' instead.</source>
+        <translation type="unfinished">„bitcoin: //“ nėra galiojantis URI. Vietoj to naudokite „bitcoin:“.</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid BitcoinSilver address or malformed URI parameters.</source>
-        <translation type="unfinished">URI negalima perskaityti! Tai gali sukelti negaliojantys „BitcoinSilver“ adresas arba netinkami URI parametrai.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid Bitcoin address or malformed URI parameters.</source>
+        <translation type="unfinished">URI negalima perskaityti! Tai gali sukelti negaliojantys „Bitcoin“ adresas arba netinkami URI parametrai.</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -1844,8 +1844,8 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">Žinutė:</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the BitcoinSilver network.</source>
-        <translation type="unfinished">Neprivalomas pranešimas, pridedamas prie mokėjimo prašymo, kuris bus rodomas atidarius užklausą. Pastaba: pranešimas nebus išsiųstas su mokėjimu per „BitcoinSilver“ tinklą.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
+        <translation type="unfinished">Neprivalomas pranešimas, pridedamas prie mokėjimo prašymo, kuris bus rodomas atidarius užklausą. Pastaba: pranešimas nebus išsiųstas su mokėjimu per „Bitcoin“ tinklą.</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -2053,8 +2053,8 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">Išvalykite visus formos laukus.</translation>
     </message>
     <message>
-        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoinsilver transactions than the network can process.</source>
-        <translation type="unfinished">Kai sandorių apimtis yra mažesnė nei erdvės blokuose, kasėjai ir perduodantys mazgai gali užtikrinti minimalų mokestį. Mokėti tik šį minimalų mokestį yra galima, tačiau atkreipkite dėmesį, kad dėl to gali atsirasti niekada nepatvirtinamas sandoris, kai bus daugiau paklausos bitcoinsilver operacijoms, nei tinklas gali apdoroti.</translation>
+        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
+        <translation type="unfinished">Kai sandorių apimtis yra mažesnė nei erdvės blokuose, kasėjai ir perduodantys mazgai gali užtikrinti minimalų mokestį. Mokėti tik šį minimalų mokestį yra galima, tačiau atkreipkite dėmesį, kad dėl to gali atsirasti niekada nepatvirtinamas sandoris, kai bus daugiau paklausos bitcoin operacijoms, nei tinklas gali apdoroti.</translation>
     </message>
     <message>
         <source>A too low fee might result in a never confirming transaction (read the tooltip)</source>
@@ -2115,10 +2115,6 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
     <message>
         <source>%1 (%2 blocks)</source>
         <translation type="unfinished">%1 (%2 blokai)</translation>
-    </message>
-    <message>
-        <source> from wallet '%1'</source>
-        <translation type="unfinished">iš piniginės '%1'</translation>
     </message>
     <message>
         <source>%1 to '%2'</source>
@@ -2194,8 +2190,8 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         </translation>
     </message>
     <message>
-        <source>Warning: Invalid BitcoinSilver address</source>
-        <translation type="unfinished">Įspėjimas: neteisingas BitcoinSilver adresas</translation>
+        <source>Warning: Invalid Bitcoin address</source>
+        <translation type="unfinished">Įspėjimas: neteisingas Bitcoin adresas</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -2233,8 +2229,8 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">Pasirinkite anksčiau naudojamą adresą</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address to send the payment to</source>
-        <translation type="unfinished">BitcoinSilver adresas, į kurį siunčiamas mokėjimas</translation>
+        <source>The Bitcoin address to send the payment to</source>
+        <translation type="unfinished">Bitcoin adresas, į kurį siunčiamas mokėjimas</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
@@ -2265,8 +2261,8 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">Įveskite šio adreso etiketę, kad ją pridėtumėte prie naudojamų adresų sąrašo</translation>
     </message>
     <message>
-        <source>A message that was attached to the bitcoinsilver: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the BitcoinSilver network.</source>
-        <translation type="unfinished">Pranešimas, kuris buvo pridėtas prie bitcoinsilver: URI, kuris bus saugomas kartu su sandoriu jūsų nuoroda. Pastaba: šis pranešimas nebus išsiųstas per „BitcoinSilver“ tinklą.</translation>
+        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
+        <translation type="unfinished">Pranešimas, kuris buvo pridėtas prie bitcoin: URI, kuris bus saugomas kartu su sandoriu jūsų nuoroda. Pastaba: šis pranešimas nebus išsiųstas per „Bitcoin“ tinklą.</translation>
     </message>
 </context>
 <context>
@@ -2287,8 +2283,8 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">&amp;Pasirašyti žinutę</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address to sign the message with</source>
-        <translation type="unfinished">BitcoinSilver adresas, kuriuo bus pasirašytas pranešimas su</translation>
+        <source>The Bitcoin address to sign the message with</source>
+        <translation type="unfinished">Bitcoin adresas, kuriuo bus pasirašytas pranešimas su</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2311,7 +2307,7 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">Nukopijuokite dabartinį parašą į sistemos iškarpinę</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this BitcoinSilver address</source>
+        <source>Sign the message to prove you own this Bitcoin address</source>
         <translation type="unfinished">Registruotis žinute įrodymuii, kad turite šį adresą</translation>
     </message>
     <message>
@@ -2331,12 +2327,12 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">&amp;Patikrinti žinutę</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address the message was signed with</source>
-        <translation type="unfinished">BitcoinSilver adresas, kuriuo buvo pasirašytas pranešimas</translation>
+        <source>The Bitcoin address the message was signed with</source>
+        <translation type="unfinished">Bitcoin adresas, kuriuo buvo pasirašytas pranešimas</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified BitcoinSilver address</source>
-        <translation type="unfinished">Patikrinkite žinutę, jog įsitikintumėte, kad ją pasirašė nurodytas BitcoinSilver adresas</translation>
+        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
+        <translation type="unfinished">Patikrinkite žinutę, jog įsitikintumėte, kad ją pasirašė nurodytas Bitcoin adresas</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -2847,7 +2843,7 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
     </message>
 </context>
 <context>
-    <name>bitcoinsilver-core</name>
+    <name>bitcoin-core</name>
     <message>
         <source>The %s developers</source>
         <translation type="unfinished">%s kūrėjai</translation>
@@ -2955,10 +2951,6 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
     <message>
         <source>Transaction amounts must not be negative</source>
         <translation type="unfinished">Transakcijos suma negali buti neigiama</translation>
-    </message>
-    <message>
-        <source>Transaction has too long of a mempool chain</source>
-        <translation type="unfinished">Sandoris turi per ilgą mempool grandinę</translation>
     </message>
     <message>
         <source>Transaction must have at least one recipient</source>

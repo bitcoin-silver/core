@@ -51,20 +51,20 @@
     </message>
     <message>
         <source>Choose the address to receive coins with</source>
-        <translation type="unfinished">Trieu l'adreça on rebre les monedes</translation>
+        <translation type="unfinished">Trieu l'adreça on rebre les monedes amb</translation>
     </message>
     <message>
         <source>C&amp;hoose</source>
         <translation type="unfinished">&amp;Tria</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">Aquestes són les vostres adreces de BitcoinSilver per a enviar els pagaments. Sempre reviseu l'import i l'adreça del destinatari abans de transferir monedes.</translation>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">Aquestes són les vostres adreces de Bitcoin per a enviar els pagaments. Sempre reviseu l'import i l'adreça del destinatari abans de transferir monedes.</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">Aquestes son les teves adreces de BitcoinSilver per a rebre pagaments. Utilitza el botó "Crear nova adreça de recepció" de la pestanya de recepció per a crear una nova adreça.
+        <translation type="unfinished">Aquestes son les teves adreces de Bitcoin per a rebre pagaments. Utilitza el botó "Crear nova adreça de recepció" de la pestanya de recepció per a crear una nova adreça.
 Només és possible firmar amb adreces del tipus "legacy".</translation>
     </message>
     <message>
@@ -164,8 +164,8 @@ Només és possible firmar amb adreces del tipus "legacy".</translation>
         <translation type="unfinished">Confirma el xifratge de la cartera</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINSILVERS&lt;/b&gt;!</source>
-        <translation type="unfinished">Avís: si xifreu la cartera i perdeu la contrasenya, &lt;b&gt;PERDREU TOTS ELS BITCOINSILVERS&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
+        <translation type="unfinished">Avís: si xifreu la cartera i perdeu la contrasenya, &lt;b&gt;PERDREU TOTS ELS BITCOINS&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -303,18 +303,12 @@ Només és possible firmar amb adreces del tipus "legacy".</translation>
         <translation type="unfinished">Import</translation>
     </message>
     <message>
-        <source>Enter a BitcoinSilver address (e.g. %1)</source>
-        <translation type="unfinished">Introduïu una adreça de BitcoinSilver (p. ex. %1)</translation>
+        <source>Enter a Bitcoin address (e.g. %1)</source>
+        <translation type="unfinished">Introduïu una adreça de Bitcoin (p. ex. %1)</translation>
     </message>
     <message>
         <source>Unroutable</source>
         <translation type="unfinished">No encaminable</translation>
-    </message>
-    <message>
-        <source>Onion</source>
-        <comment>network name</comment>
-        <extracomment>Name of Tor network in peer info</extracomment>
-        <translation type="unfinished">Ceba</translation>
     </message>
     <message>
         <source>Inbound</source>
@@ -353,36 +347,36 @@ Només és possible firmar amb adreces del tipus "legacy".</translation>
     <message numerus="yes">
         <source>%n second(s)</source>
         <translation type="unfinished">
-            <numerusform>%n segons</numerusform>
-            <numerusform>%n segon(s)</numerusform>
+            <numerusform />
+            <numerusform />
         </translation>
     </message>
     <message numerus="yes">
         <source>%n minute(s)</source>
         <translation type="unfinished">
-            <numerusform>%n minuts</numerusform>
-            <numerusform>%n minut(s)</numerusform>
+            <numerusform />
+            <numerusform />
         </translation>
     </message>
     <message numerus="yes">
         <source>%n hour(s)</source>
         <translation type="unfinished">
-            <numerusform>%n hores</numerusform>
-            <numerusform>%n hores</numerusform>
+            <numerusform />
+            <numerusform />
         </translation>
     </message>
     <message numerus="yes">
         <source>%n day(s)</source>
         <translation type="unfinished">
-            <numerusform>%n dies</numerusform>
-            <numerusform>%n dies</numerusform>
+            <numerusform />
+            <numerusform />
         </translation>
     </message>
     <message numerus="yes">
         <source>%n week(s)</source>
         <translation type="unfinished">
-            <numerusform>%n setmanes</numerusform>
-            <numerusform>%n setmanes</numerusform>
+            <numerusform />
+            <numerusform />
         </translation>
     </message>
     <message>
@@ -392,8 +386,8 @@ Només és possible firmar amb adreces del tipus "legacy".</translation>
     <message numerus="yes">
         <source>%n year(s)</source>
         <translation type="unfinished">
-            <numerusform>%n any</numerusform>
-            <numerusform>%n anys</numerusform>
+            <numerusform />
+            <numerusform />
         </translation>
     </message>
     </context>
@@ -465,8 +459,8 @@ Només és possible firmar amb adreces del tipus "legacy".</translation>
         <translation type="unfinished">El servidor proxy està &lt;b&gt;activat&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a BitcoinSilver address</source>
-        <translation type="unfinished">Envia monedes a una adreça BitcoinSilver</translation>
+        <source>Send coins to a Bitcoin address</source>
+        <translation type="unfinished">Envia monedes a una adreça Bitcoin</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -509,16 +503,16 @@ Només és possible firmar amb adreces del tipus "legacy".</translation>
         <translation type="unfinished">Signa el &amp;missatge</translation>
     </message>
     <message>
-        <source>Sign messages with your BitcoinSilver addresses to prove you own them</source>
-        <translation type="unfinished">Signa els missatges amb la seva adreça de BitcoinSilver per a provar que les posseeixes</translation>
+        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
+        <translation type="unfinished">Signa els missatges amb la seva adreça de Bitcoin per a provar que les posseeixes</translation>
     </message>
     <message>
         <source>&amp;Verify message…</source>
         <translation type="unfinished">&amp;Verifica el missatge</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified BitcoinSilver addresses</source>
-        <translation type="unfinished">Verifiqueu els missatges per a assegurar-vos que han estat signats amb una adreça BitcoinSilver específica.</translation>
+        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
+        <translation type="unfinished">Verifiqueu els missatges per a assegurar-vos que han estat signats amb una adreça Bitcoin específica.</translation>
     </message>
     <message>
         <source>&amp;Load PSBT from file…</source>
@@ -577,8 +571,8 @@ Només és possible firmar amb adreces del tipus "legacy".</translation>
         <translation type="unfinished">Connectant als iguals...</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoinsilver: URIs)</source>
-        <translation type="unfinished">Sol·licita pagaments (genera codis QR i bitcoinsilver: URI)</translation>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
+        <translation type="unfinished">Sol·licita pagaments (genera codis QR i bitcoin: URI)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -628,16 +622,16 @@ Només és possible firmar amb adreces del tipus "legacy".</translation>
         <translation type="unfinished">Actualitzat</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction</source>
-        <translation type="unfinished">Carrega la transacció BitcoinSilver signada parcialment</translation>
+        <source>Load Partially Signed Bitcoin Transaction</source>
+        <translation type="unfinished">Carrega la transacció Bitcoin signada parcialment</translation>
     </message>
     <message>
         <source>Load PSBT from &amp;clipboard…</source>
         <translation type="unfinished">Carrega la PSBT des del porta-retalls.</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction from clipboard</source>
-        <translation type="unfinished">Carrega la transacció de BitcoinSilver signada parcialment des del porta-retalls</translation>
+        <source>Load Partially Signed Bitcoin Transaction from clipboard</source>
+        <translation type="unfinished">Carrega la transacció de Bitcoin signada parcialment des del porta-retalls</translation>
     </message>
     <message>
         <source>Node window</source>
@@ -656,8 +650,8 @@ Només és possible firmar amb adreces del tipus "legacy".</translation>
         <translation type="unfinished">Adreces de &amp;recepció</translation>
     </message>
     <message>
-        <source>Open a bitcoinsilver: URI</source>
-        <translation type="unfinished">Obrir un bitcoinsilver: URI</translation>
+        <source>Open a bitcoin: URI</source>
+        <translation type="unfinished">Obrir un bitcoin: URI</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -694,8 +688,8 @@ Només és possible firmar amb adreces del tipus "legacy".</translation>
         <translation type="unfinished">Migrar una cartera</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible BitcoinSilver command-line options</source>
-        <translation type="unfinished">Mostra el missatge d'ajuda del %1 per obtenir una llista amb les possibles opcions de línia d'ordres de BitcoinSilver</translation>
+        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
+        <translation type="unfinished">Mostra el missatge d'ajuda del %1 per obtenir una llista amb les possibles opcions de línia d'ordres de Bitcoin</translation>
     </message>
     <message>
         <source>&amp;Mask values</source>
@@ -758,11 +752,11 @@ Només és possible firmar amb adreces del tipus "legacy".</translation>
         <translation type="unfinished">&amp;Mostra</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>%n connexió activa a la xarxa BitcoinSilver</numerusform>
-            <numerusform>%n connexions actives a la xarxa BitcoinSilver</numerusform>
+            <numerusform>%n connexió activa a la xarxa Bitcoin</numerusform>
+            <numerusform>%n connexions actives a la xarxa Bitcoin</numerusform>
         </translation>
     </message>
     <message>
@@ -791,7 +785,7 @@ Només és possible firmar amb adreces del tipus "legacy".</translation>
     </message>
     <message>
         <source>Error creating wallet</source>
-        <translation type="unfinished">Error creant la cartera</translation>
+        <translation type="unfinished">Error al crear la cartera</translation>
     </message>
     <message>
         <source>Cannot create new wallet, the software was compiled without sqlite support (required for descriptor wallets)</source>
@@ -1089,11 +1083,11 @@ El procés de migració crearà una còpia de seguretat de la cartera abans de m
         <translation type="unfinished">La cartera '%1' s'ha migrat amb èxit.</translation>
     </message>
     <message>
-        <source> Watchonly scripts have been migrated to a new wallet named '%1'.</source>
+        <source>Watchonly scripts have been migrated to a new wallet named '%1'.</source>
         <translation type="unfinished">Els scripts de només visualització s'han migrat a una nova cartera anomenada '%1'.</translation>
     </message>
     <message>
-        <source> Solvable but not watched scripts have been migrated to a new wallet named '%1'.</source>
+        <source>Solvable but not watched scripts have been migrated to a new wallet named '%1'.</source>
         <translation type="unfinished">Els scripts resolubles però no vigilats s'han migrat a una nova cartera anomenada '%1'.</translation>
     </message>
     <message>
@@ -1142,22 +1136,7 @@ El procés de migració crearà una còpia de seguretat de la cartera abans de m
         <extracomment>Descriptive text of the restore wallets progress window which indicates to the user that wallets are currently being restored.</extracomment>
         <translation type="unfinished">Restaurant cartera &lt;b&gt;%1&lt;/b&gt;...</translation>
     </message>
-    <message>
-        <source>Restore wallet failed</source>
-        <extracomment>Title of message box which is displayed when the wallet could not be restored.</extracomment>
-        <translation type="unfinished">Reestablir cartera ha fallat</translation>
-    </message>
-    <message>
-        <source>Restore wallet warning</source>
-        <extracomment>Title of message box which is displayed when the wallet is restored with some warning.</extracomment>
-        <translation type="unfinished">Avís al restaurar la cartera</translation>
-    </message>
-    <message>
-        <source>Restore wallet message</source>
-        <extracomment>Title of message box which is displayed when the wallet is successfully restored.</extracomment>
-        <translation type="unfinished">Missatge al restaurar la cartera</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>WalletController</name>
     <message>
@@ -1186,14 +1165,6 @@ El procés de migració crearà una còpia de seguretat de la cartera abans de m
     <message>
         <source>Create Wallet</source>
         <translation type="unfinished">Crear cartera</translation>
-    </message>
-    <message>
-        <source>You are one step away from creating your new wallet!</source>
-        <translation type="unfinished">A un pas de crear la teva nova cartera</translation>
-    </message>
-    <message>
-        <source>Please provide a name and, if desired, enable any advanced options</source>
-        <translation type="unfinished">Si us plau, proporciona un nom i, si vols, activa qualsevol opció avançada</translation>
     </message>
     <message>
         <source>Wallet Name</source>
@@ -1285,8 +1256,8 @@ Això és ideal per a carteres de mode només lectura.</translation>
         <translation type="unfinished">Edita l'adreça d'enviament</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid BitcoinSilver address.</source>
-        <translation type="unfinished">L'adreça introduïda «%1» no és una adreça de BitcoinSilver vàlida.</translation>
+        <source>The entered address "%1" is not a valid Bitcoin address.</source>
+        <translation type="unfinished">L'adreça introduïda «%1» no és una adreça de Bitcoin vàlida.</translation>
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -1333,8 +1304,8 @@ Això és ideal per a carteres de mode només lectura.</translation>
     <message numerus="yes">
         <source>%n GB of space available</source>
         <translation type="unfinished">
-            <numerusform>%n GB d'espai lliure disponible</numerusform>
-            <numerusform>%n GB d'espai lliure disponibles</numerusform>
+            <numerusform />
+            <numerusform />
         </translation>
     </message>
     <message numerus="yes">
@@ -1372,8 +1343,8 @@ Això és ideal per a carteres de mode només lectura.</translation>
         </translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the BitcoinSilver block chain.</source>
-        <translation type="unfinished">%1 descarregarà i emmagatzemarà una còpia de la cadena de blocs BitcoinSilver.</translation>
+        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
+        <translation type="unfinished">%1 descarregarà i emmagatzemarà una còpia de la cadena de blocs Bitcoin.</translation>
     </message>
     <message>
         <source>The wallet will also be stored in this directory.</source>
@@ -1406,10 +1377,6 @@ Això és ideal per a carteres de mode només lectura.</translation>
     <message>
         <source>This initial synchronisation is very demanding, and may expose hardware problems with your computer that had previously gone unnoticed. Each time you run %1, it will continue downloading where it left off.</source>
         <translation type="unfinished">Aquesta sincronització inicial és molt exigent i pot exposar problemes de maquinari amb l'equip que anteriorment havien passat desapercebuts. Cada vegada que executeu %1, continuarà descarregant des del punt on es va deixar.</translation>
-    </message>
-    <message>
-        <source>When you click OK, %1 will begin to download and process the full %4 block chain (%2 GB) starting with the earliest transactions in %3 when %4 initially launched.</source>
-        <translation type="unfinished">Quan feu clic a D'acord, %1 començarà a descarregar i processar la cadena de blocs %4 completa (%2 GB) començant per les primeres transaccions de %3, any de llençament inicial de %4.</translation>
     </message>
     <message>
         <source>If you have chosen to limit block chain storage (pruning), the historical data must still be downloaded and processed, but will be deleted afterward to keep your disk usage low.</source>
@@ -1457,8 +1424,8 @@ Això és ideal per a carteres de mode només lectura.</translation>
         <translation type="unfinished">Formulari</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoinsilver network, as detailed below.</source>
-        <translation type="unfinished">És possible que les transaccions recents encara no siguin visibles i, per tant, el saldo de la vostra cartera podria ser incorrecte. Aquesta informació serà correcta una vegada que la cartera hagi finalitzat la sincronització amb la xarxa bitcoinsilver, tal com es detalla més avall.</translation>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoin network, as detailed below.</source>
+        <translation type="unfinished">És possible que les transaccions recents encara no siguin visibles i, per tant, el saldo de la vostra cartera podria ser incorrecte. Aquesta informació serà correcta una vegada que la cartera hagi finalitzat la sincronització amb la xarxa bitcoin, tal com es detalla més avall.</translation>
     </message>
     <message>
         <source>Attempting to spend bitcoins that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
@@ -1504,16 +1471,12 @@ Això és ideal per a carteres de mode només lectura.</translation>
         <source>Unknown. Syncing Headers (%1, %2%)…</source>
         <translation type="unfinished">Desconegut. Sincronització de les capçaleres (%1, %2%)...</translation>
     </message>
-    <message>
-        <source>Unknown. Pre-syncing Headers (%1, %2%)…</source>
-        <translation type="unfinished">Desconegut. Sincronització de les capçaleres (%1, %2%)...</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>OpenURIDialog</name>
     <message>
-        <source>Open bitcoinsilver URI</source>
-        <translation type="unfinished">Obre BitcoinSilver URI</translation>
+        <source>Open bitcoin URI</source>
+        <translation type="unfinished">Obre Bitcoin URI</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
@@ -1552,10 +1515,6 @@ Això és ideal per a carteres de mode només lectura.</translation>
         <translation type="unfinished">Nombre de fils de &amp;verificació d'scripts</translation>
     </message>
     <message>
-        <source>Full path to a %1 compatible script (e.g. C:\Downloads\hwi.exe or /Users/you/Downloads/hwi.py). Beware: malware can steal your coins!</source>
-        <translation type="unfinished">Camí complet a %1 script compatible amb BitcoinSilver (per exemple, C:\Downloads\hwi.exe o /Users/you/Downloads/hwi.py). Aneu amb compte: el programari maliciós pot robar-vos les monedes!</translation>
-    </message>
-    <message>
         <source>IP address of the proxy (e.g. IPv4: 127.0.0.1 / IPv6: ::1)</source>
         <translation type="unfinished">Adreça IP del proxy (p. ex. IPv4: 127.0.0.1 / IPv6: ::1)</translation>
     </message>
@@ -1566,10 +1525,6 @@ Això és ideal per a carteres de mode només lectura.</translation>
     <message>
         <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Exit in the menu.</source>
         <translation type="unfinished">Minimitza en comptes de sortir de l'aplicació quan la finestra es tanca. Quan s'habilita aquesta opció l'aplicació es tancarà només quan se selecciona Surt del menú. </translation>
-    </message>
-    <message>
-        <source>Options set in this dialog are overridden by the command line:</source>
-        <translation type="unfinished">Les opcions configurades en aquest diàleg són sobreescrites per la línia de comandes:</translation>
     </message>
     <message>
         <source>Open the %1 configuration file from the working directory.</source>
@@ -1604,11 +1559,6 @@ Això és ideal per a carteres de mode només lectura.</translation>
         <translation type="unfinished">(0 = auto, &lt;0 = deixa tants nuclis lliures)</translation>
     </message>
     <message>
-        <source>Enable R&amp;PC server</source>
-        <extracomment>An Options window setting to enable the RPC server.</extracomment>
-        <translation type="unfinished">Activa el servidor R&amp;PC</translation>
-    </message>
-    <message>
         <source>W&amp;allet</source>
         <translation type="unfinished">&amp;Moneder</translation>
     </message>
@@ -1625,11 +1575,6 @@ Això és ideal per a carteres de mode només lectura.</translation>
         <translation type="unfinished">&amp;Gasta el canvi sense confirmar</translation>
     </message>
     <message>
-        <source>Enable &amp;PSBT controls</source>
-        <extracomment>An options window setting to enable PSBT controls.</extracomment>
-        <translation type="unfinished">Activa els controls &amp;PSBT</translation>
-    </message>
-    <message>
         <source>External Signer (e.g. hardware wallet)</source>
         <translation type="unfinished">Signador extern (per exemple, cartera de maquinari)</translation>
     </message>
@@ -1638,16 +1583,16 @@ Això és ideal per a carteres de mode només lectura.</translation>
         <translation type="unfinished">&amp;Camí de l'script del signatari extern</translation>
     </message>
     <message>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation type="unfinished">Obre el port del client de BitcoinSilver al router de forma automàtica. Això només funciona quan el router implementa UPnP i l'opció està activada.</translation>
+        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation type="unfinished">Obre el port del client de Bitcoin al router de forma automàtica. Això només funciona quan el router implementa UPnP i l'opció està activada.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
         <translation type="unfinished">Port obert amb &amp;UPnP</translation>
     </message>
     <message>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports NAT-PMP and it is enabled. The external port could be random.</source>
-        <translation type="unfinished">Obriu automàticament el port client de BitcoinSilver al router. Això només funciona quan el vostre router admet NAT-PMP i està activat. El port extern podria ser aleatori.</translation>
+        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports NAT-PMP and it is enabled. The external port could be random.</source>
+        <translation type="unfinished">Obriu automàticament el port client de Bitcoin al router. Això només funciona quan el vostre router admet NAT-PMP i està activat. El port extern podria ser aleatori.</translation>
     </message>
     <message>
         <source>Map port using NA&amp;T-PMP</source>
@@ -1662,8 +1607,8 @@ Això és ideal per a carteres de mode només lectura.</translation>
         <translation type="unfinished">Permet connexions entrants</translation>
     </message>
     <message>
-        <source>Connect to the BitcoinSilver network through a SOCKS5 proxy.</source>
-        <translation type="unfinished">Connecta a la xarxa BitcoinSilver a través d'un proxy SOCKS5.</translation>
+        <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
+        <translation type="unfinished">Connecta a la xarxa Bitcoin a través d'un proxy SOCKS5.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1726,36 +1671,16 @@ Això és ideal per a carteres de mode només lectura.</translation>
         <translation type="unfinished">Selecciona la unitat de subdivisió per defecte per a mostrar en la interfície quan s'envien monedes.</translation>
     </message>
     <message>
-        <source>Third-party URLs (e.g. a block explorer) that appear in the transactions tab as context menu items. %s in the URL is replaced by transaction hash. Multiple URLs are separated by vertical bar |.</source>
-        <translation type="unfinished">URL de terceres parts (p. ex. explorador de blocs) que apareix en la pestanya de transaccions com elements del menú contextual. %s en l'URL es reemplaçat pel resum de la transacció. Diferents URL estan separades per una barra vertical |.</translation>
-    </message>
-    <message>
-        <source>&amp;Third-party transaction URLs</source>
-        <translation type="unfinished">URL de transaccions de tercers</translation>
-    </message>
-    <message>
         <source>Whether to show coin control features or not.</source>
         <translation type="unfinished">Si voleu mostrar les funcions de control de monedes o no.</translation>
     </message>
     <message>
-        <source>Connect to the BitcoinSilver network through a separate SOCKS5 proxy for Tor onion services.</source>
-        <translation type="unfinished">Connecteu-vos a la xarxa BitcoinSilver mitjançant un servidor intermediari SOCKS5 separat per als serveis de ceba Tor.</translation>
+        <source>Connect to the Bitcoin network through a separate SOCKS5 proxy for Tor onion services.</source>
+        <translation type="unfinished">Connecteu-vos a la xarxa Bitcoin mitjançant un servidor intermediari SOCKS5 separat per als serveis de ceba Tor.</translation>
     </message>
     <message>
         <source>Use separate SOCKS&amp;5 proxy to reach peers via Tor onion services:</source>
         <translation type="unfinished">Utilitzeu el servidor intermediari SOCKS&amp;5 per a arribar als iguals mitjançant els serveis d'onion de Tor:</translation>
-    </message>
-    <message>
-        <source>Monospaced font in the Overview tab:</source>
-        <translation type="unfinished">Tipus de lletra monoespai a la pestanya Visió general:</translation>
-    </message>
-    <message>
-        <source>embedded "%1"</source>
-        <translation type="unfinished">incrustat "%1"</translation>
-    </message>
-    <message>
-        <source>closest matching "%1"</source>
-        <translation type="unfinished">coincidència més propera "%1"</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -1804,10 +1729,6 @@ Això és ideal per a carteres de mode només lectura.</translation>
         <translation type="unfinished">El fitxer de configuració s'utilitza per a especificar les opcions d'usuari avançades que substitueixen la configuració de la interfície gràfica d'usuari. A més, qualsevol opció de la línia d'ordres substituirà aquest fitxer de configuració.</translation>
     </message>
     <message>
-        <source>Continue</source>
-        <translation type="unfinished">Continua</translation>
-    </message>
-    <message>
         <source>Cancel</source>
         <translation type="unfinished">Cancel·la</translation>
     </message>
@@ -1831,8 +1752,8 @@ Això és ideal per a carteres de mode només lectura.</translation>
         <translation type="unfinished">Formulari</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BitcoinSilver network after a connection is established, but this process has not completed yet.</source>
-        <translation type="unfinished">La informació mostrada pot no estar al dia. El vostra cartera se sincronitza automàticament amb la xarxa BitcoinSilver un cop s'ha establert connexió, però aquest proces encara no ha finalitzat.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
+        <translation type="unfinished">La informació mostrada pot no estar al dia. El vostra cartera se sincronitza automàticament amb la xarxa Bitcoin un cop s'ha establert connexió, però aquest proces encara no ha finalitzat.</translation>
     </message>
     <message>
         <source>Watch-only:</source>
@@ -1897,10 +1818,6 @@ Això és ideal per a carteres de mode només lectura.</translation>
 </context>
 <context>
     <name>PSBTOperationsDialog</name>
-    <message>
-        <source>PSBT Operations</source>
-        <translation type="unfinished">Operacions PSBT</translation>
-    </message>
     <message>
         <source>Sign Tx</source>
         <translation type="unfinished">Signa Tx</translation>
@@ -1967,10 +1884,6 @@ Això és ideal per a carteres de mode només lectura.</translation>
         <translation type="unfinished">PSBT guardada al disc.</translation>
     </message>
     <message>
-        <source> * Sends %1 to %2</source>
-        <translation type="unfinished">*Envia %1 a %2</translation>
-    </message>
-    <message>
         <source>own address</source>
         <translation type="unfinished">adreça pròpia</translation>
     </message>
@@ -2003,10 +1916,6 @@ Això és ideal per a carteres de mode només lectura.</translation>
         <translation type="unfinished">La transacció encara necessita una o vàries firmes.</translation>
     </message>
     <message>
-        <source>(But no wallet is loaded.)</source>
-        <translation type="unfinished">(Cap cartera ha estat carregada.)</translation>
-    </message>
-    <message>
         <source>(But this wallet cannot sign transactions.)</source>
         <translation type="unfinished">(Però aquesta cartera no pot firmar transaccions.)</translation>
     </message>
@@ -2030,16 +1939,16 @@ Això és ideal per a carteres de mode només lectura.</translation>
         <translation type="unfinished">Error de la sol·licitud de pagament</translation>
     </message>
     <message>
-        <source>Cannot start bitcoinsilver: click-to-pay handler</source>
-        <translation type="unfinished">No es pot iniciar bitcoinsilver: controlador click-to-pay</translation>
+        <source>Cannot start bitcoin: click-to-pay handler</source>
+        <translation type="unfinished">No es pot iniciar bitcoin: controlador click-to-pay</translation>
     </message>
     <message>
         <source>URI handling</source>
         <translation type="unfinished">Gestió d'URI</translation>
     </message>
     <message>
-        <source>'bitcoinsilver://' is not a valid URI. Use 'bitcoinsilver:' instead.</source>
-        <translation type="unfinished">'bitcoinsilver://' no és una URI vàlida. Usi 'bitcoinsilver:' en lloc seu.</translation>
+        <source>'bitcoin://' is not a valid URI. Use 'bitcoin:' instead.</source>
+        <translation type="unfinished">'bitcoin://' no és una URI vàlida. Usi 'bitcoin:' en lloc seu.</translation>
     </message>
     <message>
         <source>Cannot process payment request because BIP70 is not supported.
@@ -2050,8 +1959,8 @@ A causa dels defectes generalitzats de seguretat del BIP70, es recomana que s'ig
 Si rebeu aquest error, haureu de sol·licitar al comerciant que proporcioni un URI compatible amb BIP21.</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid BitcoinSilver address or malformed URI parameters.</source>
-        <translation type="unfinished">L'URI no pot ser analitzat! Això pot ser a causa d'una adreça de BitcoinSilver no vàlida o per paràmetres URI amb mal format.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid Bitcoin address or malformed URI parameters.</source>
+        <translation type="unfinished">L'URI no pot ser analitzat! Això pot ser a causa d'una adreça de Bitcoin no vàlida o per paràmetres URI amb mal format.</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -2069,11 +1978,6 @@ Si rebeu aquest error, haureu de sol·licitar al comerciant que proporcioni un U
         <source>Peer</source>
         <extracomment>Title of Peers Table column which contains a unique number used to identify a connection.</extracomment>
         <translation type="unfinished">Igual</translation>
-    </message>
-    <message>
-        <source>Age</source>
-        <extracomment>Title of Peers Table column which indicates the duration (length of time) since the peer connection started.</extracomment>
-        <translation type="unfinished">Edat</translation>
     </message>
     <message>
         <source>Direction</source>
@@ -2540,8 +2444,8 @@ No utilitzeu aquesta consola sense entendre completament les ramificacions d'una
         <translation type="unfinished">&amp;Missatge:</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the BitcoinSilver network.</source>
-        <translation type="unfinished">Un missatge opcional que s'adjuntarà a la sol·licitud de pagament, que es mostrarà quan s'obri la sol·licitud. Nota: El missatge no s'enviarà amb el pagament per la xarxa BitcoinSilver.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
+        <translation type="unfinished">Un missatge opcional que s'adjuntarà a la sol·licitud de pagament, que es mostrarà quan s'obri la sol·licitud. Nota: El missatge no s'enviarà amb el pagament per la xarxa Bitcoin.</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -2813,8 +2717,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
 Nota: atès que la tarifa es calcula per byte, una tarifa de "100 satoshis per kvB" per a una mida de transacció de 500 bytes virtuals (la meitat d'1 kvB) donaria finalment una tarifa de només 50 satoshis.</translation>
     </message>
     <message>
-        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoinsilver transactions than the network can process.</source>
-        <translation type="unfinished">Quan no hi ha prou espai en els blocs per a encabir totes les transaccions, els miners i així mateix els nodes de trànsit poden exigir una taxa mínima. És acceptable pagar únicament la taxa mínima, però tingueu present que pot resultar que la vostra transacció no sigui mai confirmada mentre hi hagi més demanda de transaccions bitcoinsilver de les que la xarxa pot processar.</translation>
+        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
+        <translation type="unfinished">Quan no hi ha prou espai en els blocs per a encabir totes les transaccions, els miners i així mateix els nodes de trànsit poden exigir una taxa mínima. És acceptable pagar únicament la taxa mínima, però tingueu present que pot resultar que la vostra transacció no sigui mai confirmada mentre hi hagi més demanda de transaccions bitcoin de les que la xarxa pot processar.</translation>
     </message>
     <message>
         <source>A too low fee might result in a never confirming transaction (read the tooltip)</source>
@@ -2899,12 +2803,8 @@ Nota: atès que la tarifa es calcula per byte, una tarifa de "100 satoshis per k
         <translation type="unfinished">Creació sense firmar</translation>
     </message>
     <message>
-        <source>Creates a Partially Signed BitcoinSilver Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
-        <translation type="unfinished">Crea una transacció bitcoinsilver parcialment signada (PSBT) per a utilitzar, per exemple,  amb una cartera %1 fora de línia o amb una cartera compatible amb PSBT.</translation>
-    </message>
-    <message>
-        <source> from wallet '%1'</source>
-        <translation type="unfinished">de la cartera "%1"</translation>
+        <source>Creates a Partially Signed Bitcoin Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <translation type="unfinished">Crea una transacció bitcoin parcialment signada (PSBT) per a utilitzar, per exemple,  amb una cartera %1 fora de línia o amb una cartera compatible amb PSBT.</translation>
     </message>
     <message>
         <source>%1 to '%2'</source>
@@ -2959,14 +2859,9 @@ Nota: atès que la tarifa es calcula per byte, una tarifa de "100 satoshis per k
         <translation type="unfinished">Pot incrementar la tarifa més tard (senyala Replace-By-Fee o substitució per tarifa, BIP-125).</translation>
     </message>
     <message>
-        <source>Please, review your transaction proposal. This will produce a Partially Signed BitcoinSilver Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction proposal. This will produce a Partially Signed Bitcoin Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can only create a PSBT. This string is displayed when private keys are disabled and an external signer is not available.</extracomment>
-        <translation type="unfinished">Si us plau, revisa la teva proposta de transacció. Es produirà una transacció de BitcoinSilver amb firma parcial (PSBT) que podeu guardar o copiar i després firmar, per exemple, amb una cartera %1, o amb una cartera física compatible amb PSBT.</translation>
-    </message>
-    <message>
-        <source>Do you want to create this transaction?</source>
-        <extracomment>Message displayed when attempting to create a transaction. Cautionary text to prompt the user to verify that the displayed transaction details represent the transaction the user intends to create.</extracomment>
-        <translation type="unfinished">Voleu crear aquesta transacció?</translation>
+        <translation type="unfinished">Si us plau, revisa la teva proposta de transacció. Es produirà una transacció de Bitcoin amb firma parcial (PSBT) que podeu guardar o copiar i després firmar, per exemple, amb una cartera %1, o amb una cartera física compatible amb PSBT.</translation>
     </message>
     <message>
         <source>Please, review your transaction.</source>
@@ -3035,8 +2930,8 @@ Nota: atès que la tarifa es calcula per byte, una tarifa de "100 satoshis per k
         </translation>
     </message>
     <message>
-        <source>Warning: Invalid BitcoinSilver address</source>
-        <translation type="unfinished">Avís: adreça BitcoinSilver no vàlida</translation>
+        <source>Warning: Invalid Bitcoin address</source>
+        <translation type="unfinished">Avís: adreça Bitcoin no vàlida</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -3074,8 +2969,8 @@ Nota: atès que la tarifa es calcula per byte, una tarifa de "100 satoshis per k
         <translation type="unfinished">Escull una adreça feta servir anteriorment</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address to send the payment to</source>
-        <translation type="unfinished">L'adreça BitcoinSilver on enviar el pagament</translation>
+        <source>The Bitcoin address to send the payment to</source>
+        <translation type="unfinished">L'adreça Bitcoin on enviar el pagament</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -3114,8 +3009,8 @@ Nota: atès que la tarifa es calcula per byte, una tarifa de "100 satoshis per k
         <translation type="unfinished">Introduïu una etiqueta per a aquesta adreça per afegir-la a la llista d'adreces utilitzades</translation>
     </message>
     <message>
-        <source>A message that was attached to the bitcoinsilver: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the BitcoinSilver network.</source>
-        <translation type="unfinished">Un missatge que s'ha adjuntat al bitcoinsilver: URI que s'emmagatzemarà amb la transacció per a la vostra referència. Nota: el missatge no s'enviarà a través de la xarxa BitcoinSilver.</translation>
+        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
+        <translation type="unfinished">Un missatge que s'ha adjuntat al bitcoin: URI que s'emmagatzemarà amb la transacció per a la vostra referència. Nota: el missatge no s'enviarà a través de la xarxa Bitcoin.</translation>
     </message>
 </context>
 <context>
@@ -3144,8 +3039,8 @@ Nota: atès que la tarifa es calcula per byte, una tarifa de "100 satoshis per k
         <translation type="unfinished">Podeu signar missatges/acords amb les vostres adreces per a provar que rebeu les bitcoins que s'hi envien. Aneu amb compte no signar res que sigui vague o aleatori, perquè en alguns atacs de suplantació es pot provar que hi signeu la vostra identitat. Només signeu aquelles declaracions completament detallades en què hi esteu d'acord. </translation>
     </message>
     <message>
-        <source>The BitcoinSilver address to sign the message with</source>
-        <translation type="unfinished">L'adreça BitcoinSilver amb què signar el missatge</translation>
+        <source>The Bitcoin address to sign the message with</source>
+        <translation type="unfinished">L'adreça Bitcoin amb què signar el missatge</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3172,8 +3067,8 @@ Nota: atès que la tarifa es calcula per byte, una tarifa de "100 satoshis per k
         <translation type="unfinished">Copia la signatura actual al porta-retalls del sistema</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this BitcoinSilver address</source>
-        <translation type="unfinished">Signa el missatge per a provar que ets propietari d'aquesta adreça BitcoinSilver</translation>
+        <source>Sign the message to prove you own this Bitcoin address</source>
+        <translation type="unfinished">Signa el missatge per a provar que ets propietari d'aquesta adreça Bitcoin</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -3196,8 +3091,8 @@ Nota: atès que la tarifa es calcula per byte, una tarifa de "100 satoshis per k
         <translation type="unfinished">Introduïu l'adreça del receptor, el missatge (assegureu-vos de copiar els salts de línia, espais, tabuladors, etc. exactament) i signatura de sota per a verificar el missatge. Tingueu cura de no llegir més en la signatura del que està al missatge signat, per a evitar ser enganyat per un atac d'home-en-el-mig. Tingueu en compte que això només demostra que la part que signa rep amb l'adreça, i no es pot provar l'enviament de qualsevol transacció!</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address the message was signed with</source>
-        <translation type="unfinished">L'adreça BitcoinSilver amb què va ser signat el missatge</translation>
+        <source>The Bitcoin address the message was signed with</source>
+        <translation type="unfinished">L'adreça Bitcoin amb què va ser signat el missatge</translation>
     </message>
     <message>
         <source>The signed message to verify</source>
@@ -3208,8 +3103,8 @@ Nota: atès que la tarifa es calcula per byte, una tarifa de "100 satoshis per k
         <translation type="unfinished">La signatura donada quan es va signar el missatge</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified BitcoinSilver address</source>
-        <translation type="unfinished">Verificar el missatge per a assegurar-se que ha estat signat amb una adreça BitcoinSilver específica</translation>
+        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
+        <translation type="unfinished">Verificar el missatge per a assegurar-se que ha estat signat amb una adreça Bitcoin específica</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -3352,10 +3247,8 @@ Nota: atès que la tarifa es calcula per byte, una tarifa de "100 satoshis per k
     <message numerus="yes">
         <source>matures in %n more block(s)</source>
         <translation type="unfinished">
-            <numerusform>madura en %n bloc més
-</numerusform>
-            <numerusform>madura en %n blocs més
-</numerusform>
+            <numerusform />
+            <numerusform />
         </translation>
     </message>
     <message>
@@ -3405,10 +3298,6 @@ Nota: atès que la tarifa es calcula per byte, una tarifa de "100 satoshis per k
     <message>
         <source>Output index</source>
         <translation type="unfinished">Índex de resultats</translation>
-    </message>
-    <message>
-        <source> (Certificate was not verified)</source>
-        <translation type="unfinished">(El certificat no s'ha verificat)</translation>
     </message>
     <message>
         <source>Merchant</source>
@@ -3842,14 +3731,14 @@ Ves a Arxiu &gt; Obrir Cartera per a carregar cartera.
     </message>
 </context>
 <context>
-    <name>bitcoinsilver-core</name>
+    <name>bitcoin-core</name>
     <message>
         <source>The %s developers</source>
         <translation type="unfinished">Els desenvolupadors %s</translation>
     </message>
     <message>
-        <source>%s corrupt. Try using the wallet tool bitcoinsilver-wallet to salvage or restoring a backup.</source>
-        <translation type="unfinished">%s està malmès. Proveu d’utilitzar l’eina bitcoinsilver-wallet per a recuperar o restaurar una còpia de seguretat.</translation>
+        <source>%s corrupt. Try using the wallet tool bitcoin-wallet to salvage or restoring a backup.</source>
+        <translation type="unfinished">%s està malmès. Proveu d’utilitzar l’eina bitcoin-wallet per a recuperar o restaurar una còpia de seguretat.</translation>
     </message>
     <message>
         <source>Cannot downgrade wallet from version %i to version %i. Wallet version unchanged.</source>
@@ -3876,8 +3765,8 @@ Ves a Arxiu &gt; Obrir Cartera per a carregar cartera.
         <translation type="unfinished">Error: el registre de l'identificador del fitxer de bolcat és incorrecte. S'ha obtingut «%s», s'esperava «%s».</translation>
     </message>
     <message>
-        <source>Error: Dumpfile version is not supported. This version of bitcoinsilver-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
-        <translation type="unfinished">Error: la versió del fitxer de bolcat no és compatible. Aquesta versió de bitcoinsilver-wallet només admet fitxers de bolcat de la versió 1. S'ha obtingut un fitxer de bolcat amb la versió %s</translation>
+        <source>Error: Dumpfile version is not supported. This version of bitcoin-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
+        <translation type="unfinished">Error: la versió del fitxer de bolcat no és compatible. Aquesta versió de bitcoin-wallet només admet fitxers de bolcat de la versió 1. S'ha obtingut un fitxer de bolcat amb la versió %s</translation>
     </message>
     <message>
         <source>Error: Legacy wallets only support the "legacy", "p2sh-segwit", and "bech32" address types</source>
@@ -4006,23 +3895,6 @@ Ves a Arxiu &gt; Obrir Cartera per a carregar cartera.
     <message>
         <source>Cannot write to data directory '%s'; check permissions.</source>
         <translation type="unfinished">No es pot escriure en el directori de dades "%s". Reviseu-ne els permisos.</translation>
-    </message>
-    <message>
-        <source>%s is set very high! Fees this large could be paid on a single transaction.</source>
-        <translation type="unfinished">%s especificat molt alt! Tarifes tan grans podrien pagar-se en una única transacció.
-</translation>
-    </message>
-    <message>
-        <source>Error reading %s! All keys read correctly, but transaction data or address metadata may be missing or incorrect.</source>
-        <translation type="unfinished">S'ha produït un error en llegir %s. Totes les claus es llegeixen correctament, però les dades de la transacció o les entra des de la llibreta d'adreces podrien faltar o ser incorrectes.</translation>
-    </message>
-    <message>
-        <source>Fee estimation failed. Fallbackfee is disabled. Wait a few blocks or enable %s.</source>
-        <translation type="unfinished">L'estimació de la quota ha fallat. Fallbackfee està desactivat. Espereu uns quants blocs o activeu %s.</translation>
-    </message>
-    <message>
-        <source>Invalid amount for %s=&lt;amount&gt;: '%s' (must be at least the minrelay fee of %s to prevent stuck transactions)</source>
-        <translation type="unfinished">Import no vàlid per a %s=&lt;amount&gt;: '%s' (cal que sigui com a mínim la comissió de minrelay de %s per evitar que les comissions s'encallin)</translation>
     </message>
     <message>
         <source>Config setting for %s only applied on %s network when in [%s] section.</source>
@@ -4198,24 +4070,12 @@ Ves a Arxiu &gt; Obrir Cartera per a carregar cartera.
         <translation type="unfinished">Permís P2P no vàlid: '%s'</translation>
     </message>
     <message>
-        <source>Invalid amount for %s=&lt;amount&gt;: '%s' (must be at least %s)</source>
-        <translation type="unfinished">Import no vàlid per a %s=&lt;amount&gt;: «%s» (ha de ser com a mínim %s)</translation>
-    </message>
-    <message>
-        <source>Invalid amount for %s=&lt;amount&gt;: '%s'</source>
-        <translation type="unfinished">Import invàlid per a %s=&lt;amount&gt;: '%s'</translation>
-    </message>
-    <message>
         <source>Invalid amount for -%s=&lt;amount&gt;: '%s'</source>
         <translation type="unfinished">Import invàlid per a -%s=&lt;amount&gt;: '%s'</translation>
     </message>
     <message>
         <source>Invalid netmask specified in -whitelist: '%s'</source>
         <translation type="unfinished">S'ha especificat una màscara de xarxa no vàlida a -whitelist: «%s»</translation>
-    </message>
-    <message>
-        <source>Listening for incoming connections failed (listen returned error %s)</source>
-        <translation type="unfinished">ha fallat escoltar les connexions entrants (l'escoltament ha retornat l'error %s)</translation>
     </message>
     <message>
         <source>Loading P2P addresses…</source>
@@ -4306,10 +4166,6 @@ Ves a Arxiu &gt; Obrir Cartera per a carregar cartera.
         <translation type="unfinished">El directori de blocs especificat "%s" no existeix.</translation>
     </message>
     <message>
-        <source>Specified data directory "%s" does not exist.</source>
-        <translation type="unfinished">El directori de dades especificat «%s» no existeix.</translation>
-    </message>
-    <message>
         <source>Starting network threads…</source>
         <translation type="unfinished">S'estan iniciant fils de xarxa...</translation>
     </message>
@@ -4348,10 +4204,6 @@ Ves a Arxiu &gt; Obrir Cartera per a carregar cartera.
     <message>
         <source>Transaction amounts must not be negative</source>
         <translation type="unfinished">Els imports de la transacció no han de ser negatius</translation>
-    </message>
-    <message>
-        <source>Transaction has too long of a mempool chain</source>
-        <translation type="unfinished">La transacció té massa temps d'una cadena de mempool</translation>
     </message>
     <message>
         <source>Transaction must have at least one recipient</source>

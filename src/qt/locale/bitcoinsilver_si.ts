@@ -58,7 +58,7 @@
         <translation type="unfinished">තෝ&amp;රන්න</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation type="unfinished">මේ ඔබගේ ගෙවීම් යැවීම සඳහා වන බිට්කොයින් ලිපින වේ. කාසි යැවීමට පෙර සෑම විටම මුදල සහ ලැබීමේ ලිපිනය පරීක්‍ෂා කරන්න.</translation>
     </message>
     <message>
@@ -146,7 +146,7 @@
         <translation type="unfinished">පසුම්බි සංකේතනය තහවුරු කරන්න</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINSILVERS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
         <translation type="unfinished">අවවාදයයි: ඔබ ඔබේ මුදල් පසුම්බිය සංකේතනය කල පසු ඔබගේ මුරපදය නැති වුවහොත්, ඔබේ  &lt;b&gt;බිට්කොයින් සියල්ලම ඔබට අහිමි වනු ඇත&lt;/b&gt;!</translation>
     </message>
     <message>
@@ -347,7 +347,7 @@
         <translation type="unfinished">ජාලයේ ක්‍රියාකාරකම අබල කර ඇත.</translation>
     </message>
     <message>
-        <source>Send coins to a BitcoinSilver address</source>
+        <source>Send coins to a Bitcoin address</source>
         <translation type="unfinished">බිට්කොයින් ලිපිනයකට කාසි යවන්න</translation>
     </message>
     <message>
@@ -494,11 +494,11 @@
         <translation type="unfinished">පෙ&amp;න්වන්න</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>%n active connection(s) to BitcoinSilver network.</numerusform>
-            <numerusform>%n active connection(s) to BitcoinSilver network.</numerusform>
+            <numerusform>%n active connection(s) to Bitcoin network.</numerusform>
+            <numerusform>%n active connection(s) to Bitcoin network.</numerusform>
         </translation>
     </message>
     <message>
@@ -733,7 +733,7 @@
 <context>
     <name>Intro</name>
     <message>
-        <source>BitcoinSilver</source>
+        <source>Bitcoin</source>
         <translation type="unfinished">බිට්කොයින්</translation>
     </message>
     <message numerus="yes">
@@ -873,10 +873,6 @@
     <message>
         <source>User Interface &amp;language:</source>
         <translation type="unfinished">අතරු මුහුණතේ &amp;භාෂාව:</translation>
-    </message>
-    <message>
-        <source>embedded "%1"</source>
-        <translation type="unfinished">එබ්බවූ "%1"</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -1273,7 +1269,7 @@
     </message>
 </context>
 <context>
-    <name>bitcoinsilver-core</name>
+    <name>bitcoin-core</name>
     <message>
         <source>The %s developers</source>
         <translation type="unfinished">%s සංවර්ධකයින්</translation>

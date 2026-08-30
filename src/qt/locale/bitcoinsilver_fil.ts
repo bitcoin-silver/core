@@ -58,13 +58,13 @@
         <translation type="unfinished">Pumili</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">Ito ang iyong mga BitcoinSilver address para sa pagpapadala ng bayad. Laging suriin ang halaga at ang address na tatanggap bago magpadala ng coins.</translation>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">Ito ang iyong mga Bitcoin address para sa pagpapadala ng bayad. Laging suriin ang halaga at ang address na tatanggap bago magpadala ng coins.</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">Ito ang iyong mga BitcoinSilver address upang makatanggap ng mga salapi. Gamitin niyo ang 'Gumawa ng bagong address' na pindutan sa 'Tumanggap' na tab upang makagawa ng bagong address. Ang pagpirma ay posible lamang sa mga address na may uring 'legacy'.</translation>
+        <translation type="unfinished">Ito ang iyong mga Bitcoin address upang makatanggap ng mga salapi. Gamitin niyo ang 'Gumawa ng bagong address' na pindutan sa 'Tumanggap' na tab upang makagawa ng bagong address. Ang pagpirma ay posible lamang sa mga address na may uring 'legacy'.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -142,8 +142,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Kumpirmahin ang pag-enkripto ng pitaka</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINSILVERS&lt;/b&gt;!</source>
-        <translation type="unfinished">Babala: Kung na-encrypt mo ang iyong walet at nawala ang iyong passphrase, &lt;b&gt;MAWAWALA MO ANG LAHAT NG IYONG MGA BITCOINSILVER!&lt;/b&gt;</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
+        <translation type="unfinished">Babala: Kung na-encrypt mo ang iyong walet at nawala ang iyong passphrase, &lt;b&gt;MAWAWALA MO ANG LAHAT NG IYONG MGA BITCOIN!&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -163,7 +163,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
-        <translation type="unfinished">Tandaan na ang pag-eenkripto ng iyong pitaka ay hindi buong makakaprotekta sa inyong mga bitcoinsilver mula sa pagnanakaw ng mga nag-iimpektong malware.</translation>
+        <translation type="unfinished">Tandaan na ang pag-eenkripto ng iyong pitaka ay hindi buong makakaprotekta sa inyong mga bitcoin mula sa pagnanakaw ng mga nag-iimpektong malware.</translation>
     </message>
     <message>
         <source>Wallet to be encrypted</source>
@@ -202,6 +202,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Ang passphrase na inilagay para sa pag-dedekripto ng pitaka ay hindi tama</translation>
     </message>
     <message>
+        <source>The passphrase entered for the wallet decryption is incorrect. It contains a null character (ie - a zero byte). If the passphrase was set with a version of this software prior to 25.0, please try again with only the characters up to — but not including — the first null character. If this is successful, please set a new passphrase to avoid this issue in the future.</source>
+        <translation type="unfinished">Ang passphrase na isinumite para sa pag-decrypt ng pitaka ay mali. Naglalaman ito ng null character (halimbawa - isang zero byte). Kung ang passphrase ay itinakda gamit ang isang bersyon ng software na ito bago ang 25.0, subukan muli lamang ang mga karakter mula sa simula hanggang sa una nilalang null character. Kung magtagumpay ito, mangyaring magtakda ng bagong passphrase upang maiwasan ang isyung ito sa hinaharap.</translation>
+    </message>
+    <message>
         <source>Wallet passphrase was successfully changed.</source>
         <translation type="unfinished">Matagumpay na nabago ang passphrase ng walet.</translation>
     </message>
@@ -232,8 +236,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Halaga</translation>
     </message>
     <message>
-        <source>Enter a BitcoinSilver address (e.g. %1)</source>
-        <translation type="unfinished">I-enter ang BitcoinSilver address (e.g. %1)</translation>
+        <source>Enter a Bitcoin address (e.g. %1)</source>
+        <translation type="unfinished">I-enter ang Bitcoin address (e.g. %1)</translation>
     </message>
     <message>
         <source>Inbound</source>
@@ -348,7 +352,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>&amp;Minimize</source>
-        <translation type="unfinished">&amp;Paliitin</translation>
+        <translation type="unfinished">&amp;Pagliitin</translation>
     </message>
     <message>
         <source>Wallet:</source>
@@ -364,8 +368,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Ang proxy ay &lt;b&gt;in-inable&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a BitcoinSilver address</source>
-        <translation type="unfinished">Magpadala ng coins sa isang BitcoinSilver address</translation>
+        <source>Send coins to a Bitcoin address</source>
+        <translation type="unfinished">Magpadala ng coins sa isang Bitcoin address</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -392,12 +396,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">I-encrypt ang private keys na kabilang sa iyong walet</translation>
     </message>
     <message>
-        <source>Sign messages with your BitcoinSilver addresses to prove you own them</source>
-        <translation type="unfinished">Pumirma ng mga mensahe gamit ang iyong mga BitcoinSilver address upang mapatunayan na pagmamay-ari mo ang mga ito</translation>
+        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
+        <translation type="unfinished">Pumirma ng mga mensahe gamit ang iyong mga Bitcoin address upang mapatunayan na pagmamay-ari mo ang mga ito</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified BitcoinSilver addresses</source>
-        <translation type="unfinished">I-verify ang mga mensahe upang matiyak na sila ay napirmahan ng tinukoy na mga BitcoinSilver address.</translation>
+        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
+        <translation type="unfinished">I-verify ang mga mensahe upang matiyak na sila ay napirmahan ng tinukoy na mga Bitcoin address.</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -412,8 +416,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Tulong</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoinsilver: URIs)</source>
-        <translation type="unfinished">Humiling ng bayad (lumilikha ng QR codes at bitcoinsilver: URIs)</translation>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
+        <translation type="unfinished">Humiling ng bayad (lumilikha ng QR codes at bitcoin: URIs)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -480,7 +484,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Open a wallet</source>
-        <translation type="unfinished">Magbukas ng wallet</translation>
+        <translation type="unfinished">Buksan ang anumang walet</translation>
     </message>
     <message>
         <source>Close wallet</source>
@@ -488,15 +492,15 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Close all wallets</source>
-        <translation type="unfinished">Isara ang lahat ng wallets</translation>
+        <translation type="unfinished">Isarado ang lahat ng wallets</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible BitcoinSilver command-line options</source>
-        <translation type="unfinished">Ipakita sa %1 ang tulong na mensahe upang makuha ang talaan ng mga posibleng opsyon ng BitcoinSilver command-line</translation>
+        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
+        <translation type="unfinished">Ipakita sa %1 ang tulong na mensahe upang makuha ang talaan ng mga posibleng opsyon ng Bitcoin command-line</translation>
     </message>
     <message>
         <source>default wallet</source>
-        <translation type="unfinished">wallet na default</translation>
+        <translation type="unfinished">walet na default</translation>
     </message>
     <message>
         <source>No wallets available</source>
@@ -524,11 +528,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">%1 kliyente</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>%n aktibong konekyson sa network ng BitcoinSilver</numerusform>
-            <numerusform>%n mga aktibong koneksyon sa network ng BitcoinSilver</numerusform>
+            <numerusform>%n aktibong konekyson sa network ng Bitcoin</numerusform>
+            <numerusform>%n mga aktibong koneksyon sa network ng Bitcoin</numerusform>
         </translation>
     </message>
     <message>
@@ -831,8 +835,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Baguhin ang address para sa pagpapadala</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid BitcoinSilver address.</source>
-        <translation type="unfinished">Ang address na in-enter "%1" ay hindi isang wastong BitcoinSilver address.</translation>
+        <source>The entered address "%1" is not a valid Bitcoin address.</source>
+        <translation type="unfinished">Ang address na in-enter "%1" ay hindi isang wastong Bitcoin address.</translation>
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -914,8 +918,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         </translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the BitcoinSilver block chain.</source>
-        <translation type="unfinished">%1 ay mag-do-download at magiimbak ng kopya ng BitcoinSilver blockchain.</translation>
+        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
+        <translation type="unfinished">%1 ay mag-do-download at magiimbak ng kopya ng Bitcoin blockchain.</translation>
     </message>
     <message>
         <source>The wallet will also be stored in this directory.</source>
@@ -987,12 +991,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Anyo</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoinsilver network, as detailed below.</source>
-        <translation type="unfinished">Ang mga bagong transaksyon ay hindi pa makikita kaya ang balanse ng iyong walet ay maaaring hindi tama. Ang impormasyong ito ay maiitama pagkatapos ma-synchronize ng iyong walet sa bitcoinsilver network, ayon sa ibaba.</translation>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoin network, as detailed below.</source>
+        <translation type="unfinished">Ang mga bagong transaksyon ay hindi pa makikita kaya ang balanse ng iyong walet ay maaaring hindi tama. Ang impormasyong ito ay maiitama pagkatapos ma-synchronize ng iyong walet sa bitcoin network, ayon sa ibaba.</translation>
     </message>
     <message>
         <source>Attempting to spend bitcoins that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
-        <translation type="unfinished">Ang pagtangkang gastusin ang mga bitcoinsilver na apektado ng mga transaksyon na hindi pa naipapakita ay hindi tatanggapin ng network.</translation>
+        <translation type="unfinished">Ang pagtangkang gastusin ang mga bitcoin na apektado ng mga transaksyon na hindi pa naipapakita ay hindi tatanggapin ng network.</translation>
     </message>
     <message>
         <source>Number of blocks left</source>
@@ -1114,8 +1118,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Gastusin ang sukli na hindi pa nakumpirma</translation>
     </message>
     <message>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation type="unfinished">Kusang buksan ang BitcoinSilver client port sa router. Gumagana lamang ito kapag ang iyong router ay sumusuporta ng UPnP at ito ay pinagana.</translation>
+        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation type="unfinished">Kusang buksan ang Bitcoin client port sa router. Gumagana lamang ito kapag ang iyong router ay sumusuporta ng UPnP at ito ay pinagana.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1130,8 +1134,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Ipahintulot ang mga papasok na koneksyon</translation>
     </message>
     <message>
-        <source>Connect to the BitcoinSilver network through a SOCKS5 proxy.</source>
-        <translation type="unfinished">Kumunekta sa BitcoinSilver network sa pamamagitan ng SOCKS5 proxy.</translation>
+        <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
+        <translation type="unfinished">Kumunekta sa Bitcoin network sa pamamagitan ng SOCKS5 proxy.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1258,8 +1262,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Anyo</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BitcoinSilver network after a connection is established, but this process has not completed yet.</source>
-        <translation type="unfinished">Ang ipinapakitang impormasyon ay maaaring luma na. Kusang mag-sy-synchronize ang iyong walet sa BitcoinSilver network pagkatapos maitatag ang koneksyon, ngunit hindi pa nakukumpleto ang prosesong ito.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
+        <translation type="unfinished">Ang ipinapakitang impormasyon ay maaaring luma na. Kusang mag-sy-synchronize ang iyong walet sa Bitcoin network pagkatapos maitatag ang koneksyon, ngunit hindi pa nakukumpleto ang prosesong ito.</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1392,16 +1396,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Kamalian sa paghiling ng bayad</translation>
     </message>
     <message>
-        <source>Cannot start bitcoinsilver: click-to-pay handler</source>
-        <translation type="unfinished">Hindi masimulan ang bitcoinsilver: click-to-pay handler</translation>
+        <source>Cannot start bitcoin: click-to-pay handler</source>
+        <translation type="unfinished">Hindi masimulan ang bitcoin: click-to-pay handler</translation>
     </message>
     <message>
-        <source>'bitcoinsilver://' is not a valid URI. Use 'bitcoinsilver:' instead.</source>
-        <translation type="unfinished">Ang 'bitcoinsilver://' ay hindi wastong URI. Sa halip, gamitin ang 'bitcoinsilver:'.</translation>
+        <source>'bitcoin://' is not a valid URI. Use 'bitcoin:' instead.</source>
+        <translation type="unfinished">Ang 'bitcoin://' ay hindi wastong URI. Sa halip, gamitin ang 'bitcoin:'.</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid BitcoinSilver address or malformed URI parameters.</source>
-        <translation type="unfinished">Hindi ma-parse ang URI! Marahil ito ay dahil sa hindi wastong BitcoinSilver address o maling URI parameters</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid Bitcoin address or malformed URI parameters.</source>
+        <translation type="unfinished">Hindi ma-parse ang URI! Marahil ito ay dahil sa hindi wastong Bitcoin address o maling URI parameters</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -1733,8 +1737,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Mensahe:</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the BitcoinSilver network.</source>
-        <translation type="unfinished">Opsyonal na mensahe na ilakip sa hiling ng bayad, na ipapakita pagbukas ng hiling. Tandaan: Ang mensahe ay hindi ipapadala kasama ng bayad sa BitcoinSilver network.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
+        <translation type="unfinished">Opsyonal na mensahe na ilakip sa hiling ng bayad, na ipapakita pagbukas ng hiling. Tandaan: Ang mensahe ay hindi ipapadala kasama ng bayad sa Bitcoin network.</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -1954,8 +1958,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Itago ang mga Setting ng bayad sa Transaksyon</translation>
     </message>
     <message>
-        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoinsilver transactions than the network can process.</source>
-        <translation type="unfinished">Kapag mas kaunti ang dami ng transaksyon kaysa sa puwang sa mga blocks, ang mga minero pati na rin ang mga relaying node ay maaaring magpatupad ng minimum na bayad. Ang pagbabayad lamang ng minimum na bayad na ito ay maayos, ngunit malaman na maaari itong magresulta sa hindi kailanmang nagkukumpirmang transaksyon sa sandaling magkaroon ng higit na pangangailangan para sa mga transaksyon ng bitcoinsilver kaysa sa kayang i-proseso ng network.</translation>
+        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
+        <translation type="unfinished">Kapag mas kaunti ang dami ng transaksyon kaysa sa puwang sa mga blocks, ang mga minero pati na rin ang mga relaying node ay maaaring magpatupad ng minimum na bayad. Ang pagbabayad lamang ng minimum na bayad na ito ay maayos, ngunit malaman na maaari itong magresulta sa hindi kailanmang nagkukumpirmang transaksyon sa sandaling magkaroon ng higit na pangangailangan para sa mga transaksyon ng bitcoin kaysa sa kayang i-proseso ng network.</translation>
     </message>
     <message>
         <source>A too low fee might result in a never confirming transaction (read the tooltip)</source>
@@ -2094,8 +2098,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         </translation>
     </message>
     <message>
-        <source>Warning: Invalid BitcoinSilver address</source>
-        <translation type="unfinished">Babala: Hindi wastong BitcoinSilver address</translation>
+        <source>Warning: Invalid Bitcoin address</source>
+        <translation type="unfinished">Babala: Hindi wastong Bitcoin address</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -2133,8 +2137,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Piliin ang dating ginamit na address</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address to send the payment to</source>
-        <translation type="unfinished">Ang BitcoinSilver address kung saan ipapadala and bayad</translation>
+        <source>The Bitcoin address to send the payment to</source>
+        <translation type="unfinished">Ang Bitcoin address kung saan ipapadala and bayad</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
@@ -2146,7 +2150,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>The fee will be deducted from the amount being sent. The recipient will receive less bitcoins than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
-        <translation type="unfinished">Ibabawas ang bayad mula sa halagang ipapadala. Ang tatanggap ay makakatanggap ng mas kaunting mga bitcoinsilver kaysa sa pinasok mo sa patlang ng halaga. Kung napili ang maraming tatanggap, ang bayad ay paghihiwalayin.</translation>
+        <translation type="unfinished">Ibabawas ang bayad mula sa halagang ipapadala. Ang tatanggap ay makakatanggap ng mas kaunting mga bitcoin kaysa sa pinasok mo sa patlang ng halaga. Kung napili ang maraming tatanggap, ang bayad ay paghihiwalayin.</translation>
     </message>
     <message>
         <source>S&amp;ubtract fee from amount</source>
@@ -2165,8 +2169,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Mag-enter ng label para sa address na ito upang idagdag ito sa listahan ng mga gamit na address.</translation>
     </message>
     <message>
-        <source>A message that was attached to the bitcoinsilver: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the BitcoinSilver network.</source>
-        <translation type="unfinished">Mensahe na nakalakip sa bitcoinsilver: URI na kung saan maiimbak kasama ang transaksyon para sa iyong sanggunian. Tandaan: Ang mensaheng ito ay hindi ipapadala sa network ng BitcoinSilver.</translation>
+        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
+        <translation type="unfinished">Mensahe na nakalakip sa bitcoin: URI na kung saan maiimbak kasama ang transaksyon para sa iyong sanggunian. Tandaan: Ang mensaheng ito ay hindi ipapadala sa network ng Bitcoin.</translation>
     </message>
 </context>
 <context>
@@ -2188,11 +2192,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>You can sign messages/agreements with your addresses to prove you can receive bitcoins sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
-        <translation type="unfinished">Maaari kang pumirma ng mga mensahe/kasunduan sa iyong mga address upang mapatunayan na maaari kang makatanggap ng mga bitcoinsilver na ipinadala sa kanila. Mag-ingat na huwag pumirma ng anumang bagay na hindi malinaw o random, dahil ang mga phishing attack ay maaaring subukan na linlangin ka sa pagpirma ng iyong pagkakakilanlan sa kanila. Pumirma lamang ng kumpletong mga pahayag na sumasang-ayon ka.</translation>
+        <translation type="unfinished">Maaari kang pumirma ng mga mensahe/kasunduan sa iyong mga address upang mapatunayan na maaari kang makatanggap ng mga bitcoin na ipinadala sa kanila. Mag-ingat na huwag pumirma ng anumang bagay na hindi malinaw o random, dahil ang mga phishing attack ay maaaring subukan na linlangin ka sa pagpirma ng iyong pagkakakilanlan sa kanila. Pumirma lamang ng kumpletong mga pahayag na sumasang-ayon ka.</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address to sign the message with</source>
-        <translation type="unfinished">Ang BitcoinSilver address kung anong ipipirma sa mensahe</translation>
+        <source>The Bitcoin address to sign the message with</source>
+        <translation type="unfinished">Ang Bitcoin address kung anong ipipirma sa mensahe</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2215,8 +2219,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Kopyahin ang kasalukuyang address sa system clipboard</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this BitcoinSilver address</source>
-        <translation type="unfinished">Pirmahan ang mensahe upang mapatunayan na pagmamay-ari mo ang BitcoinSilver address na ito</translation>
+        <source>Sign the message to prove you own this Bitcoin address</source>
+        <translation type="unfinished">Pirmahan ang mensahe upang mapatunayan na pagmamay-ari mo ang Bitcoin address na ito</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2239,12 +2243,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Ipasok ang address ng tatanggap, mensahe (tiyakin na kopyahin mo ang mga break ng linya, puwang, mga tab, atbp.) at pirma sa ibaba upang i-verify ang mensahe. Mag-ingat na huwag magbasa ng higit pa sa pirma kaysa sa kung ano ang nasa nakapirmang mensahe mismo, upang maiwasan na maloko ng man-in-the-middle attack. Tandaan na pinapatunayan lamang nito na nakakatanggap sa address na ito ang partido na pumirma, hindi nito napapatunayan ang pagpapadala ng anumang transaksyon!</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address the message was signed with</source>
-        <translation type="unfinished">Ang BitcoinSilver address na pumirma sa mensahe</translation>
+        <source>The Bitcoin address the message was signed with</source>
+        <translation type="unfinished">Ang Bitcoin address na pumirma sa mensahe</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified BitcoinSilver address</source>
-        <translation type="unfinished">Tiyakin ang katotohanan ng mensahe upang siguruhin na ito'y napirmahan ng tinukoy na BitcoinSilver address</translation>
+        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
+        <translation type="unfinished">Tiyakin ang katotohanan ng mensahe upang siguruhin na ito'y napirmahan ng tinukoy na Bitcoin address</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -2749,7 +2753,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
 </context>
 <context>
-    <name>bitcoinsilver-core</name>
+    <name>bitcoin-core</name>
     <message>
         <source>The %s developers</source>
         <translation type="unfinished">Ang mga %s developers</translation>
@@ -3001,10 +3005,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Transaction amounts must not be negative</source>
         <translation type="unfinished">Ang mga halaga ng transaksyon ay hindi dapat negative</translation>
-    </message>
-    <message>
-        <source>Transaction has too long of a mempool chain</source>
-        <translation type="unfinished">Ang transaksyon ay may masyadong mahabang chain ng mempool</translation>
     </message>
     <message>
         <source>Transaction must have at least one recipient</source>

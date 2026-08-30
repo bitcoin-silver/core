@@ -58,13 +58,13 @@
         <translation type="unfinished">&amp;Vælg</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">Disse er dine BitcoinSilver-adresser til afsendelse af betalinger. Tjek altid beløb og modtagelsesadresse, inden du sender bitcoins.</translation>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">Disse er dine Bitcoin-adresser til afsendelse af betalinger. Tjek altid beløb og modtagelsesadresse, inden du sender bitcoins.</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">Disse er dine BitcoinSilver adresser til at modtage betalinger. Benyt 'Opret ny modtager adresse' knappen i modtag fanen for at oprette nye adresser.</translation>
+        <translation type="unfinished">Disse er dine Bitcoin adresser til at modtage betalinger. Benyt 'Opret ny modtager adresse' knappen i modtag fanen for at oprette nye adresser.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -155,8 +155,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Bekræft tegnebogskryptering</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINSILVERS&lt;/b&gt;!</source>
-        <translation type="unfinished">Advarsel: Hvis du krypterer din tegnebog og mister din adgangskode, vil du &lt;b&gt;MISTE ALLE DINE BITCOINSILVERS&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
+        <translation type="unfinished">Advarsel: Hvis du krypterer din tegnebog og mister din adgangskode, vil du &lt;b&gt;MISTE ALLE DINE BITCOINS&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -286,8 +286,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Beløb</translation>
     </message>
     <message>
-        <source>Enter a BitcoinSilver address (e.g. %1)</source>
-        <translation type="unfinished">Indtast en BitcoinSilver-adresse (fx %1)</translation>
+        <source>Enter a Bitcoin address (e.g. %1)</source>
+        <translation type="unfinished">Indtast en Bitcoin-adresse (fx %1)</translation>
     </message>
     <message>
         <source>Unroutable</source>
@@ -451,8 +451,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Proxy er &lt;b&gt;aktiveret&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a BitcoinSilver address</source>
-        <translation type="unfinished">Send bitcoins til en BitcoinSilver-adresse</translation>
+        <source>Send coins to a Bitcoin address</source>
+        <translation type="unfinished">Send bitcoins til en Bitcoin-adresse</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -491,16 +491,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Signér &amp;besked</translation>
     </message>
     <message>
-        <source>Sign messages with your BitcoinSilver addresses to prove you own them</source>
-        <translation type="unfinished">Signér beskeder med dine BitcoinSilver-adresser for at bevise, at de tilhører dig</translation>
+        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
+        <translation type="unfinished">Signér beskeder med dine Bitcoin-adresser for at bevise, at de tilhører dig</translation>
     </message>
     <message>
         <source>&amp;Verify message…</source>
         <translation type="unfinished">&amp;Verificér besked...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified BitcoinSilver addresses</source>
-        <translation type="unfinished">Verificér beskeder for at sikre, at de er signeret med de angivne BitcoinSilver-adresser</translation>
+        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
+        <translation type="unfinished">Verificér beskeder for at sikre, at de er signeret med de angivne Bitcoin-adresser</translation>
     </message>
     <message>
         <source>&amp;Load PSBT from file…</source>
@@ -559,8 +559,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Forbinder til knuder...</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoinsilver: URIs)</source>
-        <translation type="unfinished">Anmod om betalinger (genererer QR-koder og “bitcoinsilver:”-URI'er)</translation>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
+        <translation type="unfinished">Anmod om betalinger (genererer QR-koder og “bitcoin:”-URI'er)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -610,16 +610,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Opdateret</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction</source>
-        <translation type="unfinished">Indlæs Partvist Signeret BitcoinSilver-Transaktion</translation>
+        <source>Load Partially Signed Bitcoin Transaction</source>
+        <translation type="unfinished">Indlæs Partvist Signeret Bitcoin-Transaktion</translation>
     </message>
     <message>
         <source>Load PSBT from &amp;clipboard…</source>
         <translation type="unfinished">Indlæs PSBT fra &amp;clipboard</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction from clipboard</source>
-        <translation type="unfinished">Indlæs Partvist Signeret BitcoinSilver-Transaktion fra udklipsholder</translation>
+        <source>Load Partially Signed Bitcoin Transaction from clipboard</source>
+        <translation type="unfinished">Indlæs Partvist Signeret Bitcoin-Transaktion fra udklipsholder</translation>
     </message>
     <message>
         <source>Node window</source>
@@ -638,8 +638,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;Modtageradresser</translation>
     </message>
     <message>
-        <source>Open a bitcoinsilver: URI</source>
-        <translation type="unfinished">Åbn en bitcoinsilver:-URI</translation>
+        <source>Open a bitcoin: URI</source>
+        <translation type="unfinished">Åbn en bitcoin:-URI</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -668,8 +668,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Luk alle tegnebøgerne </translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible BitcoinSilver command-line options</source>
-        <translation type="unfinished">Vis %1 hjælpebesked for at få en liste over mulige tilvalg for BitcoinSilver kommandolinje</translation>
+        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
+        <translation type="unfinished">Vis %1 hjælpebesked for at få en liste over mulige tilvalg for Bitcoin kommandolinje</translation>
     </message>
     <message>
         <source>&amp;Mask values</source>
@@ -718,11 +718,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;Vis</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>%n aktiv(e) forbindelse(r) til BitcoinSilver-netværket.</numerusform>
-            <numerusform>%n aktiv(e) forbindelse(r) til BitcoinSilver-netværket.</numerusform>
+            <numerusform>%n aktiv(e) forbindelse(r) til Bitcoin-netværket.</numerusform>
+            <numerusform>%n aktiv(e) forbindelse(r) til Bitcoin-netværket.</numerusform>
         </translation>
     </message>
     <message>
@@ -1139,8 +1139,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Redigér afsendelsesadresse</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid BitcoinSilver address.</source>
-        <translation type="unfinished">Den indtastede adresse “%1” er ikke en gyldig BitcoinSilver-adresse.</translation>
+        <source>The entered address "%1" is not a valid Bitcoin address.</source>
+        <translation type="unfinished">Den indtastede adresse “%1” er ikke en gyldig Bitcoin-adresse.</translation>
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -1187,8 +1187,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message numerus="yes">
         <source>%n GB of space available</source>
         <translation type="unfinished">
-            <numerusform>%n GB fri plads tilgængelig</numerusform>
-            <numerusform>%n GB fri plads tilgængelig</numerusform>
+            <numerusform />
+            <numerusform />
         </translation>
     </message>
     <message numerus="yes">
@@ -1222,8 +1222,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         </translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the BitcoinSilver block chain.</source>
-        <translation type="unfinished">%1 vil downloade og gemme en kopi af BitcoinSilver-blokkæden.</translation>
+        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
+        <translation type="unfinished">%1 vil downloade og gemme en kopi af Bitcoin-blokkæden.</translation>
     </message>
     <message>
         <source>The wallet will also be stored in this directory.</source>
@@ -1264,10 +1264,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>This initial synchronisation is very demanding, and may expose hardware problems with your computer that had previously gone unnoticed. Each time you run %1, it will continue downloading where it left off.</source>
         <translation type="unfinished">Denne indledningsvise synkronisering er meget krævende, og den kan potentielt afsløre hardwareproblemer med din computer, som du ellers ikke har lagt mærke til. Hver gang, du kører %1, vil den fortsætte med at downloade, hvor den sidst slap.</translation>
-    </message>
-    <message>
-        <source>When you click OK, %1 will begin to download and process the full %4 block chain (%2 GB) starting with the earliest transactions in %3 when %4 initially launched.</source>
-        <translation type="unfinished">Når du klikker OK, vil %1 begynde at downloade og bearbejde den fulde %4-blokkæde (%2 GB), startende med de tidligste transaktioner i %3, da %4 først startede.</translation>
     </message>
     <message>
         <source>If you have chosen to limit block chain storage (pruning), the historical data must still be downloaded and processed, but will be deleted afterward to keep your disk usage low.</source>
@@ -1311,12 +1307,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Formular</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoinsilver network, as detailed below.</source>
-        <translation type="unfinished">Nylige transaktioner er måske ikke synlige endnu, og derfor kan din tegnebogs saldo være ukorrekt. Denne information vil være korrekt, når din tegnebog er færdig med at synkronisere med bitcoinsilver-netværket, som detaljerne herunder viser.</translation>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoin network, as detailed below.</source>
+        <translation type="unfinished">Nylige transaktioner er måske ikke synlige endnu, og derfor kan din tegnebogs saldo være ukorrekt. Denne information vil være korrekt, når din tegnebog er færdig med at synkronisere med bitcoin-netværket, som detaljerne herunder viser.</translation>
     </message>
     <message>
         <source>Attempting to spend bitcoins that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
-        <translation type="unfinished">Forsøg på at bruge bitcoinsilver, som er indeholdt i endnu-ikke-viste transaktioner, accepteres ikke af netværket.</translation>
+        <translation type="unfinished">Forsøg på at bruge bitcoin, som er indeholdt i endnu-ikke-viste transaktioner, accepteres ikke af netværket.</translation>
     </message>
     <message>
         <source>Number of blocks left</source>
@@ -1362,8 +1358,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
 <context>
     <name>OpenURIDialog</name>
     <message>
-        <source>Open bitcoinsilver URI</source>
-        <translation type="unfinished">Åbn bitcoinsilver-URI</translation>
+        <source>Open bitcoin URI</source>
+        <translation type="unfinished">Åbn bitcoin-URI</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
@@ -1400,10 +1396,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Number of script &amp;verification threads</source>
         <translation type="unfinished">Antallet af script&amp;verificeringstråde</translation>
-    </message>
-    <message>
-        <source>Full path to a %1 compatible script (e.g. C:\Downloads\hwi.exe or /Users/you/Downloads/hwi.py). Beware: malware can steal your coins!</source>
-        <translation type="unfinished">Fuld sti til et %1-kompatibelt script (f.eks. C:\Downloads\hwi.exe eller /Users/you/Downloads/hwi.py). Pas på: malware kan stjæle dine mønter!</translation>
     </message>
     <message>
         <source>IP address of the proxy (e.g. IPv4: 127.0.0.1 / IPv6: ::1)</source>
@@ -1518,16 +1510,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;Ekstern underskrivers scriptsti</translation>
     </message>
     <message>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation type="unfinished">Åbn automatisk BitcoinSilver-klientens port på routeren. Dette virker kun, når din router understøtter UPnP, og UPnP er aktiveret.</translation>
+        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation type="unfinished">Åbn automatisk Bitcoin-klientens port på routeren. Dette virker kun, når din router understøtter UPnP, og UPnP er aktiveret.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
         <translation type="unfinished">Konfigurér port vha. &amp;UPnP</translation>
     </message>
     <message>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports NAT-PMP and it is enabled. The external port could be random.</source>
-        <translation type="unfinished">Åbn automatisk BitcoinSilver-klientporten på routeren. Dette virker kun, når din router understøtter NAT-PMP, og den er aktiveret. Den eksterne port kan være tilfældig.</translation>
+        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports NAT-PMP and it is enabled. The external port could be random.</source>
+        <translation type="unfinished">Åbn automatisk Bitcoin-klientporten på routeren. Dette virker kun, når din router understøtter NAT-PMP, og den er aktiveret. Den eksterne port kan være tilfældig.</translation>
     </message>
     <message>
         <source>Map port using NA&amp;T-PMP</source>
@@ -1542,8 +1534,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Tillad &amp;indkommende forbindelser</translation>
     </message>
     <message>
-        <source>Connect to the BitcoinSilver network through a SOCKS5 proxy.</source>
-        <translation type="unfinished">Forbind til BitcoinSilver-netværket gennem en SOCKS5-proxy.</translation>
+        <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
+        <translation type="unfinished">Forbind til Bitcoin-netværket gennem en SOCKS5-proxy.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1618,24 +1610,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Hvorvidt egenskaber for coin-styring skal vises eller ej.</translation>
     </message>
     <message>
-        <source>Connect to the BitcoinSilver network through a separate SOCKS5 proxy for Tor onion services.</source>
-        <translation type="unfinished">Opret forbindelse til BitcoinSilver-netværk igennem en separat SOCKS5 proxy til Tor-onion-tjenester.</translation>
+        <source>Connect to the Bitcoin network through a separate SOCKS5 proxy for Tor onion services.</source>
+        <translation type="unfinished">Opret forbindelse til Bitcoin-netværk igennem en separat SOCKS5 proxy til Tor-onion-tjenester.</translation>
     </message>
     <message>
         <source>Use separate SOCKS&amp;5 proxy to reach peers via Tor onion services:</source>
         <translation type="unfinished">Brug separate SOCKS&amp;5 proxy, for at nå fælle via Tor-onion-tjenester:</translation>
-    </message>
-    <message>
-        <source>Monospaced font in the Overview tab:</source>
-        <translation type="unfinished">Monospaced skrifttype på fanen Oversigt:</translation>
-    </message>
-    <message>
-        <source>embedded "%1"</source>
-        <translation type="unfinished">indlejret "%1"</translation>
-    </message>
-    <message>
-        <source>closest matching "%1"</source>
-        <translation type="unfinished">tættest matchende "%1"</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -1715,8 +1695,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Formular</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BitcoinSilver network after a connection is established, but this process has not completed yet.</source>
-        <translation type="unfinished">Den viste information kan være forældet. Din tegnebog synkroniserer automatisk med BitcoinSilver-netværket, når en forbindelse etableres, men denne proces er ikke gennemført endnu.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
+        <translation type="unfinished">Den viste information kan være forældet. Din tegnebog synkroniserer automatisk med Bitcoin-netværket, når en forbindelse etableres, men denne proces er ikke gennemført endnu.</translation>
     </message>
     <message>
         <source>Watch-only:</source>
@@ -1859,10 +1839,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">PSBT gemt på disk.</translation>
     </message>
     <message>
-        <source> * Sends %1 to %2</source>
-        <translation type="unfinished">* Sender %1 til %2</translation>
-    </message>
-    <message>
         <source>own address</source>
         <translation type="unfinished">egen adresse</translation>
     </message>
@@ -1922,16 +1898,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Fejl i betalingsanmodning</translation>
     </message>
     <message>
-        <source>Cannot start bitcoinsilver: click-to-pay handler</source>
-        <translation type="unfinished">Kan ikke starte bitcoinsilver: click-to-pay-håndtering</translation>
+        <source>Cannot start bitcoin: click-to-pay handler</source>
+        <translation type="unfinished">Kan ikke starte bitcoin: click-to-pay-håndtering</translation>
     </message>
     <message>
         <source>URI handling</source>
         <translation type="unfinished">URI-håndtering</translation>
     </message>
     <message>
-        <source>'bitcoinsilver://' is not a valid URI. Use 'bitcoinsilver:' instead.</source>
-        <translation type="unfinished">'bitcoinsilver://' er ikke et gyldigt URI. Brug 'bitcoinsilver:' istedet.</translation>
+        <source>'bitcoin://' is not a valid URI. Use 'bitcoin:' instead.</source>
+        <translation type="unfinished">'bitcoin://' er ikke et gyldigt URI. Brug 'bitcoin:' istedet.</translation>
     </message>
     <message>
         <source>Cannot process payment request because BIP70 is not supported.
@@ -1942,8 +1918,8 @@ På grund af udbredte sikkerhedsfejl i BIP70 anbefales det på det kraftigste, a
 Hvis du modtager denne fejl, skal du anmode forhandleren om en BIP21-kompatibel URI.</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid BitcoinSilver address or malformed URI parameters.</source>
-        <translation type="unfinished">URI kan ikke tolkes! Dette kan skyldes en ugyldig BitcoinSilver-adresse eller forkert udformede URL-parametre.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid Bitcoin address or malformed URI parameters.</source>
+        <translation type="unfinished">URI kan ikke tolkes! Dette kan skyldes en ugyldig Bitcoin-adresse eller forkert udformede URL-parametre.</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -2451,8 +2427,8 @@ For mere information om brug af denne konsol, skriv %6.
         <translation type="unfinished">&amp;Besked:</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the BitcoinSilver network.</source>
-        <translation type="unfinished">En valgfri besked, der føjes til betalingsanmodningen, og som vil vises, når anmodningen åbnes. Bemærk: Beskeden vil ikke sendes sammen med betalingen over BitcoinSilver-netværket.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
+        <translation type="unfinished">En valgfri besked, der føjes til betalingsanmodningen, og som vil vises, når anmodningen åbnes. Bemærk: Beskeden vil ikke sendes sammen med betalingen over Bitcoin-netværket.</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -2732,8 +2708,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
 Bemærk: Da gebyret beregnes på per-byte-basis, ville en gebyrsats på "100 satoshis pr. kvB" for en transaktionsstørrelse på 500 virtuelle bytes (halvdelen af 1 kvB) i sidste ende kun give et gebyr på 50 satoshis.</translation>
     </message>
     <message>
-        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoinsilver transactions than the network can process.</source>
-        <translation type="unfinished">På tidspunkter, hvor der er færre transaktioner, end der er plads til i nye blokke, kan minere og videresendende knuder gennemtvinge et minimumsgebyr. Du kan vælge kun at betale dette minimumsgebyr, men vær opmærksom på, at det kan resultere i en transaktion, der aldrig bliver bekræftet, hvis mængden af nye bitcoinsilver-transaktioner stiger til mere, end hvad netværket kan behandle ad gangen.</translation>
+        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
+        <translation type="unfinished">På tidspunkter, hvor der er færre transaktioner, end der er plads til i nye blokke, kan minere og videresendende knuder gennemtvinge et minimumsgebyr. Du kan vælge kun at betale dette minimumsgebyr, men vær opmærksom på, at det kan resultere i en transaktion, der aldrig bliver bekræftet, hvis mængden af nye bitcoin-transaktioner stiger til mere, end hvad netværket kan behandle ad gangen.</translation>
     </message>
     <message>
         <source>A too low fee might result in a never confirming transaction (read the tooltip)</source>
@@ -2818,10 +2794,6 @@ Bemærk: Da gebyret beregnes på per-byte-basis, ville en gebyrsats på "100 sat
         <translation type="unfinished">L&amp;av usigneret</translation>
     </message>
     <message>
-        <source> from wallet '%1'</source>
-        <translation type="unfinished">fra tegnebog '%1'</translation>
-    </message>
-    <message>
         <source>%1 to '%2'</source>
         <translation type="unfinished">%1 til '%2'</translation>
     </message>
@@ -2874,9 +2846,9 @@ Bemærk: Da gebyret beregnes på per-byte-basis, ville en gebyrsats på "100 sat
         <translation type="unfinished">Du kan øge gebyret senere (signalerer erstat-med-gebyr, BIP-125).</translation>
     </message>
     <message>
-        <source>Please, review your transaction proposal. This will produce a Partially Signed BitcoinSilver Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction proposal. This will produce a Partially Signed Bitcoin Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can only create a PSBT. This string is displayed when private keys are disabled and an external signer is not available.</extracomment>
-        <translation type="unfinished">Gennemse venligst dit transaktionsforslag. Dette vil producere en Partvist Signeret BitcoinSilver Transaktion (PSBT), som du kan gemme eller kopiere, og så signere med f.eks. en offline %1 pung, eller en PSBT-kompatibel maskinelpung.</translation>
+        <translation type="unfinished">Gennemse venligst dit transaktionsforslag. Dette vil producere en Partvist Signeret Bitcoin Transaktion (PSBT), som du kan gemme eller kopiere, og så signere med f.eks. en offline %1 pung, eller en PSBT-kompatibel maskinelpung.</translation>
     </message>
     <message>
         <source>Do you want to create this transaction?</source>
@@ -2884,9 +2856,9 @@ Bemærk: Da gebyret beregnes på per-byte-basis, ville en gebyrsats på "100 sat
         <translation type="unfinished">Vil du oprette denne transaktion?</translation>
     </message>
     <message>
-        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed BitcoinSilver Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed Bitcoin Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can send their transaction or create a PSBT. This string is displayed when both private keys and PSBT controls are enabled.</extracomment>
-        <translation type="unfinished">Gennemgå venligst din transaktion. Du kan oprette og sende denne transaktion eller oprette en delvist underskrevet BitcoinSilver-transaktion (PSBT), som du kan gemme eller kopiere og derefter underskrive med, f.eks. en offline %1 tegnebog eller en PSBT-kompatibel hardwaretegnebog.</translation>
+        <translation type="unfinished">Gennemgå venligst din transaktion. Du kan oprette og sende denne transaktion eller oprette en delvist underskrevet Bitcoin-transaktion (PSBT), som du kan gemme eller kopiere og derefter underskrive med, f.eks. en offline %1 tegnebog eller en PSBT-kompatibel hardwaretegnebog.</translation>
     </message>
     <message>
         <source>Please, review your transaction.</source>
@@ -2949,8 +2921,8 @@ Bemærk: Da gebyret beregnes på per-byte-basis, ville en gebyrsats på "100 sat
         </translation>
     </message>
     <message>
-        <source>Warning: Invalid BitcoinSilver address</source>
-        <translation type="unfinished">Advarsel: Ugyldig BitcoinSilver-adresse</translation>
+        <source>Warning: Invalid Bitcoin address</source>
+        <translation type="unfinished">Advarsel: Ugyldig Bitcoin-adresse</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -2988,8 +2960,8 @@ Bemærk: Da gebyret beregnes på per-byte-basis, ville en gebyrsats på "100 sat
         <translation type="unfinished">Vælg tidligere brugt adresse</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address to send the payment to</source>
-        <translation type="unfinished">BitcoinSilver-adresse, som betalingen skal sendes til</translation>
+        <source>The Bitcoin address to send the payment to</source>
+        <translation type="unfinished">Bitcoin-adresse, som betalingen skal sendes til</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
@@ -3005,7 +2977,7 @@ Bemærk: Da gebyret beregnes på per-byte-basis, ville en gebyrsats på "100 sat
     </message>
     <message>
         <source>The fee will be deducted from the amount being sent. The recipient will receive less bitcoins than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
-        <translation type="unfinished">Gebyret vil blive trukket fra det sendte beløb. Modtageren vil modtage færre bitcoinsilver, end du indtaster i beløbfeltet. Hvis flere modtagere vælges, vil gebyret deles ligeligt.</translation>
+        <translation type="unfinished">Gebyret vil blive trukket fra det sendte beløb. Modtageren vil modtage færre bitcoin, end du indtaster i beløbfeltet. Hvis flere modtagere vælges, vil gebyret deles ligeligt.</translation>
     </message>
     <message>
         <source>S&amp;ubtract fee from amount</source>
@@ -3024,8 +2996,8 @@ Bemærk: Da gebyret beregnes på per-byte-basis, ville en gebyrsats på "100 sat
         <translation type="unfinished">Indtast et mærkat for denne adresse for at føje den til listen over brugte adresser</translation>
     </message>
     <message>
-        <source>A message that was attached to the bitcoinsilver: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the BitcoinSilver network.</source>
-        <translation type="unfinished">En besked, som blev føjet til “bitcoinsilver:”-URI'en, som vil gemmes med transaktionen til din reference. Bemærk: Denne besked vil ikke blive sendt over BitcoinSilver-netværket.</translation>
+        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
+        <translation type="unfinished">En besked, som blev føjet til “bitcoin:”-URI'en, som vil gemmes med transaktionen til din reference. Bemærk: Denne besked vil ikke blive sendt over Bitcoin-netværket.</translation>
     </message>
 </context>
 <context>
@@ -3051,11 +3023,11 @@ Bemærk: Da gebyret beregnes på per-byte-basis, ville en gebyrsats på "100 sat
     </message>
     <message>
         <source>You can sign messages/agreements with your addresses to prove you can receive bitcoins sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
-        <translation type="unfinished">Du kan signere beskeder/aftaler med dine adresser for at bevise, at du kan modtage bitcoinsilver, der bliver sendt til adresserne. Vær forsigtig med ikke at signere noget vagt eller tilfældigt, da eventuelle phishing-angreb kan snyde dig til at overlade din identitet til dem. Signér kun fuldt ud detaljerede udsagn, som du er enig i.</translation>
+        <translation type="unfinished">Du kan signere beskeder/aftaler med dine adresser for at bevise, at du kan modtage bitcoin, der bliver sendt til adresserne. Vær forsigtig med ikke at signere noget vagt eller tilfældigt, da eventuelle phishing-angreb kan snyde dig til at overlade din identitet til dem. Signér kun fuldt ud detaljerede udsagn, som du er enig i.</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address to sign the message with</source>
-        <translation type="unfinished">BitcoinSilver-adresse, som beskeden skal signeres med</translation>
+        <source>The Bitcoin address to sign the message with</source>
+        <translation type="unfinished">Bitcoin-adresse, som beskeden skal signeres med</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3078,8 +3050,8 @@ Bemærk: Da gebyret beregnes på per-byte-basis, ville en gebyrsats på "100 sat
         <translation type="unfinished">Kopiér den nuværende signatur til systemets udklipsholder</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this BitcoinSilver address</source>
-        <translation type="unfinished">Signér denne besked for at bevise, at BitcoinSilver-adressen tilhører dig</translation>
+        <source>Sign the message to prove you own this Bitcoin address</source>
+        <translation type="unfinished">Signér denne besked for at bevise, at Bitcoin-adressen tilhører dig</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -3102,8 +3074,8 @@ Bemærk: Da gebyret beregnes på per-byte-basis, ville en gebyrsats på "100 sat
         <translation type="unfinished">Indtast modtagerens adresse, besked (vær sikker på at kopiere linjeskift, mellemrum, tabuleringer, etc. præcist) og signatur herunder for at verificere beskeden. Vær forsigtig med ikke at læse noget ud fra signaturen, som ikke står i selve beskeden, for at undgå at blive snydt af et eventuelt man-in-the-middle-angreb. Bemærk, at dette kun beviser, at den signerende person kan modtage med adressen; det kan ikke bevise hvem der har sendt en given transaktion!</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address the message was signed with</source>
-        <translation type="unfinished">BitcoinSilver-adressen, som beskeden blev signeret med</translation>
+        <source>The Bitcoin address the message was signed with</source>
+        <translation type="unfinished">Bitcoin-adressen, som beskeden blev signeret med</translation>
     </message>
     <message>
         <source>The signed message to verify</source>
@@ -3114,8 +3086,8 @@ Bemærk: Da gebyret beregnes på per-byte-basis, ville en gebyrsats på "100 sat
         <translation type="unfinished">Signaturen som blev givet da meddelelsen blev signeret</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified BitcoinSilver address</source>
-        <translation type="unfinished">Verificér beskeden for at sikre, at den er signeret med den angivne BitcoinSilver-adresse</translation>
+        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
+        <translation type="unfinished">Verificér beskeden for at sikre, at den er signeret med den angivne Bitcoin-adresse</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -3309,10 +3281,6 @@ Bemærk: Da gebyret beregnes på per-byte-basis, ville en gebyrsats på "100 sat
     <message>
         <source>Output index</source>
         <translation type="unfinished">Outputindeks</translation>
-    </message>
-    <message>
-        <source> (Certificate was not verified)</source>
-        <translation type="unfinished">(certifikat er ikke verificeret)</translation>
     </message>
     <message>
         <source>Merchant</source>
@@ -3742,14 +3710,14 @@ Gå til Fil &gt; Åbn Pung for, at indlæse en pung.
     </message>
 </context>
 <context>
-    <name>bitcoinsilver-core</name>
+    <name>bitcoin-core</name>
     <message>
         <source>The %s developers</source>
         <translation type="unfinished">Udviklerne af %s</translation>
     </message>
     <message>
-        <source>%s corrupt. Try using the wallet tool bitcoinsilver-wallet to salvage or restoring a backup.</source>
-        <translation type="unfinished">%s beskadiget. Prøv at bruge pung-værktøjet bitcoinsilver-wallet til, at bjærge eller gendanne en sikkerhedskopi.</translation>
+        <source>%s corrupt. Try using the wallet tool bitcoin-wallet to salvage or restoring a backup.</source>
+        <translation type="unfinished">%s beskadiget. Prøv at bruge pung-værktøjet bitcoin-wallet til, at bjærge eller gendanne en sikkerhedskopi.</translation>
     </message>
     <message>
         <source>Cannot downgrade wallet from version %i to version %i. Wallet version unchanged.</source>
@@ -3780,8 +3748,8 @@ Gå til Fil &gt; Åbn Pung for, at indlæse en pung.
         <translation type="unfinished">Fejl: Dumpfilformat dokument er forkert. Fik "%s", forventet "%s".</translation>
     </message>
     <message>
-        <source>Error: Dumpfile version is not supported. This version of bitcoinsilver-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
-        <translation type="unfinished">Fejl: Dumpfil-versionen understøttes ikke. Denne version af bitcoinsilver-tegnebog understøtter kun version 1 dumpfiler. Fik dumpfil med version %s</translation>
+        <source>Error: Dumpfile version is not supported. This version of bitcoin-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
+        <translation type="unfinished">Fejl: Dumpfil-versionen understøttes ikke. Denne version af bitcoin-tegnebog understøtter kun version 1 dumpfiler. Fik dumpfil med version %s</translation>
     </message>
     <message>
         <source>Error: Legacy wallets only support the "legacy", "p2sh-segwit", and "bech32" address types</source>
@@ -3920,10 +3888,6 @@ Gå til Fil &gt; Åbn Pung for, at indlæse en pung.
         <translation type="unfinished">Kan ikke skrive til datamappe '%s'; tjek tilladelser.</translation>
     </message>
     <message>
-        <source>%s is set very high! Fees this large could be paid on a single transaction.</source>
-        <translation type="unfinished">%s er sat meget højt! Gebyrer så store risikeres betalt på en enkelt transaktion.</translation>
-    </message>
-    <message>
         <source>Cannot provide specific connections and have addrman find outgoing connections at the same time.</source>
         <translation type="unfinished">Kan ikke levere specifikke forbindelser og få adrman til at finde udgående forbindelser på samme tid.</translation>
     </message>
@@ -3932,20 +3896,8 @@ Gå til Fil &gt; Åbn Pung for, at indlæse en pung.
         <translation type="unfinished">Fejlindlæsning %s: Ekstern underskriver-tegnebog indlæses uden ekstern underskriverunderstøttelse kompileret</translation>
     </message>
     <message>
-        <source>Error reading %s! All keys read correctly, but transaction data or address metadata may be missing or incorrect.</source>
-        <translation type="unfinished">Fejl under læsning af %s! Alle nøgler blev læst korrekt, men transaktionsdata eller indgange i adressebogen kan mangle eller være ukorrekte.</translation>
-    </message>
-    <message>
         <source>Failed to rename invalid peers.dat file. Please move or delete it and try again.</source>
         <translation type="unfinished">Kunne ikke omdøbe ugyldig peers.dat fil. Flyt eller slet den venligst og prøv igen.</translation>
-    </message>
-    <message>
-        <source>Fee estimation failed. Fallbackfee is disabled. Wait a few blocks or enable %s.</source>
-        <translation type="unfinished">Estimering af gebyr mislykkedes. Tilbagefaldsgebyr er deaktiveret. Vent et par blokke eller aktiver %s.</translation>
-    </message>
-    <message>
-        <source>Invalid amount for %s=&lt;amount&gt;: '%s' (must be at least the minrelay fee of %s to prevent stuck transactions)</source>
-        <translation type="unfinished">Ugyldigt beløb for %s=&lt;beløb&gt;: “%s” (skal være på mindst minrelay-gebyret på %s for at undgå hængende transaktioner)</translation>
     </message>
     <message>
         <source>Config setting for %s only applied on %s network when in [%s] section.</source>
@@ -4124,25 +4076,12 @@ Gå til Fil &gt; Åbn Pung for, at indlæse en pung.
         <translation type="unfinished">Invalid P2P tilladelse: '%s'</translation>
     </message>
     <message>
-        <source>Invalid amount for %s=&lt;amount&gt;: '%s' (must be at least %s)</source>
-        <translation type="unfinished">Ugyldigt beløb for %s=&lt;beløb&gt;: “%s” (skal være mindst %s)</translation>
-    </message>
-    <message>
-        <source>Invalid amount for %s=&lt;amount&gt;: '%s'</source>
-        <translation type="unfinished">Ugyldigt beløb for %s=&lt;beløb&gt;: “%s”</translation>
-    </message>
-    <message>
         <source>Invalid amount for -%s=&lt;amount&gt;: '%s'</source>
         <translation type="unfinished">Ugyldigt beløb for -%s=&lt;beløb&gt;: “%s”</translation>
     </message>
     <message>
         <source>Invalid netmask specified in -whitelist: '%s'</source>
         <translation type="unfinished">Ugyldig netmaske angivet i -whitelist: “%s”</translation>
-    </message>
-    <message>
-        <source>Listening for incoming connections failed (listen returned error %s)</source>
-        <translation type="unfinished">Lytning efter indkommende forbindelser mislykkedes (lytning resultarede i fejl %s)
-</translation>
     </message>
     <message>
         <source>Loading P2P addresses…</source>
@@ -4245,10 +4184,6 @@ Gå til Fil &gt; Åbn Pung for, at indlæse en pung.
         <translation type="unfinished">Angivet blokmappe “%s” eksisterer ikke.</translation>
     </message>
     <message>
-        <source>Specified data directory "%s" does not exist.</source>
-        <translation type="unfinished">Angivet datamappe “%s” eksisterer ikke.</translation>
-    </message>
-    <message>
         <source>Starting network threads…</source>
         <translation type="unfinished">Starter netværkstråde...</translation>
     </message>
@@ -4291,10 +4226,6 @@ Gå til Fil &gt; Åbn Pung for, at indlæse en pung.
     <message>
         <source>Transaction change output index out of range</source>
         <translation type="unfinished">Transaktions byttepenge outputindeks uden for intervallet</translation>
-    </message>
-    <message>
-        <source>Transaction has too long of a mempool chain</source>
-        <translation type="unfinished">Transaktionen har en for lang hukommelsespuljekæde</translation>
     </message>
     <message>
         <source>Transaction must have at least one recipient</source>

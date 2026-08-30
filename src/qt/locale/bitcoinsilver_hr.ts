@@ -58,13 +58,13 @@
         <translation type="unfinished">&amp;Odaberite</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">Ovo su vaše BitcoinSilver adrese za slanje novca. Uvijek provjerite iznos i adresu primatelja prije slanja novca.</translation>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">Ovo su vaše Bitcoin adrese za slanje novca. Uvijek provjerite iznos i adresu primatelja prije slanja novca.</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">Ovo su vaše BitcoinSilver adrese za primanje sredstava. Koristite 'Kreiraj novu adresu za primanje' u tabu Primite kako biste kreirali nove adrese.
+        <translation type="unfinished">Ovo su vaše Bitcoin adrese za primanje sredstava. Koristite 'Kreiraj novu adresu za primanje' u tabu Primite kako biste kreirali nove adrese.
 Potpisivanje je moguće samo sa 'legacy' adresama. </translation>
     </message>
     <message>
@@ -156,8 +156,8 @@ Potpisivanje je moguće samo sa 'legacy' adresama. </translation>
         <translation type="unfinished">Potvrdite šifriranje novčanika</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINSILVERS&lt;/b&gt;!</source>
-        <translation type="unfinished">Upozorenje: Ako šifrirate vaš novčanik i izgubite lozinku, &lt;b&gt;IZGUBIT ĆETE SVE SVOJE BITCOINSILVERE!&lt;/b&gt;</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
+        <translation type="unfinished">Upozorenje: Ako šifrirate vaš novčanik i izgubite lozinku, &lt;b&gt;IZGUBIT ĆETE SVE SVOJE BITCOINE!&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -283,8 +283,8 @@ Potpisivanje je moguće samo sa 'legacy' adresama. </translation>
         <translation type="unfinished">Iznos</translation>
     </message>
     <message>
-        <source>Enter a BitcoinSilver address (e.g. %1)</source>
-        <translation type="unfinished">Unesite BitcoinSilver adresu (npr. %1)</translation>
+        <source>Enter a Bitcoin address (e.g. %1)</source>
+        <translation type="unfinished">Unesite Bitcoin adresu (npr. %1)</translation>
     </message>
     <message>
         <source>Unroutable</source>
@@ -462,8 +462,8 @@ Potpisivanje je moguće samo sa 'legacy' adresama. </translation>
         <translation type="unfinished">Proxy je &lt;b&gt;uključen&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a BitcoinSilver address</source>
-        <translation type="unfinished">Pošaljite novac na BitcoinSilver adresu</translation>
+        <source>Send coins to a Bitcoin address</source>
+        <translation type="unfinished">Pošaljite novac na Bitcoin adresu</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -506,16 +506,16 @@ Potpisivanje je moguće samo sa 'legacy' adresama. </translation>
         <translation type="unfinished">Potpiši &amp;poruku</translation>
     </message>
     <message>
-        <source>Sign messages with your BitcoinSilver addresses to prove you own them</source>
-        <translation type="unfinished">Poruku potpišemo s BitcoinSilver adresom, kako bi dokazali vlasništvo nad tom adresom</translation>
+        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
+        <translation type="unfinished">Poruku potpišemo s Bitcoin adresom, kako bi dokazali vlasništvo nad tom adresom</translation>
     </message>
     <message>
         <source>&amp;Verify message…</source>
         <translation type="unfinished">&amp;Potvrdi poruku</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified BitcoinSilver addresses</source>
-        <translation type="unfinished">Provjerite poruku da je potpisana s navedenom BitcoinSilver adresom</translation>
+        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
+        <translation type="unfinished">Provjerite poruku da je potpisana s navedenom Bitcoin adresom</translation>
     </message>
     <message>
         <source>&amp;Load PSBT from file…</source>
@@ -574,8 +574,8 @@ Potpisivanje je moguće samo sa 'legacy' adresama. </translation>
         <translation type="unfinished">Povezivanje sa peer-ovima...</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoinsilver: URIs)</source>
-        <translation type="unfinished">Zatražite uplatu (stvara QR kod i bitcoinsilver: URI adresu)</translation>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
+        <translation type="unfinished">Zatražite uplatu (stvara QR kod i bitcoin: URI adresu)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -630,16 +630,16 @@ Potpisivanje je moguće samo sa 'legacy' adresama. </translation>
         <translation type="unfinished">Ažurno</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction</source>
-        <translation type="unfinished">Učitaj djelomično potpisanu bitcoinsilver transakciju</translation>
+        <source>Load Partially Signed Bitcoin Transaction</source>
+        <translation type="unfinished">Učitaj djelomično potpisanu bitcoin transakciju</translation>
     </message>
     <message>
         <source>Load PSBT from &amp;clipboard…</source>
         <translation type="unfinished">Učitaj PSBT iz &amp;međuspremnika...</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction from clipboard</source>
-        <translation type="unfinished">Učitaj djelomično potpisanu bitcoinsilver transakciju iz međuspremnika</translation>
+        <source>Load Partially Signed Bitcoin Transaction from clipboard</source>
+        <translation type="unfinished">Učitaj djelomično potpisanu bitcoin transakciju iz međuspremnika</translation>
     </message>
     <message>
         <source>Node window</source>
@@ -658,8 +658,8 @@ Potpisivanje je moguće samo sa 'legacy' adresama. </translation>
         <translation type="unfinished">Adrese za &amp;primanje</translation>
     </message>
     <message>
-        <source>Open a bitcoinsilver: URI</source>
-        <translation type="unfinished">Otvori bitcoinsilver: URI</translation>
+        <source>Open a bitcoin: URI</source>
+        <translation type="unfinished">Otvori bitcoin: URI</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -678,7 +678,7 @@ Potpisivanje je moguće samo sa 'legacy' adresama. </translation>
         <translation type="unfinished">Zatvori sve novčanike</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible BitcoinSilver command-line options</source>
+        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
         <translation type="unfinished">Prikažite pomoć programa %1 kako biste ispisali moguće opcije preko terminala</translation>
     </message>
     <message>
@@ -732,12 +732,12 @@ Potpisivanje je moguće samo sa 'legacy' adresama. </translation>
         <translation type="unfinished">&amp;Pokaži</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>%n active connection(s) to BitcoinSilver network.</numerusform>
-            <numerusform>%n active connection(s) to BitcoinSilver network.</numerusform>
-            <numerusform>%n aktivnih veza s BitcoinSilver mrežom.</numerusform>
+            <numerusform>%n active connection(s) to Bitcoin network.</numerusform>
+            <numerusform>%n active connection(s) to Bitcoin network.</numerusform>
+            <numerusform>%n aktivnih veza s Bitcoin mrežom.</numerusform>
         </translation>
     </message>
     <message>
@@ -1160,8 +1160,8 @@ Potpisivanje je moguće samo sa 'legacy' adresama. </translation>
         <translation type="unfinished">Uredi adresu za slanje</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid BitcoinSilver address.</source>
-        <translation type="unfinished">Upisana adresa "%1" nije valjana BitcoinSilver adresa.</translation>
+        <source>The entered address "%1" is not a valid Bitcoin address.</source>
+        <translation type="unfinished">Upisana adresa "%1" nije valjana Bitcoin adresa.</translation>
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -1247,7 +1247,7 @@ Potpisivanje je moguće samo sa 'legacy' adresama. </translation>
         </translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the BitcoinSilver block chain.</source>
+        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
         <translation type="unfinished">%1 preuzet će i pohraniti kopiju Bitcoinovog lanca blokova.</translation>
     </message>
     <message>
@@ -1332,7 +1332,7 @@ Potpisivanje je moguće samo sa 'legacy' adresama. </translation>
         <translation type="unfinished">Oblik</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoinsilver network, as detailed below.</source>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoin network, as detailed below.</source>
         <translation type="unfinished">Nedavne transakcije možda još nisu vidljive pa vam stanje novčanika može biti netočno. Ove informacije bit će točne nakon što vaš novčanik dovrši sinkronizaciju s Bitcoinovom mrežom, kako je opisano dolje.</translation>
     </message>
     <message>
@@ -1379,8 +1379,8 @@ Potpisivanje je moguće samo sa 'legacy' adresama. </translation>
 <context>
     <name>OpenURIDialog</name>
     <message>
-        <source>Open bitcoinsilver URI</source>
-        <translation type="unfinished">Otvori bitcoinsilver: URI</translation>
+        <source>Open bitcoin URI</source>
+        <translation type="unfinished">Otvori bitcoin: URI</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
@@ -1531,16 +1531,16 @@ Potpisivanje je moguće samo sa 'legacy' adresama. </translation>
         <translation type="unfinished">&amp;Put za vanjsku skriptu potpisnika</translation>
     </message>
     <message>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation type="unfinished">Automatski otvori port BitcoinSilver klijenta na ruteru. To radi samo ako ruter podržava UPnP i ako je omogućen.</translation>
+        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation type="unfinished">Automatski otvori port Bitcoin klijenta na ruteru. To radi samo ako ruter podržava UPnP i ako je omogućen.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
         <translation type="unfinished">Mapiraj port koristeći &amp;UPnP</translation>
     </message>
     <message>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports NAT-PMP and it is enabled. The external port could be random.</source>
-        <translation type="unfinished">Automatski otvori port BitcoinSilver klijenta na ruteru. Ovo radi samo ako ruter podržava UPnP i ako je omogućen. Vanjski port može biti nasumičan.</translation>
+        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports NAT-PMP and it is enabled. The external port could be random.</source>
+        <translation type="unfinished">Automatski otvori port Bitcoin klijenta na ruteru. Ovo radi samo ako ruter podržava UPnP i ako je omogućen. Vanjski port može biti nasumičan.</translation>
     </message>
     <message>
         <source>Map port using NA&amp;T-PMP</source>
@@ -1555,8 +1555,8 @@ Potpisivanje je moguće samo sa 'legacy' adresama. </translation>
         <translation type="unfinished">Dozvolite dolazeće veze</translation>
     </message>
     <message>
-        <source>Connect to the BitcoinSilver network through a SOCKS5 proxy.</source>
-        <translation type="unfinished">Spojite se na BitcoinSilver mrežu kroz SOCKS5 proxy.</translation>
+        <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
+        <translation type="unfinished">Spojite se na Bitcoin mrežu kroz SOCKS5 proxy.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1643,24 +1643,12 @@ Potpisivanje je moguće samo sa 'legacy' adresama. </translation>
         <translation type="unfinished">Ovisi želite li prikazati mogućnosti kontroliranja inputa ili ne.</translation>
     </message>
     <message>
-        <source>Connect to the BitcoinSilver network through a separate SOCKS5 proxy for Tor onion services.</source>
-        <translation type="unfinished">Spojite se na BitcoinSilver mrežu kroz zaseban SOCKS5 proxy za povezivanje na Tor onion usluge.</translation>
+        <source>Connect to the Bitcoin network through a separate SOCKS5 proxy for Tor onion services.</source>
+        <translation type="unfinished">Spojite se na Bitcoin mrežu kroz zaseban SOCKS5 proxy za povezivanje na Tor onion usluge.</translation>
     </message>
     <message>
         <source>Use separate SOCKS&amp;5 proxy to reach peers via Tor onion services:</source>
         <translation type="unfinished">Koristite zaseban SOCKS&amp;5 proxy kako biste dohvatili klijente preko Tora:</translation>
-    </message>
-    <message>
-        <source>Monospaced font in the Overview tab:</source>
-        <translation type="unfinished">Font fiksne širine u tabu Pregled:</translation>
-    </message>
-    <message>
-        <source>embedded "%1"</source>
-        <translation type="unfinished">ugrađen "%1"</translation>
-    </message>
-    <message>
-        <source>closest matching "%1"</source>
-        <translation type="unfinished">najbliže poklapanje "%1"</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -1740,8 +1728,8 @@ Potpisivanje je moguće samo sa 'legacy' adresama. </translation>
         <translation type="unfinished">Oblik</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BitcoinSilver network after a connection is established, but this process has not completed yet.</source>
-        <translation type="unfinished">Prikazani podatci mogu biti zastarjeli. Vaš novčanik se automatski sinkronizira s BitcoinSilver mrežom kada je veza uspostavljena, ali taj proces još nije završen.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
+        <translation type="unfinished">Prikazani podatci mogu biti zastarjeli. Vaš novčanik se automatski sinkronizira s Bitcoin mrežom kada je veza uspostavljena, ali taj proces još nije završen.</translation>
     </message>
     <message>
         <source>Watch-only:</source>
@@ -1888,10 +1876,6 @@ Potpisivanje je moguće samo sa 'legacy' adresama. </translation>
         <translation type="unfinished">PBST spremljen na disk.</translation>
     </message>
     <message>
-        <source> * Sends %1 to %2</source>
-        <translation type="unfinished">* Šalje %1 %2</translation>
-    </message>
-    <message>
         <source>own address</source>
         <translation type="unfinished">vlastita adresa</translation>
     </message>
@@ -1951,7 +1935,7 @@ Potpisivanje je moguće samo sa 'legacy' adresama. </translation>
         <translation type="unfinished">Greška kod zahtjeva za plaćanje</translation>
     </message>
     <message>
-        <source>Cannot start bitcoinsilver: click-to-pay handler</source>
+        <source>Cannot start bitcoin: click-to-pay handler</source>
         <translation type="unfinished">Ne može se pokrenuti klijent: rukovatelj "kliknite da platite"</translation>
     </message>
     <message>
@@ -1959,8 +1943,8 @@ Potpisivanje je moguće samo sa 'legacy' adresama. </translation>
         <translation type="unfinished">URI upravljanje</translation>
     </message>
     <message>
-        <source>'bitcoinsilver://' is not a valid URI. Use 'bitcoinsilver:' instead.</source>
-        <translation type="unfinished">'bitcoinsilver://' nije ispravan URI. Koristite 'bitcoinsilver:' umjesto toga.</translation>
+        <source>'bitcoin://' is not a valid URI. Use 'bitcoin:' instead.</source>
+        <translation type="unfinished">'bitcoin://' nije ispravan URI. Koristite 'bitcoin:' umjesto toga.</translation>
     </message>
     <message>
         <source>Cannot process payment request because BIP70 is not supported.
@@ -1971,8 +1955,8 @@ S obzirom na široko rasprostranjene sigurnosne nedostatke u BIP70, preporučlji
 Ako imate ovu grešku, od trgovca zatražite URI koji je kompatibilan sa BIP21.</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid BitcoinSilver address or malformed URI parameters.</source>
-        <translation type="unfinished">Ne može se parsirati URI! Uzrok tomu može biti nevažeća BitcoinSilver adresa ili neispravni parametri kod URI-a.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid Bitcoin address or malformed URI parameters.</source>
+        <translation type="unfinished">Ne može se parsirati URI! Uzrok tomu može biti nevažeća Bitcoin adresa ili neispravni parametri kod URI-a.</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -2488,8 +2472,8 @@ Za više informacija o korištenju ove konzile, utipkajte %6.
         <translation type="unfinished">&amp;Poruka:</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the BitcoinSilver network.</source>
-        <translation type="unfinished">Opcionalna poruka koja se može dodati kao privitak zahtjevu za plaćanje. Bit će prikazana kad je zahtjev otvoren. Napomena: Ova poruka neće biti poslana zajedno s uplatom preko BitcoinSilver mreže.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
+        <translation type="unfinished">Opcionalna poruka koja se može dodati kao privitak zahtjevu za plaćanje. Bit će prikazana kad je zahtjev otvoren. Napomena: Ova poruka neće biti poslana zajedno s uplatom preko Bitcoin mreže.</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -2770,7 +2754,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
 Napomena: Budući da se naknada računa po bajtu, naknada od "100 satošija po kB" za transakciju veličine 500 bajtova (polovica od 1 kB) rezultirala bi ultimativno naknadom od samo 50 satošija.</translation>
     </message>
     <message>
-        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoinsilver transactions than the network can process.</source>
+        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
         <translation type="unfinished">Kada je kapacitet transakcija manja od prostora u blokovima, rudari i čvorovi prenositelji mogu zatražiti minimalnu naknadu. Prihvatljivo je platiti samo ovu minimalnu naknadu, ali budite svjesni da ovime može nastati transakcija koja se nikad ne potvrđuje čim je potražnja za korištenjem Bitcoina veća nego što mreža može obraditi.</translation>
     </message>
     <message>
@@ -2856,12 +2840,8 @@ Napomena: Budući da se naknada računa po bajtu, naknada od "100 satošija po k
         <translation type="unfinished">Cr&amp;eate nije potpisan</translation>
     </message>
     <message>
-        <source>Creates a Partially Signed BitcoinSilver Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
-        <translation type="unfinished">Stvara djelomično potpisanu BitcoinSilver transakciju (Partially Signed BitcoinSilver Transaction - PSBT) za upotrebu sa npr. novčanikom %1 koji nije povezan s mrežom ili sa PSBT kompatibilnim hardverskim novčanikom.</translation>
-    </message>
-    <message>
-        <source> from wallet '%1'</source>
-        <translation type="unfinished">iz novčanika '%1'</translation>
+        <source>Creates a Partially Signed Bitcoin Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <translation type="unfinished">Stvara djelomično potpisanu Bitcoin transakciju (Partially Signed Bitcoin Transaction - PSBT) za upotrebu sa npr. novčanikom %1 koji nije povezan s mrežom ili sa PSBT kompatibilnim hardverskim novčanikom.</translation>
     </message>
     <message>
         <source>%1 to '%2'</source>
@@ -2916,9 +2896,9 @@ Napomena: Budući da se naknada računa po bajtu, naknada od "100 satošija po k
         <translation type="unfinished">Možete kasnije povećati naknadu (javlja Replace-By-Fee, BIP-125).</translation>
     </message>
     <message>
-        <source>Please, review your transaction proposal. This will produce a Partially Signed BitcoinSilver Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction proposal. This will produce a Partially Signed Bitcoin Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can only create a PSBT. This string is displayed when private keys are disabled and an external signer is not available.</extracomment>
-        <translation type="unfinished">Molimo pregledajte svoj prijedlog transakcije. Ovo će stvoriti djelomično potpisanu BitcoinSilver transakciju (PBST) koju možete spremiti ili kopirati i zatim potpisati sa npr. novčanikom %1 koji nije povezan s mrežom ili sa PSBT kompatibilnim hardverskim novčanikom.</translation>
+        <translation type="unfinished">Molimo pregledajte svoj prijedlog transakcije. Ovo će stvoriti djelomično potpisanu Bitcoin transakciju (PBST) koju možete spremiti ili kopirati i zatim potpisati sa npr. novčanikom %1 koji nije povezan s mrežom ili sa PSBT kompatibilnim hardverskim novčanikom.</translation>
     </message>
     <message>
         <source>Do you want to create this transaction?</source>
@@ -2926,9 +2906,9 @@ Napomena: Budući da se naknada računa po bajtu, naknada od "100 satošija po k
         <translation type="unfinished">Želite li kreirati ovu transakciju?</translation>
     </message>
     <message>
-        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed BitcoinSilver Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed Bitcoin Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can send their transaction or create a PSBT. This string is displayed when both private keys and PSBT controls are enabled.</extracomment>
-        <translation type="unfinished">Molimo pregledajte svoju transakciju. Možete kreirarti i poslati ovu transakciju ili kreirati djelomično potpisanu BitcoinSilver transakciju (PBST) koju možete spremiti ili kopirati i zatim potpisati sa npr. novčanikom %1 koji nije povezan s mrežom ili sa PSBT kompatibilnim hardverskim novčanikom.</translation>
+        <translation type="unfinished">Molimo pregledajte svoju transakciju. Možete kreirarti i poslati ovu transakciju ili kreirati djelomično potpisanu Bitcoin transakciju (PBST) koju možete spremiti ili kopirati i zatim potpisati sa npr. novčanikom %1 koji nije povezan s mrežom ili sa PSBT kompatibilnim hardverskim novčanikom.</translation>
     </message>
     <message>
         <source>Please, review your transaction.</source>
@@ -2992,8 +2972,8 @@ Napomena: Budući da se naknada računa po bajtu, naknada od "100 satošija po k
         </translation>
     </message>
     <message>
-        <source>Warning: Invalid BitcoinSilver address</source>
-        <translation type="unfinished">Upozorenje: Nevažeća BitcoinSilver adresa</translation>
+        <source>Warning: Invalid Bitcoin address</source>
+        <translation type="unfinished">Upozorenje: Nevažeća Bitcoin adresa</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -3031,8 +3011,8 @@ Napomena: Budući da se naknada računa po bajtu, naknada od "100 satošija po k
         <translation type="unfinished">Odaberite prethodno korištenu adresu</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address to send the payment to</source>
-        <translation type="unfinished">BitcoinSilver adresa na koju ćete poslati uplatu</translation>
+        <source>The Bitcoin address to send the payment to</source>
+        <translation type="unfinished">Bitcoin adresa na koju ćete poslati uplatu</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
@@ -3067,8 +3047,8 @@ Napomena: Budući da se naknada računa po bajtu, naknada od "100 satošija po k
         <translation type="unfinished">Unesite oznaku za ovu adresu kako bi ju dodali u vaš adresar</translation>
     </message>
     <message>
-        <source>A message that was attached to the bitcoinsilver: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the BitcoinSilver network.</source>
-        <translation type="unfinished">Poruka koja je dodana uplati: URI koji će biti spremljen s transakcijom za referencu. Napomena: Ova poruka neće biti poslana preko BitcoinSilver mreže.</translation>
+        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
+        <translation type="unfinished">Poruka koja je dodana uplati: URI koji će biti spremljen s transakcijom za referencu. Napomena: Ova poruka neće biti poslana preko Bitcoin mreže.</translation>
     </message>
 </context>
 <context>
@@ -3097,8 +3077,8 @@ Napomena: Budući da se naknada računa po bajtu, naknada od "100 satošija po k
         <translation type="unfinished">Možete potpisati poruke/dogovore svojim adresama kako biste dokazali da možete pristupiti bitcoinima poslanim na te adrese. Budite oprezni da ne potpisujte ništa nejasno ili nasumično, jer napadi phishingom vas mogu prevariti da prepišite svoj identitet njima. Potpisujte samo detaljno objašnjene izjave s kojima se slažete.</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address to sign the message with</source>
-        <translation type="unfinished">BitcoinSilver adresa pomoću koje ćete potpisati poruku</translation>
+        <source>The Bitcoin address to sign the message with</source>
+        <translation type="unfinished">Bitcoin adresa pomoću koje ćete potpisati poruku</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3121,8 +3101,8 @@ Napomena: Budući da se naknada računa po bajtu, naknada od "100 satošija po k
         <translation type="unfinished">Kopirajte trenutni potpis u međuspremnik</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this BitcoinSilver address</source>
-        <translation type="unfinished">Potpišite poruku kako biste dokazali da posjedujete ovu BitcoinSilver adresu</translation>
+        <source>Sign the message to prove you own this Bitcoin address</source>
+        <translation type="unfinished">Potpišite poruku kako biste dokazali da posjedujete ovu Bitcoin adresu</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -3145,8 +3125,8 @@ Napomena: Budući da se naknada računa po bajtu, naknada od "100 satošija po k
         <translation type="unfinished">Unesite primateljevu adresu, poruku (provjerite da kopirate prekide crta, razmake, tabove, itd. točno) i potpis ispod da provjerite poruku. Pazite da ne pridodate veće značenje potpisu nego što je sadržano u samoj poruci kako biste izbjegli napad posrednika (MITM attack). Primijetite da ovo samo dokazuje da stranka koja potpisuje prima na adresu. Ne može dokažati da je neka stranka poslala transakciju!</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address the message was signed with</source>
-        <translation type="unfinished">BitcoinSilver adresa kojom je poruka potpisana</translation>
+        <source>The Bitcoin address the message was signed with</source>
+        <translation type="unfinished">Bitcoin adresa kojom je poruka potpisana</translation>
     </message>
     <message>
         <source>The signed message to verify</source>
@@ -3157,8 +3137,8 @@ Napomena: Budući da se naknada računa po bajtu, naknada od "100 satošija po k
         <translation type="unfinished">Potpis predan kad je poruka bila potpisana</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified BitcoinSilver address</source>
-        <translation type="unfinished">Provjerite poruku da budete sigurni da je potpisana zadanom BitcoinSilver adresom</translation>
+        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
+        <translation type="unfinished">Provjerite poruku da budete sigurni da je potpisana zadanom Bitcoin adresom</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -3353,10 +3333,6 @@ Napomena: Budući da se naknada računa po bajtu, naknada od "100 satošija po k
     <message>
         <source>Output index</source>
         <translation type="unfinished">Indeks outputa</translation>
-    </message>
-    <message>
-        <source> (Certificate was not verified)</source>
-        <translation type="unfinished">(Certifikat nije bio ovjeren)</translation>
     </message>
     <message>
         <source>Merchant</source>
@@ -3798,14 +3774,14 @@ Idi na Datoteka &gt;  Otvori novčanik za učitanje novčanika.
     </message>
 </context>
 <context>
-    <name>bitcoinsilver-core</name>
+    <name>bitcoin-core</name>
     <message>
         <source>The %s developers</source>
         <translation type="unfinished">Ekipa %s</translation>
     </message>
     <message>
-        <source>%s corrupt. Try using the wallet tool bitcoinsilver-wallet to salvage or restoring a backup.</source>
-        <translation type="unfinished">%s korumpirano. Pokušajte koristiti bitcoinsilver-wallet alat za novčanike kako biste ga spasili ili pokrenuti sigurnosnu kopiju.</translation>
+        <source>%s corrupt. Try using the wallet tool bitcoin-wallet to salvage or restoring a backup.</source>
+        <translation type="unfinished">%s korumpirano. Pokušajte koristiti bitcoin-wallet alat za novčanike kako biste ga spasili ili pokrenuti sigurnosnu kopiju.</translation>
     </message>
     <message>
         <source>Cannot downgrade wallet from version %i to version %i. Wallet version unchanged.</source>
@@ -3836,8 +3812,8 @@ Idi na Datoteka &gt;  Otvori novčanik za učitanje novčanika.
         <translation type="unfinished">Greška: Identifikator dumpfile zapisa je netočan. Dobiven "%s", očekivan "%s".</translation>
     </message>
     <message>
-        <source>Error: Dumpfile version is not supported. This version of bitcoinsilver-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
-        <translation type="unfinished">Greška: Dumpfile verzija nije podržana. Ova bitcoinsilver-wallet  verzija podržava  samo dumpfile verziju 1. Dobiven dumpfile s verzijom %s</translation>
+        <source>Error: Dumpfile version is not supported. This version of bitcoin-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
+        <translation type="unfinished">Greška: Dumpfile verzija nije podržana. Ova bitcoin-wallet  verzija podržava  samo dumpfile verziju 1. Dobiven dumpfile s verzijom %s</translation>
     </message>
     <message>
         <source>Error: Legacy wallets only support the "legacy", "p2sh-segwit", and "bech32" address types</source>
@@ -4310,10 +4286,6 @@ Idi na Datoteka &gt;  Otvori novčanik za učitanje novčanika.
     <message>
         <source>Transaction change output index out of range</source>
         <translation type="unfinished">Indeks change outputa transakcije je izvan dometa</translation>
-    </message>
-    <message>
-        <source>Transaction has too long of a mempool chain</source>
-        <translation type="unfinished">Transakcija ima prevelik lanac memorijskog bazena</translation>
     </message>
     <message>
         <source>Transaction must have at least one recipient</source>

@@ -58,7 +58,7 @@
         <translation type="unfinished">&amp;निवडा</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation type="unfinished">पैसे पाठविण्यासाठीचे हे तुमचे बिटकॉईन पत्त्ते आहेत. नाणी पाठविण्यापूर्वी नेहमी रक्कम आणि प्राप्त होणारा पत्ता तपासून पहा.</translation>
     </message>
     <message>
@@ -281,7 +281,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
             <numerusform />
@@ -414,7 +414,7 @@
     </message>
     </context>
 <context>
-    <name>bitcoinsilver-core</name>
+    <name>bitcoin-core</name>
     <message>
         <source>Settings file could not be read</source>
         <translation type="unfinished">सेटिंग्ज फाइल वाचता आली नाही</translation>

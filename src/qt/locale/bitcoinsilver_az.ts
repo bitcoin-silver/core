@@ -2,10 +2,6 @@
 <context>
     <name>AddressBookPage</name>
     <message>
-        <source>Right-click to edit address or label</source>
-        <translation type="unfinished">Ünvana və ya etiketə düzəliş etmək üçün sağ düyməni klikləyin</translation>
-    </message>
-    <message>
         <source>Create a new address</source>
         <translation type="unfinished">Yeni ünvan yaradın</translation>
     </message>
@@ -58,13 +54,13 @@
         <translation type="unfinished">Seç</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">Bunlar ödənişləri göndərmək üçün BitcoinSilver ünvanlarınızdır. pul göndərməzdən əvvəl həmişə miqdarı və göndəriləcək ünvanı yoxlayın.</translation>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">Bunlar ödənişləri göndərmək üçün Bitcoin ünvanlarınızdır. pul göndərməzdən əvvəl həmişə miqdarı və göndəriləcək ünvanı yoxlayın.</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">Bunlar ödəniş almaq üçün BitcoinSilver ünvanlarınızdır. Yeni ünvan yaratmaq üçün alacaqlar vərəqində 'Yeni alacaq ünvan yarat' düyməsini istifadə edin.
+        <translation type="unfinished">Bunlar ödəniş almaq üçün Bitcoin ünvanlarınızdır. Yeni ünvan yaratmaq üçün alacaqlar vərəqində 'Yeni alacaq ünvan yarat' düyməsini istifadə edin.
 Daxil olma, yalnız 'qanuni' tipli ünvanlar ilə mümkündür.</translation>
     </message>
     <message>
@@ -156,7 +152,7 @@ Daxil olma, yalnız 'qanuni' tipli ünvanlar ilə mümkündür.</translation>
         <translation type="unfinished">Pulqabı şifrələməsini təsdiqlə</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINSILVERS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
         <translation type="unfinished">Xəbərdarlıq: Əgər siz pulqabınızı şifrədən çıxarsanız və şifrəli sözü itirmiş olsanız &lt;b&gt;BÜTÜN BİTCOİNLƏRİNİZİ İTİRƏCƏKSİNİZ&lt;/b&gt;!</translation>
     </message>
     <message>
@@ -285,43 +281,43 @@ Daxil olma, yalnız 'qanuni' tipli ünvanlar ilə mümkündür.</translation>
     <message numerus="yes">
         <source>%n second(s)</source>
         <translation type="unfinished">
-            <numerusform>%n second(s)</numerusform>
-            <numerusform>%n second(s)</numerusform>
+            <numerusform />
+            <numerusform />
         </translation>
     </message>
     <message numerus="yes">
         <source>%n minute(s)</source>
         <translation type="unfinished">
-            <numerusform>%n minute(s)</numerusform>
-            <numerusform>%n minute(s)</numerusform>
+            <numerusform />
+            <numerusform />
         </translation>
     </message>
     <message numerus="yes">
         <source>%n hour(s)</source>
         <translation type="unfinished">
-            <numerusform>%n hour(s)</numerusform>
-            <numerusform>%n hour(s)</numerusform>
+            <numerusform />
+            <numerusform />
         </translation>
     </message>
     <message numerus="yes">
         <source>%n day(s)</source>
         <translation type="unfinished">
-            <numerusform>%n day(s)</numerusform>
-            <numerusform>%n day(s)</numerusform>
+            <numerusform />
+            <numerusform />
         </translation>
     </message>
     <message numerus="yes">
         <source>%n week(s)</source>
         <translation type="unfinished">
-            <numerusform>%n week(s)</numerusform>
-            <numerusform>%n week(s)</numerusform>
+            <numerusform />
+            <numerusform />
         </translation>
     </message>
     <message numerus="yes">
         <source>%n year(s)</source>
         <translation type="unfinished">
-            <numerusform>%n year(s)</numerusform>
-            <numerusform>%n year(s)</numerusform>
+            <numerusform />
+            <numerusform />
         </translation>
     </message>
     </context>
@@ -393,8 +389,8 @@ Daxil olma, yalnız 'qanuni' tipli ünvanlar ilə mümkündür.</translation>
         <translation type="unfinished">Proksi &lt;b&gt;işə salınıb&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a BitcoinSilver address</source>
-        <translation type="unfinished">Pulları BitcoinSilver ünvanına göndərin</translation>
+        <source>Send coins to a Bitcoin address</source>
+        <translation type="unfinished">Pulları Bitcoin ünvanına göndərin</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -437,16 +433,16 @@ Daxil olma, yalnız 'qanuni' tipli ünvanlar ilə mümkündür.</translation>
         <translation type="unfinished">İs&amp;marıcı imzalayın...</translation>
     </message>
     <message>
-        <source>Sign messages with your BitcoinSilver addresses to prove you own them</source>
-        <translation type="unfinished">BitcoinSilver ünvanlarınızın sahibi olduğunuzu sübut etmək üçün ismarıcları imzalayın</translation>
+        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
+        <translation type="unfinished">Bitcoin ünvanlarınızın sahibi olduğunuzu sübut etmək üçün ismarıcları imzalayın</translation>
     </message>
     <message>
         <source>&amp;Verify message…</source>
         <translation type="unfinished">&amp;İsmarıcı doğrulayın...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified BitcoinSilver addresses</source>
-        <translation type="unfinished">Göstərilmiş BitcoinSilver ünvanları ilə imzalandıqlarına əmin olmaq üçün ismarıcları doğrulayın</translation>
+        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
+        <translation type="unfinished">Göstərilmiş Bitcoin ünvanları ilə imzalandıqlarına əmin olmaq üçün ismarıcları doğrulayın</translation>
     </message>
     <message>
         <source>&amp;Load PSBT from file…</source>
@@ -505,8 +501,8 @@ Daxil olma, yalnız 'qanuni' tipli ünvanlar ilə mümkündür.</translation>
         <translation type="unfinished">İştirakçılara qoşulur...</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoinsilver: URIs)</source>
-        <translation type="unfinished">Ödəmə tələbi (QR-kodlar və BitcoinSilver URI-ləri yaradılır)^</translation>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
+        <translation type="unfinished">Ödəmə tələbi (QR-kodlar və Bitcoin URI-ləri yaradılır)^</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -560,16 +556,16 @@ Daxil olma, yalnız 'qanuni' tipli ünvanlar ilə mümkündür.</translation>
         <translation type="unfinished">Eyniləşdirildi</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction</source>
-        <translation type="unfinished">Qismən imzalanmış BitcoinSilver köçürmələrini yükləyin</translation>
+        <source>Load Partially Signed Bitcoin Transaction</source>
+        <translation type="unfinished">Qismən imzalanmış Bitcoin köçürmələrini yükləyin</translation>
     </message>
     <message>
         <source>Load PSBT from &amp;clipboard…</source>
         <translation type="unfinished">PSBT-i &amp;mübadilə yaddaşından yükləyin...</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction from clipboard</source>
-        <translation type="unfinished">Qismən İmzalanmış BitcoinSilver Köçürməsini (PSBT) mübadilə yaddaşından yükləmək</translation>
+        <source>Load Partially Signed Bitcoin Transaction from clipboard</source>
+        <translation type="unfinished">Qismən İmzalanmış Bitcoin Köçürməsini (PSBT) mübadilə yaddaşından yükləmək</translation>
     </message>
     <message>
         <source>Node window</source>
@@ -588,8 +584,8 @@ Daxil olma, yalnız 'qanuni' tipli ünvanlar ilə mümkündür.</translation>
         <translation type="unfinished">&amp;Qəbul etmək üçün ünvanlar</translation>
     </message>
     <message>
-        <source>Open a bitcoinsilver: URI</source>
-        <translation type="unfinished">BitcoinSilver açın: URI</translation>
+        <source>Open a bitcoin: URI</source>
+        <translation type="unfinished">Bitcoin açın: URI</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -618,8 +614,8 @@ Daxil olma, yalnız 'qanuni' tipli ünvanlar ilə mümkündür.</translation>
         <translation type="unfinished">Bütün cüzdanları bağlayın</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible BitcoinSilver command-line options</source>
-        <translation type="unfinished">Mümkün BitcoinSilver əmr sətri əməliyyatları siyahısını almaq üçün %1 kömək ismarıcı göstərilsin</translation>
+        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
+        <translation type="unfinished">Mümkün Bitcoin əmr sətri əməliyyatları siyahısını almaq üçün %1 kömək ismarıcı göstərilsin</translation>
     </message>
     <message>
         <source>&amp;Mask values</source>
@@ -682,11 +678,11 @@ Daxil olma, yalnız 'qanuni' tipli ünvanlar ilə mümkündür.</translation>
         <translation type="unfinished">&amp;Göstərin</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>BitcoinSilver şəbəkəsinə %n aktiv bağlantı.</numerusform>
-            <numerusform>BitcoinSilver şəbəkəsinə %n aktiv bağlantı.</numerusform>
+            <numerusform>Bitcoin şəbəkəsinə %n aktiv bağlantı.</numerusform>
+            <numerusform>Bitcoin şəbəkəsinə %n aktiv bağlantı.</numerusform>
         </translation>
     </message>
     <message>
@@ -1140,30 +1136,30 @@ Daxil olma, yalnız 'qanuni' tipli ünvanlar ilə mümkündür.</translation>
     <message numerus="yes">
         <source>%n GB of space available</source>
         <translation type="unfinished">
-            <numerusform>%n GB of space available</numerusform>
-            <numerusform>%n GB of space available</numerusform>
+            <numerusform />
+            <numerusform />
         </translation>
     </message>
     <message numerus="yes">
         <source>(of %n GB needed)</source>
         <translation type="unfinished">
-            <numerusform>(of %n GB needed)</numerusform>
-            <numerusform>(of %n GB needed)</numerusform>
+            <numerusform />
+            <numerusform />
         </translation>
     </message>
     <message numerus="yes">
         <source>(%n GB needed for full chain)</source>
         <translation type="unfinished">
-            <numerusform>(%n GB needed for full chain)</numerusform>
-            <numerusform>(%n GB needed for full chain)</numerusform>
+            <numerusform />
+            <numerusform />
         </translation>
     </message>
     <message numerus="yes">
         <source>(sufficient to restore backups %n day(s) old)</source>
         <extracomment>Explanatory text on the capability of the current prune target.</extracomment>
         <translation type="unfinished">
-            <numerusform>(sufficient to restore backups %n day(s) old)</numerusform>
-            <numerusform>(sufficient to restore backups %n day(s) old)</numerusform>
+            <numerusform />
+            <numerusform />
         </translation>
     </message>
     <message>
@@ -1461,8 +1457,8 @@ Daxil olma, yalnız 'qanuni' tipli ünvanlar ilə mümkündür.</translation>
     <message numerus="yes">
         <source>Estimated to begin confirmation within %n block(s).</source>
         <translation type="unfinished">
-            <numerusform>Estimated to begin confirmation within %n block(s).</numerusform>
-            <numerusform>Estimated to begin confirmation within %n block(s).</numerusform>
+            <numerusform />
+            <numerusform />
         </translation>
     </message>
     <message>
@@ -1483,8 +1479,8 @@ Daxil olma, yalnız 'qanuni' tipli ünvanlar ilə mümkündür.</translation>
     <message numerus="yes">
         <source>matures in %n more block(s)</source>
         <translation type="unfinished">
-            <numerusform>matures in %n more block(s)</numerusform>
-            <numerusform>matures in %n more block(s)</numerusform>
+            <numerusform />
+            <numerusform />
         </translation>
     </message>
     <message>
@@ -1590,7 +1586,7 @@ Daxil olma, yalnız 'qanuni' tipli ünvanlar ilə mümkündür.</translation>
     </message>
 </context>
 <context>
-    <name>bitcoinsilver-core</name>
+    <name>bitcoin-core</name>
     <message>
         <source>Warning: Private keys detected in wallet {%s} with disabled private keys</source>
         <translation type="unfinished">Xəbərdarlıq: Gizli açarlar, sıradan çıxarılmış gizli açarlar ilə {%s} pulqabısında aşkarlandı.</translation>
