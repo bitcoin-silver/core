@@ -6,7 +6,7 @@
 #define BITCOINSILVER_RPC_REGISTER_H
 
 #if defined(HAVE_CONFIG_H)
-#include <config/bitcoin-config.h>
+#include <config/bitcoinsilver-config.h>
 #endif
 
 /** These are in one header file to avoid creating tons of single-function

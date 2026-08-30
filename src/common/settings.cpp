@@ -5,7 +5,7 @@
 #include <common/settings.h>
 
 #if defined(HAVE_CONFIG_H)
-#include <config/bitcoin-config.h>
+#include <config/bitcoinsilver-config.h>
 #endif
 
 #include <tinyformat.h>
