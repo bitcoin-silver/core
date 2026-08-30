@@ -58,11 +58,11 @@
         <translation type="unfinished">&amp; પસંદ કરો</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation type="unfinished">આ તમારા ચુકવણી કરવા માટે ના સરનામાં છે, હંમેશા કિંમત અને મોકલવાના ના સરનામાં ચકાસી લેવા સિક્કા આપતા પહેલા.</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">આ તમારુ ચૂકવણું લેવા માટે નું સરનામા છે. નવું સરનામું બનાવા માટે "મેળવવા" માટે ની ટેબ માં "ચૂકવણું લેવા માટે નવું સરનામુ બનાવો" બટન વાપરો.
 ડિજિટલી સહી કરવા માટે 'legacy એટલેકે જુના પ્રકાર નુ' પ્રકાર નું સરનામું હોવું જરૂરી છે.</translation>
@@ -99,7 +99,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Receiving addresses - %1</source>
-        <translation type="unfinished"> મેળવવાના સરનામા-%1</translation>
+        <translation type="unfinished">સરનામુ લેવુ-%1</translation>
     </message>
     <message>
         <source>Exporting Failed</source>
@@ -164,7 +164,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">એન્ક્રિપ્શન ખાતરી કરો </translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINSILVERS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
         <translation type="unfinished">ચેતવણી: જો તમે તમારા વૉલેટને એન્ક્રિપ્ટ કરો છો અને તમારો પાસફ્રેઝ ખોવાઈ જાય છે, &lt;b&gt; તો તમે તમારા બધા બિટકોઇન્સ ગુમાવશો&lt;/b&gt;!</translation>
     </message>
     <message>
@@ -182,6 +182,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Enter the old passphrase and new passphrase for the wallet.</source>
         <translation type="unfinished">પાકીટ માટે જુના શબ્દસમૂહ અને નવા શબ્દસમૂહ દાખલ કરો.</translation>
+    </message>
+    <message>
+        <source>Continue</source>
+        <translation type="unfinished">ચાલુ રાખો</translation>
     </message>
     <message>
         <source>Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
@@ -273,7 +277,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>Internal error</source>
         <translation type="unfinished">આંતરિક ભૂલ</translation>
     </message>
-    </context>
+    <message>
+        <source>An internal error occurred. %1 will attempt to continue safely. This is an unexpected bug which can be reported as described below.</source>
+        <translation type="unfinished">આંતરિક ભૂલ આવી. %1 સુરક્ષિત રીતે ચાલુ રાખવાનો પ્રયાસ કરશે. આ એક અણધારી બગ છે જે નીચે વર્ણવ્યા પ્રમાણે જાણ કરી શકાય છે.</translation>
+    </message>
+</context>
 <context>
     <name>QObject</name>
     <message>
@@ -299,12 +307,28 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">અજ્ઞાત</translation>
     </message>
     <message>
+        <source>Embedded "%1"</source>
+        <translation type="unfinished">એમ્બેડેડ "%1"</translation>
+    </message>
+    <message>
+        <source>Default system font "%1"</source>
+        <translation type="unfinished">ડિફૉલ્ટ સિસ્ટમ ફોન્ટ "%1"</translation>
+    </message>
+    <message>
+        <source>Custom…</source>
+        <translation type="unfinished">કસ્ટમ…</translation>
+    </message>
+    <message>
         <source>Amount</source>
         <translation type="unfinished">રકમ</translation>
     </message>
     <message>
+        <source>Enter a Bitcoin address (e.g. %1)</source>
+        <translation type="unfinished">Bitcoin સરનામું દાખલ કરો (દા.ત. %1 )</translation>
+    </message>
+    <message>
         <source>Unroutable</source>
-        <translation type="unfinished">અનરોટેબલ</translation>
+        <translation type="unfinished">રૂટ કરી શકાતો નથી</translation>
     </message>
     <message>
         <source>Onion</source>
@@ -359,7 +383,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>%n second(s)</source>
         <translation type="unfinished">
             <numerusform>1%n સેકન્ડ</numerusform>
-            <numerusform>1%n સેકન્ડો</numerusform>
+            <numerusform>%n સેકન્ડો</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -397,7 +421,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
             <numerusform />
         </translation>
     </message>
-    </context>
+    <message>
+        <source>default wallet</source>
+        <translation type="unfinished">મૂળભૂત વૉલેટ</translation>
+    </message>
+</context>
 <context>
     <name>BitcoinGUI</name>
     <message>
@@ -466,7 +494,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">પ્રોક્સી &lt;b&gt;સક્ષમ છે &lt;/b&gt; : %1</translation>
     </message>
     <message>
-        <source>Send coins to a BitcoinSilver address</source>
+        <source>Send coins to a Bitcoin address</source>
         <translation type="unfinished">બિટકોઈન એડ્રેસ પર સિક્કા મોકલો</translation>
     </message>
     <message>
@@ -510,7 +538,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">સહી&amp;સંદેશ...</translation>
     </message>
     <message>
-        <source>Sign messages with your BitcoinSilver addresses to prove you own them</source>
+        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
         <translation type="unfinished">તમારા બિટકોઈન સરનામાંઓ સાથે તમે તેમના માલિક છો તે સાબિત કરવા માટે સંદેશાઓ પર સહી કરો</translation>
     </message>
     <message>
@@ -518,8 +546,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;સંદેશ ચકાસો...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified BitcoinSilver addresses</source>
-        <translation type="unfinished">સંદેશાઓની ખાતરી કરવા માટે કે તેઓ નિર્દિષ્ટ BitcoinSilver સરનામાંઓ સાથે સહી કરેલ છે તેની ખાતરી કરો</translation>
+        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
+        <translation type="unfinished">સંદેશાઓની ખાતરી કરવા માટે કે તેઓ નિર્દિષ્ટ Bitcoin સરનામાંઓ સાથે સહી કરેલ છે તેની ખાતરી કરો</translation>
     </message>
     <message>
         <source>&amp;Load PSBT from file…</source>
@@ -578,8 +606,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">સાથીદારોએ સાથે જોડાઈ…</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoinsilver: URIs)</source>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
         <translation type="unfinished">ચુકવણીની વિનંતી કરો (QR કોડ અને બિટકોઈન જનરેટ કરે છે: URI)</translation>
+    </message>
+    <message>
+        <source>Show the list of used sending addresses and labels</source>
+        <translation type="unfinished">મોકલવા માટે વપરાયેલ સરનામાં અને લેબલોની યાદી બતાવો</translation>
     </message>
     <message>
         <source>Show the list of used receiving addresses and labels</source>
@@ -602,7 +634,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Catching up…</source>
-        <translation type="unfinished">પકડે છે</translation>
+        <translation type="unfinished">પકડી રહ્યું છે </translation>
     </message>
     <message>
         <source>Last received block was generated %1 ago.</source>
@@ -629,7 +661,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">આજ સુધીનુ</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction</source>
+        <source>Load Partially Signed Bitcoin Transaction</source>
         <translation type="unfinished">આંશિક રીતે સહી કરેલ બિટકોઈન ટ્રાન્ઝેક્શન લોડ કરો</translation>
     </message>
     <message>
@@ -637,7 +669,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;ક્લિપબોર્ડ માંથી PSBT લોડ કરો...</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction from clipboard</source>
+        <source>Load Partially Signed Bitcoin Transaction from clipboard</source>
         <translation type="unfinished">ક્લિપબોર્ડથી આંશિક રીતે સહી કરેલ બિટકોઈન ટ્રાન્ઝેક્શન લોડ કરો</translation>
     </message>
     <message>
@@ -657,7 +689,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;પ્રાપ્ત સરનામાં</translation>
     </message>
     <message>
-        <source>Open a bitcoinsilver: URI</source>
+        <source>Open a bitcoin: URI</source>
         <translation type="unfinished">બીટકોઈન ખોલો: URI</translation>
     </message>
     <message>
@@ -695,7 +727,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">વૉલેટ સ્થાનાંતરિત કરો</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible BitcoinSilver command-line options</source>
+        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
         <translation type="unfinished">સંભવિત બિટકોઈન કમાન્ડ-લાઇન વિકલ્પો સાથે સૂચિ મેળવવા માટે મદદ સંદેશ બતાવો %1 </translation>
     </message>
     <message>
@@ -705,10 +737,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Mask the values in the Overview tab</source>
         <translation type="unfinished">વિહંગાવલોકન ટેબમાં મૂલ્યોને માસ્ક કરો</translation>
-    </message>
-    <message>
-        <source>default wallet</source>
-        <translation type="unfinished">ડિફૉલ્ટ વૉલેટ</translation>
     </message>
     <message>
         <source>No wallets available</source>
@@ -756,14 +784,14 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>S&amp;how</source>
-        <translation type="unfinished">S&amp; કેવી રીતે</translation>
+        <translation type="unfinished">&amp; કેવી રીતે</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
             <numerusform>1%n બિટકોઈન નેટવર્ક સાથે સક્રિય જોડાણ(ઓ).</numerusform>
-            <numerusform>1%n બિટકોઈન નેટવર્ક સાથે સક્રિય જોડાણ(ઓ).</numerusform>
+            <numerusform>%n બિટકોઈન નેટવર્ક સાથે સક્રિય જોડાણ(ઓ).</numerusform>
         </translation>
     </message>
     <message>
@@ -1094,12 +1122,12 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">વૉલેટ '%1' સફળતાપૂર્વક સ્થાનાંતરિત થયું.</translation>
     </message>
     <message>
-        <source> Watchonly scripts have been migrated to a new wallet named '%1'.</source>
-        <translation type="unfinished">Watchonly સ્ક્રિપ્ટો '%1'નામના નવા વૉલેટમાં સ્થાનાંતરિત કરવામાં આવી છે.</translation>
+        <source>Watchonly scripts have been migrated to a new wallet named '%1'.</source>
+        <translation type="unfinished">વોચઓનલી સ્ક્રિપ્ટોને '%1' નામના નવા વૉલેટમાં સ્થાનાંતરિત કરવામાં આવી છે.</translation>
     </message>
     <message>
-        <source> Solvable but not watched scripts have been migrated to a new wallet named '%1'.</source>
-        <translation type="unfinished">ઉકેલી શકાય તેવી પરંતુ જોયેલી સ્ક્રિપ્ટો '%1'નામના નવા વૉલેટમાં સ્થાનાંતરિત કરવામાં આવી છે .</translation>
+        <source>Solvable but not watched scripts have been migrated to a new wallet named '%1'.</source>
+        <translation type="unfinished">ઉકેલી શકાય તેવી પરંતુ જોયેલી સ્ક્રિપ્ટો '%1' નામના નવા વૉલેટમાં સ્થાનાંતરિત કરવામાં આવી છે.</translation>
     </message>
     <message>
         <source>Migration failed</source>
@@ -1119,10 +1147,6 @@ The migration process will create a backup of the wallet before migrating. This 
     <message>
         <source>Open wallet warning</source>
         <translation type="unfinished">ઓપન વૉલેટ ચેતવણી</translation>
-    </message>
-    <message>
-        <source>default wallet</source>
-        <translation type="unfinished">ડિફૉલ્ટ વૉલેટ</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -1289,7 +1313,7 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">મોકલવાનું સરનામું સંપાદિત કરો</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid BitcoinSilver address.</source>
+        <source>The entered address "%1" is not a valid Bitcoin address.</source>
         <translation type="unfinished">દાખલ કરેલ સરનામું "%1" માન્ય બીટકોઈન સરનામું નથી.</translation>
     </message>
     <message>
@@ -1335,28 +1359,28 @@ The migration process will create a backup of the wallet before migrating. This 
 <context>
     <name>Intro</name>
     <message>
-        <source>BitcoinSilver</source>
+        <source>Bitcoin</source>
         <translation type="unfinished">બીટકોઈન </translation>
     </message>
     <message numerus="yes">
         <source>%n GB of space available</source>
         <translation type="unfinished">
             <numerusform>1%n GB ની જગ્યા ઉપલબ્ધ છે</numerusform>
-            <numerusform>1%n GB ની જગ્યા ઉપલબ્ધ છે</numerusform>
+            <numerusform>%n GB ની જગ્યા ઉપલબ્ધ છે</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>(of %n GB needed)</source>
         <translation type="unfinished">
             <numerusform>(1%n GB ની જરૂર છે)</numerusform>
-            <numerusform>(1%n GB ની જરૂર છે)</numerusform>
+            <numerusform>(%n GB ની જરૂર છે)</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>(%n GB needed for full chain)</source>
         <translation type="unfinished">
             <numerusform>(સંપૂર્ણ સાંકળ માટે 1%n GB જરૂરી છે)</numerusform>
-            <numerusform>(સંપૂર્ણ સાંકળ માટે 1%n GB જરૂરી છે)</numerusform>
+            <numerusform>(સંપૂર્ણ સાંકળ માટે %n GB જરૂરી છે)</numerusform>
         </translation>
     </message>
     <message>
@@ -1376,11 +1400,11 @@ The migration process will create a backup of the wallet before migrating. This 
         <extracomment>Explanatory text on the capability of the current prune target.</extracomment>
         <translation type="unfinished">
             <numerusform>(બૅકઅપ 1%n દિવસ(ઓ) જૂના પુનઃસ્થાપિત કરવા માટે પૂરતું)</numerusform>
-            <numerusform>(બૅકઅપ 1%n દિવસ(ઓ) જૂના પુનઃસ્થાપિત કરવા માટે પૂરતું)</numerusform>
+            <numerusform>(બૅકઅપ %n દિવસ(ઓ) જૂના પુનઃસ્થાપિત કરવા માટે પૂરતું)</numerusform>
         </translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the BitcoinSilver block chain.</source>
+        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
         <translation type="unfinished">%1 બિટકોઈન બ્લોક ચેઈનની કોપી ડાઉનલોડ અને સ્ટોર કરશે.</translation>
     </message>
     <message>
@@ -1473,7 +1497,7 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">ફોર્મ</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoinsilver network, as detailed below.</source>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoin network, as detailed below.</source>
         <translation type="unfinished">તાજેતરના વ્યવહારો હજુ સુધી દેખાતા ન હોઈ શકે અને તેથી તમારા વૉલેટનું બેલેન્સ ખોટું હોઈ શકે છે. એકવાર તમારું વૉલેટ બિટકોઇન નેટવર્ક સાથે સિંક્રનાઇઝ થઈ જાય પછી આ માહિતી સાચી હશે, જેમ કે નીચે વિગતવાર છે.</translation>
     </message>
     <message>
@@ -1532,7 +1556,7 @@ The migration process will create a backup of the wallet before migrating. This 
 <context>
     <name>OpenURIDialog</name>
     <message>
-        <source>Open bitcoinsilver URI</source>
+        <source>Open bitcoin URI</source>
         <translation type="unfinished">બિટકોઈન URI ખોલો</translation>
     </message>
     <message>
@@ -1588,6 +1612,10 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">જ્યારે વિન્ડો બંધ હોય ત્યારે એપ્લિકેશનમાંથી બહાર નીકળવાને બદલે નાનું કરો. જ્યારે આ વિકલ્પ સક્ષમ હશે, ત્યારે મેનુમાં બહાર નીકળો પસંદ કર્યા પછી જ એપ્લિકેશન બંધ થશે.</translation>
     </message>
     <message>
+        <source>Font in the Overview tab: </source>
+        <translation type="unfinished">વિહંગાવલોકન ટૅબમાં ફૉન્ટ:</translation>
+    </message>
+    <message>
         <source>Options set in this dialog are overridden by the command line:</source>
         <translation type="unfinished">આ સંવાદમાં સેટ કરેલ વિકલ્પો આદેશ વાક્ય દ્વારા ઓવરરાઇડ થાય છે:</translation>
     </message>
@@ -1620,11 +1648,6 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">આ સેટિંગને પાછું ફેરવવા માટે સમગ્ર બ્લોકચેનને ફરીથી ડાઉનલોડ કરવાની જરૂર છે.</translation>
     </message>
     <message>
-        <source>Maximum database cache size. A larger cache can contribute to faster sync, after which the benefit is less pronounced for most use cases. Lowering the cache size will reduce memory usage. Unused mempool memory is shared for this cache.</source>
-        <extracomment>Tooltip text for Options window setting that sets the size of the database cache. Explains the corresponding effects of increasing/decreasing this value.</extracomment>
-        <translation type="unfinished">મહત્તમ ડેટાબેઝ કેશ કદ. એક મોટી કેશ ઝડપી સમન્વયનમાં યોગદાન આપી શકે છે, જે પછી મોટાભાગના ઉપયોગના કેસોમાં લાભ ઓછો ઉચ્ચારવામાં આવે છે. કેશનું કદ ઘટાડવાથી મેમરીનો વપરાશ ઘટશે. આ કેશ માટે નહિ વપરાયેલ મેમ્પૂલ મેમરી શેર કરવામાં આવી છે.</translation>
-    </message>
-    <message>
         <source>Set the number of script verification threads. Negative values correspond to the number of cores you want to leave free to the system.</source>
         <extracomment>Tooltip text for Options window setting that sets the number of script verification threads. Explains that negative values mean to leave these many cores free to the system.</extracomment>
         <translation type="unfinished">સ્ક્રિપ્ટ ચકાસણી થ્રેડોની સંખ્યા સેટ કરો. નકારાત્મક મૂલ્યો કોરોની સંખ્યાને અનુરૂપ છે જે તમે સિસ્ટમને મફતમાં છોડવા માંગો છો.</translation>
@@ -1651,6 +1674,11 @@ The migration process will create a backup of the wallet before migrating. This 
         <source>Whether to set subtract fee from amount as default or not.</source>
         <extracomment>Tooltip text for Options window setting that sets subtracting the fee from a sending amount as default.</extracomment>
         <translation type="unfinished">રકમમાંથી બાદબાકી ફી ડિફોલ્ટ તરીકે સેટ કરવી કે નહીં.</translation>
+    </message>
+    <message>
+        <source>Subtract &amp;fee from amount by default</source>
+        <extracomment>An Options window setting to set subtracting the fee from a sending amount as default.</extracomment>
+        <translation type="unfinished">ડિફોલ્ટ રૂપે રકમમાંથી &amp;ફી બાદ કરો</translation>
     </message>
     <message>
         <source>Expert</source>
@@ -1687,22 +1715,6 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">&amp;બાહ્ય સહી કરનાર સ્ક્રિપ્ટ પાથ</translation>
     </message>
     <message>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation type="unfinished">રાઉટર પર બિટકોઇન ક્લાયંટ પોર્ટને આપમેળે ખોલો. આ ત્યારે જ કામ કરે છે જ્યારે તમારું રાઉટર UPnP ને સપોર્ટ કરતું હોય અને તે સક્ષમ હોય.</translation>
-    </message>
-    <message>
-        <source>Map port using &amp;UPnP</source>
-        <translation type="unfinished">&amp;UPnP નો ઉપયોગ કરીને નકશો પોર્ટ</translation>
-    </message>
-    <message>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports NAT-PMP and it is enabled. The external port could be random.</source>
-        <translation type="unfinished">રાઉટર પર બિટકોઇન ક્લાયંટ પોર્ટને આપમેળે ખોલો. આ ત્યારે જ કામ કરે છે જ્યારે તમારું રાઉટર NAT-PMP ને સપોર્ટ કરે અને તે સક્ષમ હોય. બાહ્ય પોર્ટ રેન્ડમ હોઈ શકે છે.</translation>
-    </message>
-    <message>
-        <source>Map port using NA&amp;T-PMP</source>
-        <translation type="unfinished">NA&amp;T-PMP નો ઉપયોગ કરીને નકશો પોર્ટ</translation>
-    </message>
-    <message>
         <source>Accept connections from outside.</source>
         <translation type="unfinished">બહારથી જોડાણો સ્વીકારો.</translation>
     </message>
@@ -1711,8 +1723,8 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">ઇનકમિંગ કનેક્શન્સને મંજૂરી આપો</translation>
     </message>
     <message>
-        <source>Connect to the BitcoinSilver network through a SOCKS5 proxy.</source>
-        <translation type="unfinished">SOCKS5 પ્રોક્સી દ્વારા BitcoinSilver નેટવર્કથી કનેક્ટ થાઓ.</translation>
+        <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
+        <translation type="unfinished">SOCKS5 પ્રોક્સી દ્વારા Bitcoin નેટવર્કથી કનેક્ટ થાઓ.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1780,7 +1792,7 @@ The migration process will create a backup of the wallet before migrating. This 
     </message>
     <message>
         <source>Third-party URLs (e.g. a block explorer) that appear in the transactions tab as context menu items. %s in the URL is replaced by transaction hash. Multiple URLs are separated by vertical bar |.</source>
-        <translation type="unfinished">તૃતીય-પક્ષ URL (દા.ત. બ્લોક એક્સપ્લોરર) જે વ્યવહારો ટેબમાં સંદર્ભ મેનૂ આઇટમ તરીકે દેખાય છે. URL માં 1%s ટ્રાન્ઝેક્શન હેશ દ્વારા બદલવામાં આવે છે. બહુવિધ URL ને વર્ટિકલ બાર દ્વારા અલગ કરવામાં આવે છે |.</translation>
+        <translation type="unfinished">તૃતીય-પક્ષ URL (દા.ત. બ્લોક એક્સપ્લોરર) જે વ્યવહારો ટેબમાં સંદર્ભ મેનૂ આઇટમ તરીકે દેખાય છે. URL માં %s ટ્રાન્ઝેક્શન હેશ દ્વારા બદલવામાં આવે છે. બહુવિધ URL ને વર્ટિકલ બાર દ્વારા અલગ કરવામાં આવે છે |.</translation>
     </message>
     <message>
         <source>&amp;Third-party transaction URLs</source>
@@ -1791,7 +1803,7 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">સિક્કા નિયંત્રણ સુવિધાઓ દર્શાવવી કે નહીં.</translation>
     </message>
     <message>
-        <source>Connect to the BitcoinSilver network through a separate SOCKS5 proxy for Tor onion services.</source>
+        <source>Connect to the Bitcoin network through a separate SOCKS5 proxy for Tor onion services.</source>
         <translation type="unfinished">ટોર ઓનિયન સેવાઓ માટે અલગ SOCKS5 પ્રોક્સી દ્વારા બિટકોઇન નેટવર્ક સાથે કનેક્ટ થાઓ.</translation>
     </message>
     <message>
@@ -1888,7 +1900,7 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">ફોર્મ</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BitcoinSilver network after a connection is established, but this process has not completed yet.</source>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
         <translation type="unfinished">પ્રદર્શિત માહિતી જૂની હોઈ શકે છે. કનેક્શન સ્થાપિત થયા પછી તમારું વૉલેટ આપમેળે બિટકોઇન નેટવર્ક સાથે સિંક્રનાઇઝ થાય છે, પરંતુ આ પ્રક્રિયા હજી પૂર્ણ થઈ નથી.</translation>
     </message>
     <message>
@@ -2040,6 +2052,10 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">PSBT ડિસ્કમાં સાચવ્યું.</translation>
     </message>
     <message>
+        <source>Sends %1 to %2</source>
+        <translation type="unfinished">%1 , %2 ને મોકલે છે</translation>
+    </message>
+    <message>
         <source>own address</source>
         <translation type="unfinished">પોતાનું સરનામું</translation>
     </message>
@@ -2099,7 +2115,7 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">ચુકવણી વિનંતી ભૂલ</translation>
     </message>
     <message>
-        <source>Cannot start bitcoinsilver: click-to-pay handler</source>
+        <source>Cannot start bitcoin: click-to-pay handler</source>
         <translation type="unfinished">બિટકોઇન શરૂ કરી શકતા નથી: ક્લિક-ટુ-પે હેન્ડલર</translation>
     </message>
     <message>
@@ -2107,8 +2123,8 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">URI હેન્ડલિંગ</translation>
     </message>
     <message>
-        <source>'bitcoinsilver://' is not a valid URI. Use 'bitcoinsilver:' instead.</source>
-        <translation type="unfinished">'bitcoinsilver://' એ માન્ય URI નથી. તેના બદલે 'bitcoinsilver:' નો ઉપયોગ કરો.</translation>
+        <source>'bitcoin://' is not a valid URI. Use 'bitcoin:' instead.</source>
+        <translation type="unfinished">'bitcoin://' એ માન્ય URI નથી. તેના બદલે 'bitcoin:' નો ઉપયોગ કરો.</translation>
     </message>
     <message>
         <source>Cannot process payment request because BIP70 is not supported.
@@ -2119,8 +2135,8 @@ BIP70 માં વ્યાપક સુરક્ષા ખામીઓને �
 જો તમને આ ભૂલ મળી રહી હોય તો તમારે વેપારીને BIP21 સુસંગત URI પ્રદાન કરવાની વિનંતી કરવી જોઈએ.</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid BitcoinSilver address or malformed URI parameters.</source>
-        <translation type="unfinished">URI વિશ્લેષિત કરી શકાતું નથી! આ અમાન્ય BitcoinSilver સરનામું અથવા દૂષિત URI પરિમાણોને કારણે થઈ શકે છે.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid Bitcoin address or malformed URI parameters.</source>
+        <translation type="unfinished">URI વિશ્લેષિત કરી શકાતું નથી! આ અમાન્ય Bitcoin સરનામું અથવા દૂષિત URI પરિમાણોને કારણે થઈ શકે છે.</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -2329,10 +2345,6 @@ BIP70 માં વ્યાપક સુરક્ષા ખામીઓને �
         <translation type="unfinished">પરિવહન</translation>
     </message>
     <message>
-        <source>The BIP324 session ID string in hex, if any.</source>
-        <translation type="unfinished">હેક્સમાં BIP324 સત્ર ID સ્ટ્રિંગ, જો કોઈ હોય તો.</translation>
-    </message>
-    <message>
         <source>Session ID</source>
         <translation type="unfinished">પ્રક્રિયા નંબર</translation>
     </message>
@@ -2431,6 +2443,10 @@ BIP70 માં વ્યાપક સુરક્ષા ખામીઓને �
         <translation type="unfinished">પરવાનગીઓ</translation>
     </message>
     <message>
+        <source>The direction and type of peer connection: %1</source>
+        <translation type="unfinished">પીઅર કનેક્શનની દિશા અને પ્રકાર: %1</translation>
+    </message>
+    <message>
         <source>Direction/Type</source>
         <translation type="unfinished">દિશા/પ્રકાર</translation>
     </message>
@@ -2497,7 +2513,7 @@ BIP70 માં વ્યાપક સુરક્ષા ખામીઓને �
     </message>
     <message>
         <source>Last block time</source>
-        <translation type="unfinished">છેલ્લો બ્લોક નો સમય</translation>
+        <translation type="unfinished">છેલ્લા બ્લોક નો સમય</translation>
     </message>
     <message>
         <source>Inbound: initiated by peer</source>
@@ -2615,6 +2631,10 @@ BIP70 માં વ્યાપક સુરક્ષા ખામીઓને �
         <translation type="unfinished">નેટવર્ક પ્રવૃત્તિ અક્ષમ છે</translation>
     </message>
     <message>
+        <source>None</source>
+        <translation type="unfinished">કોઈ નહિ</translation>
+    </message>
+    <message>
         <source>Executing command without any wallet</source>
         <translation type="unfinished">કોઈપણ વૉલેટ વિના આદેશનો અમલ</translation>
     </message>
@@ -2635,8 +2655,29 @@ BIP70 માં વ્યાપક સુરક્ષા ખામીઓને �
         <translation type="unfinished">કંટ્રોલ+P</translation>
     </message>
     <message>
+        <source>Node window - [%1]</source>
+        <translation type="unfinished">નોડ વિન્ડો- [%1]</translation>
+    </message>
+    <message>
         <source>Executing command using "%1" wallet</source>
         <translation type="unfinished">" %1 "વોલેટનો ઉપયોગ કરીને આદેશ ચલાવી રહ્યા છીએ</translation>
+    </message>
+    <message>
+        <source>Welcome to the %1 RPC console.
+Use up and down arrows to navigate history, and %2 to clear screen.
+Use %3 and %4 to increase or decrease the font size.
+Type %5 for an overview of available commands.
+For more information on using this console, type %6.
+
+%7WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.%8</source>
+        <extracomment>RPC console welcome message. Placeholders %7 and %8 are style tags for the warning content, and they are not space separated from the rest of the text intentionally.</extracomment>
+        <translation type="unfinished">%1 RPC કન્સોલ પર આપનું સ્વાગત છે.
+ઇતિહાસ નેવિગેટ કરવા માટે ઉપર અને નીચે તીરોનો ઉપયોગ કરો અને સ્ક્રીન સાફ કરવા માટે %2 નો ઉપયોગ કરો.
+ફોન્ટનું કદ વધારવા અથવા ઘટાડવા માટે %3 અને %4 નો ઉપયોગ કરો.
+ઉપલબ્ધ આદેશોની ઝાંખી માટે %5 લખો.
+આ કન્સોલનો ઉપયોગ કરવા પર વધુ માહિતી માટે, %6 લખો.
+
+%7 ચેતવણી: સ્કેમર્સ સક્રિય છે, વપરાશકર્તાઓને અહીં આદેશો લખવાનું કહે છે, તેમના વૉલેટની સામગ્રી ચોરી કરે છે. આ કન્સોલનો ઉપયોગ કમાન્ડની અસરને સંપૂર્ણપણે સમજ્યા વિના કરશો નહીં. %8</translation>
     </message>
     <message>
         <source>Executing…</source>
@@ -2695,8 +2736,8 @@ BIP70 માં વ્યાપક સુરક્ષા ખામીઓને �
         <translation type="unfinished">&amp;સંદેશ:</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the BitcoinSilver network.</source>
-        <translation type="unfinished">ચુકવણીની વિનંતી સાથે જોડવા માટેનો વૈકલ્પિક સંદેશ, જે વિનંતી ખોલવામાં આવશે ત્યારે પ્રદર્શિત થશે. નોંધ: BitcoinSilver નેટવર્ક પર ચુકવણી સાથે સંદેશ મોકલવામાં આવશે નહીં.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
+        <translation type="unfinished">ચુકવણીની વિનંતી સાથે જોડવા માટેનો વૈકલ્પિક સંદેશ, જે વિનંતી ખોલવામાં આવશે ત્યારે પ્રદર્શિત થશે. નોંધ: Bitcoin નેટવર્ક પર ચુકવણી સાથે સંદેશ મોકલવામાં આવશે નહીં.</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -2752,7 +2793,7 @@ BIP70 માં વ્યાપક સુરક્ષા ખામીઓને �
     </message>
     <message>
         <source>Copy &amp;URI</source>
-        <translation type="unfinished">&amp;URI કૉપિ કરો</translation>
+        <translation type="unfinished">કૉપિ &amp;URI </translation>
     </message>
     <message>
         <source>&amp;Copy address</source>
@@ -2760,7 +2801,7 @@ BIP70 માં વ્યાપક સુરક્ષા ખામીઓને �
     </message>
     <message>
         <source>Copy &amp;label</source>
-        <translation type="unfinished">કૉપિ કરો &amp;લેબલ બનાવો</translation>
+        <translation type="unfinished">કૉપિ કરો &amp;લેબલ</translation>
     </message>
     <message>
         <source>Copy &amp;message</source>
@@ -2803,7 +2844,7 @@ BIP70 માં વ્યાપક સુરક્ષા ખામીઓને �
     </message>
     <message>
         <source>Copy &amp;URI</source>
-        <translation type="unfinished">&amp;URI કૉપિ કરો</translation>
+        <translation type="unfinished">કૉપિ &amp;URI </translation>
     </message>
     <message>
         <source>&amp;Save Image…</source>
@@ -2991,7 +3032,7 @@ BIP70 માં વ્યાપક સુરક્ષા ખામીઓને �
     </message>
     <message>
         <source>Copy &amp;label</source>
-        <translation type="unfinished">કૉપિ કરો &amp;લેબલ બનાવો</translation>
+        <translation type="unfinished">કૉપિ કરો &amp;લેબલ</translation>
     </message>
     <message>
         <source>Copy &amp;amount</source>
@@ -3038,13 +3079,6 @@ BIP70 માં વ્યાપક સુરક્ષા ખામીઓને �
         <translation type="unfinished">ભૂલ</translation>
     </message>
     </context>
-<context>
-    <name>WalletModel</name>
-    <message>
-        <source>default wallet</source>
-        <translation type="unfinished">ડિફૉલ્ટ વૉલેટ</translation>
-    </message>
-</context>
 <context>
     <name>WalletView</name>
     <message>

@@ -1,9 +1,9 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2009-2022 The BitcoinSilver Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <config/bitcoinsilver-config.h> // IWYU pragma: keep
+#include <bitcoinsilver-build-config.h> // IWYU pragma: keep
 
 #include <chainparams.h>
 #include <clientversion.h>
@@ -34,7 +34,7 @@
 
 using node::NodeContext;
 
-const std::function<std::string(const char*)> G_TRANSLATION_FUN = nullptr;
+const TranslateFn G_TRANSLATION_FUN{nullptr};
 
 #if HAVE_DECL_FORK
 
@@ -109,10 +109,11 @@ int fork_daemon(bool nochdir, bool noclose, TokenPipeEnd& endpoint)
 
 #endif
 
-static bool ParseArgs(ArgsManager& args, int argc, char* argv[])
+static bool ParseArgs(NodeContext& node, int argc, char* argv[])
 {
+    ArgsManager& args{*Assert(node.args)};
     // If Qt is used, parameters/bitcoinsilver.conf are parsed in qt/bitcoinsilver.cpp's main()
-    SetupServerArgs(args);
+    SetupServerArgs(args, node.init->canListenIpc());
     std::string error;
     if (!args.ParseParameters(argc, argv, error)) {
         return InitError(Untranslated(strprintf("Error parsing command line arguments: %s", error)));
@@ -134,13 +135,19 @@ static bool ParseArgs(ArgsManager& args, int argc, char* argv[])
 static bool ProcessInitCommands(ArgsManager& args)
 {
     // Process help and version before taking care about datadir
-    if (HelpRequested(args) || args.IsArgSet("-version")) {
-        std::string strUsage = PACKAGE_NAME " version " + FormatFullVersion() + "\n";
+    if (HelpRequested(args) || args.GetBoolArg("-version", false)) {
+        std::string strUsage = CLIENT_NAME " daemon version " + FormatFullVersion() + "\n";
 
-        if (args.IsArgSet("-version")) {
+        if (args.GetBoolArg("-version", false)) {
             strUsage += FormatParagraph(LicenseInfo());
         } else {
-            strUsage += "\nUsage:  bitcoinsilverd [options]                     Start " PACKAGE_NAME "\n"
+            strUsage += "\n"
+                "The " CLIENT_NAME " daemon (bitcoinsilverd) is a headless program that connects to the BitcoinSilver network to validate and relay transactions and blocks, as well as relaying addresses.\n\n"
+                "It provides the backbone of the BitcoinSilver network and its RPC, REST and ZMQ services can provide various transaction, block and address-related services.\n\n"
+                "There is an optional wallet component which provides transaction services.\n\n"
+                "It can be used in a headless environment or as part of a server setup.\n"
+                "\n"
+                "Usage: bitcoinsilverd [options]\n"
                 "\n";
             strUsage += args.GetHelpMessage();
         }
@@ -194,7 +201,7 @@ static bool AppInit(NodeContext& node)
 
         if (args.GetBoolArg("-daemon", DEFAULT_DAEMON) || args.GetBoolArg("-daemonwait", DEFAULT_DAEMONWAIT)) {
 #if HAVE_DECL_FORK
-            tfm::format(std::cout, PACKAGE_NAME " starting\n");
+            tfm::format(std::cout, CLIENT_NAME " starting\n");
 
             // Daemonize
             switch (fork_daemon(1, 0, daemon_ep)) { // don't chdir (1), do close FDs (0)
@@ -221,10 +228,10 @@ static bool AppInit(NodeContext& node)
             return InitError(Untranslated("-daemon is not supported on this operating system"));
 #endif // HAVE_DECL_FORK
         }
-        // Lock data directory after daemonization
-        if (!AppInitLockDataDirectory())
+        // Lock critical directories after daemonization
+        if (!AppInitLockDirectories())
         {
-            // If locking the data directory failed, exit immediately
+            // If locking a directory failed, exit immediately
             return false;
         }
         fRet = AppInitInterfaces(node) && AppInitMain(node);
@@ -268,12 +275,12 @@ MAIN_FUNCTION
 
     // Interpret command line arguments
     ArgsManager& args = *Assert(node.args);
-    if (!ParseArgs(args, argc, argv)) return EXIT_FAILURE;
+    if (!ParseArgs(node, argc, argv)) return EXIT_FAILURE;
     // Process early info return commands such as -help or -version
     if (ProcessInitCommands(args)) return EXIT_SUCCESS;
 
     // Start application
-    if (!AppInit(node) || !Assert(node.shutdown)->wait()) {
+    if (!AppInit(node) || !Assert(node.shutdown_signal)->wait()) {
         node.exit_status = EXIT_FAILURE;
     }
     Interrupt(node);

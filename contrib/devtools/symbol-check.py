@@ -235,7 +235,7 @@ def check_MACHO_libraries(binary) -> bool:
     return ok
 
 def check_MACHO_min_os(binary) -> bool:
-    if binary.build_version.minos == [11,0,0]:
+    if binary.build_version.minos == [13,0,0]:
         return True
     return False
 
@@ -260,7 +260,7 @@ def check_PE_libraries(binary) -> bool:
 def check_PE_subsystem_version(binary) -> bool:
     major: int = binary.optional_header.major_subsystem_version
     minor: int = binary.optional_header.minor_subsystem_version
-    if major == 6 and minor == 1:
+    if major == 6 and minor == 2:
         return True
     return False
 

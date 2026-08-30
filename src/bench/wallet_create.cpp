@@ -1,15 +1,26 @@
-// Copyright (c) 2023-present The Bitcoin Core developers
+// Copyright (c) 2023-present The BitcoinSilver Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
 
-#include <config/bitcoinsilver-config.h> // IWYU pragma: keep
-
 #include <bench/bench.h>
-#include <node/context.h>
+#include <bitcoinsilver-build-config.h> // IWYU pragma: keep
 #include <random.h>
+#include <support/allocators/secure.h>
 #include <test/util/setup_common.h>
+#include <uint256.h>
+#include <util/fs.h>
+#include <util/translation.h>
 #include <wallet/context.h>
+#include <wallet/db.h>
 #include <wallet/wallet.h>
+#include <wallet/walletutil.h>
+
+#include <cassert>
+#include <memory>
+#include <optional>
+#include <string>
+#include <utility>
+#include <vector>
 
 namespace wallet {
 static void WalletCreate(benchmark::Bench& bench, bool encrypted)

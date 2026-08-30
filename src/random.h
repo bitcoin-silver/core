@@ -49,7 +49,7 @@
  *
  * - RandAddPeriodic() seeds everything that fast seeding includes, but additionally:
  *   - A high-precision timestamp
- *   - Dynamic environment data (performance monitoring, ...)
+ *   - Dynamic environment data (clocks, resource usage, ...)
  *   - Strengthen the entropy for 10 ms using repeated SHA512.
  *   This is run once every minute.
  *
@@ -268,12 +268,12 @@ public:
     {
         while (span.size() >= 8) {
             uint64_t gen = Impl().rand64();
-            WriteLE64(UCharCast(span.data()), gen);
+            WriteLE64(span.data(), gen);
             span = span.subspan(8);
         }
         if (span.size() >= 4) {
             uint32_t gen = Impl().rand32();
-            WriteLE32(UCharCast(span.data()), gen);
+            WriteLE32(span.data(), gen);
             span = span.subspan(4);
         }
         while (span.size()) {
@@ -397,7 +397,7 @@ public:
         if (requires_seed) RandomSeed();
         std::array<std::byte, 8> buf;
         rng.Keystream(buf);
-        return ReadLE64(UCharCast(buf.data()));
+        return ReadLE64(buf.data());
     }
 
     /** Fill a byte Span with random bytes. This overrides the RandomMixin version. */

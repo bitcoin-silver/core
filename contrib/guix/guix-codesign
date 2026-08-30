@@ -21,6 +21,12 @@ source "$(dirname "${BASH_SOURCE[0]}")/libexec/prelude.bash"
 check_tools cat mkdir git guix
 
 ################
+# SOURCE_DATE_EPOCH should not unintentionally be set
+################
+
+check_source_date_epoch
+
+################
 # Required env vars should be non-empty
 ################
 
@@ -66,12 +72,6 @@ See contrib/guix/README.md for more details.
 EOF
 exit 1
 fi
-
-################
-# SOURCE_DATE_EPOCH should not unintentionally be set
-################
-
-check_source_date_epoch
 
 ################
 # The codesignature git worktree should not be dirty

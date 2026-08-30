@@ -12,6 +12,7 @@
 #include <test/fuzz/util.h>
 #include <util/chaintype.h>
 
+#include <algorithm>
 #include <cassert>
 #include <cstdint>
 #include <limits>
@@ -80,7 +81,7 @@ FUZZ_TARGET(p2p_transport_serialization, .init = initialize_p2p_transport_serial
             const std::chrono::microseconds m_time{std::numeric_limits<int64_t>::max()};
             bool reject_message{false};
             CNetMessage msg = recv_transport.GetReceivedMessage(m_time, reject_message);
-            assert(msg.m_type.size() <= CMessageHeader::COMMAND_SIZE);
+            assert(msg.m_type.size() <= CMessageHeader::MESSAGE_TYPE_SIZE);
             assert(msg.m_raw_message_size <= mutable_msg_bytes.size());
             assert(msg.m_raw_message_size == CMessageHeader::HEADER_SIZE + msg.m_message_size);
             assert(msg.m_time == m_time);
@@ -138,9 +139,9 @@ void SimulationTest(Transport& initiator, Transport& responder, R& rng, FuzzedDa
             // If v is 0xFF, construct a valid (but possibly unknown) message type from the fuzz
             // data.
             std::string ret;
-            while (ret.size() < CMessageHeader::COMMAND_SIZE) {
+            while (ret.size() < CMessageHeader::MESSAGE_TYPE_SIZE) {
                 char c = provider.ConsumeIntegral<char>();
-                // Match the allowed characters in CMessageHeader::IsCommandValid(). Any other
+                // Match the allowed characters in CMessageHeader::IsMessageTypeValid(). Any other
                 // character is interpreted as end.
                 if (c < ' ' || c > 0x7E) break;
                 ret += c;
@@ -185,12 +186,12 @@ void SimulationTest(Transport& initiator, Transport& responder, R& rng, FuzzedDa
         // Compare with expected more.
         if (expect_more[side].has_value()) assert(!bytes.empty() == *expect_more[side]);
         // Verify consistency between the two results.
-        assert(bytes == bytes_next);
+        assert(std::ranges::equal(bytes, bytes_next));
         assert(msg_type == msg_type_next);
         if (more_nonext) assert(more_next);
         // Compare with previously reported output.
         assert(to_send[side].size() <= bytes.size());
-        assert(to_send[side] == Span{bytes}.first(to_send[side].size()));
+        assert(std::ranges::equal(to_send[side], Span{bytes}.first(to_send[side].size())));
         to_send[side].resize(bytes.size());
         std::copy(bytes.begin(), bytes.end(), to_send[side].begin());
         // Remember 'more' results.
@@ -278,7 +279,7 @@ void SimulationTest(Transport& initiator, Transport& responder, R& rng, FuzzedDa
                 // The m_type must match what is expected.
                 assert(received.m_type == expected[side].front().m_type);
                 // The data must match what is expected.
-                assert(MakeByteSpan(received.m_recv) == MakeByteSpan(expected[side].front().data));
+                assert(std::ranges::equal(received.m_recv, MakeByteSpan(expected[side].front().data)));
                 expected[side].pop_front();
                 progress = true;
             }

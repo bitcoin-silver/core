@@ -1,8 +1,8 @@
-// Copyright (c) 2019-2021 The Bitcoin Core developers
+// Copyright (c) 2019-2021 The BitcoinSilver Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <config/bitcoinsilver-config.h> // IWYU pragma: keep
+#include <bitcoinsilver-build-config.h> // IWYU pragma: keep
 
 #include <interfaces/node.h>
 #include <qt/createwalletdialog.h>

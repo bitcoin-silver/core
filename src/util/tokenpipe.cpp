@@ -1,9 +1,9 @@
-// Copyright (c) 2021-2022 The Bitcoin Core developers
+// Copyright (c) 2021-2022 The BitcoinSilver Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #include <util/tokenpipe.h>
 
-#include <config/bitcoinsilver-config.h> // IWYU pragma: keep
+#include <bitcoinsilver-build-config.h> // IWYU pragma: keep
 
 #ifndef WIN32
 

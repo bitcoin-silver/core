@@ -79,7 +79,7 @@ class VectorWriter
             memcpy(vchData.data() + nPos, src.data(), nOverwrite);
         }
         if (nOverwrite < src.size()) {
-            vchData.insert(vchData.end(), UCharCast(src.data()) + nOverwrite, UCharCast(src.end()));
+            vchData.insert(vchData.end(), UCharCast(src.data()) + nOverwrite, UCharCast(src.data() + src.size()));
         }
         nPos += src.size();
     }
@@ -277,6 +277,9 @@ public:
     {
         util::Xor(MakeWritableByteSpan(*this), MakeByteSpan(key));
     }
+
+    /** Compute total memory usage of this object (own memory + any dynamic memory). */
+    size_t GetMemoryUsage() const noexcept;
 };
 
 template <typename IStream>
@@ -430,8 +433,17 @@ public:
     /** Implementation detail, only used internally. */
     std::size_t detail_fread(Span<std::byte> dst);
 
+    /** Wrapper around fseek(). Will throw if seeking is not possible. */
     void seek(int64_t offset, int origin);
+
+    /** Find position within the file. Will throw if unknown. */
     int64_t tell();
+
+    /** Wrapper around FileCommit(). */
+    bool Commit();
+
+    /** Wrapper around TruncateFile(). */
+    bool Truncate(unsigned size);
 
     //
     // Stream subset

@@ -1,12 +1,12 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The Bitcoin Core developers
+// Copyright (c) 2009-present The BitcoinSilver Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOINSILVER_COMMON_SYSTEM_H
 #define BITCOINSILVER_COMMON_SYSTEM_H
 
-#include <config/bitcoinsilver-config.h> // IWYU pragma: keep
+#include <bitcoinsilver-build-config.h> // IWYU pragma: keep
 
 #include <cstdint>
 #include <string>

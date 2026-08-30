@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <config/bitcoinsilver-config.h> // IWYU pragma: keep
+#include <bitcoin-build-config.h> // IWYU pragma: keep
 
 #include <qt/optionsmodel.h>
 
-#include <qt/bitcoinsilverunits.h>
+#include <qt/bitcoinunits.h>
 #include <qt/guiconstants.h>
 #include <qt/guiutil.h>
 
@@ -15,8 +15,8 @@
 #include <mapport.h>
 #include <net.h>
 #include <netbase.h>
+#include <node/caches.h>
 #include <node/chainstatemanager_args.h>
-#include <txdb.h> // for -dbcache defaults
 #include <util/string.h>
 #include <validation.h>    // For DEFAULT_SCRIPTCHECK_THREADS
 #include <wallet/wallet.h> // For DEFAULT_SPEND_ZEROCONF_CHANGE
@@ -41,7 +41,6 @@ static const char* SettingName(OptionsModel::OptionID option)
     case OptionsModel::ThreadsScriptVerif: return "par";
     case OptionsModel::SpendZeroConfChange: return "spendzeroconfchange";
     case OptionsModel::ExternalSignerPath: return "signer";
-    case OptionsModel::MapPortUPnP: return "upnp";
     case OptionsModel::MapPortNatpmp: return "natpmp";
     case OptionsModel::Listen: return "listen";
     case OptionsModel::Server: return "server";
@@ -58,7 +57,7 @@ static const char* SettingName(OptionsModel::OptionID option)
     }
 }
 
-/** Call node.updateRwSetting() with BitcoinSilver 22.x workaround. */
+/** Call node.updateRwSetting() with Bitcoin 22.x workaround. */
 static void UpdateRwSetting(interfaces::Node& node, OptionsModel::OptionID option, const std::string& suffix, const common::SettingsValue& value)
 {
     if (value.isNum() &&
@@ -67,33 +66,33 @@ static void UpdateRwSetting(interfaces::Node& node, OptionsModel::OptionID optio
          option == OptionsModel::Prune ||
          option == OptionsModel::PruneSize)) {
         // Write certain old settings as strings, even though they are numbers,
-        // because BitcoinSilver 22.x releases try to read these specific settings as
+        // because Bitcoin 22.x releases try to read these specific settings as
         // strings in addOverriddenOption() calls at startup, triggering
         // uncaught exceptions in UniValue::get_str(). These errors were fixed
-        // in later releases by https://github.com/MrVistos/bitcoinsilver/pull/24498.
+        // in later releases by https://github.com/bitcoin/bitcoin/pull/24498.
         // If new numeric settings are added, they can be written as numbers
-        // instead of strings, because bitcoinsilver 22.x will not try to read these.
+        // instead of strings, because bitcoin 22.x will not try to read these.
         node.updateRwSetting(SettingName(option) + suffix, value.getValStr());
     } else {
         node.updateRwSetting(SettingName(option) + suffix, value);
     }
 }
 
-//! Convert enabled/size values to bitcoinsilver -prune setting.
+//! Convert enabled/size values to bitcoin -prune setting.
 static common::SettingsValue PruneSetting(bool prune_enabled, int prune_size_gb)
 {
     assert(!prune_enabled || prune_size_gb >= 1); // PruneSizeGB and ParsePruneSizeGB never return less
     return prune_enabled ? PruneGBtoMiB(prune_size_gb) : 0;
 }
 
-//! Get pruning enabled value to show in GUI from bitcoinsilver -prune setting.
+//! Get pruning enabled value to show in GUI from bitcoin -prune setting.
 static bool PruneEnabled(const common::SettingsValue& prune_setting)
 {
     // -prune=1 setting is manual pruning mode, so disabled for purposes of the gui
     return SettingToInt(prune_setting, 0) > 1;
 }
 
-//! Get pruning size value to show in GUI from bitcoinsilver -prune setting. If
+//! Get pruning size value to show in GUI from bitcoin -prune setting. If
 //! pruning is not enabled, just show default recommended pruning size (2GB).
 static int PruneSizeGB(const common::SettingsValue& prune_setting)
 {
@@ -190,14 +189,14 @@ bool OptionsModel::Init(bilingual_str& error)
 
     // Display
     if (!settings.contains("DisplayBitcoinUnit")) {
-        settings.setValue("DisplayBitcoinUnit", QVariant::fromValue(BitcoinUnit::BTCS));
+        settings.setValue("DisplayBitcoinUnit", QVariant::fromValue(BitcoinUnit::BTC));
     }
     QVariant unit = settings.value("DisplayBitcoinUnit");
     if (unit.canConvert<BitcoinUnit>()) {
-        m_display_bitcoinsilver_unit = unit.value<BitcoinUnit>();
+        m_display_bitcoin_unit = unit.value<BitcoinUnit>();
     } else {
-        m_display_bitcoinsilver_unit = BitcoinUnit::BTCS;
-        settings.setValue("DisplayBitcoinUnit", QVariant::fromValue(m_display_bitcoinsilver_unit));
+        m_display_bitcoin_unit = BitcoinUnit::BTC;
+        settings.setValue("DisplayBitcoinUnit", QVariant::fromValue(m_display_bitcoin_unit));
     }
 
     if (!settings.contains("strThirdPartyTxUrls"))
@@ -215,7 +214,7 @@ bool OptionsModel::Init(bilingual_str& error)
 
     // These are shared with the core or have a command-line parameter
     // and we want command-line parameters to overwrite the GUI settings.
-    for (OptionID option : {DatabaseCache, ThreadsScriptVerif, SpendZeroConfChange, ExternalSignerPath, MapPortUPnP,
+    for (OptionID option : {DatabaseCache, ThreadsScriptVerif, SpendZeroConfChange, ExternalSignerPath,
                             MapPortNatpmp, Listen, Server, Prune, ProxyUse, ProxyUseTor, Language}) {
         std::string setting = SettingName(option);
         if (node().isSettingIgnored(setting)) addOverriddenOption("-" + setting);
@@ -252,7 +251,7 @@ bool OptionsModel::Init(bilingual_str& error)
             m_font_money = FontChoiceAbstract::EmbeddedFont;
         } else {
             m_font_money = FontChoiceAbstract::BestSystemFont;
-    }
+        }
     }
     Q_EMIT fontForMoneyChanged(getFontForMoney());
 
@@ -320,10 +319,15 @@ static ProxySetting ParseProxyString(const QString& proxy)
     if (proxy.isEmpty()) {
         return default_val;
     }
-    // contains IP at index 0 and port at index 1
-    QStringList ip_port = GUIUtil::SplitSkipEmptyParts(proxy, ":");
-    if (ip_port.size() == 2) {
-        return {true, ip_port.at(0), ip_port.at(1)};
+    uint16_t port{0};
+    std::string hostname;
+    if (SplitHostPort(proxy.toStdString(), port, hostname) && port != 0) {
+        // Valid and port within the valid range
+        // Check if the hostname contains a colon, indicating an IPv6 address
+        if (hostname.find(':') != std::string::npos) {
+            hostname = "[" + hostname + "]"; // Wrap IPv6 address in brackets
+        }
+        return {true, QString::fromStdString(hostname), QString::number(port)};
     } else { // Invalid: return default
         return default_val;
     }
@@ -355,7 +359,7 @@ void OptionsModel::SetPruneTargetGB(int prune_target_gb)
     node().forceSetting("prune", new_value);
 
     // Update settings.json if value configured in intro screen is different
-    // from saved value. Avoid writing settings.json if bitcoinsilver.conf value
+    // from saved value. Avoid writing settings.json if bitcoin.conf value
     // doesn't need to be overridden.
     if (PruneEnabled(cur_value) != PruneEnabled(new_value) ||
         PruneSizeGB(cur_value) != PruneSizeGB(new_value)) {
@@ -407,18 +411,8 @@ QVariant OptionsModel::getOption(OptionID option, const std::string& suffix) con
         return m_show_tray_icon;
     case MinimizeToTray:
         return fMinimizeToTray;
-    case MapPortUPnP:
-#ifdef USE_UPNP
-        return SettingToBool(setting(), DEFAULT_UPNP);
-#else
-        return false;
-#endif // USE_UPNP
     case MapPortNatpmp:
-#ifdef USE_NATPMP
         return SettingToBool(setting(), DEFAULT_NATPMP);
-#else
-        return false;
-#endif // USE_NATPMP
     case MinimizeOnClose:
         return fMinimizeOnClose;
 
@@ -458,7 +452,7 @@ QVariant OptionsModel::getOption(OptionID option, const std::string& suffix) con
         return m_sub_fee_from_amount;
 #endif
     case DisplayUnit:
-        return QVariant::fromValue(m_display_bitcoinsilver_unit);
+        return QVariant::fromValue(m_display_bitcoin_unit);
     case ThirdPartyTxUrls:
         return strThirdPartyTxUrls;
     case Language:
@@ -467,7 +461,7 @@ QVariant OptionsModel::getOption(OptionID option, const std::string& suffix) con
         return QVariant::fromValue(m_font_money);
     case CoinControlFeatures:
         return fCoinControlFeatures;
-    case EnablePSBTCSontrols:
+    case EnablePSBTControls:
         return settings.value("enable_psbt_controls");
     case Prune:
         return PruneEnabled(setting());
@@ -476,7 +470,7 @@ QVariant OptionsModel::getOption(OptionID option, const std::string& suffix) con
                suffix.empty()          ? getOption(option, "-prev") :
                                          DEFAULT_PRUNE_TARGET_GB;
     case DatabaseCache:
-        return qlonglong(SettingToInt(setting(), nDefaultDbCache));
+        return qlonglong(SettingToInt(setting(), DEFAULT_DB_CACHE >> 20));
     case ThreadsScriptVerif:
         return qlonglong(SettingToInt(setting(), DEFAULT_SCRIPTCHECK_THREADS));
     case Listen:
@@ -529,16 +523,10 @@ bool OptionsModel::setOption(OptionID option, const QVariant& value, const std::
         fMinimizeToTray = value.toBool();
         settings.setValue("fMinimizeToTray", fMinimizeToTray);
         break;
-    case MapPortUPnP: // core option - can be changed on-the-fly
-        if (changed()) {
-            update(value.toBool());
-            node().mapPort(value.toBool(), getOption(MapPortNatpmp).toBool());
-        }
-        break;
     case MapPortNatpmp: // core option - can be changed on-the-fly
         if (changed()) {
             update(value.toBool());
-            node().mapPort(getOption(MapPortUPnP).toBool(), value.toBool());
+            node().mapPort(value.toBool());
         }
         break;
     case MinimizeOnClose:
@@ -654,7 +642,7 @@ bool OptionsModel::setOption(OptionID option, const QVariant& value, const std::
         settings.setValue("fCoinControlFeatures", fCoinControlFeatures);
         Q_EMIT coinControlFeaturesChanged(fCoinControlFeatures);
         break;
-    case EnablePSBTCSontrols:
+    case EnablePSBTControls:
         m_enable_psbt_controls = value.toBool();
         settings.setValue("enable_psbt_controls", m_enable_psbt_controls);
         break;
@@ -708,11 +696,11 @@ bool OptionsModel::setOption(OptionID option, const QVariant& value, const std::
 
 void OptionsModel::setDisplayUnit(const QVariant& new_unit)
 {
-    if (new_unit.isNull() || new_unit.value<BitcoinUnit>() == m_display_bitcoinsilver_unit) return;
-    m_display_bitcoinsilver_unit = new_unit.value<BitcoinUnit>();
+    if (new_unit.isNull() || new_unit.value<BitcoinUnit>() == m_display_bitcoin_unit) return;
+    m_display_bitcoin_unit = new_unit.value<BitcoinUnit>();
     QSettings settings;
-    settings.setValue("DisplayBitcoinUnit", QVariant::fromValue(m_display_bitcoinsilver_unit));
-    Q_EMIT displayUnitChanged(m_display_bitcoinsilver_unit);
+    settings.setValue("DisplayBitcoinUnit", QVariant::fromValue(m_display_bitcoin_unit));
+    Q_EMIT displayUnitChanged(m_display_bitcoin_unit);
 }
 
 void OptionsModel::setRestartRequired(bool fRequired)
@@ -742,10 +730,10 @@ void OptionsModel::checkAndMigrate()
     if (settingsVersion < CLIENT_VERSION)
     {
         // -dbcache was bumped from 100 to 300 in 0.13
-        // see https://github.com/MrVistos/bitcoinsilver/pull/8273
+        // see https://github.com/bitcoin/bitcoin/pull/8273
         // force people to upgrade to the new value if they are using 100MB
         if (settingsVersion < 130000 && settings.contains("nDatabaseCache") && settings.value("nDatabaseCache").toLongLong() == 100)
-            settings.setValue("nDatabaseCache", (qint64)nDefaultDbCache);
+            settings.setValue("nDatabaseCache", (qint64)(DEFAULT_DB_CACHE >> 20));
 
         settings.setValue(strSettingsVersionKey, CLIENT_VERSION);
     }
@@ -788,7 +776,6 @@ void OptionsModel::checkAndMigrate()
     migrate_setting(SpendZeroConfChange, "bSpendZeroConfChange");
     migrate_setting(ExternalSignerPath, "external_signer_path");
 #endif
-    migrate_setting(MapPortUPnP, "fUseUPnP");
     migrate_setting(MapPortNatpmp, "fUseNatpmp");
     migrate_setting(Listen, "fListen");
     migrate_setting(Server, "server");
@@ -802,8 +789,8 @@ void OptionsModel::checkAndMigrate()
 
     // In case migrating QSettings caused any settings value to change, rerun
     // parameter interaction code to update other settings. This is particularly
-    // important for the -listen setting, which should cause -listenonion, -upnp,
+    // important for the -listen setting, which should cause -listenonion
     // and other settings to default to false if it was set to false.
-    // (https://github.com/bitcoinsilver-core/gui/issues/567).
+    // (https://github.com/bitcoin-core/gui/issues/567).
     node().initParameterInteraction();
 }

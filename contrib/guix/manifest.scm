@@ -1,9 +1,7 @@
 (use-modules (gnu packages)
-             (gnu packages autotools)
              ((gnu packages bash) #:select (bash-minimal))
              (gnu packages bison)
              ((gnu packages certs) #:select (nss-certs))
-             ((gnu packages check) #:select (libfaketime))
              ((gnu packages cmake) #:select (cmake-minimal))
              (gnu packages commencement)
              (gnu packages compression)
@@ -12,10 +10,9 @@
              (gnu packages gawk)
              (gnu packages gcc)
              ((gnu packages installers) #:select (nsis-x86_64))
-             ((gnu packages linux) #:select (linux-libre-headers-6.1 util-linux))
+             ((gnu packages linux) #:select (linux-libre-headers-6.1))
              (gnu packages llvm)
              (gnu packages mingw)
-             (gnu packages moreutils)
              (gnu packages pkg-config)
              ((gnu packages python) #:select (python-minimal))
              ((gnu packages python-build) #:select (python-tomli python-poetry-core))
@@ -32,7 +29,7 @@
              (guix git-download)
              ((guix licenses) #:prefix license:)
              (guix packages)
-             ((guix utils) #:select (substitute-keyword-arguments)))
+             ((guix utils) #:select (cc-for-target substitute-keyword-arguments)))
 
 (define-syntax-rule (search-our-patches file-name ...)
   "Return the list of absolute file names corresponding to each
@@ -94,17 +91,7 @@ chain for " target " development."))
       (home-page (package-home-page xgcc))
       (license (package-license xgcc)))))
 
-(define base-gcc
-  (package
-    (inherit gcc-12) ;; 12.3.0
-    (version "12.4.0")
-    (source (origin
-              (method url-fetch)
-              (uri (string-append "mirror://gnu/gcc/gcc-"
-                                  version "/gcc-" version ".tar.xz"))
-              (sha256
-               (base32
-                "0xcida8l2wykvvzvpcrcn649gj0ijn64gwxbplacpg6c0hk6akvh"))))))
+(define base-gcc gcc-13) ;; 13.3.0
 
 (define base-linux-kernel-headers linux-libre-headers-6.1)
 
@@ -167,7 +154,7 @@ chain for " target " development."))
 ;; While LIEF is packaged in Guix, we maintain our own package,
 ;; to simplify building, and more easily apply updates.
 ;; Moreover, the Guix's package uses cmake, which caused build
-;; failure; see https://github.com/MrVistos/bitcoinsilver/pull/27296.
+;; failure; see https://github.com/bitcoin/bitcoin/pull/27296.
 (define-public python-lief
   (package
     (name "python-lief")
@@ -222,17 +209,7 @@ and abstract ELF, PE and MachO formats.")
                (base32
                 "1j47vwq4caxfv0xw68kw5yh00qcpbd56d7rq6c483ma3y7s96yyz"))))
     (build-system cmake-build-system)
-    (arguments
-     (list
-      #:phases
-      #~(modify-phases %standard-phases
-          (replace 'check
-            (lambda* (#:key tests? #:allow-other-keys)
-              (if tests?
-                  (invoke "faketime" "-f" "@2025-01-01 00:00:00" ;; Tests fail after 2025.
-                          "ctest" "--output-on-failure" "--no-tests=error")
-                  (format #t "test suite not run~%")))))))
-    (inputs (list libfaketime openssl))
+    (inputs (list openssl))
     (home-page "https://github.com/mtrojnar/osslsigncode")
     (synopsis "Authenticode signing and timestamping tool")
     (description "osslsigncode is a small tool that implements part of the
@@ -445,6 +422,7 @@ inspecting signatures in Mach-O binaries.")
             ;; https://gcc.gnu.org/install/configure.html
             (list "--enable-threads=posix",
                   "--enable-default-ssp=yes",
+                  "--disable-gcov",
                   building-on)))))))
 
 (define-public linux-base-gcc
@@ -459,6 +437,8 @@ inspecting signatures in Mach-O binaries.")
                   "--enable-default-ssp=yes",
                   "--enable-default-pie=yes",
                   "--enable-standard-branch-protection=yes",
+                  "--enable-cet=yes",
+                  "--disable-gcov",
                   building-on)))
         ((#:phases phases)
           `(modify-phases ,phases
@@ -473,7 +453,7 @@ inspecting signatures in Mach-O binaries.")
                #t))))))))
 
 (define-public glibc-2.31
-  (let ((commit "8e30f03744837a85e33d84ccd34ed3abe30d37c3"))
+  (let ((commit "7b27c450c34563a28e634cccb399cd415e71ebfe"))
   (package
     (inherit glibc) ;; 2.35
     (version "2.31")
@@ -485,7 +465,7 @@ inspecting signatures in Mach-O binaries.")
               (file-name (git-file-name "glibc" commit))
               (sha256
                (base32
-                "1zi0s9yy5zkisw823vivn7zlj8w6g9p3mm7lmlqiixcxdkz4dbn6"))
+                "017qdpr5id7ddb4lpkzj2li1abvw916m3fc6n7nw28z4h5qbv2n0"))
               (patches (search-our-patches "glibc-guix-prefix.patch"))))
     (arguments
       (substitute-keyword-arguments (package-arguments glibc)
@@ -493,8 +473,11 @@ inspecting signatures in Mach-O binaries.")
           `(append ,flags
             ;; https://www.gnu.org/software/libc/manual/html_node/Configuring-and-compiling.html
             (list "--enable-stack-protector=all",
+                  "--enable-cet",
                   "--enable-bind-now",
                   "--disable-werror",
+                  "--disable-timezone-tools",
+                  "--disable-profile",
                   building-on)))
     ((#:phases phases)
         `(modify-phases ,phases
@@ -510,13 +493,42 @@ inspecting signatures in Mach-O binaries.")
                    (("^install-others =.*$")
                     (string-append "install-others = " out "/etc/rpc\n")))))))))))))
 
+;; The sponge tool from moreutils.
+(define-public sponge
+  (package
+    (name "sponge")
+    (version "0.69")
+    (source (origin
+              (method url-fetch)
+              (uri (string-append
+                    "https://git.joeyh.name/index.cgi/moreutils.git/snapshot/
+                    moreutils-" version ".tar.gz"))
+              (file-name (string-append "moreutils-" version ".tar.gz"))
+              (sha256
+               (base32
+                "1l859qnzccslvxlh5ghn863bkq2vgmqgnik6jr21b9kc6ljmsy8g"))))
+    (build-system gnu-build-system)
+    (arguments
+     (list #:phases
+           #~(modify-phases %standard-phases
+               (delete 'configure)
+               (replace 'install
+                (lambda* (#:key outputs #:allow-other-keys)
+                  (let ((bin (string-append (assoc-ref outputs "out") "/bin")))
+                  (install-file "sponge" bin)))))
+           #:make-flags
+           #~(list "sponge" (string-append "CC=" #$(cc-for-target)))))
+    (home-page "https://joeyh.name/code/moreutils/")
+    (synopsis "Miscellaneous general-purpose command-line tools")
+    (description "Just sponge")
+    (license license:gpl2+)))
+
 (packages->manifest
  (append
   (list ;; The Basics
         bash-minimal
         which
         coreutils-minimal
-        util-linux
         ;; File(system) inspection
         file
         grep
@@ -526,19 +538,15 @@ inspecting signatures in Mach-O binaries.")
         patch
         gawk
         sed
-        moreutils
+        sponge
         ;; Compression and archiving
         tar
         gzip
         xz
         ;; Build tools
-        gcc-toolchain-12
+        gcc-toolchain-13
         cmake-minimal
         gnu-make
-        libtool
-        autoconf-2.71
-        automake
-        pkg-config
         ;; Scripting
         python-minimal ;; (3.10)
         ;; Git
@@ -554,7 +562,8 @@ inspecting signatures in Mach-O binaries.")
                  osslsigncode))
           ((string-contains target "-linux-")
            (list bison
-                 (list gcc-toolchain-12 "static")
+                 pkg-config
+                 (list gcc-toolchain-13 "static")
                  (make-bitcoinsilver-cross-toolchain target)))
           ((string-contains target "darwin")
            (list clang-toolchain-18

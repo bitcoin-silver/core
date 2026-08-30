@@ -16,13 +16,13 @@ BEGIN
         BEGIN
             VALUE "CompanyName",        "BitcoinSilver"
             VALUE "FileDescription",    "bitcoinsilver-util (CLI BitcoinSilver utility)"
-            VALUE "FileVersion",        PACKAGE_VERSION
+            VALUE "FileVersion",        CLIENT_VERSION_STRING
             VALUE "InternalName",       "bitcoinsilver-util"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
             VALUE "OriginalFilename",   "bitcoinsilver-util.exe"
             VALUE "ProductName",        "bitcoinsilver-util"
-            VALUE "ProductVersion",     PACKAGE_VERSION
+            VALUE "ProductVersion",     CLIENT_VERSION_STRING
         END
     END
 

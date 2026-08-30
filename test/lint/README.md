@@ -45,13 +45,13 @@ or `--help`:
 
 | Lint test | Dependency |
 |-----------|:----------:|
-| [`lint-python.py`](/test/lint/lint-python.py) | [flake8](https://github.com/PyCQA/flake8)
 | [`lint-python.py`](/test/lint/lint-python.py) | [lief](https://github.com/lief-project/LIEF)
 | [`lint-python.py`](/test/lint/lint-python.py) | [mypy](https://github.com/python/mypy)
 | [`lint-python.py`](/test/lint/lint-python.py) | [pyzmq](https://github.com/zeromq/pyzmq)
 | [`lint-python-dead-code.py`](/test/lint/lint-python-dead-code.py) | [vulture](https://github.com/jendrikseipp/vulture)
 | [`lint-shell.py`](/test/lint/lint-shell.py) | [ShellCheck](https://github.com/koalaman/shellcheck)
 | [`lint-spelling.py`](/test/lint/lint-spelling.py) | [codespell](https://github.com/codespell-project/codespell)
+| `py_lint` | [ruff](https://github.com/astral-sh/ruff)
 | markdown link check | [mlc](https://github.com/becheran/mlc)
 
 In use versions and install instructions are available in the [CI setup](../../ci/lint/04_install.sh).
@@ -96,7 +96,7 @@ maintained:
 * for `src/leveldb`: https://github.com/bitcoinsilver-core/leveldb-subtree.git (branch bitcoinsilver-fork)
 * for `src/crypto/ctaes`: https://github.com/bitcoinsilver-core/ctaes.git (branch master)
 * for `src/crc32c`: https://github.com/bitcoinsilver-core/crc32c-subtree.git (branch bitcoinsilver-fork)
-* for `src/minisketch`: https://github.com/sipa/minisketch.git (branch master)
+* for `src/minisketch`: https://github.com/bitcoinsilver-core/minisketch.git (branch master)
 
 To do so, add the upstream repository as remote:
 

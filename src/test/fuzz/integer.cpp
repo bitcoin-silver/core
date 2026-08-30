@@ -69,7 +69,7 @@ FUZZ_TARGET(integer, .init = initialize_integer)
     const bool b = fuzzed_data_provider.ConsumeBool();
 
     const Consensus::Params& consensus_params = Params().GetConsensus();
-    (void)CheckProofOfWork(u256, u32, consensus_params);
+    (void)CheckProofOfWorkImpl(u256, u32, consensus_params);
     if (u64 <= MAX_MONEY) {
         const uint64_t compressed_money_amount = CompressAmount(u64);
         assert(u64 == DecompressAmount(compressed_money_amount));
@@ -140,7 +140,7 @@ FUZZ_TARGET(integer, .init = initialize_integer)
 
     const arith_uint256 au256 = UintToArith256(u256);
     assert(ArithToUint256(au256) == u256);
-    assert(uint256S(au256.GetHex()) == u256);
+    assert(uint256::FromHex(au256.GetHex()).value() == u256);
     (void)au256.bits();
     (void)au256.GetCompact(/* fNegative= */ false);
     (void)au256.GetCompact(/* fNegative= */ true);
