@@ -44,7 +44,6 @@ public:
 
     /**
      * Construct a fee rate from a fee in satoshis and a vsize in vB.
-     *
      */
     CFeeRate(const CAmount& nFeePaid, uint32_t num_bytes);
 

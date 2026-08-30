@@ -94,8 +94,7 @@ class MempoolLimitTest(BitcoinTestFramework):
         assert_equal(node.getrawmempool(), [])
 
         # Restarting the node resets mempool minimum feerate
-        assert_equal(node.getmempoolinfo()['minrelaytxfee'], Decimal('0.00001000'))
-        assert_equal(node.getmempoolinfo()['mempoolminfee'], Decimal('0.00001000'))
+        assert_equal(node.getmempoolinfo()['minrelaytxfee'], node.getmempoolinfo()["mempoolminfee"])
 
         fill_mempool(self, node)
         current_info = node.getmempoolinfo()
@@ -186,7 +185,8 @@ class MempoolLimitTest(BitcoinTestFramework):
         self.restart_node(0, extra_args=self.extra_args[0])
 
         # Restarting the node resets mempool minimum feerate
-        assert_equal(node.getmempoolinfo()['minrelaytxfee'], node.getmempoolinfo()["mempoolminfee"])
+        assert_equal(node.getmempoolinfo()['minrelaytxfee'], Decimal('0.00000100'))
+        assert_equal(node.getmempoolinfo()['mempoolminfee'], Decimal('0.00000100'))
 
         fill_mempool(self, node)
         current_info = node.getmempoolinfo()
@@ -230,7 +230,7 @@ class MempoolLimitTest(BitcoinTestFramework):
         # Need to be large enough to trigger eviction
         # (note that the mempool usage of a tx is about three times its vsize)
         assert_greater_than(parent_vsize * num_big_parents * 3, current_info["maxmempool"] - current_info["bytes"])
-        parent_feerate = 100 * mempoolmin_feerate
+        parent_feerate = 10 * mempoolmin_feerate
 
         big_parent_txids = []
         for i in range(num_big_parents):

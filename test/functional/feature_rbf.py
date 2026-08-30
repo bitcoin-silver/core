@@ -126,7 +126,7 @@ class ReplaceByFeeTest(BitcoinTestFramework):
         assert_raises_rpc_error(-26, f"{reject_details}", self.nodes[0].sendrawtransaction, tx_hex, 0)
 
 
-        # Extra 0.1 BTCS fee
+        # Extra 0.1 BTC fee
         tx.vout[0].nValue -= int(0.1 * COIN)
         tx1b_hex = tx.serialize().hex()
         # Works when enabled
@@ -159,7 +159,7 @@ class ReplaceByFeeTest(BitcoinTestFramework):
             chain_txids.append(prevout["txid"])
 
         # Whether the double-spend is allowed is evaluated by including all
-        # child fees - 4 BTCS - so this attempt is rejected.
+        # child fees - 4 BTC - so this attempt is rejected.
         dbl_tx = self.wallet.create_self_transfer(
             utxo_to_spend=tx0_outpoint,
             sequence=0,
@@ -234,7 +234,7 @@ class ReplaceByFeeTest(BitcoinTestFramework):
         # This will raise an exception due to insufficient fee
         assert_raises_rpc_error(-26, "insufficient fee", self.nodes[0].sendrawtransaction, dbl_tx_hex, 0)
 
-        # 0.1 BTCS fee is enough
+        # 0.1 BTC fee is enough
         dbl_tx_hex = self.wallet.create_self_transfer(
             utxo_to_spend=tx0_outpoint,
             sequence=0,
@@ -607,7 +607,7 @@ class ReplaceByFeeTest(BitcoinTestFramework):
 
             low_feerate = min_relay_feerate * 2
             confirmed_utxo = self.wallet.get_utxo(confirmed_only=True)
-            replacee_tx = self.wallet.create_self_transfer(utxo_to_spend=confirmed_utxo, fee_rate=low_feerate, target_weight=20000)
+            replacee_tx = self.wallet.create_self_transfer(utxo_to_spend=confirmed_utxo, fee_rate=low_feerate, target_vsize=5000)
             node.sendrawtransaction(replacee_tx['hex'])
 
             replacement_placeholder_tx = self.wallet.create_self_transfer(utxo_to_spend=confirmed_utxo)
