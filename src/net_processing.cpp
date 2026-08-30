@@ -701,7 +701,7 @@ private:
      */
     bool TryLowWorkHeadersSync(Peer& peer, CNode& pfrom,
                                const CBlockIndex& chain_start_header,
-                                  std::vector<CBlockHeader>& headers)
+                               std::vector<CBlockHeader>& headers)
         EXCLUSIVE_LOCKS_REQUIRED(!peer.m_headers_sync_mutex, !m_peer_mutex, !m_headers_presync_mutex, g_msgproc_mutex);
 
     /** Return true if the given header is an ancestor of
@@ -2087,9 +2087,9 @@ void PeerManagerImpl::BlockConnected(
     // the historical chainstate, or during ibd since we don't receive incoming
     // transactions from peers into the mempool.
     if (!role.historical && !m_chainman.IsInitialBlockDownload()) {
-    LOCK(m_tx_download_mutex);
-    m_txdownloadman.BlockConnected(pblock);
-}
+        LOCK(m_tx_download_mutex);
+        m_txdownloadman.BlockConnected(pblock);
+    }
 }
 
 void PeerManagerImpl::BlockDisconnected(const std::shared_ptr<const CBlock> &block, const CBlockIndex* pindex)
@@ -2262,7 +2262,7 @@ void PeerManagerImpl::InitiateTxBroadcastToAll(const Txid& txid, const Wtxid& wt
         if (!tx_relay->m_tx_inventory_known_filter.contains(hash)) {
             tx_relay->m_tx_inventory_to_send.insert(wtxid);
         }
-        }
+    }
 }
 
 void PeerManagerImpl::InitiateTxBroadcastPrivate(const CTransactionRef& tx)
@@ -2611,7 +2611,7 @@ void PeerManagerImpl::SendBlockTransactions(CNode& pfrom, Peer& peer, const CBlo
     if (LogAcceptCategory(BCLog::CMPCTBLOCK, BCLog::Level::Debug)) {
         uint32_t tx_requested_size{0};
         for (const auto& tx : resp.txn) tx_requested_size += tx->ComputeTotalSize();
-    LogDebug(BCLog::CMPCTBLOCK, "Peer %d sent us a GETBLOCKTXN for block %s, sending a BLOCKTXN with %u txns. (%u bytes)\n", pfrom.GetId(), block.GetHash().ToString(), resp.txn.size(), tx_requested_size);
+        LogDebug(BCLog::CMPCTBLOCK, "Peer %d sent us a GETBLOCKTXN for block %s, sending a BLOCKTXN with %u txns. (%u bytes)\n", pfrom.GetId(), block.GetHash().ToString(), resp.txn.size(), tx_requested_size);
     }
     MakeAndPushMessage(pfrom, NetMsgType::BLOCKTXN, resp);
 }
@@ -3603,7 +3603,7 @@ void PeerManagerImpl::ProcessMessage(Peer& peer, CNode& pfrom, const std::string
         }
         vRecv.ignore(8); // Ignore the addrMe service bits sent by the peer
         vRecv >> CNetAddr::V1(addrMe);
-        if (!pfrom.IsInboundConn())
+        if (!pfrom.IsInboundConn() && !pfrom.IsPrivateBroadcastConn())
         {
             // Overwrites potentially existing services. In contrast to this,
             // unvalidated services received via gossip relay in ADDR/ADDRV2
@@ -3827,11 +3827,11 @@ void PeerManagerImpl::ProcessMessage(Peer& peer, CNode& pfrom, const std::string
         auto new_peer_msg = [&]() {
             const auto mapped_as{m_connman.GetMappedAS(pfrom.addr)};
             return strprintf("New %s peer connected: transport: %s, version: %d, blocks=%d peer=%d%s%s\n",
-                      pfrom.ConnectionTypeAsString(),
-                      TransportTypeAsString(pfrom.m_transport->GetInfo().transport_type),
+                pfrom.ConnectionTypeAsString(),
+                TransportTypeAsString(pfrom.m_transport->GetInfo().transport_type),
                 pfrom.nVersion.load(), peer.m_starting_height,
-                      pfrom.GetId(), pfrom.LogIP(fLogIPs),
-                      (mapped_as ? strprintf(", mapped_as=%d", mapped_as) : ""));
+                pfrom.GetId(), pfrom.LogIP(fLogIPs),
+                (mapped_as ? strprintf(", mapped_as=%d", mapped_as) : ""));
         };
 
         // Log successful connections unconditionally for outbound, but not for inbound as those
@@ -5561,8 +5561,8 @@ void PeerManagerImpl::MaybeSendAddr(CNode& node, Peer& peer, std::chrono::micros
                 }
             } else {
                 // All later self-announcements are sent together with the other addresses.
-            PushAddress(peer, local_addr);
-        }
+                PushAddress(peer, local_addr);
+            }
         }
         peer.m_next_local_addr_send = current_time + m_rng.rand_exp_duration(AVG_LOCAL_ADDRESS_BROADCAST_INTERVAL);
     }

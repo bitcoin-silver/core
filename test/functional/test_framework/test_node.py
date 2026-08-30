@@ -376,10 +376,10 @@ class TestNode():
             except OSError as e:
                 error_num = e.errno
                 if error_num is None:
-                # Work around issue where socket timeouts don't have errno set.
-                # https://github.com/python/cpython/issues/109601
+                    # Work around issue where socket timeouts don't have errno set.
+                    # https://github.com/python/cpython/issues/109601
                     if isinstance(e, TimeoutError):
-                    error_num = errno.ETIMEDOUT
+                        error_num = errno.ETIMEDOUT
                     # http.client.RemoteDisconnected inherits from this type and
                     # doesn't specify errno.
                     elif isinstance(e, ConnectionResetError):
@@ -919,6 +919,11 @@ class TestNode():
         del self.p2ps[:]
 
         self.wait_until(lambda: self.num_test_p2p_connections() == 0)
+
+    def is_connected_to(self, other):
+        assert isinstance(other, TestNode)
+        other_subver = other.getnetworkinfo()["subversion"]
+        return any(peer["subver"] == other_subver for peer in self.getpeerinfo())
 
     def bumpmocktime(self, seconds):
         """Fast forward using setmocktime to self.mocktime + seconds. Requires setmocktime to have

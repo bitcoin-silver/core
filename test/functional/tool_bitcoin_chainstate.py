@@ -51,7 +51,7 @@ class BitcoinChainstateTest(BitcoinTestFramework):
         assert_equal(n0.getbestblockhash(), SNAPSHOT_BASE_BLOCK_HASH)
         return n0.dumptxoutset('utxos.dat', "latest")
 
-    def add_block(self, datadir, input, expected_stderr=None, expected_stdout=None):
+    def add_block(self, datadir, input, *, expected_stderr=None, expected_stdout=None):
         proc = subprocess.Popen(
             self.get_binaries().chainstate_argv() + ["-regtest", datadir],
             stdin=subprocess.PIPE,

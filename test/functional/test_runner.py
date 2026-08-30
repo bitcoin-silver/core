@@ -367,6 +367,7 @@ BASE_SCRIPTS = [
     'p2p_permissions.py',
     'feature_blocksdir.py',
     'wallet_startup.py',
+    'p2p_private_broadcast_retry_v1.py',
     'feature_remove_pruned_files_on_startup.py',
     'p2p_i2p_ports.py',
     'p2p_i2p_sessions.py',
@@ -779,15 +780,15 @@ class TestHandler:
 
             task = [
                 test,
-                              time.time(),
+                time.time(),
                 subprocess.Popen(
                     [sys.executable, self.tests_dir + test_argv[0]] + test_argv[1:] + self.flags + portseed_arg + tmpdir_arg,
-                                               text=True,
-                                               stdout=log_stdout,
+                    text=True,
+                    stdout=log_stdout,
                     stderr=log_stderr,
                 ),
-                              testdir,
-                              log_stdout,
+                testdir,
+                log_stdout,
                 log_stderr,
             ]
             fut = self.executor.submit(proc_wait, task)
@@ -807,23 +808,23 @@ class TestHandler:
             for job in procs.done:
                 (name, start_time, proc, testdir, log_out, log_err) = job.result()
 
-                    log_out.seek(0), log_err.seek(0)
-                    [stdout, stderr] = [log_file.read().decode('utf-8') for log_file in (log_out, log_err)]
-                    log_out.close(), log_err.close()
-                    skip_reason = None
-                    if proc.returncode == TEST_EXIT_PASSED and stderr == "":
-                        status = "Passed"
-                    elif proc.returncode == TEST_EXIT_SKIPPED:
-                        status = "Skipped"
-                        skip_reason = re.search(r"Test Skipped: (.*)", stdout).group(1).strip()
-                    else:
-                        status = "Failed"
+                log_out.seek(0), log_err.seek(0)
+                [stdout, stderr] = [log_file.read().decode('utf-8') for log_file in (log_out, log_err)]
+                log_out.close(), log_err.close()
+                skip_reason = None
+                if proc.returncode == TEST_EXIT_PASSED and stderr == "":
+                    status = "Passed"
+                elif proc.returncode == TEST_EXIT_SKIPPED:
+                    status = "Skipped"
+                    skip_reason = re.search(r"Test Skipped: (.*)", stdout).group(1).strip()
+                else:
+                    status = "Failed"
 
-                    if self.use_term_control:
-                        clearline = '\r' + (' ' * dot_count) + '\r'
-                        print(clearline, end='', flush=True)
-                    dot_count = 0
-                    ret.append((TestResult(name, status, int(time.time() - start_time)), testdir, stdout, stderr, skip_reason))
+                if self.use_term_control:
+                    clearline = '\r' + (' ' * dot_count) + '\r'
+                    print(clearline, end='', flush=True)
+                dot_count = 0
+                ret.append((TestResult(name, status, int(time.time() - start_time)), testdir, stdout, stderr, skip_reason))
             if ret:
                 return ret
             if self.use_term_control:
