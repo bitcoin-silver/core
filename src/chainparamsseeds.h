@@ -17,4 +17,7 @@ static const uint8_t chainparams_seed_test[] = {
 
 static const uint8_t chainparams_seed_testnet4[] = {
 };
+
+static const uint8_t chainparams_seed_signet[] = {
+};
 #endif // BITCOINSILVER_CHAINPARAMSSEEDS_H

@@ -5,7 +5,7 @@
 #ifndef BITCOINSILVER_QT_RPCCONSOLE_H
 #define BITCOINSILVER_QT_RPCCONSOLE_H
 
-#include <bitcoinsilver-build-config.h> // IWYU pragma: keep
+#include <bitcoin-build-config.h> // IWYU pragma: keep
 
 #include <qt/clientmodel.h>
 #include <qt/guiutil.h>

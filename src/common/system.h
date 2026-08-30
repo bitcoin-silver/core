@@ -6,7 +6,7 @@
 #ifndef BITCOINSILVER_COMMON_SYSTEM_H
 #define BITCOINSILVER_COMMON_SYSTEM_H
 
-#include <bitcoinsilver-build-config.h> // IWYU pragma: keep
+#include <bitcoin-build-config.h> // IWYU pragma: keep
 
 #include <cstdint>
 #include <string>
