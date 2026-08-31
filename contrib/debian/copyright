@@ -2,7 +2,7 @@ Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: BitcoinSilver
 Upstream-Contact: Satoshi Nakamoto <satoshin@gmx.com>
  irc://#bitcoinsilver-core-dev@libera.chat
-Source: https://github.com/MrVistos/bitcoinsilver
+Source: https://github.com/bitcoin-silver/core
 
 Files: *
 Copyright: 2009-2026, Bitcoin Core Developers

@@ -3,18 +3,18 @@
 
 BitcoinSilver version 26.2 is now available from:
 
-  <https://mrvistos.github.io/bitcoinsilver//bin/bitcoinsilver-core-26.2/>
+  <https://github.com/bitcoin-silver/core/releases>
 
 This release includes new features, various bug fixes and performance
 improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/MrVistos/bitcoinsilver/issues>
+  <https://github.com/bitcoin-silver/core/issues>
 
 To receive security and update notifications, please subscribe to:
 
-  <https://mrvistos.github.io/bitcoinsilver//en/list/announcements/join/>
+  <https://github.com/bitcoin-silver/core>
 
 How to Upgrade
 ==============

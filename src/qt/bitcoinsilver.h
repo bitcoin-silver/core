@@ -16,7 +16,7 @@
 
 #include <QApplication>
 
-class BitcoinSilverGUI;
+class BitcoinGUI;
 class ClientModel;
 class NetworkStyle;
 class OptionsModel;
@@ -31,12 +31,12 @@ class Init;
 
 
 /** Main BitcoinSilver application object */
-class BitcoinSilverApplication: public QApplication
+class BitcoinApplication: public QApplication
 {
     Q_OBJECT
 public:
-    explicit BitcoinSilverApplication();
-    ~BitcoinSilverApplication();
+    explicit BitcoinApplication();
+    ~BitcoinApplication();
 
 #ifdef ENABLE_WALLET
     /// Create payment server
@@ -60,7 +60,7 @@ public:
     /// Request core initialization
     void requestInitialize();
 
-    /// Get window identifier of QMainWindow (BitcoinSilverGUI)
+    /// Get window identifier of QMainWindow (BitcoinGUI)
     WId getMainWinId() const;
 
     /// Setup platform style
@@ -84,7 +84,7 @@ public Q_SLOTS:
 Q_SIGNALS:
     void requestedInitialize();
     void requestedShutdown();
-    void windowShown(BitcoinSilverGUI* window);
+    void windowShown(BitcoinGUI* window);
 
 protected:
     bool event(QEvent* e) override;
@@ -93,7 +93,7 @@ private:
     std::optional<InitExecutor> m_executor;
     OptionsModel* optionsModel{nullptr};
     ClientModel* clientModel{nullptr};
-    BitcoinSilverGUI* window{nullptr};
+    BitcoinGUI* window{nullptr};
     QTimer* pollShutdownTimer{nullptr};
 #ifdef ENABLE_WALLET
     PaymentServer* paymentServer{nullptr};

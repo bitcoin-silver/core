@@ -4,7 +4,7 @@
 
 #include <bitcoin-build-config.h> // IWYU pragma: keep
 
-#include <qt/bitcoin.h>
+#include <qt/bitcoinsilver.h>
 
 #include <chainparams.h>
 #include <common/args.h>
@@ -18,7 +18,7 @@
 #include <node/context.h>
 #include <node/interface_ui.h>
 #include <noui.h>
-#include <qt/bitcoingui.h>
+#include <qt/bitcoinsilvergui.h>
 #include <qt/clientmodel.h>
 #include <qt/guiconstants.h>
 #include <qt/guiutil.h>
@@ -492,8 +492,8 @@ int GuiMain(int argc, char* argv[])
     // Do not refer to data directory yet, this can be overridden by Intro::pickDataDirectory
 
     /// 1. Basic Qt initialization (not dependent on parameters or configuration)
-    Q_INIT_RESOURCE(bitcoin);
-    Q_INIT_RESOURCE(bitcoin_locale);
+    Q_INIT_RESOURCE(bitcoinsilver);
+    Q_INIT_RESOURCE(bitcoinsilver_locale);
 
 #if defined(QT_QPA_PLATFORM_ANDROID)
     QApplication::setAttribute(Qt::AA_DontUseNativeMenuBar);
@@ -525,7 +525,7 @@ int GuiMain(int argc, char* argv[])
         QString arg(argv[i]);
         bool invalid_token = !arg.startsWith("-");
 #ifdef ENABLE_WALLET
-        if (arg.startsWith(BITCOIN_IPC_PREFIX, Qt::CaseInsensitive)) {
+        if (arg.startsWith(BITCOINSILVER_IPC_PREFIX, Qt::CaseInsensitive)) {
             invalid_token &= false;
             payment_server_token_seen = true;
         }

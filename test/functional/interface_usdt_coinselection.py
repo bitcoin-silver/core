@@ -4,7 +4,7 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 """  Tests the coin_selection:* tracepoint API interface.
-     See https://github.com/MrVistos/bitcoinsilver/blob/master/doc/tracing.md#context-coin_selection
+     See https://github.com/bitcoin-silver/core/blob/master/doc/tracing.md#context-coin_selection
 """
 
 # Test will be skipped if we don't have bcc installed

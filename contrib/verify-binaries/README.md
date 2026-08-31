@@ -23,7 +23,7 @@ You can obtain these keys by
 #### Usage
 
 This script attempts to download the checksum file (`SHA256SUMS`) and corresponding
-signature file `SHA256SUMS.asc` from https://mrvistos.github.io/bitcoinsilver/ and https://bitcoinsilver.org.
+signature file `SHA256SUMS.asc` from https://github.com/bitcoin-silver/core and https://bitcoinsilver.org.
 
 It first checks if the checksum file is valid based upon a plurality of signatures, and
 then downloads the release files specified in the checksum file, and checks if the

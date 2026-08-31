@@ -87,7 +87,7 @@ void OptionTests::migrateSettings()
 
 void OptionTests::integerGetArgBug()
 {
-    // Test regression https://github.com/MrVistos/bitcoinsilver/issues/24457. Ensure
+    // Test regression https://github.com/bitcoin/bitcoin/issues/24457. Ensure
     // that setting integer prune value doesn't cause an exception to be thrown
     // in the OptionsModel constructor
     gArgs.LockSettings([&](common::Settings& settings) {

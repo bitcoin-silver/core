@@ -50,7 +50,7 @@ class QLocalServer;
 class QUrl;
 QT_END_NAMESPACE
 
-extern const QString BITCOIN_IPC_PREFIX;
+extern const QString BITCOINSILVER_IPC_PREFIX;
 
 class PaymentServer : public QObject
 {

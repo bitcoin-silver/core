@@ -85,7 +85,7 @@ std::string CopyrightHolders(const std::string& strPrefix)
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://github.com/MrVistos/bitcoinsilver>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/bitcoin-silver/core>";
 
     //return CopyrightHolders(strprintf(_("Copyright (C) %i-%i"), 2009, COPYRIGHT_YEAR).translated + " ") + "\n" +
     return "\n" +

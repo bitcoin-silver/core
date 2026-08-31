@@ -51,7 +51,7 @@ void TestRpcCommand(RPCConsole* console)
 }
 } // namespace
 
-//! Entry point for BitcoinSilverApplication tests.
+//! Entry point for BitcoinApplication tests.
 void AppTests::appTests()
 {
 #ifdef Q_OS_MACOS
@@ -72,7 +72,7 @@ void AppTests::appTests()
     QScopedPointer<const NetworkStyle> style(NetworkStyle::instantiate(Params().GetChainType()));
     m_app.setupPlatformStyle();
     m_app.createWindow(style.data());
-    connect(&m_app, &BitcoinSilverApplication::windowShown, this, &AppTests::guiTests);
+    connect(&m_app, &BitcoinApplication::windowShown, this, &AppTests::guiTests);
     expectCallback("guiTests");
     m_app.baseInitialize();
     m_app.requestInitialize();
@@ -84,11 +84,11 @@ void AppTests::appTests()
     LogInstance().DisconnectTestLogger();
 }
 
-//! Entry point for BitcoinSilverGUI tests.
-void AppTests::guiTests(BitcoinSilverGUI* window)
+//! Entry point for BitcoinGUI tests.
+void AppTests::guiTests(BitcoinGUI* window)
 {
     HandleCallback callback{"guiTests", *this};
-    connect(window, &BitcoinSilverGUI::consoleShown, this, &AppTests::consoleTests);
+    connect(window, &BitcoinGUI::consoleShown, this, &AppTests::consoleTests);
     expectCallback("consoleTests");
     QAction* action = window->findChild<QAction*>("openRPCConsoleAction");
     action->activate(QAction::Trigger);

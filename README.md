@@ -48,8 +48,8 @@ Before you begin, ensure you have met the following requirements:
 
 1. **Clone the Repository**
 ```bash
-   git clone https://github.com/mrvistos/bitcoinsilver.git
-   cd bitcoinsilver
+   git clone https://github.com/bitcoin-silver/core.git
+   cd core
 ```
 
 2. **Build the Source Code**

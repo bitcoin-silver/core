@@ -5,8 +5,8 @@ For notes on the usage of Assumeutxo, please refer to [the usage doc](/doc/assum
 ## General background
 
 - [assumeutxo proposal](https://github.com/jamesob/assumeutxo-docs/tree/2019-04-proposal/proposal)
-- [Github issue](https://github.com/MrVistos/bitcoinsilver/issues/15605)
-- [draft PR](https://github.com/MrVistos/bitcoinsilver/pull/15606)
+- [Github issue](https://github.com/bitcoin/bitcoin/issues/15605)
+- [draft PR](https://github.com/bitcoin/bitcoin/pull/15606)
 
 ## Design notes
 

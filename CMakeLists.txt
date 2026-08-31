@@ -53,7 +53,7 @@ set(CMAKE_TRY_COMPILE_PLATFORM_VARIABLES
 project(BitcoinSilver
   VERSION ${CLIENT_VERSION_MAJOR}.${CLIENT_VERSION_MINOR}.${CLIENT_VERSION_BUILD}
   DESCRIPTION "BitcoinSilver client software"
-  HOMEPAGE_URL "https://mrvistos.github.io/bitcoinsilver/"
+  HOMEPAGE_URL "https://github.com/bitcoin-silver/core"
   LANGUAGES NONE
 )
 
@@ -64,7 +64,7 @@ endif()
 
 set(COPYRIGHT_HOLDERS "The %s developers")
 set(COPYRIGHT_HOLDERS_FINAL "The ${CLIENT_NAME} developers")
-set(CLIENT_BUGREPORT "https://github.com/MrVistos/bitcoinsilver/issues")
+set(CLIENT_BUGREPORT "https://github.com/bitcoin-silver/core/issues")
 
 #=============================
 # Language setup

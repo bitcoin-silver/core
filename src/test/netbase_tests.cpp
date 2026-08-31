@@ -88,10 +88,10 @@ bool static TestSplitHost(const std::string& test, const std::string& host, uint
 
 BOOST_AUTO_TEST_CASE(netbase_splithost)
 {
-    BOOST_CHECK(TestSplitHost("www.mrvistos.github.io/bitcoinsilver/", "www.mrvistos.github.io/bitcoinsilver/", 0));
-    BOOST_CHECK(TestSplitHost("[www.mrvistos.github.io/bitcoinsilver/]", "www.mrvistos.github.io/bitcoinsilver/", 0));
-    BOOST_CHECK(TestSplitHost("www.mrvistos.github.io/bitcoinsilver/:80", "www.mrvistos.github.io/bitcoinsilver/", 80));
-    BOOST_CHECK(TestSplitHost("[www.mrvistos.github.io/bitcoinsilver/]:80", "www.mrvistos.github.io/bitcoinsilver/", 80));
+    BOOST_CHECK(TestSplitHost("www.github.com/bitcoin-silver/core", "www.github.com/bitcoin-silver/core", 0));
+    BOOST_CHECK(TestSplitHost("[www.github.com/bitcoin-silver/core]", "www.github.com/bitcoin-silver/core", 0));
+    BOOST_CHECK(TestSplitHost("www.github.com/bitcoin-silver/core:80", "www.github.com/bitcoin-silver/core", 80));
+    BOOST_CHECK(TestSplitHost("[www.github.com/bitcoin-silver/core]:80", "www.github.com/bitcoin-silver/core", 80));
     BOOST_CHECK(TestSplitHost("127.0.0.1", "127.0.0.1", 0));
     BOOST_CHECK(TestSplitHost("127.0.0.1:10566", "127.0.0.1", 10566));
     BOOST_CHECK(TestSplitHost("[127.0.0.1]", "127.0.0.1", 0));
@@ -117,9 +117,9 @@ BOOST_AUTO_TEST_CASE(netbase_splithost)
     BOOST_CHECK(TestSplitHost("127.0.0.1:", "127.0.0.1:", 0, false));
     BOOST_CHECK(TestSplitHost("127.0.0.1:1/2", "127.0.0.1:1/2", 0, false));
     BOOST_CHECK(TestSplitHost("127.0.0.1:1E2", "127.0.0.1:1E2", 0, false));
-    BOOST_CHECK(TestSplitHost("www.mrvistos.github.io/bitcoinsilver/:65536", "www.mrvistos.github.io/bitcoinsilver/:65536", 0, false));
-    BOOST_CHECK(TestSplitHost("www.mrvistos.github.io/bitcoinsilver/:0", "www.mrvistos.github.io/bitcoinsilver/", 0, false));
-    BOOST_CHECK(TestSplitHost("www.mrvistos.github.io/bitcoinsilver/:", "www.mrvistos.github.io/bitcoinsilver/:", 0, false));
+    BOOST_CHECK(TestSplitHost("www.github.com/bitcoin-silver/core:65536", "www.github.com/bitcoin-silver/core:65536", 0, false));
+    BOOST_CHECK(TestSplitHost("www.github.com/bitcoin-silver/core:0", "www.github.com/bitcoin-silver/core", 0, false));
+    BOOST_CHECK(TestSplitHost("www.github.com/bitcoin-silver/core:", "www.github.com/bitcoin-silver/core:", 0, false));
 }
 
 bool static TestParse(std::string src, std::string canon)

@@ -6,7 +6,7 @@
 
 #include <qt/optionsmodel.h>
 
-#include <qt/bitcoinunits.h>
+#include <qt/bitcoinsilverunits.h>
 #include <qt/guiconstants.h>
 #include <qt/guiutil.h>
 
@@ -188,13 +188,13 @@ bool OptionsModel::Init(bilingual_str& error)
 
     // Display
     if (!settings.contains("DisplayBitcoinUnit")) {
-        settings.setValue("DisplayBitcoinUnit", QVariant::fromValue(BitcoinUnit::BTC));
+        settings.setValue("DisplayBitcoinUnit", QVariant::fromValue(BitcoinUnit::BTCS));
     }
     QVariant unit = settings.value("DisplayBitcoinUnit");
     if (unit.canConvert<BitcoinUnit>()) {
         m_display_bitcoin_unit = unit.value<BitcoinUnit>();
     } else {
-        m_display_bitcoin_unit = BitcoinUnit::BTC;
+        m_display_bitcoin_unit = BitcoinUnit::BTCS;
         settings.setValue("DisplayBitcoinUnit", QVariant::fromValue(m_display_bitcoin_unit));
     }
 

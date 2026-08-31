@@ -5,7 +5,7 @@ Setup
 ---------------------
 BitcoinSilver is the original BitcoinSilver client and it builds the backbone of the network. It downloads and, by default, stores the entire history of BitcoinSilver transactions, which requires several hundred gigabytes or more of disk space. Depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to several days or more.
 
-To download BitcoinSilver, visit [https://github.com/MrVistos/bitcoinsilver/releases](https://github.com/MrVistos/bitcoinsilver/releases).
+To download BitcoinSilver, visit [https://github.com/bitcoin-silver/core/releases](https://github.com/bitcoin-silver/core/releases).
 
 Running
 ---------------------
@@ -28,7 +28,7 @@ Drag BitcoinSilver to your applications folder, and then run BitcoinSilver.
 
 ### Need Help?
 
-* See the documentation at the [BitcoinSilver Readme](https://github.com/MrVistos/bitcoinsilver/)
+* See the documentation at the [BitcoinSilver Readme](https://github.com/bitcoin-silver/core)
 for help and more information.
 * Ask for help on [BitcoinSilver Discord](https://discord.com/invite/MCGn7dzvgd).
 * Ask for help on the [BitcoinTalk](https://bitcointalk.org/) forums, in the [Technical Support board](https://bitcointalk.org/index.php?board=4.0).
@@ -52,7 +52,7 @@ The BitcoinSilver repo's [root README](/README.md) contains relevant information
 - [Developer Notes](developer-notes.md)
 - [Productivity Notes](productivity.md)
 - [Release Process](release-process.md)
-- [Source Code Documentation (External Link)](https://doxygen.mrvistos.github.io/bitcoinsilver//)
+- [Source Code Documentation (External Link)](https://github.com/bitcoin-silver/core)
 - [Translation Process](translation_process.md)
 - [Translation Strings Policy](translation_strings_policy.md)
 - [JSON-RPC Interface](JSON-RPC-interface.md)

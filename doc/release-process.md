@@ -21,7 +21,7 @@ Release Process
 
 * On both the master branch and the new release branch:
   - update `CLIENT_VERSION_MAJOR` in [`configure.ac`](../configure.ac)
-* On the new release branch in [`configure.ac`](../configure.ac)(see [this commit](https://github.com/MrVistos/bitcoinsilver/commit/742f7dd)):
+* On the new release branch in [`configure.ac`](../configure.ac)(see [this commit](https://github.com/bitcoin/bitcoin/commit/742f7dd)):
   - set `CLIENT_VERSION_MINOR` to `0`
   - set `CLIENT_VERSION_BUILD` to `0`
   - set `CLIENT_VERSION_IS_RELEASE` to `true`
@@ -38,7 +38,7 @@ Release Process
     that causes rejection of blocks in the past history.
   - `chainTxData` with statistics about the transaction count and rate. Use the output of the `getchaintxstats` RPC with an
     `nBlocks` of 4096 (28 days) and a `bestblockhash` of RPC `getbestblockhash`; see
-    [this pull request](https://github.com/MrVistos/bitcoinsilver/pull/28591) for an example. Reviewers can verify the results by running
+    [this pull request](https://github.com/bitcoin/bitcoin/pull/28591) for an example. Reviewers can verify the results by running
     `getchaintxstats <window_block_count> <window_final_block_hash>` with the `window_block_count` and `window_final_block_hash` from your output.
   - `defaultAssumeValid` with the output of RPC `getblockhash` using the `height` of `window_final_block_height` above
     (and update the block height comment with that height), taking into account the following:
@@ -67,7 +67,7 @@ Release Process
 - Update the versions.
 - Create the draft, named "*version* Release Notes Draft", as a [collaborative wiki](https://github.com/bitcoinsilver-core/bitcoinsilver-devwiki/wiki/_new).
 - Clear the release notes: `cp doc/release-notes-empty-template.md doc/release-notes.md`
-- Create a pinned meta-issue for testing the release candidate (see [this issue](https://github.com/MrVistos/bitcoinsilver/issues/27621) for an example) and provide a link to it in the release announcements where useful.
+- Create a pinned meta-issue for testing the release candidate (see [this issue](https://github.com/bitcoin/bitcoin/issues/27621) for an example) and provide a link to it in the release announcements where useful.
 - Translations on Transifex
     - Change the auto-update URL for the new major version's resource away from `master` and to the branch, e.g. `https://raw.githubusercontent.com/bitcoinsilver/bitcoinsilver/<branch>/src/qt/locale/bitcoinsilver_en.xlf`. Do not forget this or it will keep tracking the translations on master instead, drifting away from the specific major release.
 - Prune inputs from the qa-assets repo (See [pruning
@@ -100,7 +100,7 @@ Check out the source code in the following directory hierarchy.
     cd /path/to/your/toplevel/build
     git clone https://github.com/bitcoinsilver-core/guix.sigs.git
     git clone https://github.com/bitcoinsilver-core/bitcoinsilver-detached-sigs.git
-    git clone https://github.com/MrVistos/bitcoinsilver.git
+    git clone https://github.com/bitcoin-silver/core.git
 
 ### Write the release notes
 
@@ -262,9 +262,9 @@ cat "$VERSION"/*/all.SHA256SUMS.asc > SHA256SUMS.asc
   ```
 
   Insert the magnet URI into the announcement sent to mailing lists. This permits
-  people without access to `mrvistos.github.io/bitcoinsilver/` to download the binary distribution.
+  people without access to `github.com/bitcoin-silver/core` to download the binary distribution.
   Also put it into the `optional_magnetlink:` slot in the YAML file for
-  mrvistos.github.io/bitcoinsilver/.
+  github.com/bitcoin-silver/core.
 
 - Archive the release notes for the new version to `doc/release-notes/release-notes-${VERSION}.md`
   (branch `master` and branch of the release).
@@ -282,9 +282,9 @@ cat "$VERSION"/*/all.SHA256SUMS.asc > SHA256SUMS.asc
 
 - Update repositories
 
-  - Delete post-EOL [release branches](https://github.com/MrVistos/bitcoinsilver/branches/all) and create a tag `v${branch_name}-final`.
+  - Delete post-EOL [release branches](https://github.com/bitcoin-silver/core/branches/all) and create a tag `v${branch_name}-final`.
 
-  - Delete ["Needs backport" labels](https://github.com/MrVistos/bitcoinsilver/labels?q=backport) for non-existing branches.
+  - Delete ["Needs backport" labels](https://github.com/bitcoin-silver/core/labels?q=backport) for non-existing branches.
 
   - Update packaging repo
 
@@ -298,7 +298,7 @@ cat "$VERSION"/*/all.SHA256SUMS.asc > SHA256SUMS.asc
 
   - bitcoinsilver-dev and bitcoinsilver-core-dev mailing list
 
-  - BitcoinSilver announcements list https://mrvistos.github.io/bitcoinsilver//en/list/announcements/join/
+  - BitcoinSilver announcements list https://github.com/bitcoin-silver/core
 
   - BitcoinSilver Twitter https://twitter.com/bitcoincoreorg
 
