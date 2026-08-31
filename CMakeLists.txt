@@ -27,8 +27,8 @@ get_directory_property(precious_variables CACHE_VARIABLES)
 # Project / Package metadata
 #=============================
 set(CLIENT_NAME "BitcoinSilver")
-set(CLIENT_VERSION_MAJOR 1)
-set(CLIENT_VERSION_MINOR 0)
+set(CLIENT_VERSION_MAJOR 31)
+set(CLIENT_VERSION_MINOR 1)
 set(CLIENT_VERSION_BUILD 0)
 set(CLIENT_VERSION_RC 0)
 set(CLIENT_VERSION_IS_RELEASE "true")
