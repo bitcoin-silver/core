@@ -8,6 +8,9 @@
 !/build-aux
 !/build_msvc
 
+# Packaged release archives
+/dist
+
 *.pyc
 
 # Only ignore unexpected patches
