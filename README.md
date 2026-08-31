@@ -56,17 +56,19 @@ Before you begin, ensure you have met the following requirements:
 
 **Linux:**
 ```bash
-cmake -B build -DBUILD_TESTS=OFF -DBUILD_BENCH=OFF -DENABLE_WALLET=ON
+cmake -B build -DBUILD_TESTS=OFF -DBUILD_BENCH=OFF -DENABLE_WALLET=ON -DENABLE_IPC=OFF
 cmake --build build -j$(nproc)
 ```
+> **Note:** `-DENABLE_IPC=OFF` is needed unless you have Cap'n Proto installed, since `ENABLE_IPC` defaults to `ON` and configure will otherwise fail with "Cap'n Proto is required".
+
 > **Note:** On newer Linux distros (Ubuntu 22.04+, Ubuntu 25.10, etc.) BerkeleyDB 4.8 is no longer available. Install BerkeleyDB dev libraries and add `-DWITH_BDB=ON`:
 > ```bash
 > sudo apt install libdb-dev libdb++-dev
-> cmake -B build -DBUILD_TESTS=OFF -DBUILD_BENCH=OFF -DWITH_BDB=ON
+> cmake -B build -DBUILD_TESTS=OFF -DBUILD_BENCH=OFF -DWITH_BDB=ON -DENABLE_IPC=OFF
 > cmake --build build -j$(nproc)
 > ```
 
-Optional CMake arguments: `-DBUILD_GUI=ON`, `-DENABLE_WALLET=OFF`
+To also build the GUI (`bitcoinsilver-qt`), add `-DBUILD_GUI=ON` (requires Qt6 development packages installed). Other optional CMake arguments: `-DENABLE_WALLET=OFF`.
 
 **Windows (cross-compile):**
 ```bash
@@ -77,28 +79,31 @@ cmake -B build --toolchain depends/x86_64-w64-mingw32/toolchain.cmake -DBUILD_GU
 cmake --build build -j$(nproc)
 ```
 
-   3. **Run the Node**
+3. **Run the Node**
 ```bash
-   ./build/bin/bitcoinsilverd
+./build/bin/bitcoinsilverd
 ```
+
+The GUI wallet, if built, is at `./build/bin/bitcoinsilver-qt`.
+
 ## Usage
 
 ### Wallet Setup
 
 1.  **Generate a New Wallet**
 ```bash
-   ./bitcoinsilver-cli createwallet "mywallet"
+./build/bin/bitcoinsilver-cli createwallet "mywallet"
 ```
-    
+
 -   **Get Wallet Address**
 ```bash
-   ./bitcoinsilver-cli getnewaddress
+./build/bin/bitcoinsilver-cli getnewaddress
 ```
 ### Mining
 
 Start mining with the following command:
 ```bash
-  ./bitcoinsilver-cli generatetoaddress n "mywalletaddress"
+./build/bin/bitcoinsilver-cli generatetoaddress n "mywalletaddress"
 ```
 Replace `n` with the number of blocks you want to mine and `"mywalletaddress"` with your actual wallet address.
 

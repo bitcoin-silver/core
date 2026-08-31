@@ -1,6 +1,6 @@
 IDI_ICON1 ICON DISCARDABLE "icons/bitcoinsilver.ico"
 IDI_ICON2 ICON DISCARDABLE "icons/bitcoinsilver_testnet.ico"
-IDI_ICON3 ICON DISCARDABLE "icons/bitcoinsilver_signet.ico"
+IDI_ICON3 ICON DISCARDABLE "icons/bitcoinsilver_testnet.ico" // no dedicated signet icon exists for this fork
 IDI_ICON4 ICON DISCARDABLE "icons/bitcoinsilver_testnet.ico" // testnet4
 
 #include <windows.h>             // needed for VERSIONINFO
