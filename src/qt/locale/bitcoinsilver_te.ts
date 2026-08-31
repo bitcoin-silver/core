@@ -14,10 +14,6 @@
         <translation type="unfinished">&amp;క్రొత్త</translation>
     </message>
     <message>
-        <source>Copy the currently selected address to the system clipboard</source>
-        <translation type="unfinished">ప్రస్తుతం ఎంచుకున్న చిరునామాను సిస్టం క్లిప్ బోర్డుకు కాపీ చేయండి</translation>
-    </message>
-    <message>
         <source>&amp;Copy</source>
         <translation type="unfinished">&amp;కాపి</translation>
     </message>
@@ -58,11 +54,11 @@
         <translation type="unfinished">ఎం&amp;చుకోండి</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation type="unfinished">ఇవి మీరు పంపే చెల్లింపుల బిట్‌కాయిన్ చిరునామాలు. నాణేలు పంపే ముందు ప్రతిసారి అందుకునే చిరునామా మరియు చెల్లింపు మొత్తం సరిచూసుకోండి.</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">చెల్లింపులను స్వీకరించడానికి ఇవి మీ బిట్‌కాయిన్ చిరునామాలు. కొత్త చిరునామాలను సృష్టించడానికి స్వీకరించే ట్యాబ్‌లోని 'కొత్త స్వీకరించే చిరునామాను సృష్టించు' బటన్‌ను ఉపయోగించండి. 
 'లెగసీ' రకం చిరునామాలతో మాత్రమే సంతకం చేయడం సాధ్యమవుతుంది.</translation>
@@ -156,7 +152,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">వాలెట్ గుప్తీకరణను నిర్ధారించండి</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINSILVERS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
         <translation type="unfinished">హెచ్చరిక: మీ జోలెని సంకేతపరిచి మీ సంకేతపదము కోల్పోతే, &lt;b&gt;మీ బిట్‌కాయిన్లు అన్నీ కోల్పోతారు&lt;/b&gt;</translation>
     </message>
     <message>
@@ -170,6 +166,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Enter the new passphrase for the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation type="unfinished">వాలెట్ కోసం క్రొత్త పాస్‌ఫ్రేజ్‌ని నమోదు చేయండి.&lt;br/&gt; దయచేసి &lt;b&gt;పది లేదా అంతకంటే ఎక్కువ యాదృచ్ఛిక అక్షరాల&lt;/b&gt; పాస్‌ఫ్రేజ్‌ని లేదా &lt;b&gt;ఎనిమిది లేదా అంతకంటే ఎక్కువ పదాలను ఉపయోగించండి.&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>Continue</source>
+        <translation type="unfinished">కొనసాగించు</translation>
     </message>
     <message>
         <source>Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
@@ -283,7 +283,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">మొత్తం</translation>
     </message>
     <message>
-        <source>Enter a BitcoinSilver address (e.g. %1)</source>
+        <source>Enter a Bitcoin address (e.g. %1)</source>
         <translation type="unfinished">బిట్‌కాయిన్ చిరునామాను నమోదు చేయండి (ఉదా. %1)</translation>
     </message>
     <message>
@@ -379,7 +379,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
             <numerusform>%n సంవత్సరం(లు)</numerusform>
         </translation>
     </message>
-    </context>
+    <message>
+        <source>default wallet</source>
+        <translation type="unfinished">డిఫాల్ట్ వాలెట్</translation>
+    </message>
+</context>
 <context>
     <name>BitcoinGUI</name>
     <message>
@@ -448,7 +452,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ప్రాక్సీ &lt;b&gt;ప్రారంభించబడింది&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a BitcoinSilver address</source>
+        <source>Send coins to a Bitcoin address</source>
         <translation type="unfinished">బిట్‌కాయిన్ చిరునామాకు నాణేలను పంపండి</translation>
     </message>
     <message>
@@ -473,7 +477,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>&amp;Encrypt Wallet…</source>
-        <translation type="unfinished">&amp;వాలెట్‌ని ఎన్‌క్రిప్ట్ చేయండి...</translation>
+        <translation type="unfinished">&amp;వాలెట్‌ని గుప్తీకరించు...</translation>
     </message>
     <message>
         <source>Encrypt the private keys that belong to your wallet</source>
@@ -492,7 +496,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">సంతకం &amp;సందేశం...</translation>
     </message>
     <message>
-        <source>Sign messages with your BitcoinSilver addresses to prove you own them</source>
+        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
         <translation type="unfinished">మీ బిట్‌కాయిన్ చిరునామాలు మీ స్వంతమని నిరూపించుకోవడానికి వాటితో సందేశాలను సంతకం చేయండి</translation>
     </message>
     <message>
@@ -500,7 +504,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;సందేశాన్ని ధృవీకరించండి...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified BitcoinSilver addresses</source>
+        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
         <translation type="unfinished">సందేశాలు పేర్కొన్న బిట్‌కాయిన్ చిరునామాలతో సంతకం చేసినట్లు నిర్ధారించుకోవడానికి వాటిని ధృవీకరించండి</translation>
     </message>
     <message>
@@ -560,7 +564,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">తోటివారితో కలుస్తుంది…</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoinsilver: URIs)</source>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
         <translation type="unfinished">చెల్లింపులను అభ్యర్థించండి (QR కోడ్‌లు మరియు బిట్‌కాయిన్‌లను ఉత్పత్తి చేస్తుంది: URIలు)</translation>
     </message>
     <message>
@@ -578,8 +582,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message numerus="yes">
         <source>Processed %n block(s) of transaction history.</source>
         <translation type="unfinished">
-            <numerusform>లావాదేవీ చరిత్ర యొక్క %n బ్లాక్(లు) ప్రాసెస్ చేయబడింది.</numerusform>
-            <numerusform>లావాదేవీ చరిత్ర యొక్క %n బ్లాక్(లు) ప్రాసెస్ చేయబడింది.</numerusform>
+            <numerusform>లావాదేవీ %n చరిత్ర యొక్క ప్రాసెస్ చేయబడిన బ్లాక్(లు).</numerusform>
+            <numerusform>లావాదేవీ %n చరిత్ర యొక్క ప్రాసెస్ చేయబడిన బ్లాక్(లు).</numerusform>
         </translation>
     </message>
     <message>
@@ -615,7 +619,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">తాజాగా ఉంది</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction</source>
+        <source>Load Partially Signed Bitcoin Transaction</source>
         <translation type="unfinished">పాక్షికంగా సంతకం చేసిన బిట్‌కాయిన్ లావాదేవీని లోడ్ చేయండి</translation>
     </message>
     <message>
@@ -623,7 +627,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;క్లిప్‌బోర్డ్ నుండి PSBTని లోడ్ చేయండి...</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction from clipboard</source>
+        <source>Load Partially Signed Bitcoin Transaction from clipboard</source>
         <translation type="unfinished">క్లిప్‌బోర్డ్ నుండి పాక్షికంగా సంతకం చేసిన బిట్‌కాయిన్ లావాదేవీని లోడ్ చేయండి</translation>
     </message>
     <message>
@@ -643,7 +647,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;చిరునామాలను స్వీకరిస్తోంది</translation>
     </message>
     <message>
-        <source>Open a bitcoinsilver: URI</source>
+        <source>Open a bitcoin: URI</source>
         <translation type="unfinished">బిట్‌కాయిన్‌ను తెరవండి: URI</translation>
     </message>
     <message>
@@ -673,7 +677,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">అన్ని వాలెట్లను మూసివేయండి</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible BitcoinSilver command-line options</source>
+        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
         <translation type="unfinished">%1 సాధ్యమయ్యే బిట్‌కాయిన్ కమాండ్-లైన్ ఎంపికలతో జాబితాను పొందడానికి సహాయ సందేశాన్ని చూపండి</translation>
     </message>
     <message>
@@ -683,10 +687,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Mask the values in the Overview tab</source>
         <translation type="unfinished">ఓవర్‌వ్యూ ట్యాబ్‌లోని విలువలను కప్పిపుచ్చడం చేయండి</translation>
-    </message>
-    <message>
-        <source>default wallet</source>
-        <translation type="unfinished">డిఫాల్ట్ వాలెట్</translation>
     </message>
     <message>
         <source>No wallets available</source>
@@ -734,10 +734,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>S&amp;how</source>
-        <translation type="unfinished">S&amp;ఎలా</translation>
+        <translation type="unfinished">&amp;చూపించు</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
             <numerusform>%n బిట్‌కాయిన్ నెట్‌వర్క్‌కు క్రియాశీల కనెక్షన్(లు).</numerusform>
@@ -1030,6 +1030,19 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
 </context>
 <context>
+    <name>MigrateWalletActivity</name>
+    <message>
+        <source>Restore Wallet</source>
+        <extracomment>Title of progress window which is displayed when wallets are being restored.</extracomment>
+        <translation type="unfinished">వాలెట్‌ని పునరుద్ధరించండి</translation>
+    </message>
+    <message>
+        <source>Restoring Wallet &lt;b&gt;%1&lt;/b&gt;…</source>
+        <extracomment>Descriptive text of the restore wallets progress window which indicates to the user that wallets are currently being restored.</extracomment>
+        <translation type="unfinished">వాలెట్‌ని పునరుద్ధరిస్తోంది &lt;b&gt;%1&lt;/b&gt;...</translation>
+    </message>
+    </context>
+<context>
     <name>OpenWalletActivity</name>
     <message>
         <source>Open wallet failed</source>
@@ -1038,10 +1051,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Open wallet warning</source>
         <translation type="unfinished">ఓపెన్ వాలెట్ హెచ్చరిక</translation>
-    </message>
-    <message>
-        <source>default wallet</source>
-        <translation type="unfinished">డిఫాల్ట్ వాలెట్</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -1184,7 +1193,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">పంపే చిరునామాను సవరించండి</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid BitcoinSilver address.</source>
+        <source>The entered address "%1" is not a valid Bitcoin address.</source>
         <translation type="unfinished">నమోదు చేసిన చిరునామా "%1" చెల్లుబాటు అయ్యే బిట్‌కాయిన్ చిరునామా కాదు.</translation>
     </message>
     <message>
@@ -1228,9 +1237,63 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
 </context>
 <context>
+    <name>HelpMessageDialog</name>
+    <message>
+        <source>version</source>
+        <translation type="unfinished">సంస్కరణ</translation>
+    </message>
+    <message>
+        <source>About %1</source>
+        <translation type="unfinished">గురించి %1</translation>
+    </message>
+    <message>
+        <source>Command-line options</source>
+        <translation type="unfinished">కమాండ్ లైన్ ఎంపికలు</translation>
+    </message>
+</context>
+<context>
+    <name>ShutdownWindow</name>
+    <message>
+        <source>%1 is shutting down…</source>
+        <translation type="unfinished">%1 షట్ డౌన్ అవుతోంది…</translation>
+    </message>
+    <message>
+        <source>Do not shut down the computer until this window disappears.</source>
+        <translation type="unfinished">ఈ విండో అదృశ్యమయ్యే వరకు కంప్యూటర్‌ను ఆపివేయవద్దు.</translation>
+    </message>
+</context>
+<context>
     <name>Intro</name>
     <message>
-        <source>BitcoinSilver</source>
+        <source>Welcome</source>
+        <translation type="unfinished">స్వాగతం</translation>
+    </message>
+    <message>
+        <source>Welcome to %1.</source>
+        <translation type="unfinished">%1 కు స్వాగతం</translation>
+    </message>
+    <message>
+        <source>As this is the first time the program is launched, you can choose where %1 will store its data.</source>
+        <translation type="unfinished">ప్రోగ్రామ్ ప్రారంభించబడటం ఇదే మొదటిసారి కాబట్టి, %1 దాని డేటాను ఎక్కడ నిల్వ చేయాలో మీరు ఎంచుకోవచ్చు.</translation>
+    </message>
+    <message>
+        <source>Limit block chain storage to</source>
+        <translation type="unfinished">బ్లాక్ చైన్ నిల్వను పరిమితం చేయండి</translation>
+    </message>
+    <message>
+        <source> GB</source>
+        <translation type="unfinished">GB</translation>
+    </message>
+    <message>
+        <source>Use the default data directory</source>
+        <translation type="unfinished">డిఫాల్ట్ డేటా డైరెక్టరీని ఉపయోగించండి</translation>
+    </message>
+    <message>
+        <source>Use a custom data directory:</source>
+        <translation type="unfinished">అనుకూల డేటా డైరెక్టరీని ఉపయోగించండి:</translation>
+    </message>
+    <message>
+        <source>Bitcoin</source>
         <translation type="unfinished">బిట్కోయిన్</translation>
     </message>
     <message numerus="yes">
@@ -1271,7 +1334,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         </translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the BitcoinSilver block chain.</source>
+        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
         <translation type="unfinished">%1 బిట్‌కాయిన్ బ్లాక్ చైన్ కాపీని డౌన్‌లోడ్ చేసి నిల్వ చేస్తుంది.</translation>
     </message>
     <message>
@@ -1285,60 +1348,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Error</source>
         <translation type="unfinished">లోపం</translation>
-    </message>
-    <message>
-        <source>Welcome</source>
-        <translation type="unfinished">స్వాగతం</translation>
-    </message>
-    <message>
-        <source>Welcome to %1.</source>
-        <translation type="unfinished">%1 కు స్వాగతం</translation>
-    </message>
-    <message>
-        <source>As this is the first time the program is launched, you can choose where %1 will store its data.</source>
-        <translation type="unfinished">ప్రోగ్రామ్ ప్రారంభించబడటం ఇదే మొదటిసారి కాబట్టి, %1 దాని డేటాను ఎక్కడ నిల్వ చేయాలో మీరు ఎంచుకోవచ్చు.</translation>
-    </message>
-    <message>
-        <source>Limit block chain storage to</source>
-        <translation type="unfinished">బ్లాక్ చైన్ నిల్వను పరిమితం చేయండి</translation>
-    </message>
-    <message>
-        <source> GB</source>
-        <translation type="unfinished">GB</translation>
-    </message>
-    <message>
-        <source>Use the default data directory</source>
-        <translation type="unfinished">డిఫాల్ట్ డేటా డైరెక్టరీని ఉపయోగించండి</translation>
-    </message>
-    <message>
-        <source>Use a custom data directory:</source>
-        <translation type="unfinished">అనుకూల డేటా డైరెక్టరీని ఉపయోగించండి:</translation>
-    </message>
-</context>
-<context>
-    <name>HelpMessageDialog</name>
-    <message>
-        <source>version</source>
-        <translation type="unfinished">సంస్కరణ</translation>
-    </message>
-    <message>
-        <source>About %1</source>
-        <translation type="unfinished">గురించి %1</translation>
-    </message>
-    <message>
-        <source>Command-line options</source>
-        <translation type="unfinished">కమాండ్ లైన్ ఎంపికలు</translation>
-    </message>
-</context>
-<context>
-    <name>ShutdownWindow</name>
-    <message>
-        <source>%1 is shutting down…</source>
-        <translation type="unfinished">%1 షట్ డౌన్ అవుతోంది…</translation>
-    </message>
-    <message>
-        <source>Do not shut down the computer until this window disappears.</source>
-        <translation type="unfinished">ఈ విండో అదృశ్యమయ్యే వరకు కంప్యూటర్‌ను ఆపివేయవద్దు.</translation>
     </message>
 </context>
 <context>
@@ -1391,7 +1400,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
 <context>
     <name>OpenURIDialog</name>
     <message>
-        <source>Open bitcoinsilver URI</source>
+        <source>Open bitcoin URI</source>
         <translation type="unfinished">బిట్‌కాయిన్ URIని తెరవండి</translation>
     </message>
     <message>
@@ -1513,18 +1522,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;బాహ్య సంతకం స్క్రిప్ట్ మార్గం</translation>
     </message>
     <message>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation type="unfinished">రౌటర్‌లో బిట్‌కాయిన్ క్లయింట్ పోర్ట్‌ను స్వయంచాలకంగా తెరవండి. ఇది మీ రూటర్ UPnPకి మద్దతు ఇచ్చినప్పుడు మరియు అది ప్రారంభించబడినప్పుడు మాత్రమే పని చేస్తుంది.</translation>
-    </message>
-    <message>
-        <source>Map port using &amp;UPnP</source>
-        <translation type="unfinished">&amp;UPnPని ఉపయోగించి మ్యాప్ పోర్ట్</translation>
-    </message>
-    <message>
-        <source>Map port using NA&amp;T-PMP</source>
-        <translation type="unfinished">NA&amp;T-PMPని ఉపయోగించి మ్యాప్ పోర్ట్</translation>
-    </message>
-    <message>
         <source>Accept connections from outside.</source>
         <translation type="unfinished">బయటి నుండి కనెక్షన్లను అంగీకరించండి.</translation>
     </message>
@@ -1533,7 +1530,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;ఇన్‌కమింగ్ కనెక్షన్‌లను అనుమతించండి</translation>
     </message>
     <message>
-        <source>Connect to the BitcoinSilver network through a SOCKS5 proxy.</source>
+        <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
         <translation type="unfinished">SOCKS5 ప్రాక్సీ ద్వారా బిట్‌కాయిన్ నెట్‌వర్క్‌కు కనెక్ట్ చేయండి.</translation>
     </message>
     <message>
@@ -1609,24 +1606,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">కాయిన్ కంట్రోల్ ఫీచర్‌లను చూపించాలా వద్దా.</translation>
     </message>
     <message>
-        <source>Connect to the BitcoinSilver network through a separate SOCKS5 proxy for Tor onion services.</source>
+        <source>Connect to the Bitcoin network through a separate SOCKS5 proxy for Tor onion services.</source>
         <translation type="unfinished">Tor onion సేవల కోసం ప్రత్యేక SOCKS5 ప్రాక్సీ ద్వారా బిట్‌కాయిన్ నెట్‌వర్క్‌కు కనెక్ట్ చేయండి.</translation>
     </message>
     <message>
         <source>Use separate SOCKS&amp;5 proxy to reach peers via Tor onion services:</source>
         <translation type="unfinished">Tor onion సేవల ద్వారా సహచరులను చేరుకోవడానికి ప్రత్యేక SOCKS&amp;5 ప్రాక్సీని ఉపయోగించండి:</translation>
-    </message>
-    <message>
-        <source>Monospaced font in the Overview tab:</source>
-        <translation type="unfinished">ఓవర్‌వ్యూ ట్యాబ్‌లో మోనోస్పేస్డ్ ఫాంట్:</translation>
-    </message>
-    <message>
-        <source>embedded "%1"</source>
-        <translation type="unfinished">పొందుపరిచారు "%1"</translation>
-    </message>
-    <message>
-        <source>closest matching "%1"</source>
-        <translation type="unfinished">సన్నిహిత సరిపోలిక "%1"</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -1718,12 +1703,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">రూపం</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BitcoinSilver network after a connection is established, but this process has not completed yet.</source>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
         <translation type="unfinished">ప్రదర్శించబడిన సమాచారం పాతది కావచ్చు. కనెక్షన్ స్థాపించబడిన తర్వాత మీ వాలెట్ స్వయంచాలకంగా బిట్‌కాయిన్ నెట్‌వర్క్‌తో సమకాలీకరించబడుతుంది, కానీ ఈ ప్రక్రియ ఇంకా పూర్తి కాలేదు.</translation>
-    </message>
-    <message>
-        <source>Watch-only:</source>
-        <translation type="unfinished">చూడటానికి మాత్రమే:</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1762,28 +1743,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">మీ ప్రస్తుత మొత్తం బ్యాలెన్స్</translation>
     </message>
     <message>
-        <source>Your current balance in watch-only addresses</source>
-        <translation type="unfinished">వీక్షణ-మాత్రమే చిరునామాలలో మీ ప్రస్తుత బ్యాలెన్స్</translation>
-    </message>
-    <message>
-        <source>Spendable:</source>
-        <translation type="unfinished">ఖర్చు చేయదగినది:</translation>
-    </message>
-    <message>
         <source>Recent transactions</source>
         <translation type="unfinished">ఇటీవలి లావాదేవీలు</translation>
-    </message>
-    <message>
-        <source>Unconfirmed transactions to watch-only addresses</source>
-        <translation type="unfinished">వీక్షణ-మాత్రమే చిరునామాలకు ధృవీకరించబడని లావాదేవీలు</translation>
-    </message>
-    <message>
-        <source>Mined balance in watch-only addresses that has not yet matured</source>
-        <translation type="unfinished">ఇంకా మెచ్యూర్ కాని వాచ్-ఓన్లీ అడ్రస్‌లలో మైన్ చేయబడిన బ్యాలెన్స్</translation>
-    </message>
-    <message>
-        <source>Current total balance in watch-only addresses</source>
-        <translation type="unfinished">వీక్షణ-మాత్రమే చిరునామాలలో ప్రస్తుత మొత్తం బ్యాలెన్స్</translation>
     </message>
     <message>
         <source>Privacy mode activated for the Overview tab. To unmask the values, uncheck Settings-&gt;Mask values.</source>
@@ -1828,9 +1789,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>Could not sign any more inputs.</source>
         <translation type="unfinished">మరిన్ని ఇన్‌పుట్‌లపై సంతకం చేయడం సాధ్యపడలేదు.</translation>
     </message>
-    <message>
-        <source>Signed %1 inputs, but more signatures are still required.</source>
-        <translation type="unfinished">సంతకం చేయబడిన %1 ఇన్‌పుట్‌లు, కానీ మరిన్ని సంతకాలు ఇంకా అవసరం.</translation>
+    <message numerus="yes">
+        <source>Signed %n input(s), but more signatures are still required.</source>
+        <translation type="unfinished">
+            <numerusform />
+            <numerusform />
+        </translation>
     </message>
     <message>
         <source>Signed transaction successfully. Transaction is ready to broadcast.</source>
@@ -1866,10 +1830,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">PSBT డిస్క్‌లో సేవ్ చేయబడింది.</translation>
     </message>
     <message>
-        <source> * Sends %1 to %2</source>
-        <translation type="unfinished">* %1 ని %2 కి పంపుతుంది</translation>
-    </message>
-    <message>
         <source>Unable to calculate transaction fee or total transaction amount.</source>
         <translation type="unfinished">లావాదేవీ రుసుము లేదా మొత్తం లావాదేవీ మొత్తాన్ని లెక్కించడం సాధ్యం కాలేదు.</translation>
     </message>
@@ -1885,9 +1845,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>or</source>
         <translation type="unfinished">లేదా</translation>
     </message>
-    <message>
-        <source>Transaction has %1 unsigned inputs.</source>
-        <translation type="unfinished">లావాదేవీ %1 సంతకం చేయని ఇన్‌పుట్‌లను కలిగి ఉంది.</translation>
+    <message numerus="yes">
+        <source>Transaction has %n unsigned input(s).</source>
+        <translation type="unfinished">
+            <numerusform />
+            <numerusform />
+        </translation>
     </message>
     <message>
         <source>Transaction is missing some information about inputs.</source>
@@ -1925,7 +1888,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">చెల్లింపు అభ్యర్ధన లోపం</translation>
     </message>
     <message>
-        <source>Cannot start bitcoinsilver: click-to-pay handler</source>
+        <source>Cannot start bitcoin: click-to-pay handler</source>
         <translation type="unfinished">బిట్‌కాయిన్‌ను ప్రారంభించడం సాధ్యం కాదు: క్లిక్-టు-పే హ్యాండ్లర్</translation>
     </message>
     <message>
@@ -1933,11 +1896,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">URI నిర్వహణ</translation>
     </message>
     <message>
-        <source>'bitcoinsilver://' is not a valid URI. Use 'bitcoinsilver:' instead.</source>
-        <translation type="unfinished">'bitcoinsilver://' చెల్లుబాటు అయ్యే URI కాదు. బదులుగా 'bitcoinsilver:' ఉపయోగించండి.</translation>
+        <source>'bitcoin://' is not a valid URI. Use 'bitcoin:' instead.</source>
+        <translation type="unfinished">'bitcoin://' చెల్లుబాటు అయ్యే URI కాదు. బదులుగా 'bitcoin:' ఉపయోగించండి.</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid BitcoinSilver address or malformed URI parameters.</source>
+        <source>URI cannot be parsed! This can be caused by an invalid Bitcoin address or malformed URI parameters.</source>
         <translation type="unfinished">URI అన్వయించబడదు! ఇది చెల్లని బిట్‌కాయిన్ చిరునామా లేదా తప్పుగా రూపొందించబడిన URI పారామీటర్‌ల వల్ల సంభవించవచ్చు.</translation>
     </message>
     <message>
@@ -2152,6 +2115,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;కాపీ చిరునామా</translation>
     </message>
     <message>
+        <source>None</source>
+        <translation type="unfinished">ఏదీ లేదు</translation>
+    </message>
+    <message>
         <source>To</source>
         <translation type="unfinished">కు</translation>
     </message>
@@ -2318,10 +2285,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>%1 (%2 blocks)</source>
         <translation type="unfinished">%1 (%2 బ్లాక్‌లు)</translation>
-    </message>
-    <message>
-        <source> from wallet '%1'</source>
-        <translation type="unfinished">వాలెట్ నుండి '%1'</translation>
     </message>
     <message>
         <source>%1 to '%2'</source>
@@ -2514,13 +2477,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     </context>
 <context>
-    <name>WalletModel</name>
-    <message>
-        <source>default wallet</source>
-        <translation type="unfinished">డిఫాల్ట్ వాలెట్</translation>
-    </message>
-</context>
-<context>
     <name>WalletView</name>
     <message>
         <source>&amp;Export</source>
@@ -2545,10 +2501,14 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
 </context>
 <context>
-    <name>bitcoinsilver-core</name>
+    <name>bitcoin-core</name>
     <message>
         <source>Cannot set -peerblockfilters without -blockfilterindex.</source>
         <translation type="unfinished">-blockfilterindex లేకుండా -peerblockfilters సెట్ చేయలేము.</translation>
+    </message>
+    <message>
+        <source>default wallet</source>
+        <translation type="unfinished">డిఫాల్ట్ వాలెట్</translation>
     </message>
     <message>
         <source>Error reading from database, shutting down.</source>
@@ -2603,10 +2563,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ఇది ప్రతి లావాదేవీకి మీరు చెల్లించే కనీస లావాదేవీ రుసుము.</translation>
     </message>
     <message>
-        <source>This is the transaction fee you will pay if you send a transaction.</source>
-        <translation type="unfinished">మీరు లావాదేవీని పంపితే మీరు చెల్లించే లావాదేవీ రుసుము ఇది.</translation>
-    </message>
-    <message>
         <source>Transaction amount too small</source>
         <translation type="unfinished">లావాదేవీ మొత్తం చాలా చిన్నది</translation>
     </message>
@@ -2619,10 +2575,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">లావాదేవీ మార్పు అవుట్‌పుట్ సూచిక పరిధి వెలుపల ఉంది</translation>
     </message>
     <message>
-        <source>Transaction has too long of a mempool chain</source>
-        <translation type="unfinished">లావాదేవీ మెంపూల్ చైన్‌లో చాలా పొడవుగా ఉంది</translation>
-    </message>
-    <message>
         <source>Transaction must have at least one recipient</source>
         <translation type="unfinished">లావాదేవీకి కనీసం ఒక గ్రహీత ఉండాలి</translation>
     </message>
@@ -2633,10 +2585,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Transaction too large</source>
         <translation type="unfinished">లావాదేవీ చాలా పెద్దది</translation>
-    </message>
-    <message>
-        <source>Unable to allocate memory for -maxsigcachesize: '%s' MiB</source>
-        <translation type="unfinished">-maxsigcacheize కోసం మెమరీని కేటాయించడం సాధ్యం కాలేదు: '%s' MiB</translation>
     </message>
     <message>
         <source>Unable to bind to %s on this computer (bind returned error %s)</source>
@@ -2655,14 +2603,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">బాహ్య ఇన్‌పుట్ కోసం UTXOని కనుగొనడం సాధ్యం కాలేదు</translation>
     </message>
     <message>
-        <source>Unable to generate initial keys</source>
-        <translation type="unfinished">ప్రారంభ కీలను రూపొందించడం సాధ్యం కాలేదు</translation>
-    </message>
-    <message>
-        <source>Unable to generate keys</source>
-        <translation type="unfinished">కీలను రూపొందించడం సాధ్యం కాలేదు</translation>
-    </message>
-    <message>
         <source>Unable to open %s for writing</source>
         <translation type="unfinished">వ్రాయుటకు %s తెరవుట కుదరలేదు</translation>
     </message>
@@ -2673,10 +2613,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Unable to start HTTP server. See debug log for details.</source>
         <translation type="unfinished">HTTP సర్వర్‌ని ప్రారంభించడం సాధ్యం కాలేదు. వివరాల కోసం డీబగ్ లాగ్ చూడండి.</translation>
-    </message>
-    <message>
-        <source>Unable to unload the wallet before migrating</source>
-        <translation type="unfinished">తరలించడానికి ముందు వాలెట్‌ని అన్‌లోడ్ చేయడం సాధ్యపడలేదు</translation>
     </message>
     <message>
         <source>Unknown -blockfilterindex value %s.</source>

@@ -1,12 +1,21 @@
-// Copyright (c) 2023 The Bitcoin Core developers
+// Copyright (c) 2023-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <bench/bench.h>
 #include <kernel/disconnected_transactions.h>
 #include <primitives/block.h>
-#include <test/util/random.h>
+#include <primitives/transaction.h>
+#include <script/script.h>
 #include <test/util/setup_common.h>
+
+#include <algorithm>
+#include <cassert>
+#include <cstddef>
+#include <cstdint>
+#include <iterator>
+#include <memory>
+#include <vector>
 
 constexpr size_t BLOCK_VTX_COUNT{4000};
 constexpr size_t BLOCK_VTX_COUNT_10PERCENT{400};
@@ -28,7 +37,7 @@ struct ReorgTxns {
 static BlockTxns CreateRandomTransactions(size_t num_txns)
 {
     // Ensure every transaction has a different txid by having each one spend the previous one.
-    static uint256 prevout_hash{uint256::ZERO};
+    static Txid prevout_hash{};
 
     BlockTxns txns;
     txns.reserve(num_txns);
@@ -73,7 +82,7 @@ static ReorgTxns CreateBlocks(size_t num_not_shared)
 
 static void Reorg(const ReorgTxns& reorg)
 {
-    DisconnectedBlockTransactions disconnectpool{MAX_DISCONNECTED_TX_POOL_SIZE * 1000};
+    DisconnectedBlockTransactions disconnectpool{MAX_DISCONNECTED_TX_POOL_BYTES};
     // Disconnect block
     const auto evicted = disconnectpool.AddTransactionsFromBlock(reorg.disconnected_txns);
     assert(evicted.empty());
@@ -125,6 +134,6 @@ static void AddAndRemoveDisconnectedBlockTransactions10(benchmark::Bench& bench)
     });
 }
 
-BENCHMARK(AddAndRemoveDisconnectedBlockTransactionsAll, benchmark::PriorityLevel::HIGH);
-BENCHMARK(AddAndRemoveDisconnectedBlockTransactions90, benchmark::PriorityLevel::HIGH);
-BENCHMARK(AddAndRemoveDisconnectedBlockTransactions10, benchmark::PriorityLevel::HIGH);
+BENCHMARK(AddAndRemoveDisconnectedBlockTransactionsAll);
+BENCHMARK(AddAndRemoveDisconnectedBlockTransactions90);
+BENCHMARK(AddAndRemoveDisconnectedBlockTransactions10);

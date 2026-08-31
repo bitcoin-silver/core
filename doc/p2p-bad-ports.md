@@ -87,10 +87,14 @@ incoming connections.
     1720:  h323hostcall
     1723:  pptp
     2049:  nfs
+    3306:  MySQL
+    3389:  RDP / Windows Remote Desktop
     3659:  apple-sasl / PasswordServer
     4045:  lockd
     5060:  sip
     5061:  sips
+    5432:  PostgreSQL
+    5900:  VNC
     6000:  X11
     6566:  sane-port
     6665:  Alternate IRC
@@ -100,12 +104,13 @@ incoming connections.
     6669:  Alternate IRC
     6697:  IRC + TLS
     10080: Amanda
+    27017: MongoDB
 
 For further information see:
 
-[pull/23306](https://github.com/MrVistos/bitcoinsilver/pull/23306#issuecomment-947516736)
+[pull/23306](https://github.com/bitcoin/bitcoin/pull/23306#issuecomment-947516736)
 
-[pull/23542](https://github.com/MrVistos/bitcoinsilver/pull/23542)
+[pull/23542](https://github.com/bitcoin/bitcoin/pull/23542)
 
 [fetch.spec.whatwg.org](https://fetch.spec.whatwg.org/#port-blocking)
 

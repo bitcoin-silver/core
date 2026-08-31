@@ -14,10 +14,6 @@
         <translation type="unfinished">&amp;חדש</translation>
     </message>
     <message>
-        <source>Copy the currently selected address to the system clipboard</source>
-        <translation type="unfinished">העתק את הכתובת המסומנת ללוח</translation>
-    </message>
-    <message>
         <source>&amp;Copy</source>
         <translation type="unfinished">&amp;העתקה</translation>
     </message>
@@ -58,11 +54,11 @@
         <translation type="unfinished">&amp;בחירה</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation type="unfinished">אלה כתובות הביטקוין שלך לשליחת תשלומים. חשוב לבדוק את הסכום ואת הכתובת המקבלת לפני שליחת מטבעות.</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">אלה כתובת הביטקוין שלך לקבלת תשלומים. ניתן להשתמש בכפתור „יצירת כתובת קבלה חדשה” בלשונית הקבלה ליצירת כתובות חדשות.
 חתימה אפשרית רק עבור כתובות מסוג „legacy”.</translation>
@@ -164,7 +160,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">אישור הצפנת הארנק</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINSILVERS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
         <translation type="unfinished">אזהרה: הצפנת הארנק שלך ושיכחת הסיסמה &lt;b&gt;תגרום לאיבוד כל הביטקוינים שלך&lt;/b&gt;!</translation>
     </message>
     <message>
@@ -182,6 +178,14 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Enter the old passphrase and new passphrase for the wallet.</source>
         <translation type="unfinished">נא לספק את הסיסמה הישנה ולתת סיסמה חדשה לארנק.</translation>
+    </message>
+    <message>
+        <source>Continue</source>
+        <translation type="unfinished">המשך</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished">חזרה</translation>
     </message>
     <message>
         <source>Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
@@ -295,7 +299,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">סכום</translation>
     </message>
     <message>
-        <source>Enter a BitcoinSilver address (e.g. %1)</source>
+        <source>Enter a Bitcoin address (e.g. %1)</source>
         <translation type="unfinished">נא לספק כתובת ביטקוין (למשל: %1)</translation>
     </message>
     <message>
@@ -398,6 +402,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>%1 GB</source>
         <translation type="unfinished">%1 ג״ב</translation>
     </message>
+    <message>
+        <source>default wallet</source>
+        <translation type="unfinished">ארנק בררת מחדל</translation>
+    </message>
 </context>
 <context>
     <name>BitcoinGUI</name>
@@ -467,7 +475,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">שרת הפרוקסי &lt;b&gt;פעיל&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a BitcoinSilver address</source>
+        <source>Send coins to a Bitcoin address</source>
         <translation type="unfinished">שליחת מטבעות לכתובת ביטקוין</translation>
     </message>
     <message>
@@ -511,7 +519,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;חתימה על הודעה…</translation>
     </message>
     <message>
-        <source>Sign messages with your BitcoinSilver addresses to prove you own them</source>
+        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
         <translation type="unfinished">חתום על הודעות עם כתובות הביטקוין שלך כדי להוכיח שהן בבעלותך</translation>
     </message>
     <message>
@@ -519,7 +527,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;אשר הודעה</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified BitcoinSilver addresses</source>
+        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
         <translation type="unfinished">אמת הודעות כדי להבטיח שהן נחתמו עם כתובת ביטקוין מסוימות</translation>
     </message>
     <message>
@@ -579,8 +587,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">מתחבר לעמיתים</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoinsilver: URIs)</source>
-        <translation type="unfinished">בקשת תשלומים (יצירה של קודים מסוג QR וסכימות כתובות משאב של :bitcoinsilver)</translation>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
+        <translation type="unfinished">בקשת תשלומים (יצירה של קודים מסוג QR וסכימות כתובות משאב של :bitcoin)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -634,7 +642,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">עדכני</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction</source>
+        <source>Load Partially Signed Bitcoin Transaction</source>
         <translation type="unfinished">העלה עיסקת ביטקוין חתומה חלקית</translation>
     </message>
     <message>
@@ -642,7 +650,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">העלאת PSBT מהקליפבורד...</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction from clipboard</source>
+        <source>Load Partially Signed Bitcoin Transaction from clipboard</source>
         <translation type="unfinished">טעינת עסקת ביטקוין חתומה חלקית מלוח הגזירים</translation>
     </message>
     <message>
@@ -662,7 +670,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;כתובות לקבלה</translation>
     </message>
     <message>
-        <source>Open a bitcoinsilver: URI</source>
+        <source>Open a bitcoin: URI</source>
         <translation type="unfinished">פתיחת ביטקוין: כתובת משאב</translation>
     </message>
     <message>
@@ -692,7 +700,15 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">סגירת כל הארנקים</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible BitcoinSilver command-line options</source>
+        <source>Migrate Wallet</source>
+        <translation type="unfinished">הסבת ארנק</translation>
+    </message>
+    <message>
+        <source>Migrate a wallet</source>
+        <translation type="unfinished">הסבת ארנק לביטקוין</translation>
+    </message>
+    <message>
+        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
         <translation type="unfinished">יש להציג את הודעת העזרה של %1 כדי להציג רשימה עם אפשרויות שורת פקודה לביטקוין</translation>
     </message>
     <message>
@@ -703,10 +719,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>Mask the values in the Overview tab</source>
         <translation type="unfinished">הסווה את הערכים בלשונית התיאור הכללי
 </translation>
-    </message>
-    <message>
-        <source>default wallet</source>
-        <translation type="unfinished">ארנק בררת מחדל</translation>
     </message>
     <message>
         <source>No wallets available</source>
@@ -757,7 +769,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ה&amp;צגה</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
             <numerusform />
@@ -791,6 +803,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Error: %1</source>
         <translation type="unfinished">שגיאה: %1</translation>
+    </message>
+    <message>
+        <source>Warning: %1</source>
+        <translation type="unfinished">אזהרה: %1</translation>
     </message>
     <message>
         <source>Date: %1
@@ -1006,6 +1022,22 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>Create wallet warning</source>
         <translation type="unfinished">אזהרה לגבי יצירת הארנק</translation>
     </message>
+    <message>
+        <source>Too many external signers found</source>
+        <translation type="unfinished">נמצאו יותר מדי חותמים חיצוניים</translation>
+    </message>
+</context>
+<context>
+    <name>MigrateWalletActivity</name>
+    <message>
+        <source>Migrate Wallet</source>
+        <translation type="unfinished">הסבת ארנק</translation>
+    </message>
+    <message>
+        <source>Restore Wallet</source>
+        <extracomment>Title of progress window which is displayed when wallets are being restored.</extracomment>
+        <translation type="unfinished">שחזור ארנק</translation>
+    </message>
     </context>
 <context>
     <name>OpenWalletActivity</name>
@@ -1016,10 +1048,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Open wallet warning</source>
         <translation type="unfinished">אזהרת פתיחת ארנק</translation>
-    </message>
-    <message>
-        <source>default wallet</source>
-        <translation type="unfinished">ארנק בררת מחדל</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -1098,12 +1126,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">השבתת מפתחות פרטיים</translation>
     </message>
     <message>
-        <source>Make a blank wallet. Blank wallets do not initially have private keys or scripts. Private keys and addresses can be imported, or an HD seed can be set, at a later time.</source>
-        <translation type="unfinished">הכינו ארנק ריק. ארנקים ריקים הנם ללא מפתחות פרטיים ראשוניים או סקריפטים. מפתחות פרטיים או כתובות ניתנים לייבוא, או שניתן להגדיר מקור HD במועד מאוחר יותר. </translation>
-    </message>
-    <message>
         <source>Make Blank Wallet</source>
         <translation type="unfinished">יצירת ארנק ריק</translation>
+    </message>
+    <message>
+        <source>External signer</source>
+        <translation type="unfinished">חותם חיצוני</translation>
     </message>
     <message>
         <source>Create</source>
@@ -1145,7 +1173,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">עריכת כתובת השליחה</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid BitcoinSilver address.</source>
+        <source>The entered address "%1" is not a valid Bitcoin address.</source>
         <translation type="unfinished">הכתובת שסיפקת "%1" אינה כתובת ביטקוין תקנית.</translation>
     </message>
     <message>
@@ -1189,64 +1217,29 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
 </context>
 <context>
+    <name>HelpMessageDialog</name>
+    <message>
+        <source>version</source>
+        <translation type="unfinished">גרסה</translation>
+    </message>
+    <message>
+        <source>About %1</source>
+        <translation type="unfinished">על אודות %1</translation>
+    </message>
+    <message>
+        <source>Command-line options</source>
+        <translation type="unfinished">אפשרויות שורת פקודה</translation>
+    </message>
+</context>
+<context>
+    <name>ShutdownWindow</name>
+    <message>
+        <source>Do not shut down the computer until this window disappears.</source>
+        <translation type="unfinished">אין לכבות את המחשב עד שחלון זה נעלם.</translation>
+    </message>
+</context>
+<context>
     <name>Intro</name>
-    <message>
-        <source>BitcoinSilver</source>
-        <translation type="unfinished">ביטקוין</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n GB of space available</source>
-        <translation type="unfinished">
-            <numerusform />
-            <numerusform />
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>(of %n GB needed)</source>
-        <translation type="unfinished">
-            <numerusform>(מתוך %n ג׳יגה-בייט נדרשים)</numerusform>
-            <numerusform>(מתוך %n ג׳יגה-בייט נדרשים)</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>(%n GB needed for full chain)</source>
-        <translation type="unfinished">
-            <numerusform>(ג׳יגה-בייט %n נדרש לשרשרת המלאה)</numerusform>
-            <numerusform>(%n ג׳יגה-בייט נדרשים לשרשרת המלאה)</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
-        <translation type="unfinished">לפחות %1 ג״ב של נתונים יאוחסנו בתיקייה זו, והם יגדלו עם הזמן.</translation>
-    </message>
-    <message>
-        <source>Approximately %1 GB of data will be stored in this directory.</source>
-        <translation type="unfinished">מידע בנפח של כ-%1 ג׳יגה-בייט יאוחסן בתיקייה זו.</translation>
-    </message>
-    <message numerus="yes">
-        <source>(sufficient to restore backups %n day(s) old)</source>
-        <extracomment>Explanatory text on the capability of the current prune target.</extracomment>
-        <translation type="unfinished">
-            <numerusform />
-            <numerusform />
-        </translation>
-    </message>
-    <message>
-        <source>%1 will download and store a copy of the BitcoinSilver block chain.</source>
-        <translation type="unfinished">%1 תוריד ותאחסן עותק של שרשרת הבלוקים של ביטקוין.</translation>
-    </message>
-    <message>
-        <source>The wallet will also be stored in this directory.</source>
-        <translation type="unfinished">הארנק גם מאוחסן בתיקייה הזו.</translation>
-    </message>
-    <message>
-        <source>Error: Specified data directory "%1" cannot be created.</source>
-        <translation type="unfinished">שגיאה: לא ניתן ליצור את תיקיית הנתונים שצוינה „%1“.</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation type="unfinished">שגיאה</translation>
-    </message>
     <message>
         <source>Welcome</source>
         <translation type="unfinished">ברוך בואך</translation>
@@ -1287,27 +1280,62 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>Use a custom data directory:</source>
         <translation type="unfinished">שימוש בתיקיית נתונים מותאמת אישית:</translation>
     </message>
-</context>
-<context>
-    <name>HelpMessageDialog</name>
     <message>
-        <source>version</source>
-        <translation type="unfinished">גרסה</translation>
+        <source>Bitcoin</source>
+        <translation type="unfinished">ביטקוין</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n GB of space available</source>
+        <translation type="unfinished">
+            <numerusform />
+            <numerusform />
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>(of %n GB needed)</source>
+        <translation type="unfinished">
+            <numerusform>(מתוך %n ג׳יגה-בייט נדרשים)</numerusform>
+            <numerusform>(מתוך %n ג׳יגה-בייט נדרשים)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>(%n GB needed for full chain)</source>
+        <translation type="unfinished">
+            <numerusform>(ג׳יגה-בייט %n נדרש לשרשרת המלאה)</numerusform>
+            <numerusform>(%n ג׳יגה-בייט נדרשים לשרשרת המלאה)</numerusform>
+        </translation>
     </message>
     <message>
-        <source>About %1</source>
-        <translation type="unfinished">על אודות %1</translation>
+        <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
+        <translation type="unfinished">לפחות %1 ג״ב של נתונים יאוחסנו בתיקייה זו, והם יגדלו עם הזמן.</translation>
     </message>
     <message>
-        <source>Command-line options</source>
-        <translation type="unfinished">אפשרויות שורת פקודה</translation>
+        <source>Approximately %1 GB of data will be stored in this directory.</source>
+        <translation type="unfinished">מידע בנפח של כ-%1 ג׳יגה-בייט יאוחסן בתיקייה זו.</translation>
     </message>
-</context>
-<context>
-    <name>ShutdownWindow</name>
+    <message numerus="yes">
+        <source>(sufficient to restore backups %n day(s) old)</source>
+        <extracomment>Explanatory text on the capability of the current prune target.</extracomment>
+        <translation type="unfinished">
+            <numerusform />
+            <numerusform />
+        </translation>
+    </message>
     <message>
-        <source>Do not shut down the computer until this window disappears.</source>
-        <translation type="unfinished">אין לכבות את המחשב עד שחלון זה נעלם.</translation>
+        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
+        <translation type="unfinished">%1 תוריד ותאחסן עותק של שרשרת הבלוקים של ביטקוין.</translation>
+    </message>
+    <message>
+        <source>The wallet will also be stored in this directory.</source>
+        <translation type="unfinished">הארנק גם מאוחסן בתיקייה הזו.</translation>
+    </message>
+    <message>
+        <source>Error: Specified data directory "%1" cannot be created.</source>
+        <translation type="unfinished">שגיאה: לא ניתן ליצור את תיקיית הנתונים שצוינה „%1“.</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished">שגיאה</translation>
     </message>
 </context>
 <context>
@@ -1317,7 +1345,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">טופס</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoinsilver network, as detailed below.</source>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoin network, as detailed below.</source>
         <translation type="unfinished">ייתכן שהעברות שבוצעו לאחרונה לא יופיעו עדיין, ולכן המאזן בארנק שלך יהיה שגוי. המידע הנכון יוצג במלואו כאשר הארנק שלך יסיים להסתנכרן עם רשת הביטקוין, כמפורט למטה.</translation>
     </message>
     <message>
@@ -1360,7 +1388,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
 <context>
     <name>OpenURIDialog</name>
     <message>
-        <source>Open bitcoinsilver URI</source>
+        <source>Open bitcoin URI</source>
         <translation type="unfinished">פתיחת כתובת משאב ביטקוין</translation>
     </message>
     <message>
@@ -1468,14 +1496,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">עודף &amp;בלתי מאושר מההשקעה</translation>
     </message>
     <message>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation type="unfinished">פתיחת הפתחה של ביטקוין בנתב באופן אוטומטי. עובד רק אם UPnP מופעל ונתמך בנתב.</translation>
-    </message>
-    <message>
-        <source>Map port using &amp;UPnP</source>
-        <translation type="unfinished">מיפוי פתחה באמצעות UPnP</translation>
-    </message>
-    <message>
         <source>Accept connections from outside.</source>
         <translation type="unfinished">אשר חיבורים חיצוניים</translation>
     </message>
@@ -1484,7 +1504,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">לאפשר חיבורים &amp;נכנסים</translation>
     </message>
     <message>
-        <source>Connect to the BitcoinSilver network through a SOCKS5 proxy.</source>
+        <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
         <translation type="unfinished">התחבר לרשת הביטקוין דרך פרוקסי SOCKS5.</translation>
     </message>
     <message>
@@ -1548,7 +1568,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">האם להציג תכונות שליטת מטבע או לא.</translation>
     </message>
     <message>
-        <source>Connect to the BitcoinSilver network through a separate SOCKS5 proxy for Tor onion services.</source>
+        <source>Connect to the Bitcoin network through a separate SOCKS5 proxy for Tor onion services.</source>
         <translation type="unfinished">התחבר לרשת ביטקוין דרך פרוקסי נפרד SOCKS5 proxy לשרותי שכבות בצל (onion services).</translation>
     </message>
     <message>
@@ -1597,6 +1617,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">בקובץ ההגדרות ניתן לציין אפשרויות מתקדמות אשר יקבלו עדיפות על ההגדרות בממשק הגרפי. כמו כן, אפשרויות בשורת הפקודה יקבלו עדיפות על קובץ ההגדרות.</translation>
     </message>
     <message>
+        <source>Continue</source>
+        <translation type="unfinished">המשך</translation>
+    </message>
+    <message>
         <source>Cancel</source>
         <translation type="unfinished">ביטול</translation>
     </message>
@@ -1624,12 +1648,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">טופס</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BitcoinSilver network after a connection is established, but this process has not completed yet.</source>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
         <translation type="unfinished">המידע המוצג עשוי להיות מיושן. הארנק שלך מסתנכרן באופן אוטומטי עם רשת הביטקוין לאחר יצירת החיבור, אך התהליך טרם הסתיים.</translation>
-    </message>
-    <message>
-        <source>Watch-only:</source>
-        <translation type="unfinished">צפייה בלבד:</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1668,28 +1688,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">סך כל היתרה הנוכחית שלך</translation>
     </message>
     <message>
-        <source>Your current balance in watch-only addresses</source>
-        <translation type="unfinished">המאזן הנוכחי שלך בכתובות לקריאה בלבד</translation>
-    </message>
-    <message>
-        <source>Spendable:</source>
-        <translation type="unfinished">ניתנים לבזבוז:</translation>
-    </message>
-    <message>
         <source>Recent transactions</source>
         <translation type="unfinished">העברות אחרונות</translation>
-    </message>
-    <message>
-        <source>Unconfirmed transactions to watch-only addresses</source>
-        <translation type="unfinished">העברות בלתי מאושרות לכתובות לצפייה בלבד</translation>
-    </message>
-    <message>
-        <source>Mined balance in watch-only addresses that has not yet matured</source>
-        <translation type="unfinished">מאזן לאחר כרייה בכתובות לצפייה בלבד שעדיין לא הבשילו</translation>
-    </message>
-    <message>
-        <source>Current total balance in watch-only addresses</source>
-        <translation type="unfinished">המאזן הכולל הנוכחי בכתובות לצפייה בלבד</translation>
     </message>
     <message>
         <source>Privacy mode activated for the Overview tab. To unmask the values, uncheck Settings-&gt;Mask values.</source>
@@ -1730,9 +1730,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>Could not sign any more inputs.</source>
         <translation type="unfinished">לא ניתן לחתום קלטים נוספים.</translation>
     </message>
-    <message>
-        <source>Signed %1 inputs, but more signatures are still required.</source>
-        <translation type="unfinished">נחתם קלט  %1 אך יש צורך בחתימות נוספות.</translation>
+    <message numerus="yes">
+        <source>Signed %n input(s), but more signatures are still required.</source>
+        <translation type="unfinished">
+            <numerusform />
+            <numerusform />
+        </translation>
     </message>
     <message>
         <source>Signed transaction successfully. Transaction is ready to broadcast.</source>
@@ -1763,10 +1766,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">PSBT נשמרה לדיסק.</translation>
     </message>
     <message>
-        <source> * Sends %1 to %2</source>
-        <translation type="unfinished"> * שליחת %1 אל %2</translation>
-    </message>
-    <message>
         <source>own address</source>
         <translation type="unfinished">כתובת עצמית</translation>
     </message>
@@ -1786,9 +1785,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>or</source>
         <translation type="unfinished">או</translation>
     </message>
-    <message>
-        <source>Transaction has %1 unsigned inputs.</source>
-        <translation type="unfinished">לעיסקה יש  %1 קלטים לא חתומים.</translation>
+    <message numerus="yes">
+        <source>Transaction has %n unsigned input(s).</source>
+        <translation type="unfinished">
+            <numerusform />
+            <numerusform />
+        </translation>
     </message>
     <message>
         <source>Transaction is missing some information about inputs.</source>
@@ -1822,19 +1824,19 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">שגיאת בקשת תשלום</translation>
     </message>
     <message>
-        <source>Cannot start bitcoinsilver: click-to-pay handler</source>
-        <translation type="unfinished">לא ניתן להפעיל את המקשר bitcoinsilver: click-to-pay</translation>
+        <source>Cannot start bitcoin: click-to-pay handler</source>
+        <translation type="unfinished">לא ניתן להפעיל את המקשר bitcoin: click-to-pay</translation>
     </message>
     <message>
         <source>URI handling</source>
         <translation type="unfinished">טיפול בכתובות</translation>
     </message>
     <message>
-        <source>'bitcoinsilver://' is not a valid URI. Use 'bitcoinsilver:' instead.</source>
-        <translation type="unfinished">'//:bitcoinsilver' אינה כתובת תקנית. נא להשתמש ב־"bitcoinsilver:‎"‏ במקום.</translation>
+        <source>'bitcoin://' is not a valid URI. Use 'bitcoin:' instead.</source>
+        <translation type="unfinished">'//:bitcoin' אינה כתובת תקנית. נא להשתמש ב־"bitcoin:‎"‏ במקום.</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid BitcoinSilver address or malformed URI parameters.</source>
+        <source>URI cannot be parsed! This can be caused by an invalid Bitcoin address or malformed URI parameters.</source>
         <translation type="unfinished">לא ניתן לנתח את כתובת המשאב! מצב זה יכול לקרות עקב כתובת ביטקוין שגויה או פרמטרים שגויים בכתובת המשאב.</translation>
     </message>
     <message>
@@ -2013,10 +2015,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">גרסה</translation>
     </message>
     <message>
-        <source>Starting Block</source>
-        <translation type="unfinished">בלוק התחלה</translation>
-    </message>
-    <message>
         <source>Synced Headers</source>
         <translation type="unfinished">כותרות עדכניות</translation>
     </message>
@@ -2162,6 +2160,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">פעילות הרשת נוטרלה</translation>
     </message>
     <message>
+        <source>None</source>
+        <translation type="unfinished">ללא</translation>
+    </message>
+    <message>
         <source>Executing command without any wallet</source>
         <translation type="unfinished">מבצע פקודה ללא כל ארנק</translation>
     </message>
@@ -2213,7 +2215,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">הו&amp;דעה:</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the BitcoinSilver network.</source>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
         <translation type="unfinished">הודעת רשות לצירוף לבקשת התשלום שתוצג בעת פתיחת הבקשה. לתשומת לבך: ההודעה לא תישלח עם התשלום ברשת ביטקוין.</translation>
     </message>
     <message>
@@ -2458,7 +2460,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">הסתרת הגדרות עמלת עסקה</translation>
     </message>
     <message>
-        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoinsilver transactions than the network can process.</source>
+        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
         <translation type="unfinished">כאשר יש פחות נפח עסקאות מאשר מקום בבלוק, כורים וכן צמתות מקשרות יכולות להכתיב עמלות מינימום. התשלום של עמלת מינימום הנו תקין, אך יש לקחת בחשבון שהדבר יכול לגרום לעסקה שלא תאושר ברגע שיש יותר ביקוש לעסקאות ביטקוין מאשר הרשת יכולה לעבד.</translation>
     </message>
     <message>
@@ -2526,12 +2528,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">י&amp;צירת לא חתומה</translation>
     </message>
     <message>
-        <source>Creates a Partially Signed BitcoinSilver Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Creates a Partially Signed Bitcoin Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <translation type="unfinished">יוצר עסקת ביטקוין חתומה חלקית (PSBT) לשימוש עם ארנק %1 לא מחובר למשל, או עם PSBT ארנק חומרה תואם.</translation>
-    </message>
-    <message>
-        <source> from wallet '%1'</source>
-        <translation type="unfinished">מתוך ארנק "%1"</translation>
     </message>
     <message>
         <source>%1 to '%2'</source>
@@ -2563,7 +2561,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">תוכלו להגדיל את העמלה מאוחר יותר (איתות Replace-By-Fee, BIP-125).</translation>
     </message>
     <message>
-        <source>Please, review your transaction proposal. This will produce a Partially Signed BitcoinSilver Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction proposal. This will produce a Partially Signed Bitcoin Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can only create a PSBT. This string is displayed when private keys are disabled and an external signer is not available.</extracomment>
         <translation type="unfinished">בבקשה לסקור את העיסקה המוצעת. הדבר יצור עיסקת ביטקוין חתומה חלקית (PSBT) אשר ניתן לשמור או להעתיק ואז לחתום עם למשל ארנק לא מקוון %1, או עם ארנק חומרה תואם-PSBT.</translation>
     </message>
@@ -2589,10 +2587,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">אימות שליחת מטבעות</translation>
     </message>
     <message>
-        <source>Watch-only balance:</source>
-        <translation type="unfinished">יתרת צפייה-בלבד</translation>
-    </message>
-    <message>
         <source>The recipient address is not valid. Please recheck.</source>
         <translation type="unfinished">כתובת הנמען שגויה. נא לבדוק שוב.</translation>
     </message>
@@ -2603,10 +2597,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>The amount exceeds your balance.</source>
         <translation type="unfinished">הסכום חורג מהמאזן שלך.</translation>
-    </message>
-    <message>
-        <source>The total exceeds your balance when the %1 transaction fee is included.</source>
-        <translation type="unfinished">הסכום גבוה מהמאזן שלכם לאחר כלילת עמלת עסקה  %1.</translation>
     </message>
     <message>
         <source>Duplicate address found: addresses should only be used once each.</source>
@@ -2628,7 +2618,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         </translation>
     </message>
     <message>
-        <source>Warning: Invalid BitcoinSilver address</source>
+        <source>Warning: Invalid Bitcoin address</source>
         <translation type="unfinished">אזהרה: כתובת ביטקיון שגויה</translation>
     </message>
     <message>
@@ -2667,7 +2657,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">בחירת כתובת שהייתה בשימוש</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address to send the payment to</source>
+        <source>The Bitcoin address to send the payment to</source>
         <translation type="unfinished">כתובת הביטקוין של המוטב</translation>
     </message>
     <message>
@@ -2703,7 +2693,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">יש לתת תווית לכתובת זו כדי להוסיף אותה לרשימת הכתובות בשימוש</translation>
     </message>
     <message>
-        <source>A message that was attached to the bitcoinsilver: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the BitcoinSilver network.</source>
+        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
         <translation type="unfinished">הודעה שצורפה לביטקוין: כתובת שתאוחסן בהעברה לצורך מעקב מצדך. לתשומת לבך: הודעה זו לא תישלח ברשת הביטקוין.</translation>
     </message>
 </context>
@@ -2729,11 +2719,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">חתימה על הו&amp;דעה</translation>
     </message>
     <message>
-        <source>You can sign messages/agreements with your addresses to prove you can receive bitcoins sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
-        <translation type="unfinished">אפשר לחתום על הודעות/הסכמים באמצעות הכתובות שלך, כדי להוכיח שבאפשרותך לקבל את הביטקוינים הנשלחים אליהן. יש להיזהר ולא לחתום על תוכן עמום או אקראי, מכיוון שתקיפות דיוג עשויות לנסות לגנוב את זהותך. יש לחתום רק על הצהרות מפורטות שהנך מסכים/ה להן.</translation>
-    </message>
-    <message>
-        <source>The BitcoinSilver address to sign the message with</source>
+        <source>The Bitcoin address to sign the message with</source>
         <translation type="unfinished">כתובת הביטקוין איתה לחתום את ההודעה</translation>
     </message>
     <message>
@@ -2753,11 +2739,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">חתימה</translation>
     </message>
     <message>
-        <source>Copy the current signature to the system clipboard</source>
-        <translation type="unfinished">העתקת החתימה הנוכחית ללוח הגזירים</translation>
-    </message>
-    <message>
-        <source>Sign the message to prove you own this BitcoinSilver address</source>
+        <source>Sign the message to prove you own this Bitcoin address</source>
         <translation type="unfinished">ניתן לחתום על ההודעה כדי להוכיח שכתובת ביטקוין זו בבעלותך</translation>
     </message>
     <message>
@@ -2781,7 +2763,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">יש להזין את כתובת הנמען, ההודעה (נא לוודא שהעתקת במדויק את תווי קפיצות השורה, רווחים, טאבים וכדומה). והחתימה מתחת אשר מאמתת את ההודעה. יש להיזהר שלא לקרוא לתוך החתימה יותר מאשר בהודעה החתומה עצמה, כדי להימנע מניצול לרעה של המתווך שבדרך. יש לשים לב שהדבר רק מוכיח שהצד החותם מקבל עם הכתובת. הדבר אינו מוכיח משלוח כלשהו של עסקה!</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address the message was signed with</source>
+        <source>The Bitcoin address the message was signed with</source>
         <translation type="unfinished">כתובת הביטקוין שאיתה נחתמה ההודעה</translation>
     </message>
     <message>
@@ -2793,7 +2775,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">החתימה שניתנת כאשר ההודעה נחתמה</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified BitcoinSilver address</source>
+        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
         <translation type="unfinished">ניתן לאמת את ההודעה כדי להבטיח שהיא נחתמה עם כתובת הביטקוין הנתונה</translation>
     </message>
     <message>
@@ -2815,10 +2797,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Please check the address and try again.</source>
         <translation type="unfinished">נא לבדוק את הכתובת ולנסות שוב.</translation>
-    </message>
-    <message>
-        <source>The entered address does not refer to a key.</source>
-        <translation type="unfinished">הכתובת שסיפקת לא מתייחסת למפתח.</translation>
     </message>
     <message>
         <source>Wallet unlock was cancelled.</source>
@@ -2916,10 +2894,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">כתובת עצמית</translation>
     </message>
     <message>
-        <source>watch-only</source>
-        <translation type="unfinished">צפייה בלבד</translation>
-    </message>
-    <message>
         <source>label</source>
         <translation type="unfinished">תווית</translation>
     </message>
@@ -2981,10 +2955,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Output index</source>
         <translation type="unfinished">מפתח פלט</translation>
-    </message>
-    <message>
-        <source> (Certificate was not verified)</source>
-        <translation type="unfinished">(האישור לא אומת)</translation>
     </message>
     <message>
         <source>Merchant</source>
@@ -3089,10 +3059,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">נכרו</translation>
     </message>
     <message>
-        <source>watch-only</source>
-        <translation type="unfinished">צפייה בלבד</translation>
-    </message>
-    <message>
         <source>(n/a)</source>
         <translation type="unfinished">(לא זמין)</translation>
     </message>
@@ -3111,10 +3077,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Type of transaction.</source>
         <translation type="unfinished">סוג ההעברה.</translation>
-    </message>
-    <message>
-        <source>Whether or not a watch-only address is involved in this transaction.</source>
-        <translation type="unfinished">האם כתובת לצפייה בלבד כלולה בעסקה זו.</translation>
     </message>
     <message>
         <source>User-defined intent/purpose of the transaction.</source>
@@ -3199,10 +3161,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Confirmed</source>
         <translation type="unfinished">מאושרת</translation>
-    </message>
-    <message>
-        <source>Watch-only</source>
-        <translation type="unfinished">צפייה בלבד</translation>
     </message>
     <message>
         <source>Date</source>
@@ -3339,11 +3297,7 @@ Go to File &gt; Open Wallet to load a wallet.
         <source>Could not commit transaction</source>
         <translation type="unfinished">שילוב העסקה נכשל</translation>
     </message>
-    <message>
-        <source>default wallet</source>
-        <translation type="unfinished">ארנק בררת מחדל</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>WalletView</name>
     <message>
@@ -3385,30 +3339,22 @@ Go to File &gt; Open Wallet to load a wallet.
     </message>
 </context>
 <context>
-    <name>bitcoinsilver-core</name>
+    <name>bitcoin-core</name>
     <message>
         <source>The %s developers</source>
         <translation type="unfinished">ה %s מפתחים</translation>
-    </message>
-    <message>
-        <source>%s corrupt. Try using the wallet tool bitcoinsilver-wallet to salvage or restoring a backup.</source>
-        <translation type="unfinished">%s משובש. נסו להשתמש בכלי הארנק bitcoinsilver-wallet כדי להציל או לשחזר מגיבוי..</translation>
     </message>
     <message>
         <source>Distributed under the MIT software license, see the accompanying file %s or %s</source>
         <translation type="unfinished">מופץ תחת רשיון התוכנה של MIT, ראה קובץ מלווה  %s או %s</translation>
     </message>
     <message>
-        <source>Please check that your computer's date and time are correct! If your clock is wrong, %s will not work properly.</source>
-        <translation type="unfinished">נא בדקו שהתאריך והשעה במחשב שלכם נכונים! אם השעון שלכם לא מסונכרן, %s לא יעבוד כהלכה.</translation>
+        <source>Please contribute if you find %s useful. Visit %s for further information about the software.</source>
+        <translation type="unfinished">נא לשקול לתרום אם %s שימושי בשבילך. יש לבקר ב־ %s למידע נוסף על התוכנה.</translation>
     </message>
     <message>
         <source>Prune configured below the minimum of %d MiB.  Please use a higher number.</source>
         <translation type="unfinished">הגיזום הוגדר כפחות מהמינימום של  %d MiB. נא להשתמש במספר גבוה יותר.</translation>
-    </message>
-    <message>
-        <source>Prune: last wallet synchronisation goes beyond pruned data. You need to -reindex (download the whole blockchain again in case of pruned node)</source>
-        <translation type="unfinished">גיזום: הסינכרון האחרון של הארנק עובר את היקף הנתונים שנגזמו. יש לבצע חידוש אידקסציה (נא להוריד את כל שרשרת הבלוקים שוב במקרה של צומת מקוצצת)</translation>
     </message>
     <message>
         <source>The block database contains a block which appears to be from the future. This may be due to your computer's date and time being set incorrectly. Only rebuild the block database if you are sure that your computer's date and time are correct</source>
@@ -3417,10 +3363,6 @@ Go to File &gt; Open Wallet to load a wallet.
     <message>
         <source>The transaction amount is too small to send after the fee has been deducted</source>
         <translation type="unfinished">סכום העברה נמוך מדי לשליחה אחרי גביית העמלה</translation>
-    </message>
-    <message>
-        <source>This error could occur if this wallet was not shutdown cleanly and was last loaded using a build with a newer version of Berkeley DB. If so, please use the software that last loaded this wallet</source>
-        <translation type="unfinished">שגיאה זו יכלה לקרות אם הארנק לא נסגר באופן נקי והועלה לאחרונה עם מבנה מבוסס גירסת Berkeley DB חדשה יותר. במקרה זה, יש להשתמש בתוכנה אשר טענה את הארנק בפעם האחרונה.</translation>
     </message>
     <message>
         <source>This is a pre-release test build - use at your own risk - do not use for mining or merchant applications</source>
@@ -3451,10 +3393,6 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation type="unfinished">אזהרה: זוהו מפתחות פרטיים בארנק {%s} עם מפתחות פרטיים מושבתים</translation>
     </message>
     <message>
-        <source>Warning: We do not appear to fully agree with our peers! You may need to upgrade, or other nodes may need to upgrade.</source>
-        <translation type="unfinished">אזהרה: יתכן שלא נסכים לגמרי עם עמיתינו! יתכן שתצטרכו לשדרג או שצמתות אחרות יצטרכו לשדרג.</translation>
-    </message>
-    <message>
         <source>You need to rebuild the database using -reindex to go back to unpruned mode.  This will redownload the entire blockchain</source>
         <translation type="unfinished">יש צורך בבניה מחדש של מסד הנתונים ע"י שימוש ב -reindex כדי לחזור חזרה לצומת שאינה גזומה.  הפעולה תוריד מחדש את כל שרשרת הבלוקים.</translation>
     </message>
@@ -3467,10 +3405,6 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation type="unfinished">‎-maxmempool חייב להיות לפחות %d מ״ב</translation>
     </message>
     <message>
-        <source>A fatal internal error occurred, see debug.log for details</source>
-        <translation type="unfinished">שגיאה פטלית פנימית אירעה, לפירוט ראה את לוג הדיבאג.</translation>
-    </message>
-    <message>
         <source>Cannot resolve -%s address: '%s'</source>
         <translation type="unfinished">לא מצליח לפענח -%s כתובת: '%s'</translation>
     </message>
@@ -3479,8 +3413,8 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation type="unfinished">לא מצליח להגדיר את  -peerblockfilters ללא-blockfilterindex.</translation>
     </message>
     <message>
-        <source>Cannot write to data directory '%s'; check permissions.</source>
-        <translation type="unfinished">לא ניתן לכתוב אל תיקיית הנתונים ‚%s’, נא לבדוק את ההרשאות.</translation>
+        <source>default wallet</source>
+        <translation type="unfinished">ארנק בררת מחדל</translation>
     </message>
     <message>
         <source>Config setting for %s only applied on %s network when in [%s] section.</source>
@@ -3507,10 +3441,6 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation type="unfinished">אין מספיק מקום בכונן!</translation>
     </message>
     <message>
-        <source>Do you want to rebuild the block database now?</source>
-        <translation type="unfinished">האם לבנות מחדש את מסד נתוני המקטעים?</translation>
-    </message>
-    <message>
         <source>Done loading</source>
         <translation type="unfinished">הטעינה הושלמה</translation>
     </message>
@@ -3519,16 +3449,8 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation type="unfinished">שגיאה באתחול מסד נתוני המקטעים</translation>
     </message>
     <message>
-        <source>Error initializing wallet database environment %s!</source>
-        <translation type="unfinished">שגיאה באתחול סביבת מסד נתוני הארנקים %s!</translation>
-    </message>
-    <message>
         <source>Error loading %s</source>
         <translation type="unfinished">שגיאה בטעינת %s</translation>
-    </message>
-    <message>
-        <source>Error loading %s: Private keys can only be disabled during creation</source>
-        <translation type="unfinished">שגיאת טעינה %s: מפתחות פרטיים ניתנים לניטרול רק בעת תהליך היצירה</translation>
     </message>
     <message>
         <source>Error loading %s: Wallet corrupted</source>
@@ -3615,10 +3537,6 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation type="unfinished">יש לציין פתחה עם ‎-whitebind:‏ '%s'</translation>
     </message>
     <message>
-        <source>Not enough file descriptors available.</source>
-        <translation type="unfinished">אין מספיק מידע על הקובץ</translation>
-    </message>
-    <message>
         <source>Prune cannot be configured with a negative value.</source>
         <translation type="unfinished">לא ניתן להגדיר גיזום כערך שלילי</translation>
     </message>
@@ -3675,20 +3593,12 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation type="unfinished">זו עמלת ההעברה המזערית שתיגבה מכל העברה שלך.</translation>
     </message>
     <message>
-        <source>This is the transaction fee you will pay if you send a transaction.</source>
-        <translation type="unfinished">זו עמלת ההעברה שתיגבה ממך במידה של שליחת העברה.</translation>
-    </message>
-    <message>
         <source>Transaction amount too small</source>
         <translation type="unfinished">סכום ההעברה קטן מדי</translation>
     </message>
     <message>
         <source>Transaction amounts must not be negative</source>
         <translation type="unfinished">סכומי ההעברה לא יכולים להיות שליליים</translation>
-    </message>
-    <message>
-        <source>Transaction has too long of a mempool chain</source>
-        <translation type="unfinished">לעסקה יש שרשרת ארוכה מדי של mempool </translation>
     </message>
     <message>
         <source>Transaction must have at least one recipient</source>
@@ -3709,14 +3619,6 @@ Go to File &gt; Open Wallet to load a wallet.
     <message>
         <source>Unable to create the PID file '%s': %s</source>
         <translation type="unfinished">אין אפשרות ליצור את קובץ PID‏ '%s':‏ %s</translation>
-    </message>
-    <message>
-        <source>Unable to generate initial keys</source>
-        <translation type="unfinished">אין אפשרות ליצור מפתחות ראשוניים</translation>
-    </message>
-    <message>
-        <source>Unable to generate keys</source>
-        <translation type="unfinished">כשל בהפקת מפתחות</translation>
     </message>
     <message>
         <source>Unable to start HTTP server. See debug log for details.</source>

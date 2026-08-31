@@ -3,7 +3,7 @@
     <name>AddressBookPage</name>
     <message>
         <source>Right-click to edit address or label</source>
-        <translation type="unfinished">დააჭირეთ მარჯვენა ღილაკს მისამართის ან ლეიბლის ჩასასწორებლად</translation>
+        <translation type="unfinished">დააჭირეთ მარჯვენა ღილაკს მისამართის ან ნიშნულის ჩასასწორებლად</translation>
     </message>
     <message>
         <source>Create a new address</source>
@@ -12,10 +12,6 @@
     <message>
         <source>&amp;New</source>
         <translation type="unfinished">&amp;ახალი</translation>
-    </message>
-    <message>
-        <source>Copy the currently selected address to the system clipboard</source>
-        <translation type="unfinished">მონიშნული მისამართის კოპირება სისტემის მეხსიერების ბუფერში</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -58,11 +54,11 @@
         <translation type="unfinished">&amp;არჩევა</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">ეს არის თქვენი ბიტკოინ-მისამართები გადარიცხვებისათვის. აუცილებლად შეამოწმეთ მითითებული თანხა და მიმღები მისამართი კოინების გადარიცხვამდე.</translation>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">ეს არის თქვენი ბიტკოინ-მისამართები გადარიცხვებისათვის. კოინების გადარიცხვამდე აუცილებლად შეამოწმეთ მითითებული თანხა და მიმღები მისამართი.</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ეს თქვენი ბიტკოინის მიმღები მიმსამართებია. ისარგებლეთ ღილაკით "შექმენით ახალი მიმღები მისამართები", როემლიც მოცემულია მიმღების ჩანართში ახალი მისამართების შესაქმნელად.
 ხელმოწერა მხოლოდ "მემკვიდრეობის" ტიპის მისამართებთანაა შესაძლებელი.</translation>
@@ -92,6 +88,14 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>There was an error trying to save the address list to %1. Please try again.</source>
         <extracomment>An error message. %1 is a stand-in argument for the name of the file we attempted to save to.</extracomment>
         <translation type="unfinished">მისამართების სიის %1 შენახვა ვერ მოხერხდა. თავიდან სცადეთ.</translation>
+    </message>
+    <message>
+        <source>Sending addresses - %1</source>
+        <translation type="unfinished">გასაგზავნი მისამართები - %1</translation>
+    </message>
+    <message>
+        <source>Receiving addresses - %1</source>
+        <translation type="unfinished">მიმღები მისამართები - %1</translation>
     </message>
     <message>
         <source>Exporting Failed</source>
@@ -156,7 +160,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">საფულის დაშიფრვის დადასტურება</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINSILVERS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
         <translation type="unfinished">გაფრთხილება: თუ თქვენ დაშიფრავთ თქვენს საფულეს და ამის შემდეგ დაკარგავთ გასაშიფრ ფრაზას, &lt;b&gt;თქვენ დაკარგავთ ყველა ბიტკოინს!&lt;/b&gt;</translation>
     </message>
     <message>
@@ -174,6 +178,14 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Enter the old passphrase and new passphrase for the wallet.</source>
         <translation type="unfinished">შეიყვანეთ ძველი საიდუმლო ფრაზა და ახალი საიდუმლო ფრაზა საფულისთვის</translation>
+    </message>
+    <message>
+        <source>Continue</source>
+        <translation type="unfinished">გაგრძელება</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished">უკან დაბრუნება</translation>
     </message>
     <message>
         <source>Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
@@ -218,6 +230,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Wallet passphrase was successfully changed.</source>
         <translation type="unfinished">საფულის ფრაზა-პაროლი შეცვლილია.</translation>
+    </message>
+    <message>
+        <source>Passphrase change failed</source>
+        <translation type="unfinished">კოდური სიტყვა ვერ შეიცვალა</translation>
     </message>
     <message>
         <source>Warning: The Caps Lock key is on!</source>
@@ -368,7 +384,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
             <numerusform />
         </translation>
     </message>
-    </context>
+    <message>
+        <source>default wallet</source>
+        <translation type="unfinished">ნაგულისხმევი საფულე</translation>
+    </message>
+</context>
 <context>
     <name>BitcoinGUI</name>
     <message>
@@ -433,8 +453,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ქსელური აქტივობა გათიშულია.</translation>
     </message>
     <message>
-        <source>Send coins to a BitcoinSilver address</source>
-        <translation type="unfinished">მონეტების გაგზავნა BitcoinSilver-მისამართზე</translation>
+        <source>Proxy is &lt;b&gt;enabled&lt;/b&gt;: %1</source>
+        <translation type="unfinished">მარიონეტული &lt;b&gt;ჩართულია&lt;/b&gt; :%1</translation>
+    </message>
+    <message>
+        <source>Send coins to a Bitcoin address</source>
+        <translation type="unfinished">მონეტების გაგზავნა Bitcoin-მისამართზე</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -477,16 +501,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ხელმოწერა &amp;შეტყობინება…</translation>
     </message>
     <message>
-        <source>Sign messages with your BitcoinSilver addresses to prove you own them</source>
-        <translation type="unfinished">მესიჯებზე ხელმოწერა თქვენი BitcoinSilver-მისამართებით იმის დასტურად, რომ ის თქვენია</translation>
+        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
+        <translation type="unfinished">მესიჯებზე ხელმოწერა თქვენი Bitcoin-მისამართებით იმის დასტურად, რომ ის თქვენია</translation>
     </message>
     <message>
         <source>&amp;Verify message…</source>
         <translation type="unfinished"> &amp;შეტყობინების შემოწმება…</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified BitcoinSilver addresses</source>
-        <translation type="unfinished">შეამოწმეთ, რომ მესიჯები ხელმოწერილია მითითებული BitcoinSilver-მისამართით</translation>
+        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
+        <translation type="unfinished">შეამოწმეთ, რომ მესიჯები ხელმოწერილია მითითებული Bitcoin-მისამართით</translation>
     </message>
     <message>
         <source>&amp;Load PSBT from file…</source>
@@ -541,8 +565,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">მიმდინარეობს ბლოკების დამუშავება დისკზე…</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoinsilver: URIs)</source>
-        <translation type="unfinished">გადახდის მოთხოვნა (შეიქმნება QR-კოდები და bitcoinsilver: ბმულები)</translation>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
+        <translation type="unfinished">გადახდის მოთხოვნა (შეიქმნება QR-კოდები და bitcoin: ბმულები)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -592,7 +616,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">განახლებულია</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction</source>
+        <source>Load Partially Signed Bitcoin Transaction</source>
         <translation type="unfinished">ნაწილობრივ ხელმოწერილი ბიტკოინის ტრანზაქციის ჩატვირთვა</translation>
     </message>
     <message>
@@ -612,7 +636,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">მისამართების მიღება</translation>
     </message>
     <message>
-        <source>Open a bitcoinsilver: URI</source>
+        <source>Open a bitcoin: URI</source>
         <translation type="unfinished">გახსენით ბიტკოინი: URI</translation>
     </message>
     <message>
@@ -642,8 +666,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ყველა საფულის დახურვა</translation>
     </message>
     <message>
-        <source>default wallet</source>
-        <translation type="unfinished">ნაგულისხმევი საფულე</translation>
+        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
+        <translation type="unfinished">აჩვენეთ %1 დახმარების წერილი, რომ მიიღოთ სია Bitcoin– ის ბრძანების შესაძლო ვარიანტებთან ერთად</translation>
     </message>
     <message>
         <source>No wallets available</source>
@@ -658,6 +682,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>Load Wallet Backup</source>
         <extracomment>The title for Restore Wallet File Windows</extracomment>
         <translation type="unfinished">საფულის სარეზერვოს ჩატვირთვა</translation>
+    </message>
+    <message>
+        <source>Restore Wallet</source>
+        <extracomment>Title of pop-up window shown when the user is attempting to restore a wallet.</extracomment>
+        <translation type="unfinished">საფულის აღდგენა</translation>
     </message>
     <message>
         <source>Wallet Name</source>
@@ -684,8 +713,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>&amp;Hide</source>
         <translation type="unfinished">&amp;დამალვა</translation>
     </message>
+    <message>
+        <source>S&amp;how</source>
+        <translation type="unfinished">ჩ&amp;ვენება</translation>
+    </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
             <numerusform />
@@ -767,7 +800,18 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
         <translation type="unfinished">საფულე &lt;b&gt;დაშიფრულია&lt;/b&gt; და ამჟამად &lt;b&gt;დაბლოკილია&lt;/b&gt;</translation>
     </message>
-    </context>
+    <message>
+        <source>Original message:</source>
+        <translation type="unfinished">თავდაპირველი/ორიგინალი გზავნილი:</translation>
+    </message>
+</context>
+<context>
+    <name>UnitDisplayStatusBarControl</name>
+    <message>
+        <source>Unit to show amounts in. Click to select another unit.</source>
+        <translation type="unfinished">ერთეული რაოდენობათა საჩვენებლად. ერთეულის შესაცვლელად დააჭირეთ.</translation>
+    </message>
+</context>
 <context>
     <name>CoinControlDialog</name>
     <message>
@@ -813,6 +857,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Amount</source>
         <translation type="unfinished">თანხა</translation>
+    </message>
+    <message>
+        <source>Received with label</source>
+        <translation type="unfinished">ლეიბლით მიღება</translation>
     </message>
     <message>
         <source>Received with address</source>
@@ -917,19 +965,31 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
 </context>
 <context>
+    <name>MigrateWalletActivity</name>
+    <message>
+        <source>Restore Wallet</source>
+        <extracomment>Title of progress window which is displayed when wallets are being restored.</extracomment>
+        <translation type="unfinished">საფულის აღდგენა</translation>
+    </message>
+    </context>
+<context>
     <name>OpenWalletActivity</name>
     <message>
         <source>Open wallet failed</source>
         <translation type="unfinished">საფულის გახსნა ვერ მოხერხდა</translation>
     </message>
     <message>
-        <source>default wallet</source>
-        <translation type="unfinished">ნაგულისხმევი საფულე</translation>
-    </message>
-    <message>
         <source>Open Wallet</source>
         <extracomment>Title of window indicating the progress of opening of a wallet.</extracomment>
         <translation type="unfinished">ღია საფულე</translation>
+    </message>
+    </context>
+<context>
+    <name>RestoreWalletActivity</name>
+    <message>
+        <source>Restore Wallet</source>
+        <extracomment>Title of progress window which is displayed when wallets are being restored.</extracomment>
+        <translation type="unfinished">საფულის აღდგენა</translation>
     </message>
     </context>
 <context>
@@ -1009,8 +1069,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">გაგზავნის მისამართის შეცვლა</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid BitcoinSilver address.</source>
-        <translation type="unfinished">შეყვანილი მისამართი "%1" არ არის ვალიდური BitcoinSilver-მისამართი.</translation>
+        <source>The entered address "%1" is not a valid Bitcoin address.</source>
+        <translation type="unfinished">შეყვანილი მისამართი "%1" არ არის ვალიდური Bitcoin-მისამართი.</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -1045,7 +1105,57 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
 </context>
 <context>
+    <name>HelpMessageDialog</name>
+    <message>
+        <source>version</source>
+        <translation type="unfinished">ვერსია</translation>
+    </message>
+    <message>
+        <source>About %1</source>
+        <translation type="unfinished">%1-ის შესახებ</translation>
+    </message>
+    <message>
+        <source>Command-line options</source>
+        <translation type="unfinished">კომანდების ზოლის ოპციები</translation>
+    </message>
+</context>
+<context>
+    <name>ShutdownWindow</name>
+    <message>
+        <source>%1 is shutting down…</source>
+        <translation type="unfinished"> დახურულია %1...</translation>
+    </message>
+    <message>
+        <source>Do not shut down the computer until this window disappears.</source>
+        <translation type="unfinished">არ გამორთოთ კომპიუტერი ამ ფანჯრის გაქრობამდე.</translation>
+    </message>
+</context>
+<context>
     <name>Intro</name>
+    <message>
+        <source>Welcome</source>
+        <translation type="unfinished">მოგესალმებით</translation>
+    </message>
+    <message>
+        <source>Welcome to %1.</source>
+        <translation type="unfinished">კეთილი იყოს თქვენი მობრძანება %1-ში.</translation>
+    </message>
+    <message>
+        <source>As this is the first time the program is launched, you can choose where %1 will store its data.</source>
+        <translation type="unfinished">რადგან ეს პროგრამა პირველად იხსნება, შეგიძლიათ აირჩიოთ თუ  სად შეინახოს %1 მონაცემები.</translation>
+    </message>
+    <message>
+        <source> GB</source>
+        <translation type="unfinished">GB</translation>
+    </message>
+    <message>
+        <source>Use the default data directory</source>
+        <translation type="unfinished">ნაგულისხმევი კატალოგის გამოყენება</translation>
+    </message>
+    <message>
+        <source>Use a custom data directory:</source>
+        <translation type="unfinished">მითითებული კატალოგის გამოყენება:</translation>
+    </message>
     <message numerus="yes">
         <source>%n GB of space available</source>
         <translation type="unfinished">
@@ -1066,6 +1176,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
             <numerusform />
             <numerusform />
         </translation>
+    </message>
+    <message>
+        <source>Choose data directory</source>
+        <translation type="unfinished">აირჩიეთ მონაცემთა დირექტორია</translation>
     </message>
     <message>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
@@ -1094,56 +1208,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Error</source>
         <translation type="unfinished">შეცდომა</translation>
-    </message>
-    <message>
-        <source>Welcome</source>
-        <translation type="unfinished">მოგესალმებით</translation>
-    </message>
-    <message>
-        <source>Welcome to %1.</source>
-        <translation type="unfinished">კეთილი იყოს თქვენი მობრძანება %1-ში.</translation>
-    </message>
-    <message>
-        <source>As this is the first time the program is launched, you can choose where %1 will store its data.</source>
-        <translation type="unfinished">რადგან ეს პროგრამა პირველად იხსნება, შეგიძლიათ აირჩიოთ თუ  სად შეინახოს %1 მონაცემები.</translation>
-    </message>
-    <message>
-        <source> GB</source>
-        <translation type="unfinished">GB</translation>
-    </message>
-    <message>
-        <source>Use the default data directory</source>
-        <translation type="unfinished">ნაგულისხმევი კატალოგის გამოყენება</translation>
-    </message>
-    <message>
-        <source>Use a custom data directory:</source>
-        <translation type="unfinished">მითითებული კატალოგის გამოყენება:</translation>
-    </message>
-</context>
-<context>
-    <name>HelpMessageDialog</name>
-    <message>
-        <source>version</source>
-        <translation type="unfinished">ვერსია</translation>
-    </message>
-    <message>
-        <source>About %1</source>
-        <translation type="unfinished">%1-ის შესახებ</translation>
-    </message>
-    <message>
-        <source>Command-line options</source>
-        <translation type="unfinished">კომანდების ზოლის ოპციები</translation>
-    </message>
-</context>
-<context>
-    <name>ShutdownWindow</name>
-    <message>
-        <source>%1 is shutting down…</source>
-        <translation type="unfinished"> დახურულია %1...</translation>
-    </message>
-    <message>
-        <source>Do not shut down the computer until this window disappears.</source>
-        <translation type="unfinished">არ გამორთოთ კომპიუტერი ამ ფანჯრის გაქრობამდე.</translation>
     </message>
 </context>
 <context>
@@ -1192,7 +1256,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
 <context>
     <name>OpenURIDialog</name>
     <message>
-        <source>Open bitcoinsilver URI</source>
+        <source>Open bitcoin URI</source>
         <translation type="unfinished">გახსენით ბიტკოინის URI</translation>
     </message>
     <message>
@@ -1250,14 +1314,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>If you disable the spending of unconfirmed change, the change from a transaction cannot be used until that transaction has at least one confirmation. This also affects how your balance is computed.</source>
         <translation type="unfinished">დაუდასტურებელი ხურდის გამოყენების აკრძალვის შემდეგ მათი გამოყენება შეუძლებელი იქნება, სანამ ტრანსაქციას არ ექნება ერთი დასტური მაინც. ეს აისახება თქვენი ნაშთის დათვლაზეც.</translation>
-    </message>
-    <message>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation type="unfinished">როუტერში BitcoinSilver-კლიენტის პორტის ავტომატური გახსნა. მუშაობს, თუ თქვენს როუტერს ჩართული აქვს UPnP.</translation>
-    </message>
-    <message>
-        <source>Map port using &amp;UPnP</source>
-        <translation type="unfinished">პორტის გადამისამართება &amp;UPnP-ით</translation>
     </message>
     <message>
         <source>Proxy &amp;IP:</source>
@@ -1362,12 +1418,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ფორმა</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BitcoinSilver network after a connection is established, but this process has not completed yet.</source>
-        <translation type="unfinished">ნაჩვენები ინფორმაცია შეიძლება მოძველებული იყოს. თქვენი საფულე ავტომატურად სინქრონიზდება BitcoinSilver-ის ქსელთან კავშირის დამყარების შემდეგ, ეს პროცესი ჯერ არ არის დასრულებული.</translation>
-    </message>
-    <message>
-        <source>Watch-only:</source>
-        <translation type="unfinished">მხოლოდ საყურებლად:</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
+        <translation type="unfinished">ნაჩვენები ინფორმაცია შეიძლება მოძველებული იყოს. თქვენი საფულე ავტომატურად სინქრონიზდება Bitcoin-ის ქსელთან კავშირის დამყარების შემდეგ, ეს პროცესი ჯერ არ არის დასრულებული.</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1404,14 +1456,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Your current total balance</source>
         <translation type="unfinished">თქვენი სრული მიმდინარე ბალანსი</translation>
-    </message>
-    <message>
-        <source>Your current balance in watch-only addresses</source>
-        <translation type="unfinished">თქვენი მიმდინარე ბალანსი მხოლოდ საყურებელ მისამართებში</translation>
-    </message>
-    <message>
-        <source>Spendable:</source>
-        <translation type="unfinished">ხარჯვადი:</translation>
     </message>
     <message>
         <source>Recent transactions</source>
@@ -1456,9 +1500,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>Could not sign any more inputs.</source>
         <translation type="unfinished">მეტი შენატანის ხელმოწერა ვერ მოხერხდა.</translation>
     </message>
-    <message>
-        <source>Signed %1 inputs, but more signatures are still required.</source>
-        <translation type="unfinished">ხელმოწერილია %1 შენატანი, მაგრამ მაინც საჭიროა უფრო მეტი ხელმოწერები.</translation>
+    <message numerus="yes">
+        <source>Signed %n input(s), but more signatures are still required.</source>
+        <translation type="unfinished">
+            <numerusform />
+            <numerusform />
+        </translation>
     </message>
     <message>
         <source>Unknown error processing transaction.</source>
@@ -1505,9 +1552,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>or</source>
         <translation type="unfinished">ან</translation>
     </message>
-    <message>
-        <source>Transaction has %1 unsigned inputs.</source>
-        <translation type="unfinished">ტრანზაქციას აქვს %1 ხელმოუწერელი შენატანი.</translation>
+    <message numerus="yes">
+        <source>Transaction has %n unsigned input(s).</source>
+        <translation type="unfinished">
+            <numerusform />
+            <numerusform />
+        </translation>
     </message>
     <message>
         <source>Transaction is missing some information about inputs.</source>
@@ -1533,20 +1583,20 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">გადახდის მოთხოვნის შეცდომა</translation>
     </message>
     <message>
-        <source>Cannot start bitcoinsilver: click-to-pay handler</source>
-        <translation type="unfinished">ვერ გაიშვა bitcoinsilver: click-to-pay</translation>
+        <source>Cannot start bitcoin: click-to-pay handler</source>
+        <translation type="unfinished">ვერ გაიშვა bitcoin: click-to-pay</translation>
     </message>
     <message>
         <source>URI handling</source>
         <translation type="unfinished">URI-ების დამუშავება</translation>
     </message>
     <message>
-        <source>'bitcoinsilver://' is not a valid URI. Use 'bitcoinsilver:' instead.</source>
-        <translation type="unfinished">„bitcoinsilver://“ არ არის სწორი URI. ამის ნაცვლად გამოიყენეთ „bitcoinsilver:“.</translation>
+        <source>'bitcoin://' is not a valid URI. Use 'bitcoin:' instead.</source>
+        <translation type="unfinished">„bitcoin://“ არ არის სწორი URI. ამის ნაცვლად გამოიყენეთ „bitcoin:“.</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid BitcoinSilver address or malformed URI parameters.</source>
-        <translation type="unfinished">URI შეუძლებელია გაანალიზდეს! ეს შეიძლება გამოწვეული იყოს არასწორი BitcoinSilver მისამართით ან ცუდად ფორმირებული URI პარამეტრებით.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid Bitcoin address or malformed URI parameters.</source>
+        <translation type="unfinished">URI შეუძლებელია გაანალიზდეს! ეს შეიძლება გამოწვეული იყოს არასწორი Bitcoin მისამართით ან ცუდად ფორმირებული URI პარამეტრებით.</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -1857,7 +1907,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;მესიჯი:</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the BitcoinSilver network.</source>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
         <translation type="unfinished">არააუცილებელი მესიჯი, რომელიც ერთვის გადახდის მოთხოვნას და ნაჩვენები იქნება მოთხოვნის გახსნისას. შენიშვნა: მესიჯი არ გაყვება გადახდას ბითქოინის ქსელში.</translation>
     </message>
     <message>
@@ -2177,10 +2227,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">თანხა აღემატება თქვენს ბალანსს</translation>
     </message>
     <message>
-        <source>The total exceeds your balance when the %1 transaction fee is included.</source>
-        <translation type="unfinished">საკომისიო %1-ის დამატების შემდეგ თანხა აჭარბებს თქვენს ბალანსს</translation>
-    </message>
-    <message>
         <source>Transaction creation failed!</source>
         <translation type="unfinished">შეცდომა ტრანსაქციის შექმნისას!</translation>
     </message>
@@ -2192,8 +2238,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         </translation>
     </message>
     <message>
-        <source>Warning: Invalid BitcoinSilver address</source>
-        <translation type="unfinished">ყურადღება: არასწორია BitcoinSilver-მისამართი</translation>
+        <source>Warning: Invalid Bitcoin address</source>
+        <translation type="unfinished">ყურადღება: არასწორია Bitcoin-მისამართი</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -2243,7 +2289,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">შეიყვანეთ ამ მისამართის ნიშნული გამოყენებული მისამართების სიაში დასამატებლად</translation>
     </message>
     <message>
-        <source>A message that was attached to the bitcoinsilver: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the BitcoinSilver network.</source>
+        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
         <translation type="unfinished">მესიჯი, რომელიც თან ერთვის მონეტებს:  URI, რომელიც შეინახება ტრანსაქციასთან ერთად თქვენთვის. შენიშვნა: მესიჯი არ გაყვება გადახდას ბითქოინის ქსელში.</translation>
     </message>
 </context>
@@ -2285,11 +2331,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ხელმოწერა</translation>
     </message>
     <message>
-        <source>Copy the current signature to the system clipboard</source>
-        <translation type="unfinished">მიმდინარე ხელმოწერის კოპირება კლიპბორდში</translation>
-    </message>
-    <message>
-        <source>Sign the message to prove you own this BitcoinSilver address</source>
+        <source>Sign the message to prove you own this Bitcoin address</source>
         <translation type="unfinished">მოაწერეთ ხელი იმის დასადასტურებლად, რომ ეს მისამართი თქვენია</translation>
     </message>
     <message>
@@ -2309,8 +2351,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">მესიჯის &amp;ვერიფიკაცია</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified BitcoinSilver address</source>
-        <translation type="unfinished">შეამოწმეთ, რომ მესიჯი ხელმოწერილია მითითებული BitcoinSilver-მისამართით</translation>
+        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
+        <translation type="unfinished">შეამოწმეთ, რომ მესიჯი ხელმოწერილია მითითებული Bitcoin-მისამართით</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -2331,10 +2373,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Please check the address and try again.</source>
         <translation type="unfinished">შეამოწმეთ მისამართი და სცადეთ ხელახლა.</translation>
-    </message>
-    <message>
-        <source>The entered address does not refer to a key.</source>
-        <translation type="unfinished">შეყვანილი მისამართი არ არის კავშირში გასაღებთან.</translation>
     </message>
     <message>
         <source>Wallet unlock was cancelled.</source>
@@ -2719,10 +2757,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">დადასტურებულია</translation>
     </message>
     <message>
-        <source>Watch-only</source>
-        <translation type="unfinished">მხოლოდ საყურებელი</translation>
-    </message>
-    <message>
         <source>Date</source>
         <translation type="unfinished">თარიღი</translation>
     </message>
@@ -2780,11 +2814,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>Send Coins</source>
         <translation type="unfinished">მონეტების გაგზავნა</translation>
     </message>
-    <message>
-        <source>default wallet</source>
-        <translation type="unfinished">ნაგულისხმევი საფულე</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>WalletView</name>
     <message>
@@ -2826,14 +2856,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
 </context>
 <context>
-    <name>bitcoinsilver-core</name>
+    <name>bitcoin-core</name>
     <message>
         <source>This is a pre-release test build - use at your own risk - do not use for mining or merchant applications</source>
         <translation type="unfinished">ეს არის წინასწარი სატესტო ვერსია - გამოიყენეთ საკუთარი რისკით - არ გამოიყენოთ მოპოვებისა ან კომერციული მიზნებისათვის</translation>
-    </message>
-    <message>
-        <source>Warning: We do not appear to fully agree with our peers! You may need to upgrade, or other nodes may need to upgrade.</source>
-        <translation type="unfinished">ყურადღება: ჩვენ არ ვეთანხმებით ყველა პირს. შესაძლოა თქვენ ან სხვა კვანძებს განახლება გჭირდებათ.</translation>
     </message>
     <message>
         <source>%s is set very high!</source>
@@ -2844,8 +2870,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">-maxmempool უნდა იყოს მინიმუმ %d MB</translation>
     </message>
     <message>
-        <source>A fatal internal error occurred, see debug.log for details</source>
-        <translation type="unfinished">მოხდა ფატალური შიდა შეცდომა. გამართვის დეტალებისთვის იხილეთ debug.log</translation>
+        <source>default wallet</source>
+        <translation type="unfinished">ნაგულისხმევი საფულე</translation>
     </message>
     <message>
         <source>Corrupted block database detected</source>
@@ -2856,24 +2882,12 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">დისკის სივრცე ძალიან დაბალია!</translation>
     </message>
     <message>
-        <source>Do you want to rebuild the block database now?</source>
-        <translation type="unfinished">გავუშვათ ბლოკთა ბაზის ხელახლა აგება ეხლა?</translation>
-    </message>
-    <message>
         <source>Done loading</source>
         <translation type="unfinished">ჩატვირთვა დასრულებულია</translation>
     </message>
     <message>
-        <source>Error creating %s</source>
-        <translation type="unfinished">შეცდომა%s-ის შექმნისას</translation>
-    </message>
-    <message>
         <source>Error initializing block database</source>
         <translation type="unfinished">ვერ ინიციალიზდება ბლოკების ბაზა</translation>
-    </message>
-    <message>
-        <source>Error initializing wallet database environment %s!</source>
-        <translation type="unfinished">ვერ ინიციალიზდება საფულის ბაზის გარემო %s!</translation>
     </message>
     <message>
         <source>Error loading %s</source>
@@ -2910,10 +2924,6 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>No addresses available</source>
         <translation type="unfinished">არცერთი მისამართი არ არსებობს</translation>
-    </message>
-    <message>
-        <source>Not enough file descriptors available.</source>
-        <translation type="unfinished">არ არის საკმარისი ფაილ-დესკრიპტორები.</translation>
     </message>
     <message>
         <source>Signing transaction failed</source>

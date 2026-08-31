@@ -2,16 +2,16 @@
 <context>
     <name>AddressBookPage</name>
     <message>
+        <source>Right-click to edit address or label</source>
+        <translation type="unfinished">Хаяг эсвэл шошгыг засаxд баруун товчийг дарна</translation>
+    </message>
+    <message>
         <source>Create a new address</source>
         <translation type="unfinished">Шинэ хаяг нээх</translation>
     </message>
     <message>
         <source>&amp;New</source>
         <translation type="unfinished">&amp;Шинэ</translation>
-    </message>
-    <message>
-        <source>Copy the currently selected address to the system clipboard</source>
-        <translation type="unfinished">Одоогоор сонгогдсон байгаа хаягуудыг сануулах</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -54,7 +54,7 @@
         <translation type="unfinished">С&amp;онго</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation type="unfinished">Эдгээр Биткойн хаягууд нь илгээх хаягууд. Хүлээн авах хаяг болон тоо хэмжээг илгээхээсээ өмнө сайн нягталж үзэж байна уу</translation>
     </message>
     <message>
@@ -72,6 +72,15 @@
     <message>
         <source>Export Address List</source>
         <translation type="unfinished">Экспорт хийх хаягуудын жагсаалт</translation>
+    </message>
+    <message>
+        <source>Comma separated file</source>
+        <extracomment>Expanded name of the CSV file format. See: https://en.wikipedia.org/wiki/Comma-separated_values.</extracomment>
+        <translation type="unfinished">таслалаар тусгаарлагдсан файлууд</translation>
+    </message>
+    <message>
+        <source>Sending addresses - %1</source>
+        <translation type="unfinished">хаягуудииг Илгээж байна - %1</translation>
     </message>
     <message>
         <source>Exporting Failed</source>
@@ -243,6 +252,10 @@
         <translation type="unfinished">Програмаас Гарах</translation>
     </message>
     <message>
+        <source>&amp;About %1</source>
+        <translation type="unfinished">&amp;Тухай %1</translation>
+    </message>
+    <message>
         <source>About &amp;Qt</source>
         <translation type="unfinished">&amp;Клиентийн тухай</translation>
     </message>
@@ -324,7 +337,7 @@
         <translation type="unfinished">Шинэчлэгдсэн</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
             <numerusform />
@@ -478,9 +491,23 @@
     </message>
 </context>
 <context>
+    <name>HelpMessageDialog</name>
+    <message>
+        <source>version</source>
+        <translation type="unfinished">хувилбар</translation>
+    </message>
+    </context>
+<context>
+    <name>ShutdownWindow</name>
+    <message>
+        <source>Do not shut down the computer until this window disappears.</source>
+        <translation type="unfinished">Энэ цонхыг хаагдтал компьютерээ бүү унтраагаарай</translation>
+    </message>
+</context>
+<context>
     <name>Intro</name>
     <message>
-        <source>BitcoinSilver</source>
+        <source>Bitcoin</source>
         <translation type="unfinished">Биткойн</translation>
     </message>
     <message numerus="yes">
@@ -516,20 +543,6 @@
         <source>Error</source>
         <translation type="unfinished">Алдаа</translation>
     </message>
-    </context>
-<context>
-    <name>HelpMessageDialog</name>
-    <message>
-        <source>version</source>
-        <translation type="unfinished">хувилбар</translation>
-    </message>
-    </context>
-<context>
-    <name>ShutdownWindow</name>
-    <message>
-        <source>Do not shut down the computer until this window disappears.</source>
-        <translation type="unfinished">Энэ цонхыг хаагдтал компьютерээ бүү унтраагаарай</translation>
-    </message>
 </context>
 <context>
     <name>ModalOverlay</name>
@@ -540,6 +553,10 @@
     </context>
 <context>
     <name>OpenURIDialog</name>
+    <message>
+        <source>URI:</source>
+        <translation type="unfinished">Гипер холбоос</translation>
+    </message>
     <message>
         <source>Paste address from clipboard</source>
         <extracomment>Tooltip text for button that allows you to paste an address that is in your clipboard.</extracomment>
@@ -587,9 +604,23 @@
     </context>
 <context>
     <name>PSBTOperationsDialog</name>
+    <message numerus="yes">
+        <source>Signed %n input(s), but more signatures are still required.</source>
+        <translation type="unfinished">
+            <numerusform />
+            <numerusform />
+        </translation>
+    </message>
     <message>
         <source>or</source>
         <translation type="unfinished">эсвэл</translation>
+    </message>
+    <message numerus="yes">
+        <source>Transaction has %n unsigned input(s).</source>
+        <translation type="unfinished">
+            <numerusform />
+            <numerusform />
+        </translation>
     </message>
     </context>
 <context>
@@ -804,10 +835,6 @@
         <source>The amount exceeds your balance.</source>
         <translation type="unfinished">Энэ хэмжээ таны балансаас хэтэрсэн байна.</translation>
     </message>
-    <message>
-        <source>The total exceeds your balance when the %1 transaction fee is included.</source>
-        <translation type="unfinished">Гүйлгээний тѳлбѳр %1-ийг тооцхоор нийт дүн нь таны балансаас хэтрээд байна.</translation>
-    </message>
     <message numerus="yes">
         <source>Estimated to begin confirmation within %n block(s).</source>
         <translation type="unfinished">
@@ -816,7 +843,7 @@
         </translation>
     </message>
     <message>
-        <source>Warning: Invalid BitcoinSilver address</source>
+        <source>Warning: Invalid Bitcoin address</source>
         <translation type="unfinished">Анхаар:Буруу Биткойны хаяг байна</translation>
     </message>
     <message>
@@ -1023,6 +1050,11 @@
         <translation type="unfinished">Хамгийн бага хэмжээ</translation>
     </message>
     <message>
+        <source>Comma separated file</source>
+        <extracomment>Expanded name of the CSV file format. See: https://en.wikipedia.org/wiki/Comma-separated_values.</extracomment>
+        <translation type="unfinished">таслалаар тусгаарлагдсан файлууд</translation>
+    </message>
+    <message>
         <source>Confirmed</source>
         <translation type="unfinished">Баталгаажлаа</translation>
     </message>
@@ -1089,7 +1121,7 @@
     </message>
     </context>
 <context>
-    <name>bitcoinsilver-core</name>
+    <name>bitcoin-core</name>
     <message>
         <source>Done loading</source>
         <translation type="unfinished">Ачааллаж дууслаа</translation>

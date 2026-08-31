@@ -1,15 +1,15 @@
 # macOS Build Guide
 
-**Updated for MacOS [11.2](https://www.apple.com/macos/big-sur/)**
+**Updated for MacOS [26](https://www.apple.com/os/macos/)**
 
-This guide describes how to build bitcoinsilverd, command-line utilities, and GUI on macOS
+This guide describes how to build bitcoinsilverd, command-line utilities, and GUI on macOS.
 
 ## Preparation
 
 The commands in this guide should be executed in a Terminal application.
 macOS comes with a built-in Terminal located in:
 
-```
+```bash
 /Applications/Utilities/Terminal.app
 ```
 
@@ -48,8 +48,21 @@ See [dependencies.md](dependencies.md) for a complete overview.
 To install, run the following from your terminal:
 
 ``` bash
-brew install automake libtool boost pkg-config libevent
+brew install cmake boost pkgconf libevent capnp
 ```
+
+#### Wallet Dependencies
+
+If you do not need wallet functionality, you can use `-DENABLE_WALLET=OFF` in
+the `cmake -B` step below.
+
+SQLite is required, but since macOS ships with a useable `sqlite` package, you don't need to
+install anything.
+
+#### IPC Dependencies
+
+If you do not need IPC functionality (see [multiprocess.md](multiprocess.md))
+you can omit `capnp` and use `-DENABLE_IPC=OFF` in the `cmake -B` step below.
 
 ### 4. Clone BitcoinSilver repository
 
@@ -58,79 +71,34 @@ Now that all the required dependencies are installed, let's clone the BitcoinSil
 All build scripts and commands will run from this directory.
 
 ``` bash
-git clone https://github.com/MrVistos/bitcoinsilver.git
+git clone https://github.com/bitcoin/bitcoin.git
 ```
 
 ### 5. Install Optional Dependencies
-
-#### Wallet Dependencies
-
-It is not necessary to build wallet functionality to run `bitcoinsilverd` or  `bitcoinsilver-qt`.
-
-###### Descriptor Wallet Support
-
-`sqlite` is required to support for descriptor wallets.
-
-macOS ships with a useable `sqlite` package, meaning you don't need to
-install anything.
-
-###### Legacy Wallet Support
-
-`berkeley-db@4` is only required to support for legacy wallets.
-Skip if you don't intend to use legacy wallets.
-
-``` bash
-brew install berkeley-db@4
-```
----
 
 #### GUI Dependencies
 
 ###### Qt
 
-BitcoinSilver includes a GUI built with the cross-platform Qt Framework.
-To compile the GUI, we need to install `qt@5`.
-Skip if you don't intend to use the GUI.
+BitcoinSilver includes a GUI built with the cross-platform Qt Framework. To compile the GUI, we need to install
+Qt, libqrencode and pass `-DBUILD_GUI=ON`. Skip if you don't intend to use the GUI.
 
 ``` bash
-brew install qt@5
+brew install qt@6
 ```
 
 Note: Building with Qt binaries downloaded from the Qt website is not officially supported.
-See the notes in [#7714](https://github.com/MrVistos/bitcoinsilver/issues/7714).
+See the notes in [#7714](https://github.com/bitcoin/bitcoin/issues/7714).
 
-###### qrencode
+###### libqrencode
 
-The GUI can encode addresses in a QR Code. To build in QR support for the GUI, install `qrencode`.
-Skip if not using the GUI or don't want QR code functionality.
+The GUI will be able to encode addresses in QR codes unless this feature is explicitly disabled. To install libqrencode, run:
 
 ``` bash
 brew install qrencode
 ```
----
 
-#### Port Mapping Dependencies
-
-###### miniupnpc
-
-miniupnpc may be used for UPnP port mapping.
-Skip if you do not need this functionality.
-
-``` bash
-brew install miniupnpc
-```
-
-###### libnatpmp
-
-libnatpmp may be used for NAT-PMP port mapping.
-Skip if you do not need this functionality.
-
-``` bash
-brew install libnatpmp
-```
-
-Note: UPnP and NAT-PMP support will be compiled in and disabled by default.
-Check out the [further configuration](#further-configuration) section for more information.
+Otherwise, if you don't need QR encoding support, you can pass `-DWITH_QRENCODE=OFF` to disable this feature.
 
 ---
 
@@ -143,7 +111,6 @@ Skip if you do not need ZMQ functionality.
 brew install zeromq
 ```
 
-ZMQ is automatically compiled in and enabled if the dependency is detected.
 Check out the [further configuration](#further-configuration) section for more information.
 
 For more information on ZMQ, see: [zmq.md](zmq.md)
@@ -163,8 +130,8 @@ brew install python
 
 #### Deploy Dependencies
 
-You can deploy a `.zip` containing the BitcoinSilver application using `make deploy`.
-It is required that you have `python` installed.
+You can [deploy](#3-deploy-optional) a `.zip` containing the BitcoinSilver application.
+It is required that you have `python` and `zip` installed.
 
 ## Building BitcoinSilver
 
@@ -172,35 +139,19 @@ It is required that you have `python` installed.
 
 There are many ways to configure BitcoinSilver, here are a few common examples:
 
-##### Wallet (BDB + SQlite) Support, No GUI:
-
-If `berkeley-db@4` is installed, then legacy wallet support will be built.
-If `berkeley-db@4` is not installed, then this will throw an error.
-If `sqlite` is installed, then descriptor wallet support will also be built.
-Additionally, this explicitly disables the GUI.
-
-``` bash
-./autogen.sh
-./configure --with-gui=no
-```
-
 ##### Wallet (only SQlite) and GUI Support:
 
-This explicitly enables the GUI and disables legacy wallet support.
-If `qt` is not installed, this will throw an error.
-If `sqlite` is installed then descriptor wallet functionality will be built.
-If `sqlite` is not installed, then wallet functionality will be disabled.
+This enables the GUI.
+If `sqlite` or `qt` are not installed, this will throw an error.
 
 ``` bash
-./autogen.sh
-./configure --without-bdb --with-gui=yes
+cmake -B build -DBUILD_GUI=ON
 ```
 
 ##### No Wallet or GUI
 
 ``` bash
-./autogen.sh
-./configure --without-wallet --with-gui=no
+cmake -B build -DENABLE_WALLET=OFF
 ```
 
 ##### Further Configuration
@@ -209,7 +160,7 @@ You may want to dig deeper into the configuration options to achieve your desire
 Examine the output of the following command for a full list of configuration options:
 
 ``` bash
-./configure -help
+cmake -B build -LH
 ```
 
 ### 2. Compile
@@ -218,8 +169,8 @@ After configuration, you are ready to compile.
 Run the following in your terminal to compile BitcoinSilver:
 
 ``` bash
-make        # use "-j N" here for N parallel jobs
-make check  # Run tests if Python 3 is available
+cmake --build build     # Append "-j N" here for N parallel jobs.
+ctest --test-dir build  # Append "-j N" for N parallel tests.
 ```
 
 ### 3. Deploy (optional)
@@ -227,13 +178,17 @@ make check  # Run tests if Python 3 is available
 You can also create a  `.zip` containing the `.app` bundle by running the following command:
 
 ``` bash
-make deploy
+cmake --build build --target deploy
 ```
 
 ## Running BitcoinSilver
 
-BitcoinSilver should now be available at `./src/bitcoinsilverd`.
-If you compiled support for the GUI, it should be available at `./src/qt/bitcoinsilver-qt`.
+BitcoinSilver should now be available at `./build/bin/bitcoinsilverd`.
+If you compiled support for the GUI, it should be available at `./build/bin/bitcoinsilver-qt`.
+
+There is also a multifunction command line interface at `./build/bin/bitcoinsilver`
+supporting subcommands like `bitcoinsilver node`, `bitcoinsilver gui`, `bitcoinsilver rpc`, and
+others that can be listed with `bitcoinsilver help`.
 
 The first time you run `bitcoinsilverd` or `bitcoinsilver-qt`, it will start downloading the blockchain.
 This process could take many hours, or even days on slower than average systems.
@@ -263,8 +218,8 @@ tail -f $HOME/Library/Application\ Support/BitcoinSilver/debug.log
 ## Other commands:
 
 ```shell
-./src/bitcoinsilverd -daemon      # Starts the bitcoinsilver daemon.
-./src/bitcoinsilver-cli --help    # Outputs a list of command-line options.
-./src/bitcoinsilver-cli help      # Outputs a list of RPC commands when the daemon is running.
-./src/qt/bitcoinsilver-qt -server # Starts the bitcoinsilver-qt server mode, allows bitcoinsilver-cli control
+./build/bin/bitcoinsilverd -daemon      # Starts the bitcoinsilver daemon.
+./build/bin/bitcoinsilver-cli --help    # Outputs a list of command-line options.
+./build/bin/bitcoinsilver-cli help      # Outputs a list of RPC commands when the daemon is running.
+./build/bin/bitcoinsilver-qt -server # Starts the bitcoinsilver-qt server mode, allows bitcoinsilver-cli control
 ```

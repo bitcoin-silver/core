@@ -218,7 +218,7 @@ class PosixMmapReadableFile final : public RandomAccessFile {
   // over the ownership of the region.
   //
   // |mmap_limiter| must outlive this instance. The caller must have already
-  // aquired the right to use one mmap region, which will be released when this
+  // acquired the right to use one mmap region, which will be released when this
   // instance is destroyed.
   PosixMmapReadableFile(std::string filename, char* mmap_base, size_t length,
                         Limiter* mmap_limiter)
@@ -393,7 +393,7 @@ class PosixWritableFile final : public WritableFile {
       return Status::OK();
     }
     // Do not crash if filesystem can't fsync directories
-    // (see https://github.com/MrVistos/bitcoinsilver/pull/10000)
+    // (see https://github.com/bitcoin/bitcoin/pull/10000)
     if (syncing_dir && errno == EINVAL) {
       return Status::OK();
     }
@@ -741,7 +741,7 @@ class PosixEnv : public Env {
   // Instances are constructed on the thread calling Schedule() and used on the
   // background thread.
   //
-  // This structure is thread-safe beacuse it is immutable.
+  // This structure is thread-safe because it is immutable.
   struct BackgroundWorkItem {
     explicit BackgroundWorkItem(void (*function)(void* arg), void* arg)
         : function(function), arg(arg) {}
@@ -854,9 +854,13 @@ class SingletonEnv {
 #endif  // !defined(NDEBUG)
     static_assert(sizeof(env_storage_) >= sizeof(EnvType),
                   "env_storage_ will not fit the Env");
-    static_assert(alignof(decltype(env_storage_)) >= alignof(EnvType),
+    static_assert(std::is_standard_layout_v<SingletonEnv<EnvType>>);
+    static_assert(
+        offsetof(SingletonEnv<EnvType>, env_storage_) % alignof(EnvType) == 0,
                   "env_storage_ does not meet the Env's alignment needs");
-    new (&env_storage_) EnvType();
+    static_assert(alignof(SingletonEnv<EnvType>) % alignof(EnvType) == 0,
+                  "env_storage_ does not meet the Env's alignment needs");
+    new (env_storage_) EnvType();
   }
   ~SingletonEnv() = default;
 
@@ -872,8 +876,7 @@ class SingletonEnv {
   }
 
  private:
-  typename std::aligned_storage<sizeof(EnvType), alignof(EnvType)>::type
-      env_storage_;
+  alignas(EnvType) char env_storage_[sizeof(EnvType)];
 #if !defined(NDEBUG)
   static std::atomic<bool> env_initialized_;
 #endif  // !defined(NDEBUG)

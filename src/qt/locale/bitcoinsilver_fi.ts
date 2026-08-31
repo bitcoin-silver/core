@@ -3,7 +3,7 @@
     <name>AddressBookPage</name>
     <message>
         <source>Right-click to edit address or label</source>
-        <translation type="unfinished">Valitse hiiren oikealla painikkeella muokataksesi osoitetta tai nimikettä</translation>
+        <translation type="unfinished">Valitse hiiren kakkospainikkeella muokataksesi osoitetta tai nimikettä</translation>
     </message>
     <message>
         <source>Create a new address</source>
@@ -12,10 +12,6 @@
     <message>
         <source>&amp;New</source>
         <translation type="unfinished">&amp;Uusi</translation>
-    </message>
-    <message>
-        <source>Copy the currently selected address to the system clipboard</source>
-        <translation type="unfinished">Kopioi valittu osoite leikepöydälle</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -32,6 +28,10 @@
     <message>
         <source>Enter address or label to search</source>
         <translation type="unfinished">Anna etsittävä osoite tai tunniste</translation>
+    </message>
+    <message>
+        <source>Copy the currently selected address to the clipboard</source>
+        <translation type="unfinished">Kopioi valittu osoite leikepöydälle</translation>
     </message>
     <message>
         <source>Export the data in the current tab to a file</source>
@@ -58,13 +58,9 @@
         <translation type="unfinished">V&amp;alitse</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">Nämä ovat BitcoinSilver-osoitteesi maksujen lähettämistä varten. Tarkista aina määrä ja vastaanotto-osoite ennen kolikoiden lähettämistä.</translation>
-    </message>
-    <message>
-        <source>These are your BitcoinSilver addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">Nämä ovat BitcoinSilver-osoitteesi maksujen vastaanottoa varten. Käytä painiketta "Luo uusi vastaanotto-osoite" vastaanottovälilehdessä luodaksesi uusia osoitteita.
+        <translation type="unfinished">Nämä ovat Bitcoin-osoitteesi maksujen vastaanottoa varten. Käytä painiketta "Luo uusi vastaanotto-osoite" vastaanottovälilehdessä luodaksesi uusia osoitteita.
 Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translation>
     </message>
     <message>
@@ -164,8 +160,8 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">Vahvista lompakon salaaminen</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINSILVERS&lt;/b&gt;!</source>
-        <translation type="unfinished">Varoitus: Jos salaat lompakkosi ja menetät tunnuslauseesi, &lt;b&gt;MENETÄT KAIKKI BITCOINSILVERISI&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
+        <translation type="unfinished">Varoitus: Jos salaat lompakkosi ja menetät tunnuslauseesi, &lt;b&gt;MENETÄT KAIKKI BITCOINISI&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -182,6 +178,14 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
     <message>
         <source>Enter the old passphrase and new passphrase for the wallet.</source>
         <translation type="unfinished">Syötä vanha ja uusi salasanalause lompakolle.</translation>
+    </message>
+    <message>
+        <source>Continue</source>
+        <translation type="unfinished">Jatka</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished">Takaisin</translation>
     </message>
     <message>
         <source>Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
@@ -303,12 +307,24 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">tuntematon</translation>
     </message>
     <message>
+        <source>Embedded "%1"</source>
+        <translation type="unfinished">upotettu "%1"</translation>
+    </message>
+    <message>
+        <source>Default system font "%1"</source>
+        <translation type="unfinished">Järjestelmän oletuskirjasin "%1"</translation>
+    </message>
+    <message>
+        <source>Custom…</source>
+        <translation type="unfinished">Mukautettu…</translation>
+    </message>
+    <message>
         <source>Amount</source>
         <translation type="unfinished">Määrä</translation>
     </message>
     <message>
-        <source>Enter a BitcoinSilver address (e.g. %1)</source>
-        <translation type="unfinished">Syötä BitcoinSilver-osoite (esim. %1)</translation>
+        <source>Enter a Bitcoin address (e.g. %1)</source>
+        <translation type="unfinished">Syötä Bitcoin-osoite (esim. %1)</translation>
     </message>
     <message>
         <source>Unroutable</source>
@@ -409,7 +425,11 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
             <numerusform>%n vuotta</numerusform>
         </translation>
     </message>
-    </context>
+    <message>
+        <source>default wallet</source>
+        <translation type="unfinished">oletuslompakko</translation>
+    </message>
+</context>
 <context>
     <name>BitcoinGUI</name>
     <message>
@@ -478,8 +498,8 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">Välipalvelin on &lt;b&gt;käytössä&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a BitcoinSilver address</source>
-        <translation type="unfinished">Lähetä kolikoita BitcoinSilver-osoitteeseen</translation>
+        <source>Send coins to a Bitcoin address</source>
+        <translation type="unfinished">Lähetä kolikoita Bitcoin-osoitteeseen</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -522,16 +542,16 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">Allekirjoita &amp;viesti...</translation>
     </message>
     <message>
-        <source>Sign messages with your BitcoinSilver addresses to prove you own them</source>
-        <translation type="unfinished">Allekirjoita viestisi omalla BitcoinSilver -osoitteellasi todistaaksesi, että omistat ne</translation>
+        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
+        <translation type="unfinished">Allekirjoita viestisi omalla Bitcoin -osoitteellasi todistaaksesi, että omistat ne</translation>
     </message>
     <message>
         <source>&amp;Verify message…</source>
         <translation type="unfinished">&amp;Varmenna viesti...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified BitcoinSilver addresses</source>
-        <translation type="unfinished">Varmista, että viestisi on allekirjoitettu määritetyllä BitcoinSilver -osoitteella</translation>
+        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
+        <translation type="unfinished">Varmista, että viestisi on allekirjoitettu määritetyllä Bitcoin -osoitteella</translation>
     </message>
     <message>
         <source>&amp;Load PSBT from file…</source>
@@ -590,8 +610,8 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">Yhdistetään vertaisiin...</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoinsilver: URIs)</source>
-        <translation type="unfinished">Pyydä maksuja (Luo QR koodit ja bitcoinsilver: URIt)</translation>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
+        <translation type="unfinished">Pyydä maksuja (Luo QR koodit ja bitcoin: URIt)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -645,16 +665,16 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">Rahansiirtohistoria on ajan tasalla</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction</source>
-        <translation type="unfinished">Lataa osittain allekirjoitettu bitcoinsilver-siirtotapahtuma</translation>
+        <source>Load Partially Signed Bitcoin Transaction</source>
+        <translation type="unfinished">Lataa osittain allekirjoitettu bitcoin-siirtotapahtuma</translation>
     </message>
     <message>
         <source>Load PSBT from &amp;clipboard…</source>
         <translation type="unfinished">Lataa PSBT &amp;leikepöydältä…</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction from clipboard</source>
-        <translation type="unfinished">Lataa osittain allekirjoitettu bitcoinsilver-siirtotapahtuma leikepöydältä</translation>
+        <source>Load Partially Signed Bitcoin Transaction from clipboard</source>
+        <translation type="unfinished">Lataa osittain allekirjoitettu bitcoin-siirtotapahtuma leikepöydältä</translation>
     </message>
     <message>
         <source>Node window</source>
@@ -673,8 +693,8 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">&amp;Vastaanotto-osoitteet</translation>
     </message>
     <message>
-        <source>Open a bitcoinsilver: URI</source>
-        <translation type="unfinished">Avaa bitcoinsilver: URI</translation>
+        <source>Open a bitcoin: URI</source>
+        <translation type="unfinished">Avaa bitcoin: URI</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -711,7 +731,7 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">Siirrä lompakko</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible BitcoinSilver command-line options</source>
+        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
         <translation type="unfinished">Näytä %1 ohjeet saadaksesi listan mahdollisista Bitcoinin komentorivivalinnoista</translation>
     </message>
     <message>
@@ -721,10 +741,6 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
     <message>
         <source>Mask the values in the Overview tab</source>
         <translation type="unfinished">Naamioi arvot Yhteenveto-välilehdessä</translation>
-    </message>
-    <message>
-        <source>default wallet</source>
-        <translation type="unfinished">oletuslompakko</translation>
     </message>
     <message>
         <source>No wallets available</source>
@@ -751,6 +767,23 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">Lompakon nimi</translation>
     </message>
     <message>
+        <source>Invalid Wallet Name</source>
+        <translation type="unfinished">Virheellinen lomapkon nimi</translation>
+    </message>
+    <message>
+        <source>Wallet name cannot be empty</source>
+        <translation type="unfinished">Lompakon nimeä ei voi jättää tyhjäksi</translation>
+    </message>
+    <message>
+        <source>Restore and Migrate Wallet Backup</source>
+        <translation type="unfinished">Palauta ja siirrä lompakon varmuuskopio</translation>
+    </message>
+    <message>
+        <source>Restore and Migrate Wallet</source>
+        <extracomment>Title of pop-up window shown when the user is attempting to restore a wallet.</extracomment>
+        <translation type="unfinished">Palauta ja siirrä lompakko</translation>
+    </message>
+    <message>
         <source>&amp;Window</source>
         <translation type="unfinished">&amp;Ikkuna</translation>
     </message>
@@ -775,11 +808,11 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">N&amp;äytä</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>%n aktiivinen yhteys BitcoinSilver-verkkoon.</numerusform>
-            <numerusform>%n aktiivista yhteyttä BitcoinSilver-verkkoon.</numerusform>
+            <numerusform>%n aktiivinen yhteys Bitcoin-verkkoon.</numerusform>
+            <numerusform>%n aktiivista yhteyttä Bitcoin-verkkoon.</numerusform>
         </translation>
     </message>
     <message>
@@ -805,14 +838,6 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
     <message>
         <source>Pre-syncing Headers (%1%)…</source>
         <translation type="unfinished">Esi synkronoidaan otsikot (%1%)…</translation>
-    </message>
-    <message>
-        <source>Error creating wallet</source>
-        <translation type="unfinished">Virhe luodessa lompakkoa</translation>
-    </message>
-    <message>
-        <source>Cannot create new wallet, the software was compiled without sqlite support (required for descriptor wallets)</source>
-        <translation type="unfinished">Uutta lompakkoa ei voi luoda, ohjelmisto on käännetty ilman sqlite-tukea (tarvitaan kuvauslompakoissa)</translation>
     </message>
     <message>
         <source>Error: %1</source>
@@ -1086,6 +1111,18 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">Oletko varma, että haluat siirtää lompakon &lt;i&gt;%1&lt;/i&gt;?</translation>
     </message>
     <message>
+        <source>Migrating the wallet will convert this wallet to one or more descriptor wallets. A new wallet backup will need to be made.
+If this wallet contains any watchonly scripts, a new wallet will be created which contains those watchonly scripts.
+If this wallet contains any solvable but not watched scripts, a different and new wallet will be created which contains those scripts.
+
+The migration process will create a backup of the wallet before migrating. This backup file will be named &lt;wallet name&gt;-&lt;timestamp&gt;.legacy.bak and can be found in the directory for this wallet. In the event of an incorrect migration, the backup can be restored with the "Restore Wallet" functionality.</source>
+        <translation type="unfinished">Lompakon siirtäminen muuntaa tämän lompakon yhdeksi tai useammaksi kuvailluksi lompakoksi. Uusi lompakon varmuuskopio on tehtävä.
+Jos tämä lompakko sisältää vain katseltavia skriptejä, luodaan uusi lompakko, joka sisältää nämä katseltavat skriptit.
+Jos tämä lompakko sisältää ratkaistavia mutta ei katsottuja skriptejä, luodaan eri ja uusi lompakko, joka sisältää nämä skriptit.
+
+Siirtoprosessi luo varmuuskopion lompakosta ennen siirtoa. Tämä varmuuskopiotiedosto nimetään &lt;wallet name&gt;-&lt;timestamp&gt;.legacy.bak ja se löytyy tämän lompakon hakemistosta. Virheellisen siirron sattuessa varmuuskopio voidaan palauttaa "Palauta lompakko" -toiminnolla.</translation>
+    </message>
+    <message>
         <source>Migrate Wallet</source>
         <translation type="unfinished">Siirrä lompakko</translation>
     </message>
@@ -1098,12 +1135,30 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">Lompakko '%1' siirrettiin onnistuneesti.</translation>
     </message>
     <message>
-        <source> Watchonly scripts have been migrated to a new wallet named '%1'.</source>
-        <translation type="unfinished">Watchonly -skriptit on siirretty uuteen lompakkoon nimeltä '%1 '.</translation>
+        <source>Watchonly scripts have been migrated to a new wallet named '%1'.</source>
+        <translation type="unfinished">Pelkästään katseltavissa olevat skriptit on siirretty uuteen lompakkoon nimeltä '%1'.</translation>
     </message>
     <message>
-        <source> Solvable but not watched scripts have been migrated to a new wallet named '%1'.</source>
-        <translation type="unfinished">Ratkaistavissa, mutta katsomattomat skriptit on siirretty uuteen lompakkoon nimeltä '%1'.</translation>
+        <source>Solvable but not watched scripts have been migrated to a new wallet named '%1'.</source>
+        <translation type="unfinished">Ratkaistavat mutta ei katsotut skriptit on siirretty uuteen lompakkoon nimeltä '%1'.</translation>
+    </message>
+    <message>
+        <source>Restore and Migrate wallet</source>
+        <translation type="unfinished">Palauta ja siirrä lompakko</translation>
+    </message>
+    <message>
+        <source>Are you sure you wish to restore the wallet file &lt;i&gt;%1&lt;/i&gt; to &lt;i&gt;%2&lt;/i&gt; and migrate it?</source>
+        <translation type="unfinished">Haluatko varmasti palauttaa lompakon &lt;i&gt;%1&lt;/i&gt; kohteeseen &lt;i&gt;%2&lt;/i&gt; ja siirtää sen?</translation>
+    </message>
+    <message>
+        <source>Restore Wallet</source>
+        <extracomment>Title of progress window which is displayed when wallets are being restored.</extracomment>
+        <translation type="unfinished">Palauta lompakko</translation>
+    </message>
+    <message>
+        <source>Restoring Wallet &lt;b&gt;%1&lt;/b&gt;…</source>
+        <extracomment>Descriptive text of the restore wallets progress window which indicates to the user that wallets are currently being restored.</extracomment>
+        <translation type="unfinished">Lompakon palautus&lt;b&gt;%1&lt;/b&gt;…</translation>
     </message>
     <message>
         <source>Migration failed</source>
@@ -1123,10 +1178,6 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
     <message>
         <source>Open wallet warning</source>
         <translation type="unfinished">Avoimen lompakon varoitus</translation>
-    </message>
-    <message>
-        <source>default wallet</source>
-        <translation type="unfinished">oletuslompakko</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -1172,6 +1223,10 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
     <message>
         <source>Close wallet</source>
         <translation type="unfinished">Sulje lompakko</translation>
+    </message>
+    <message>
+        <source>Are you sure you wish to close the wallet &lt;i&gt;%1&lt;/i&gt;?</source>
+        <translation type="unfinished">Haluatko varmasti sulkea lompakon &lt;i&gt;%1&lt;/i&gt;?</translation>
     </message>
     <message>
         <source>Closing the wallet for too long can result in having to resync the entire chain if pruning is enabled.</source>
@@ -1227,10 +1282,6 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
     <message>
         <source>Disable Private Keys</source>
         <translation type="unfinished">Poista yksityisavaimet käytöstä</translation>
-    </message>
-    <message>
-        <source>Make a blank wallet. Blank wallets do not initially have private keys or scripts. Private keys and addresses can be imported, or an HD seed can be set, at a later time.</source>
-        <translation type="unfinished">Luo tyhjä lompakko. Tyhjissä lompakoissa ei aluksi ole yksityisavaimia tai skriptejä. Myöhemmin voidaan tuoda yksityisavaimia ja -osoitteita, tai asettaa HD-siemen.</translation>
     </message>
     <message>
         <source>Make Blank Wallet</source>
@@ -1289,8 +1340,8 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">Muokkaa lähettävää osoitetta</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid BitcoinSilver address.</source>
-        <translation type="unfinished">Antamasi osoite "%1" ei ole kelvollinen BitcoinSilver-osoite.</translation>
+        <source>The entered address "%1" is not a valid Bitcoin address.</source>
+        <translation type="unfinished">Antamasi osoite "%1" ei ole kelvollinen Bitcoin-osoite.</translation>
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -1333,64 +1384,33 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
     </message>
 </context>
 <context>
+    <name>HelpMessageDialog</name>
+    <message>
+        <source>version</source>
+        <translation type="unfinished">versio</translation>
+    </message>
+    <message>
+        <source>About %1</source>
+        <translation type="unfinished">Tietoja %1</translation>
+    </message>
+    <message>
+        <source>Command-line options</source>
+        <translation type="unfinished">Komentorivi parametrit</translation>
+    </message>
+</context>
+<context>
+    <name>ShutdownWindow</name>
+    <message>
+        <source>%1 is shutting down…</source>
+        <translation type="unfinished">%1 suljetaan...</translation>
+    </message>
+    <message>
+        <source>Do not shut down the computer until this window disappears.</source>
+        <translation type="unfinished">Älä sammuta tietokonetta ennenkuin tämä ikkuna katoaa.</translation>
+    </message>
+</context>
+<context>
     <name>Intro</name>
-    <message numerus="yes">
-        <source>%n GB of space available</source>
-        <translation type="unfinished">
-            <numerusform>%n GB vapaata tilaa</numerusform>
-            <numerusform>%n GB vapaata tilaa</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>(of %n GB needed)</source>
-        <translation type="unfinished">
-            <numerusform>(tarvitaan %n GB)</numerusform>
-            <numerusform>(tarvitaan %n GB)</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>(%n GB needed for full chain)</source>
-        <translation type="unfinished">
-            <numerusform>(tarvitaan %n GB koko ketjua varten)</numerusform>
-            <numerusform>(tarvitaan %n GB koko ketjua varten)</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Choose data directory</source>
-        <translation type="unfinished">Valitse data-kansio</translation>
-    </message>
-    <message>
-        <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
-        <translation type="unfinished">Ainakin %1 GB tietoa varastoidaan tähän hakemistoon ja tarve kasvaa ajan myötä.</translation>
-    </message>
-    <message>
-        <source>Approximately %1 GB of data will be stored in this directory.</source>
-        <translation type="unfinished">Noin %1 GB tietoa varastoidaan tähän hakemistoon.</translation>
-    </message>
-    <message numerus="yes">
-        <source>(sufficient to restore backups %n day(s) old)</source>
-        <extracomment>Explanatory text on the capability of the current prune target.</extracomment>
-        <translation type="unfinished">
-            <numerusform />
-            <numerusform />
-        </translation>
-    </message>
-    <message>
-        <source>%1 will download and store a copy of the BitcoinSilver block chain.</source>
-        <translation type="unfinished">%1 lataa ja tallentaa kopion Bitcoinin lohkoketjusta.</translation>
-    </message>
-    <message>
-        <source>The wallet will also be stored in this directory.</source>
-        <translation type="unfinished">Lompakko tallennetaan myös tähän hakemistoon.</translation>
-    </message>
-    <message>
-        <source>Error: Specified data directory "%1" cannot be created.</source>
-        <translation type="unfinished">Virhe: Annettu datahakemistoa "%1" ei voida luoda.</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation type="unfinished">Virhe</translation>
-    </message>
     <message>
         <source>Welcome</source>
         <translation type="unfinished">Tervetuloa</translation>
@@ -1435,31 +1455,62 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <source>Use a custom data directory:</source>
         <translation type="unfinished">Määritä oma kansio:</translation>
     </message>
-</context>
-<context>
-    <name>HelpMessageDialog</name>
-    <message>
-        <source>version</source>
-        <translation type="unfinished">versio</translation>
+    <message numerus="yes">
+        <source>%n GB of space available</source>
+        <translation type="unfinished">
+            <numerusform>%n GB vapaata tilaa</numerusform>
+            <numerusform>%n GB vapaata tilaa</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>(of %n GB needed)</source>
+        <translation type="unfinished">
+            <numerusform>(tarvitaan %n GB)</numerusform>
+            <numerusform>(tarvitaan %n GB)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>(%n GB needed for full chain)</source>
+        <translation type="unfinished">
+            <numerusform>(tarvitaan %n GB koko ketjua varten)</numerusform>
+            <numerusform>(tarvitaan %n GB koko ketjua varten)</numerusform>
+        </translation>
     </message>
     <message>
-        <source>About %1</source>
-        <translation type="unfinished">Tietoja %1</translation>
+        <source>Choose data directory</source>
+        <translation type="unfinished">Valitse data-kansio</translation>
     </message>
     <message>
-        <source>Command-line options</source>
-        <translation type="unfinished">Komentorivi parametrit</translation>
-    </message>
-</context>
-<context>
-    <name>ShutdownWindow</name>
-    <message>
-        <source>%1 is shutting down…</source>
-        <translation type="unfinished">%1 suljetaan...</translation>
+        <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
+        <translation type="unfinished">Ainakin %1 GB tietoa varastoidaan tähän hakemistoon ja tarve kasvaa ajan myötä.</translation>
     </message>
     <message>
-        <source>Do not shut down the computer until this window disappears.</source>
-        <translation type="unfinished">Älä sammuta tietokonetta ennenkuin tämä ikkuna katoaa.</translation>
+        <source>Approximately %1 GB of data will be stored in this directory.</source>
+        <translation type="unfinished">Noin %1 GB tietoa varastoidaan tähän hakemistoon.</translation>
+    </message>
+    <message numerus="yes">
+        <source>(sufficient to restore backups %n day(s) old)</source>
+        <extracomment>Explanatory text on the capability of the current prune target.</extracomment>
+        <translation type="unfinished">
+            <numerusform>(riittää %n päivän vanhojen varmuuskopioiden palauttamiseen)</numerusform>
+            <numerusform>(riittää %n päivää vanhojen varmuuskopioiden palauttamiseen)</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
+        <translation type="unfinished">%1 lataa ja tallentaa kopion Bitcoinin lohkoketjusta.</translation>
+    </message>
+    <message>
+        <source>The wallet will also be stored in this directory.</source>
+        <translation type="unfinished">Lompakko tallennetaan myös tähän hakemistoon.</translation>
+    </message>
+    <message>
+        <source>Error: Specified data directory "%1" cannot be created.</source>
+        <translation type="unfinished">Virhe: Annettu datahakemistoa "%1" ei voida luoda.</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished">Virhe</translation>
     </message>
 </context>
 <context>
@@ -1469,8 +1520,8 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">Lomake</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoinsilver network, as detailed below.</source>
-        <translation type="unfinished">Viimeiset tapahtumat eivät välttämättä vielä näy, joten lompakkosi saldo voi olla virheellinen. Tieto korjautuu, kunhan lompakkosi synkronointi bitcoinsilver-verkon kanssa on päättynyt. Tiedot näkyvät alla.</translation>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoin network, as detailed below.</source>
+        <translation type="unfinished">Viimeiset tapahtumat eivät välttämättä vielä näy, joten lompakkosi saldo voi olla virheellinen. Tieto korjautuu, kunhan lompakkosi synkronointi bitcoin-verkon kanssa on päättynyt. Tiedot näkyvät alla.</translation>
     </message>
     <message>
         <source>Attempting to spend bitcoins that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
@@ -1528,8 +1579,8 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
 <context>
     <name>OpenURIDialog</name>
     <message>
-        <source>Open bitcoinsilver URI</source>
-        <translation type="unfinished">Avaa bitcoinsilver URI</translation>
+        <source>Open bitcoin URI</source>
+        <translation type="unfinished">Avaa bitcoin URI</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
@@ -1560,6 +1611,11 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">Rajaamisen ottaminen käyttöön vähentää merkittävästi tapahtumien tallentamiseen tarvittavaa levytilaa. Kaikki lohkot validoidaan edelleen täysin. Tämän asetuksen peruuttaminen edellyttää koko lohkoketjun lataamista uudelleen.</translation>
     </message>
     <message>
+        <source>Maximum database cache size. Make sure you have enough RAM. A larger cache can contribute to faster sync, after which the benefit is less pronounced for most use cases. Lowering the cache size will reduce memory usage. Unused mempool memory is shared for this cache.</source>
+        <extracomment>Tooltip text for Options window setting that sets the size of the database cache. Explains the corresponding effects of increasing/decreasing this value.</extracomment>
+        <translation type="unfinished">Tietokannan välimuistin enimmäiskoko. Varmista, että keskusmuistia on riittävästi. Suurempi välimuisti voi nopeuttaa synkronointia, mutta sen jälkeen hyöty ei ole enää niin merkittävä useimmissa käyttötapauksissa. Välimuistin koon pienentäminen vähentää muistin käyttöä. Käyttämätön mempool-muisti jaetaan tätä välimuistia varten.</translation>
+    </message>
+    <message>
         <source>Size of &amp;database cache</source>
         <translation type="unfinished">&amp;Tietokannan välimuistin koko</translation>
     </message>
@@ -1572,6 +1628,14 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">Täysi polku %1 yhteensopivaan komentosarjaan (esim. C:\Downloads\hwi.exe tai /Users/you/Downloads/hwi.py). Varo: haittaohjelmat voivat varastaa kolikkosi!</translation>
     </message>
     <message>
+        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports PCP or NAT-PMP and it is enabled. The external port could be random.</source>
+        <translation type="unfinished">Avaa reitittimen Bitcoin-asiakasohjelman portti automaattisesti. Tämä toimii vain, jos reitittimesi tukee PCP:tä tai NAT-PMP:tä ja se on otettu käyttöön. Ulkoinen portti voi olla satunnainen.</translation>
+    </message>
+    <message>
+        <source>Map port using PCP or NA&amp;T-PMP</source>
+        <translation type="unfinished">Portin uudelleenohjaus PCP:llä tai NA&amp;T-PMP:llä</translation>
+    </message>
+    <message>
         <source>IP address of the proxy (e.g. IPv4: 127.0.0.1 / IPv6: ::1)</source>
         <translation type="unfinished">IP osoite proxille (esim. IPv4: 127.0.0.1 / IPv6: ::1)</translation>
     </message>
@@ -1582,6 +1646,10 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
     <message>
         <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Exit in the menu.</source>
         <translation type="unfinished">Minimoi ikkuna ohjelman sulkemisen sijasta kun ikkuna suljetaan. Kun tämä asetus on käytössä, ohjelma suljetaan vain valittaessa valikosta Poistu.</translation>
+    </message>
+    <message>
+        <source>Font in the Overview tab: </source>
+        <translation type="unfinished">Fontti Yleiskatsaus-välilehdellä:</translation>
     </message>
     <message>
         <source>Options set in this dialog are overridden by the command line:</source>
@@ -1618,11 +1686,6 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
     <message>
         <source>Reverting this setting requires re-downloading the entire blockchain.</source>
         <translation type="unfinished">Tämän asetuksen muuttaminen vaatii koko lohkoketjun uudelleenlataamista.</translation>
-    </message>
-    <message>
-        <source>Maximum database cache size. A larger cache can contribute to faster sync, after which the benefit is less pronounced for most use cases. Lowering the cache size will reduce memory usage. Unused mempool memory is shared for this cache.</source>
-        <extracomment>Tooltip text for Options window setting that sets the size of the database cache. Explains the corresponding effects of increasing/decreasing this value.</extracomment>
-        <translation type="unfinished">Tietokannan välimuistin enimmäiskoko. Suurempi välimuisti voi nopeuttaa synkronointia, mutta sen jälkeen hyöty ei ole enää niin merkittävä useimmissa käyttötapauksissa. Välimuistin koon pienentäminen vähentää muistin käyttöä. Käyttämätön mempool-muisti jaetaan tätä välimuistia varten.</translation>
     </message>
     <message>
         <source>Set the number of script verification threads. Negative values correspond to the number of cores you want to leave free to the system.</source>
@@ -1692,22 +1755,6 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">&amp;Ulkoisen allekirjoittajan komentosarjapolku</translation>
     </message>
     <message>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation type="unfinished">Avaa BitcoinSilver-asiakasohjelman portti reitittimellä automaattisesti. Tämä toimii vain, jos reitittimesi tukee UPnP:tä ja se on käytössä.</translation>
-    </message>
-    <message>
-        <source>Map port using &amp;UPnP</source>
-        <translation type="unfinished">Portin uudelleenohjaus &amp;UPnP:llä</translation>
-    </message>
-    <message>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports NAT-PMP and it is enabled. The external port could be random.</source>
-        <translation type="unfinished">Avaa reitittimen BitcoinSilver client-portti automaattisesti. Tämä toimii vain, jos reitittimesi tukee NAT-PMP:tä ja se on käytössä. Ulkoinen portti voi olla satunnainen.</translation>
-    </message>
-    <message>
-        <source>Map port using NA&amp;T-PMP</source>
-        <translation type="unfinished">Kartoita portti käyttämällä NA&amp;T-PMP:tä</translation>
-    </message>
-    <message>
         <source>Accept connections from outside.</source>
         <translation type="unfinished">Hyväksy yhteysiä ulkopuolelta</translation>
     </message>
@@ -1716,8 +1763,8 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">Hyväksy sisääntulevia yhteyksiä</translation>
     </message>
     <message>
-        <source>Connect to the BitcoinSilver network through a SOCKS5 proxy.</source>
-        <translation type="unfinished">Yhdistä BitcoinSilver-verkkoon SOCKS5-välityspalvelimen kautta.</translation>
+        <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
+        <translation type="unfinished">Yhdistä Bitcoin-verkkoon SOCKS5-välityspalvelimen kautta.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1777,11 +1824,15 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
     </message>
     <message>
         <source>&amp;Unit to show amounts in:</source>
-        <translation type="unfinished">Yksikkö jona bitcoinsilver-määrät näytetään</translation>
+        <translation type="unfinished">Yksikkö jona bitcoin-määrät näytetään</translation>
     </message>
     <message>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation type="unfinished">Valitse mitä yksikköä käytetään ensisijaisesti bitcoinsilver-määrien näyttämiseen.</translation>
+        <translation type="unfinished">Valitse mitä yksikköä käytetään ensisijaisesti bitcoin-määrien näyttämiseen.</translation>
+    </message>
+    <message>
+        <source>Third-party URLs (e.g. a block explorer) that appear in the transactions tab as context menu items. %s in the URL is replaced by transaction hash. Multiple URLs are separated by vertical bar |.</source>
+        <translation type="unfinished">Kolmannen osapuolen URL-osoitteet (esim. block explorer), jotka esiintyvät siirrot-välilehden pikavalikoissa. URL-osoitteessa oleva %s korvataan siirtotunnisteella.  Jos URL-osoitteita on useampia, ne on eroteltu pystyviivalla |.</translation>
     </message>
     <message>
         <source>&amp;Third-party transaction URLs</source>
@@ -1792,24 +1843,12 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">Näytetäänkö kolikkokontrollin ominaisuuksia vai ei</translation>
     </message>
     <message>
-        <source>Connect to the BitcoinSilver network through a separate SOCKS5 proxy for Tor onion services.</source>
-        <translation type="unfinished">Yhdistä BitcoinSilver-verkkoon erillisen SOCKS5-välityspalvelimen kautta Torin onion-palveluja varten.</translation>
+        <source>Connect to the Bitcoin network through a separate SOCKS5 proxy for Tor onion services.</source>
+        <translation type="unfinished">Yhdistä Bitcoin-verkkoon erillisen SOCKS5-välityspalvelimen kautta Torin onion-palveluja varten.</translation>
     </message>
     <message>
         <source>Use separate SOCKS&amp;5 proxy to reach peers via Tor onion services:</source>
         <translation type="unfinished">Käytä erillistä SOCKS&amp;5-välityspalvelinta tavoittaaksesi vertaisia Torin onion-palvelujen kautta:</translation>
-    </message>
-    <message>
-        <source>Monospaced font in the Overview tab:</source>
-        <translation type="unfinished">Monospaced-fontti Overview-välilehdellä:</translation>
-    </message>
-    <message>
-        <source>embedded "%1"</source>
-        <translation type="unfinished">upotettu "%1"</translation>
-    </message>
-    <message>
-        <source>closest matching "%1"</source>
-        <translation type="unfinished">lähin vastaavuus "%1"</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -1837,6 +1876,11 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <source>Client restart required to activate changes.</source>
         <extracomment>Text explaining that the settings changed will not come into effect until the client is restarted.</extracomment>
         <translation type="unfinished">Ohjelman uudelleenkäynnistys aktivoi muutokset.</translation>
+    </message>
+    <message>
+        <source>Current settings will be backed up at "%1".</source>
+        <extracomment>Text explaining to the user that the client's current settings will be backed up at a specific location. %1 is a stand-in argument for the backup location's path.</extracomment>
+        <translation type="unfinished">Nykyiset asetukset varmuuskopioidaan klo"%1"</translation>
     </message>
     <message>
         <source>Client will be shut down. Do you want to proceed?</source>
@@ -1892,12 +1936,8 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">Lomake</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BitcoinSilver network after a connection is established, but this process has not completed yet.</source>
-        <translation type="unfinished">Näytetyt tiedot eivät välttämättä ole ajantasalla. Lompakkosi synkronoituu BitcoinSilver-verkon kanssa automaattisesti yhteyden muodostamisen jälkeen, mutta synkronointi on vielä meneillään.</translation>
-    </message>
-    <message>
-        <source>Watch-only:</source>
-        <translation type="unfinished">Seuranta:</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
+        <translation type="unfinished">Näytetyt tiedot eivät välttämättä ole ajantasalla. Lompakkosi synkronoituu Bitcoin-verkon kanssa automaattisesti yhteyden muodostamisen jälkeen, mutta synkronointi on vielä meneillään.</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1936,28 +1976,8 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">Tililläsi tällä hetkellä olevien Bitcoinien määrä</translation>
     </message>
     <message>
-        <source>Your current balance in watch-only addresses</source>
-        <translation type="unfinished">Nykyinen tase seurattavassa osoitetteissa</translation>
-    </message>
-    <message>
-        <source>Spendable:</source>
-        <translation type="unfinished">Käytettävissä:</translation>
-    </message>
-    <message>
         <source>Recent transactions</source>
         <translation type="unfinished">Viimeisimmät rahansiirrot</translation>
-    </message>
-    <message>
-        <source>Unconfirmed transactions to watch-only addresses</source>
-        <translation type="unfinished">Vahvistamattomat rahansiirrot vain seurattaviin osoitteisiin</translation>
-    </message>
-    <message>
-        <source>Mined balance in watch-only addresses that has not yet matured</source>
-        <translation type="unfinished">Louhittu, ei vielä kypsynyt saldo vain seurattavissa osoitteissa</translation>
-    </message>
-    <message>
-        <source>Current total balance in watch-only addresses</source>
-        <translation type="unfinished">Nykyinen tase seurattavassa osoitetteissa</translation>
     </message>
     <message>
         <source>Privacy mode activated for the Overview tab. To unmask the values, uncheck Settings-&gt;Mask values.</source>
@@ -2006,9 +2026,12 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <source>Could not sign any more inputs.</source>
         <translation type="unfinished">Syötteitä ei voitu enää allekirjoittaa.</translation>
     </message>
-    <message>
-        <source>Signed %1 inputs, but more signatures are still required.</source>
-        <translation type="unfinished">%1 syötettä allekirjoitettiin, mutta lisää allekirjoituksia tarvitaan.</translation>
+    <message numerus="yes">
+        <source>Signed %n input(s), but more signatures are still required.</source>
+        <translation type="unfinished">
+            <numerusform />
+            <numerusform />
+        </translation>
     </message>
     <message>
         <source>Signed transaction successfully. Transaction is ready to broadcast.</source>
@@ -2028,7 +2051,7 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
     </message>
     <message>
         <source>PSBT copied to clipboard.</source>
-        <translation type="unfinished">PSBT (osittain allekirjoitettu bitcoinsilver-siirto) kopioitiin leikepöydälle.</translation>
+        <translation type="unfinished">PSBT (osittain allekirjoitettu bitcoin-siirto) kopioitiin leikepöydälle.</translation>
     </message>
     <message>
         <source>Save Transaction Data</source>
@@ -2041,11 +2064,11 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
     </message>
     <message>
         <source>PSBT saved to disk.</source>
-        <translation type="unfinished">PSBT (osittain tallennettu bitcoinsilver-siirto) tallennettiin levylle.</translation>
+        <translation type="unfinished">PSBT (osittain tallennettu bitcoin-siirto) tallennettiin levylle.</translation>
     </message>
     <message>
-        <source> * Sends %1 to %2</source>
-        <translation type="unfinished">*Lähettää %1'n kohteeseen %2</translation>
+        <source>Sends %1 to %2</source>
+        <translation type="unfinished">Lähettää %1 kohteelle %2</translation>
     </message>
     <message>
         <source>own address</source>
@@ -2067,9 +2090,12 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <source>or</source>
         <translation type="unfinished">tai</translation>
     </message>
-    <message>
-        <source>Transaction has %1 unsigned inputs.</source>
-        <translation type="unfinished">Siirrossa on %1 allekirjoittamatonta syötettä.</translation>
+    <message numerus="yes">
+        <source>Transaction has %n unsigned input(s).</source>
+        <translation type="unfinished">
+            <numerusform />
+            <numerusform />
+        </translation>
     </message>
     <message>
         <source>Transaction is missing some information about inputs.</source>
@@ -2107,7 +2133,7 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">Maksupyyntövirhe</translation>
     </message>
     <message>
-        <source>Cannot start bitcoinsilver: click-to-pay handler</source>
+        <source>Cannot start bitcoin: click-to-pay handler</source>
         <translation type="unfinished">Bitcoinia ei voi käynnistää: klikkaa-maksaaksesi -käsittelijän virhe</translation>
     </message>
     <message>
@@ -2115,8 +2141,8 @@ Allekirjoitus on mahdollista vain 'legacy'-tyyppisillä osoitteilla.</translatio
         <translation type="unfinished">URI käsittely</translation>
     </message>
     <message>
-        <source>'bitcoinsilver://' is not a valid URI. Use 'bitcoinsilver:' instead.</source>
-        <translation type="unfinished">'bitcoinsilver://' ei ole kelvollinen URI. Käytä 'bitcoinsilver:' sen sijaan.</translation>
+        <source>'bitcoin://' is not a valid URI. Use 'bitcoin:' instead.</source>
+        <translation type="unfinished">'bitcoin://' ei ole kelvollinen URI. Käytä 'bitcoin:' sen sijaan.</translation>
     </message>
     <message>
         <source>Cannot process payment request because BIP70 is not supported.
@@ -2127,8 +2153,8 @@ BIP70:n laajalle levinneiden tietoturva-aukkojen vuoksi on erittäin suositeltav
 Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid BitcoinSilver address or malformed URI parameters.</source>
-        <translation type="unfinished">URIa ei voitu jäsentää! Tämä voi johtua virheellisestä BitcoinSilver-osoitteesta tai väärin muotoilluista URI parametreista.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid Bitcoin address or malformed URI parameters.</source>
+        <translation type="unfinished">URIa ei voitu jäsentää! Tämä voi johtua virheellisestä Bitcoin-osoitteesta tai väärin muotoilluista URI parametreista.</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -2277,6 +2303,14 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
         <translation type="unfinished">Yhteyksien lukumäärä</translation>
     </message>
     <message>
+        <source>Local Addresses</source>
+        <translation type="unfinished">Paikalliset osoitteet</translation>
+    </message>
+    <message>
+        <source>Network addresses that your Bitcoin node is currently using to communicate with other nodes.</source>
+        <translation type="unfinished">Verkko-osoitteet, joita Bitcoin-solmusi käyttää tällä hetkellä kommunikoidakseen muiden solmujen kanssa.</translation>
+    </message>
+    <message>
         <source>Block chain</source>
         <translation type="unfinished">Lohkoketju</translation>
     </message>
@@ -2325,16 +2359,16 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
         <translation type="unfinished">Valitse vertainen eriteltyjä tietoja varten.</translation>
     </message>
     <message>
+        <source>Hide Peers Detail</source>
+        <translation type="unfinished">Piilota vertaisten yksityiskohdat</translation>
+    </message>
+    <message>
         <source>The transport layer version: %1</source>
         <translation type="unfinished">Kuljetuskerroksen versio: %1</translation>
     </message>
     <message>
         <source>Transport</source>
         <translation type="unfinished">Kuljetus</translation>
-    </message>
-    <message>
-        <source>The BIP324 session ID string in hex, if any.</source>
-        <translation type="unfinished">BIP324-istunnon tunnusmerkkijono heksadesimaalimuodossa, jos sellainen on.</translation>
     </message>
     <message>
         <source>Session ID</source>
@@ -2351,10 +2385,6 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
     <message>
         <source>Transaction Relay</source>
         <translation type="unfinished">Siirtokulu</translation>
-    </message>
-    <message>
-        <source>Starting Block</source>
-        <translation type="unfinished">Alkaen lohkosta</translation>
     </message>
     <message>
         <source>Synced Headers</source>
@@ -2443,12 +2473,20 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
         <translation type="unfinished">Suunta/Tyyppi</translation>
     </message>
     <message>
+        <source>The BIP324 session ID string in hex.</source>
+        <translation type="unfinished">BIP324-istunnon ID-merkkijono heksana.</translation>
+    </message>
+    <message>
         <source>The network protocol this peer is connected through: IPv4, IPv6, Onion, I2P, or CJDNS.</source>
         <translation type="unfinished">Verkkoprotokolla, jonka kautta tämä vertaisverkko on yhdistetty: IPv4, IPv6, Onion, I2P tai CJDNS.</translation>
     </message>
     <message>
         <source>Services</source>
         <translation type="unfinished">Palvelut</translation>
+    </message>
+    <message>
+        <source>High bandwidth BIP152 compact block relay: %1</source>
+        <translation type="unfinished">Suuren kaistanleveyden BIP152-tiivislohkojen välitys: %1</translation>
     </message>
     <message>
         <source>High Bandwidth</source>
@@ -2556,6 +2594,11 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
         <translation type="unfinished">Outbound Feeler: lyhytaikainen, osoitteiden testaamiseen</translation>
     </message>
     <message>
+        <source>Outbound Address Fetch: short-lived, for soliciting addresses</source>
+        <extracomment>Explanatory text for a short-lived outbound peer connection that is used to request addresses from a peer.</extracomment>
+        <translation type="unfinished">Lähtevän osoitteen haku: lyhytkestoinen, osoitteiden pyytämiseen</translation>
+    </message>
+    <message>
         <source>detecting: peer could be v1 or v2</source>
         <extracomment>Explanatory text for "detecting" transport type.</extracomment>
         <translation type="unfinished">havaitseminen: vertaiskumppani voi olla v1 tai v2</translation>
@@ -2626,12 +2669,32 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
         <translation type="unfinished">Verkkoliikenne pysäytetty</translation>
     </message>
     <message>
+        <source>None</source>
+        <translation type="unfinished">Ei yhtään</translation>
+    </message>
+    <message>
         <source>Executing command without any wallet</source>
         <translation type="unfinished">Suoritetaan komento ilman lomakkoa</translation>
     </message>
     <message>
         <source>Executing command using "%1" wallet</source>
         <translation type="unfinished">Suoritetaan komento käyttäen lompakkoa "%1"</translation>
+    </message>
+    <message>
+        <source>Welcome to the %1 RPC console.
+Use up and down arrows to navigate history, and %2 to clear screen.
+Use %3 and %4 to increase or decrease the font size.
+Type %5 for an overview of available commands.
+For more information on using this console, type %6.
+
+%7WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.%8</source>
+        <extracomment>RPC console welcome message. Placeholders %7 and %8 are style tags for the warning content, and they are not space separated from the rest of the text intentionally.</extracomment>
+        <translation type="unfinished">Tervetuloa %1 RPC-konsoliin.
+Käytä ylä- ja alanuolinäppäintä historiassa navigoimiseen ja näppäintä %2 näytön tyhjentämiseen.
+Käytä näppäimiä %3 ja %4 fonttikoon suurentamiseen ja pienentämiseen.
+Näet yleiskuvan käytettävistä komennoista kirjoittamalla %5.
+Lisätietoja konsolin käytöstä saat kirjoittamalla %6.
+%7VAROITUS: Huijarit ovat aktiivisesti yrittäneet varastaa käyttäjien lompakoiden sisältöä pyytämällä heitä kirjoittamaan komentoja tänne. Älä käytä tätä konsolia, jos et täysin ymmärrän komennon seurauksia.%8</translation>
     </message>
     <message>
         <source>Executing…</source>
@@ -2690,8 +2753,8 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
         <translation type="unfinished">&amp;Viesti:</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the BitcoinSilver network.</source>
-        <translation type="unfinished">Valinnainen viesti liitetään maksupyyntöön ja näytetään avattaessa. Viestiä ei lähetetä BitcoinSilver-verkkoon.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
+        <translation type="unfinished">Valinnainen viesti liitetään maksupyyntöön ja näytetään avattaessa. Viestiä ei lähetetä Bitcoin-verkkoon.</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -2767,7 +2830,7 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
     </message>
     <message>
         <source>Base58 (Legacy)</source>
-        <translation type="unfinished">Base58 (vanha)</translation>
+        <translation type="unfinished">Base58 (Vanha)</translation>
     </message>
     <message>
         <source>Not recommended due to higher fees and less protection against typos.</source>
@@ -2776,6 +2839,15 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
     <message>
         <source>Generates an address compatible with older wallets.</source>
         <translation type="unfinished">Luo osoitteen, joka on yhteensopiva vanhempien lompakoiden kanssa.</translation>
+    </message>
+    <message>
+        <source>Generates a native segwit address (BIP-173). Some old wallets don't support it.</source>
+        <translation type="unfinished"> 
+Luo natiivin segwit-osoitteen (BIP-173). Jotkin vanhat lompakot eivät tue sitä.</translation>
+    </message>
+    <message>
+        <source>Bech32m (BIP-350) is an upgrade to Bech32, wallet support is still limited.</source>
+        <translation type="unfinished">Bech32m (BIP-350) on päivitys Bech32, mutta lompakkojen tuki on edelleen rajallinen.</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -2888,7 +2960,7 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
     </message>
     <message>
         <source>Insufficient funds!</source>
-        <translation type="unfinished">Lompakon saldo ei riitä!</translation>
+        <translation type="unfinished">Riittämätön saldo!</translation>
     </message>
     <message>
         <source>Quantity:</source>
@@ -2975,12 +3047,25 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
         <translation type="unfinished"> Piilota siirtomaksuasetukset</translation>
     </message>
     <message>
-        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoinsilver transactions than the network can process.</source>
-        <translation type="unfinished">Mikäli lohkoissa ei ole tilaa kaikille siirtotapahtumille, voi louhijat sekä välittävät solmut pakottaa vähimmäispalkkion. Tämän vähimmäispalkkion maksaminen on täysin OK, mutta huomaa, että se saattaa johtaa siihen, ettei siirto vahvistu koskaan, jos bitcoinsilver-siirtoja on enemmän kuin mitä verkko pystyy käsittelemään.</translation>
+        <source>Specify a custom fee per kB (1,000 bytes) of the transaction's virtual size.
+
+Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satoshis per kvB" for a transaction size of 500 virtual bytes (half of 1 kvB) would ultimately yield a fee of only 50 satoshis.</source>
+        <translation type="unfinished">Määritä mukautettu maksu per kB (1 000 tavua) tapahtuman virtuaalikoosta.
+
+Huom: Koska maksu lasketaan per tavu, "100 satoshin per kB" maksunopeus 500 virtuaalitavun (puolet 1 kB
+) tapahtumakoolle johtaisi lopulta vain 50 satoshin maksuun.</translation>
+    </message>
+    <message>
+        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
+        <translation type="unfinished">Mikäli lohkoissa ei ole tilaa kaikille siirtotapahtumille, voi louhijat sekä välittävät solmut pakottaa vähimmäispalkkion. Tämän vähimmäispalkkion maksaminen on täysin OK, mutta huomaa, että se saattaa johtaa siihen, ettei siirto vahvistu koskaan, jos bitcoin-siirtoja on enemmän kuin mitä verkko pystyy käsittelemään.</translation>
     </message>
     <message>
         <source>A too low fee might result in a never confirming transaction (read the tooltip)</source>
         <translation type="unfinished">Liian alhainen maksu saattaa johtaa siirtoon, joka ei koskaan vahvistu (lue työkaluohje)</translation>
+    </message>
+    <message>
+        <source>(Smart fee not initialized yet. This usually takes a few blocks…)</source>
+        <translation type="unfinished">(Älykäs maksu ei ole vielä alustettu. Tämä vie yleensä muutaman lohkon...)</translation>
     </message>
     <message>
         <source>Confirmation time target:</source>
@@ -3057,12 +3142,8 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
         <translation type="unfinished">L&amp;uo allekirjoittamaton</translation>
     </message>
     <message>
-        <source>Creates a Partially Signed BitcoinSilver Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
-        <translation type="unfinished">Luo osittain allekirjoitetun bitcoinsilver-siirtotapahtuman (PSBT) käytettäväksi mm. offline %1 lompakko tai PSBT-yhteensopiva hardware-lompakko.</translation>
-    </message>
-    <message>
-        <source> from wallet '%1'</source>
-        <translation type="unfinished"> lompakosta '%1'</translation>
+        <source>Creates a Partially Signed Bitcoin Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <translation type="unfinished">Luo osittain allekirjoitetun bitcoin-siirtotapahtuman (PSBT) käytettäväksi mm. offline %1 lompakko tai PSBT-yhteensopiva hardware-lompakko.</translation>
     </message>
     <message>
         <source>%1 to '%2'</source>
@@ -3113,14 +3194,23 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
         <translation type="unfinished">Voit korottaa palkkiota myöhemmin (osoittaa Replace-By-Fee:tä, BIP-125).</translation>
     </message>
     <message>
-        <source>Please, review your transaction proposal. This will produce a Partially Signed BitcoinSilver Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction proposal. This will produce a Partially Signed Bitcoin Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can only create a PSBT. This string is displayed when private keys are disabled and an external signer is not available.</extracomment>
-        <translation type="unfinished">Ole hyvä ja tarkista siirtoehdotuksesi. Tämä luo osittain allekirjoitetun BitcoinSilver-siirron (PBST), jonka voit tallentaa tai kopioida ja sitten allekirjoittaa esim. verkosta irrannaisella %1-lompakolla tai PBST-yhteensopivalla laitteistolompakolla.</translation>
+        <translation type="unfinished">Ole hyvä ja tarkista siirtoehdotuksesi. Tämä luo osittain allekirjoitetun Bitcoin-siirron (PBST), jonka voit tallentaa tai kopioida ja sitten allekirjoittaa esim. verkosta irrannaisella %1-lompakolla tai PBST-yhteensopivalla laitteistolompakolla.</translation>
+    </message>
+    <message>
+        <source>%1 from wallet '%2'</source>
+        <translation type="unfinished">%1 lompakosta '%2'</translation>
     </message>
     <message>
         <source>Do you want to create this transaction?</source>
         <extracomment>Message displayed when attempting to create a transaction. Cautionary text to prompt the user to verify that the displayed transaction details represent the transaction the user intends to create.</extracomment>
         <translation type="unfinished">Haluatko luoda tämän siirtotapahtuman?</translation>
+    </message>
+    <message>
+        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed Bitcoin Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can send their transaction or create a PSBT. This string is displayed when both private keys and PSBT controls are enabled.</extracomment>
+        <translation type="unfinished">Ole hyvä ja tarkista tapahtumasi. Voit luoda ja lähettää tämän tapahtuman tai luoda osittain allekirjoitetun Bitcoin-tapahtuman (PSBT), jonka voit tallentaa tai kopioida ja allekirjoittaa esimerkiksi offline-ympäristössä%1lompakkoosi tai PSBT-yhteensopivalla laitteistolompakolla.</translation>
     </message>
     <message>
         <source>Please, review your transaction.</source>
@@ -3143,7 +3233,11 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
         <source>Unsigned Transaction</source>
         <comment>PSBT copied</comment>
         <extracomment>Caption of "PSBT has been copied" messagebox</extracomment>
-        <translation type="unfinished">Allekirjoittamaton kauppa</translation>
+        <translation type="unfinished">Allekirjoittamaton Siirto</translation>
+    </message>
+    <message>
+        <source>The PSBT has been copied to the clipboard. You can also save it.</source>
+        <translation type="unfinished">PSBT on kopioitu leikepöydälle. Voit myös tallentaa sen.</translation>
     </message>
     <message>
         <source>PSBT saved to disk</source>
@@ -3152,10 +3246,6 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
     <message>
         <source>Confirm send coins</source>
         <translation type="unfinished">Vahvista kolikoiden lähetys</translation>
-    </message>
-    <message>
-        <source>Watch-only balance:</source>
-        <translation type="unfinished">Katselulompakon saldo:</translation>
     </message>
     <message>
         <source>The recipient address is not valid. Please recheck.</source>
@@ -3168,10 +3258,6 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
     <message>
         <source>The amount exceeds your balance.</source>
         <translation type="unfinished">Määrä ylittää tilisi saldon.</translation>
-    </message>
-    <message>
-        <source>The total exceeds your balance when the %1 transaction fee is included.</source>
-        <translation type="unfinished">Kokonaismäärä ylittää saldosi kun %1 siirtomaksu lisätään summaan.</translation>
     </message>
     <message>
         <source>Duplicate address found: addresses should only be used once each.</source>
@@ -3193,8 +3279,8 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
         </translation>
     </message>
     <message>
-        <source>Warning: Invalid BitcoinSilver address</source>
-        <translation type="unfinished">Varoitus: Virheellinen BitcoinSilver-osoite</translation>
+        <source>Warning: Invalid Bitcoin address</source>
+        <translation type="unfinished">Varoitus: Virheellinen Bitcoin-osoite</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -3232,8 +3318,8 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
         <translation type="unfinished">Valitse aikaisemmin käytetty osoite</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address to send the payment to</source>
-        <translation type="unfinished">BitcoinSilver-osoite johon maksu lähetetään</translation>
+        <source>The Bitcoin address to send the payment to</source>
+        <translation type="unfinished">Bitcoin-osoite johon maksu lähetetään</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
@@ -3268,8 +3354,8 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
         <translation type="unfinished">Aseta nimi tälle osoitteelle lisätäksesi sen käytettyjen osoitteiden listalle.</translation>
     </message>
     <message>
-        <source>A message that was attached to the bitcoinsilver: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the BitcoinSilver network.</source>
-        <translation type="unfinished">Viesti joka liitettiin bitcoinsilver: URI:iin tallennetaan rahansiirtoon viitteeksi. Tätä viestiä ei lähetetä BitcoinSilver-verkkoon.</translation>
+        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
+        <translation type="unfinished">Viesti joka liitettiin bitcoin: URI:iin tallennetaan rahansiirtoon viitteeksi. Tätä viestiä ei lähetetä Bitcoin-verkkoon.</translation>
     </message>
 </context>
 <context>
@@ -3294,12 +3380,12 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
         <translation type="unfinished">&amp;Allekirjoita viesti</translation>
     </message>
     <message>
-        <source>You can sign messages/agreements with your addresses to prove you can receive bitcoins sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
-        <translation type="unfinished">Voit allekirjoittaa viestit / sopimukset omalla osoitteellasi todistaaksesi että voit vastaanottaa siihen lähetetyt bitcoinit. Varo allekirjoittamasta mitään epämääräistä, sillä phishing-hyökkääjät voivat huijata sinua luovuttamaan henkilöllisyytesi allekirjoituksella. Allekirjoita ainoastaan täysin yksityiskohtainen selvitys siitä, mihin olet sitoutumassa.</translation>
+        <source>You can sign messages/agreements with your legacy (P2PKH) addresses to prove you can receive bitcoins sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
+        <translation type="unfinished">Voit allekirjoittaa viestejä/sopimuksia vanhojen (P2PKH) osoitteidesi kanssa todistaaksesi, että voit vastaanottaa niihin lähetettyjä bitcoineja. Varo allekirjoittamasta mitään epämääräistä tai satunnaista, sillä phishing-hyökkäykset voivat yrittää huijata sinua allekirjoittamaan henkilöllisyytesi heille. Allekirjoita vain täysin yksityiskohtaiset lausunnot, joihin suostut.</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address to sign the message with</source>
-        <translation type="unfinished">BitcoinSilver-osoite jolla viesti allekirjoitetaan</translation>
+        <source>The Bitcoin address to sign the message with</source>
+        <translation type="unfinished">Bitcoin-osoite jolla viesti allekirjoitetaan</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3318,12 +3404,8 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
         <translation type="unfinished">Allekirjoitus</translation>
     </message>
     <message>
-        <source>Copy the current signature to the system clipboard</source>
-        <translation type="unfinished">Kopioi tämänhetkinen allekirjoitus leikepöydälle</translation>
-    </message>
-    <message>
-        <source>Sign the message to prove you own this BitcoinSilver address</source>
-        <translation type="unfinished">Allekirjoita viesti todistaaksesi, että omistat tämän BitcoinSilver-osoitteen</translation>
+        <source>Sign the message to prove you own this Bitcoin address</source>
+        <translation type="unfinished">Allekirjoita viesti todistaaksesi, että omistat tämän Bitcoin-osoitteen</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -3346,8 +3428,8 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
         <translation type="unfinished">Syötä vastaanottajan osoite, viesti ja allekirjoitus (varmista että kopioit rivinvaihdot, välilyönnit, sarkaimet yms. täsmälleen) alle vahvistaaksesi viestin. Varo lukemasta allekirjoitukseen enempää kuin mitä viestissä itsessään on välttääksesi man-in-the-middle -hyökkäyksiltä. Huomaa, että tämä todentaa ainoastaan allekirjoittavan vastaanottajan osoitteen, tämä ei voi todentaa minkään tapahtuman lähettäjää!</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address the message was signed with</source>
-        <translation type="unfinished">BitcoinSilver-osoite jolla viesti on allekirjoitettu</translation>
+        <source>The Bitcoin address the message was signed with</source>
+        <translation type="unfinished">Bitcoin-osoite jolla viesti on allekirjoitettu</translation>
     </message>
     <message>
         <source>The signed message to verify</source>
@@ -3358,8 +3440,8 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
         <translation type="unfinished">Viestin allekirjoittamisen yhteydessä annettu allekirjoitus</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified BitcoinSilver address</source>
-        <translation type="unfinished">Tarkista viestin allekirjoitus varmistaaksesi, että se allekirjoitettiin tietyllä BitcoinSilver-osoitteella</translation>
+        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
+        <translation type="unfinished">Tarkista viestin allekirjoitus varmistaaksesi, että se allekirjoitettiin tietyllä Bitcoin-osoitteella</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -3380,10 +3462,6 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
     <message>
         <source>Please check the address and try again.</source>
         <translation type="unfinished">Tarkista osoite ja yritä uudelleen.</translation>
-    </message>
-    <message>
-        <source>The entered address does not refer to a key.</source>
-        <translation type="unfinished">Syötetty osoite ei viittaa tunnettuun avaimeen.</translation>
     </message>
     <message>
         <source>Wallet unlock was cancelled.</source>
@@ -3502,10 +3580,6 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
         <translation type="unfinished">oma osoite</translation>
     </message>
     <message>
-        <source>watch-only</source>
-        <translation type="unfinished">vain seurattava</translation>
-    </message>
-    <message>
         <source>label</source>
         <translation type="unfinished">nimi</translation>
     </message>
@@ -3569,8 +3643,8 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
         <translation type="unfinished">Ulostulon indeksi</translation>
     </message>
     <message>
-        <source> (Certificate was not verified)</source>
-        <translation type="unfinished"> (Sertifikaattia ei vahvistettu)</translation>
+        <source>%1 (Certificate was not verified)</source>
+        <translation type="unfinished">%1 (Sertifikaattia ei ole todennettu)</translation>
     </message>
     <message>
         <source>Merchant</source>
@@ -3675,10 +3749,6 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
         <translation type="unfinished">Louhittu</translation>
     </message>
     <message>
-        <source>watch-only</source>
-        <translation type="unfinished">vain seurattava</translation>
-    </message>
-    <message>
         <source>(n/a)</source>
         <translation type="unfinished">(ei saatavilla)</translation>
     </message>
@@ -3697,10 +3767,6 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
     <message>
         <source>Type of transaction.</source>
         <translation type="unfinished">Maksutapahtuman tyyppi.</translation>
-    </message>
-    <message>
-        <source>Whether or not a watch-only address is involved in this transaction.</source>
-        <translation type="unfinished">Onko rahansiirrossa mukana ainoastaan seurattava osoite vai ei.</translation>
     </message>
     <message>
         <source>User-defined intent/purpose of the transaction.</source>
@@ -3824,10 +3890,6 @@ Jos saat tämän virheen, pyydä kauppiasta antamaan BIP21-yhteensopiva URI.</tr
         <translation type="unfinished">Vahvistettu</translation>
     </message>
     <message>
-        <source>Watch-only</source>
-        <translation type="unfinished">Vain seurattava</translation>
-    </message>
-    <message>
         <source>Date</source>
         <translation type="unfinished">Aika</translation>
     </message>
@@ -3939,6 +4001,11 @@ Siirry osioon Tiedosto &gt; Avaa lompakko ladataksesi lompakon.
         <translation type="unfinished">Uusi palkkio:</translation>
     </message>
     <message>
+        <source>Warning: This may pay the additional fee by reducing change outputs or adding inputs, when necessary. It may add a new change output if one does not already exist. These changes may potentially leak privacy.</source>
+        <translation type="unfinished"> 
+Varoitus: Tämä voi maksaa ylimääräisen maksun vähentämällä vaihtotuloja tai lisäämällä tuloja tarvittaessa. Se voi lisätä uuden vaihtotulojen, jos sellaista ei jo ole. Nämä muutokset voivat mahdollisesti vuotaa yksityisyyttä.</translation>
+    </message>
+    <message>
         <source>Confirm fee bump</source>
         <translation type="unfinished">Vahvista palkkion korotus</translation>
     </message>
@@ -3951,9 +4018,8 @@ Siirry osioon Tiedosto &gt; Avaa lompakko ladataksesi lompakon.
         <translation type="unfinished">PSBT kopioitu</translation>
     </message>
     <message>
-        <source>Copied to clipboard</source>
-        <comment>Fee-bump PSBT saved</comment>
-        <translation type="unfinished">Kopioitu leikepöydälle</translation>
+        <source>Fee-bump PSBT copied to clipboard</source>
+        <translation type="unfinished">Siirtokulujen nosto PSBT kopioitu leikepöydälle</translation>
     </message>
     <message>
         <source>Can't sign transaction.</source>
@@ -3964,12 +4030,12 @@ Siirry osioon Tiedosto &gt; Avaa lompakko ladataksesi lompakon.
         <translation type="unfinished">Siirtoa ei voitu tehdä</translation>
     </message>
     <message>
-        <source>Can't display address</source>
-        <translation type="unfinished">Osoitetta ei voida näyttää</translation>
+        <source>Signer error</source>
+        <translation type="unfinished">Allekirjoittajan virhe</translation>
     </message>
     <message>
-        <source>default wallet</source>
-        <translation type="unfinished">oletuslompakko</translation>
+        <source>Can't display address</source>
+        <translation type="unfinished">Osoitetta ei voida näyttää</translation>
     </message>
 </context>
 <context>
@@ -4013,38 +4079,31 @@ Siirry osioon Tiedosto &gt; Avaa lompakko ladataksesi lompakon.
     </message>
 </context>
 <context>
-    <name>bitcoinsilver-core</name>
+    <name>bitcoin-core</name>
     <message>
         <source>The %s developers</source>
         <translation type="unfinished">%s kehittäjät</translation>
     </message>
     <message>
-        <source>%s corrupt. Try using the wallet tool bitcoinsilver-wallet to salvage or restoring a backup.</source>
-        <translation type="unfinished">%s on vioittunut. Yritä käyttää lompakkotyökalua bitcoinsilver-wallet pelastaaksesi sen tai palauttaa varmuuskopio.</translation>
+        <source>%s failed to validate the -assumeutxo snapshot state. This indicates a hardware problem, or a bug in the software, or a bad software modification that allowed an invalid snapshot to be loaded. As a result of this, the node will shut down and stop using any state that was built on the snapshot, resetting the chain height from %d to %d. On the next restart, the node will resume syncing from %d without using any snapshot data. Please report this incident to %s, including how you obtained the snapshot. The invalid snapshot chainstate will be left on disk in case it is helpful in diagnosing the issue that caused this error.</source>
+        <translation type="unfinished">%s virheellinen -assumeutxo-snapshot-tila. Tämä viittaa laitteistoon liittyvään ongelmaan, ohjelmistovirheeseen tai huonoon ohjelmistomuutokseen, joka on sallinut virheellisen snapshotin lataamisen. Tämän seurauksena solmu sulkeutuu ja lopettaa kaiken sen tilan käytön, joka perustui snapshottiin, ja nollaa lohkokorkeuden%darvoon%d. Seuraavassa uudelleenkäynnistyksessä solmu jatkaa synkronointia kohdasta%d  
+ilman, että käytetään mitään snapshot-tietoja. Ilmoita tästä tapauksesta osoitteeseen%s, mukaan lukien se, miten sait snapshotin. Virheellinen snapshot-tilatiedosto jätetään levylle, jos se on hyödyllinen ongelman diagnosoinnissa, joka aiheutti tämän virheen.</translation>
     </message>
     <message>
-        <source>Cannot downgrade wallet from version %i to version %i. Wallet version unchanged.</source>
-        <translation type="unfinished">Ei voida alentaa lompakon versiota versiosta %i versioon %i. Lompakon versio pysyy ennallaan.</translation>
-    </message>
-    <message>
-        <source>Cannot obtain a lock on data directory %s. %s is probably already running.</source>
-        <translation type="unfinished">Ei voida lukita data-hakemistoa %s. %s on luultavasti jo käynnissä.</translation>
+        <source>%s request to listen on port %u. This port is considered "bad" and thus it is unlikely that any peer will connect to it. See doc/p2p-bad-ports.md for details and a full list.</source>
+        <translation type="unfinished">%s pyyntö kuunnella porttia %u. Tätä porttia pidetään ”huonona”, joten on epätodennäköistä, että mikään vertaisohjelma muodostaa siihen yhteyden. Katso lisätietoja ja täydellinen luettelo doc/p2p-bad-ports.md-tiedostosta.</translation>
     </message>
     <message>
         <source>Distributed under the MIT software license, see the accompanying file %s or %s</source>
         <translation type="unfinished">Jaettu MIT -ohjelmistolisenssin alaisuudessa, katso mukana tuleva %s tiedosto tai %s</translation>
     </message>
     <message>
-        <source>Error: Dumpfile version is not supported. This version of bitcoinsilver-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
-        <translation type="unfinished">Virhe: Dump-tiedoston versio ei ole tuettu. Tämä bitcoinsilver-lompakon versio tukee vain version 1 dump-tiedostoja. Annetun dump-tiedoston versio %s</translation>
+        <source>Error: Dumpfile version is not supported. This version of bitcoin-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
+        <translation type="unfinished">Virhe: Dump-tiedoston versio ei ole tuettu. Tämä bitcoin-lompakon versio tukee vain version 1 dump-tiedostoja. Annetun dump-tiedoston versio %s</translation>
     </message>
     <message>
         <source>More than one onion bind address is provided. Using %s for the automatically created Tor onion service.</source>
         <translation type="unfinished">Useampi onion bind -osoite on tarjottu. Automaattisesti luotua Torin onion-palvelua varten käytetään %s.</translation>
-    </message>
-    <message>
-        <source>Please check that your computer's date and time are correct! If your clock is wrong, %s will not work properly.</source>
-        <translation type="unfinished">Tarkistathan että tietokoneesi päivämäärä ja kellonaika ovat oikeassa! Jos kellosi on väärässä, %s ei toimi oikein.</translation>
     </message>
     <message>
         <source>Please contribute if you find %s useful. Visit %s for further information about the software.</source>
@@ -4053,10 +4112,6 @@ Siirry osioon Tiedosto &gt; Avaa lompakko ladataksesi lompakon.
     <message>
         <source>Prune configured below the minimum of %d MiB.  Please use a higher number.</source>
         <translation type="unfinished">Karsinta konfiguroitu alle minimin %d MiB. Käytä surempaa numeroa.</translation>
-    </message>
-    <message>
-        <source>Prune: last wallet synchronisation goes beyond pruned data. You need to -reindex (download the whole blockchain again in case of pruned node)</source>
-        <translation type="unfinished">Karsinta: viime lompakon synkronisointi menee karsitun datan taakse. Sinun tarvitsee ajaa -reindex (lataa koko lohkoketju uudelleen tapauksessa jossa karsiva noodi)</translation>
     </message>
     <message>
         <source>SQLiteDatabase: Unknown sqlite wallet schema version %d. Only version %d is supported</source>
@@ -4069,10 +4124,6 @@ Siirry osioon Tiedosto &gt; Avaa lompakko ladataksesi lompakon.
     <message>
         <source>The transaction amount is too small to send after the fee has been deducted</source>
         <translation type="unfinished">Siirtomäärä on liian pieni lähetettäväksi kulun vähentämisen jälkeen.</translation>
-    </message>
-    <message>
-        <source>This error could occur if this wallet was not shutdown cleanly and was last loaded using a build with a newer version of Berkeley DB. If so, please use the software that last loaded this wallet</source>
-        <translation type="unfinished">Tämä virhe voi tapahtua, jos tämä lompakko ei sammutettu siististi ja ladattiin viimeksi uudempaa Berkeley DB -versiota käyttäneellä ohjelmalla. Tässä tapauksessa käytä sitä ohjelmaa, joka viimeksi latasi tämän lompakon.</translation>
     </message>
     <message>
         <source>This is a pre-release test build - use at your own risk - do not use for mining or merchant applications</source>
@@ -4103,10 +4154,6 @@ Siirry osioon Tiedosto &gt; Avaa lompakko ladataksesi lompakon.
         <translation type="unfinished">Varoitus: lompakosta {%s} tunnistetut yksityiset avaimet, on poistettu käytöstä</translation>
     </message>
     <message>
-        <source>Warning: We do not appear to fully agree with our peers! You may need to upgrade, or other nodes may need to upgrade.</source>
-        <translation type="unfinished">Varoitus: Olemme ristiriidassa vertaisten kanssa! Sinun tulee päivittää tai toisten solmujen tulee päivitää.</translation>
-    </message>
-    <message>
         <source>You need to rebuild the database using -reindex to go back to unpruned mode.  This will redownload the entire blockchain</source>
         <translation type="unfinished">Palataksesi karsimattomaan tilaan joudut uudelleenrakentamaan tietokannan -reindex -valinnalla. Tämä lataa koko lohkoketjun uudestaan.</translation>
     </message>
@@ -4119,20 +4166,12 @@ Siirry osioon Tiedosto &gt; Avaa lompakko ladataksesi lompakon.
         <translation type="unfinished">-maxmempool on oltava vähintään %d MB</translation>
     </message>
     <message>
-        <source>A fatal internal error occurred, see debug.log for details</source>
-        <translation type="unfinished">Kriittinen sisäinen virhe kohdattiin, katso debug.log lisätietoja varten</translation>
-    </message>
-    <message>
         <source>Cannot resolve -%s address: '%s'</source>
         <translation type="unfinished">-%s -osoitteen '%s' selvittäminen epäonnistui</translation>
     </message>
     <message>
         <source>Cannot set -peerblockfilters without -blockfilterindex.</source>
         <translation type="unfinished">-peerblockfiltersiä ei voida asettaa ilman -blockfilterindexiä.</translation>
-    </message>
-    <message>
-        <source>Cannot write to data directory '%s'; check permissions.</source>
-        <translation type="unfinished">Hakemistoon '%s' ei voida kirjoittaa. Tarkista käyttöoikeudet.</translation>
     </message>
     <message>
         <source>
@@ -4145,6 +4184,10 @@ Epäonnistuneen migraation siivoaminen epäonnistui</translation>
 Unable to restore backup of wallet.</source>
         <translation type="unfinished">
 Ei voinut palauttaa lompakon varmuuskopiota..</translation>
+    </message>
+    <message>
+        <source>default wallet</source>
+        <translation type="unfinished">oletuslompakko</translation>
     </message>
     <message>
         <source>Block verification was interrupted</source>
@@ -4175,10 +4218,6 @@ Ei voinut palauttaa lompakon varmuuskopiota..</translation>
         <translation type="unfinished">Liian vähän levytilaa!</translation>
     </message>
     <message>
-        <source>Do you want to rebuild the block database now?</source>
-        <translation type="unfinished">Haluatko uudelleenrakentaa lohkotietokannan nyt?</translation>
-    </message>
-    <message>
         <source>Done loading</source>
         <translation type="unfinished">Lataus on valmis</translation>
     </message>
@@ -4187,24 +4226,12 @@ Ei voinut palauttaa lompakon varmuuskopiota..</translation>
         <translation type="unfinished">Dump-tiedostoa %s ei ole olemassa.</translation>
     </message>
     <message>
-        <source>Error creating %s</source>
-        <translation type="unfinished">Virhe luodessa %s</translation>
-    </message>
-    <message>
         <source>Error initializing block database</source>
         <translation type="unfinished">Virhe alustaessa lohkotietokantaa</translation>
     </message>
     <message>
-        <source>Error initializing wallet database environment %s!</source>
-        <translation type="unfinished">Virhe alustaessa lompakon tietokantaympäristöä %s!</translation>
-    </message>
-    <message>
         <source>Error loading %s</source>
         <translation type="unfinished">Virhe ladattaessa %s</translation>
-    </message>
-    <message>
-        <source>Error loading %s: Private keys can only be disabled during creation</source>
-        <translation type="unfinished">Virhe %s:n lataamisessa: Yksityiset avaimet voidaan poistaa käytöstä vain luomisen aikana</translation>
     </message>
     <message>
         <source>Error loading %s: Wallet corrupted</source>
@@ -4233,10 +4260,6 @@ Ei voinut palauttaa lompakon varmuuskopiota..</translation>
     <message>
         <source>Error reading next record from wallet database</source>
         <translation type="unfinished">Virhe seuraavan tietueen lukemisessa lompakon tietokannasta</translation>
-    </message>
-    <message>
-        <source>Error: Could not delete watchonly transactions</source>
-        <translation type="unfinished">Virhe: Ei voinut poistaa watchonly-tapahtumia</translation>
     </message>
     <message>
         <source>Error: Couldn't create cursor into database</source>
@@ -4287,12 +4310,12 @@ Ei voinut palauttaa lompakon varmuuskopiota..</translation>
         <translation type="unfinished">Lompakkoa ei voitu tarkastaa alustuksen yhteydessä.</translation>
     </message>
     <message>
-        <source>Failed to start indexes, shutting down..</source>
-        <translation type="unfinished">Indeksien käynnistäminen epäonnistui, sammutetaan..</translation>
-    </message>
-    <message>
         <source>Failed to verify database</source>
         <translation type="unfinished">Tietokannan todennus epäonnistui</translation>
+    </message>
+    <message>
+        <source>Failure removing transaction: %s</source>
+        <translation type="unfinished">Siirron poistaminen epäonnistui: %s</translation>
     </message>
     <message>
         <source>Fee rate (%s) is lower than the minimum fee rate setting (%s)</source>
@@ -4301,10 +4324,6 @@ Ei voinut palauttaa lompakon varmuuskopiota..</translation>
     <message>
         <source>Ignoring duplicate -wallet %s.</source>
         <translation type="unfinished">Ohitetaan kaksois -lompakko %s.</translation>
-    </message>
-    <message>
-        <source>Importing…</source>
-        <translation type="unfinished">Tuodaan...</translation>
     </message>
     <message>
         <source>Incorrect or no genesis block found. Wrong datadir for network?</source>
@@ -4320,7 +4339,7 @@ Ei voinut palauttaa lompakon varmuuskopiota..</translation>
     </message>
     <message>
         <source>Insufficient funds</source>
-        <translation type="unfinished">Lompakon saldo ei riitä</translation>
+        <translation type="unfinished">Riittämätön saldo</translation>
     </message>
     <message>
         <source>Invalid -i2psam address or hostname: '%s'</source>
@@ -4353,10 +4372,6 @@ Ei voinut palauttaa lompakon varmuuskopiota..</translation>
     <message>
         <source>Invalid port specified in %s: '%s'</source>
         <translation type="unfinished">Virheellinen portti määritetty %s: '%s'</translation>
-    </message>
-    <message>
-        <source>Invalid pre-selected input %s</source>
-        <translation type="unfinished">Virheellinen esivalittu syöte %s</translation>
     </message>
     <message>
         <source>Listening for incoming connections failed (listen returned error %s)</source>
@@ -4393,10 +4408,6 @@ Ei voinut palauttaa lompakon varmuuskopiota..</translation>
     <message>
         <source>No addresses available</source>
         <translation type="unfinished">Osoitteita ei ole saatavilla</translation>
-    </message>
-    <message>
-        <source>Not enough file descriptors available.</source>
-        <translation type="unfinished">Ei tarpeeksi tiedostomerkintöjä vapaana.</translation>
     </message>
     <message>
         <source>Not found pre-selected input %s</source>
@@ -4503,8 +4514,8 @@ Ei voinut palauttaa lompakon varmuuskopiota..</translation>
         <translation type="unfinished">Tämä on jokaisesta siirrosta maksettava vähimmäismaksu.</translation>
     </message>
     <message>
-        <source>This is the transaction fee you will pay if you send a transaction.</source>
-        <translation type="unfinished">Tämä on se siirtomaksu, jonka maksat, mikäli lähetät siirron.</translation>
+        <source>Transaction %s does not belong to this wallet</source>
+        <translation type="unfinished">Tapahtuma %s ei kuulu tähän lompakkoon</translation>
     </message>
     <message>
         <source>Transaction amount too small</source>
@@ -4519,10 +4530,6 @@ Ei voinut palauttaa lompakon varmuuskopiota..</translation>
         <translation type="unfinished">Tapahtuman muutoksen tulosindeksi on alueen ulkopuolella</translation>
     </message>
     <message>
-        <source>Transaction has too long of a mempool chain</source>
-        <translation type="unfinished">Maksutapahtumalla on liian pitkä muistialtaan ketju</translation>
-    </message>
-    <message>
         <source>Transaction must have at least one recipient</source>
         <translation type="unfinished">Lähetyksessä tulee olla ainakin yksi vastaanottaja</translation>
     </message>
@@ -4533,10 +4540,6 @@ Ei voinut palauttaa lompakon varmuuskopiota..</translation>
     <message>
         <source>Transaction too large</source>
         <translation type="unfinished">Siirtosumma liian iso</translation>
-    </message>
-    <message>
-        <source>Unable to allocate memory for -maxsigcachesize: '%s' MiB</source>
-        <translation type="unfinished">Ei voida varata muistia kohteelle %sMiB</translation>
     </message>
     <message>
         <source>Unable to bind to %s on this computer (bind returned error %s)</source>
@@ -4555,14 +4558,6 @@ Ei voinut palauttaa lompakon varmuuskopiota..</translation>
         <translation type="unfinished">Ulkoisen tulon UTXO ei löydy</translation>
     </message>
     <message>
-        <source>Unable to generate initial keys</source>
-        <translation type="unfinished">Alkuavaimia ei voi luoda</translation>
-    </message>
-    <message>
-        <source>Unable to generate keys</source>
-        <translation type="unfinished">Avaimia ei voitu luoda</translation>
-    </message>
-    <message>
         <source>Unable to open %s for writing</source>
         <translation type="unfinished">Ei pystytä avaamaan %s kirjoittamista varten</translation>
     </message>
@@ -4573,10 +4568,6 @@ Ei voinut palauttaa lompakon varmuuskopiota..</translation>
     <message>
         <source>Unable to start HTTP server. See debug log for details.</source>
         <translation type="unfinished">HTTP-palvelinta ei voitu käynnistää. Katso debug-lokista lisätietoja.</translation>
-    </message>
-    <message>
-        <source>Unable to unload the wallet before migrating</source>
-        <translation type="unfinished">Lompakon lataus epäonnistui ennen siirtoa</translation>
     </message>
     <message>
         <source>Unknown -blockfilterindex value %s.</source>
@@ -4597,6 +4588,10 @@ Ei voinut palauttaa lompakon varmuuskopiota..</translation>
     <message>
         <source>Unknown new rules activated (versionbit %i)</source>
         <translation type="unfinished">Tuntemattomia uusia sääntöjä aktivoitu (versiobitti %i)</translation>
+    </message>
+    <message>
+        <source>Wallet file creation failed: %s</source>
+        <translation type="unfinished">Lompakon luominen epäonnistui: %s</translation>
     </message>
     <message>
         <source>acceptstalefeeestimates is not supported on %s chain.</source>

@@ -11,7 +11,7 @@
 
 [Unit]
 Description=BitcoinSilver daemon
-Documentation=https://github.com/MrVistos/bitcoinsilver/blob/master/doc/init.md
+Documentation=https://github.com/bitcoin-silver/core/blob/master/doc/init.md
 
 # https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/
 After=network-online.target
@@ -25,8 +25,7 @@ ExecStart=/usr/bin/bitcoinsilverd -pid=/run/bitcoinsilverd/bitcoinsilverd.pid \
                             -shutdownnotify='systemd-notify --stopping'
 
 # Make sure the config directory is readable by the service user
-PermissionsStartOnly=true
-ExecStartPre=/bin/chgrp bitcoinsilver /etc/bitcoinsilver
+ExecStartPre=!/bin/chgrp bitcoinsilver /etc/bitcoinsilver
 
 # Process management
 ####################
@@ -44,7 +43,6 @@ TimeoutStopSec=600
 
 # Run as bitcoinsilver:bitcoinsilver
 User=bitcoinsilver
-Group=bitcoinsilver
 
 # /run/bitcoinsilverd
 RuntimeDirectory=bitcoinsilverd
@@ -80,6 +78,9 @@ PrivateDevices=true
 
 # Deny the creation of writable and executable memory mappings.
 MemoryDenyWriteExecute=true
+
+# Restrict ABIs to help ensure MemoryDenyWriteExecute is enforced
+SystemCallArchitectures=native
 
 [Install]
 WantedBy=multi-user.target

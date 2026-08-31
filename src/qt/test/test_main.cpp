@@ -1,14 +1,13 @@
-// Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2009-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoinsilver-config.h>
-#endif
+#include <bitcoin-build-config.h> // IWYU pragma: keep
 
 #include <interfaces/init.h>
 #include <interfaces/node.h>
 #include <qt/bitcoinsilver.h>
+#include <qt/guiconstants.h>
 #include <qt/test/apptests.h>
 #include <qt/test/optiontests.h>
 #include <qt/test/rpcnestedtests.h>
@@ -24,11 +23,12 @@
 #include <QApplication>
 #include <QDebug>
 #include <QObject>
+#include <QSettings>
 #include <QTest>
 
 #include <functional>
 
-#if defined(QT_STATICPLUGIN)
+#if defined(QT_STATIC)
 #include <QtPlugin>
 #if defined(QT_QPA_PLATFORM_MINIMAL)
 Q_IMPORT_PLUGIN(QMinimalIntegrationPlugin);
@@ -47,6 +47,8 @@ Q_IMPORT_PLUGIN(QAndroidPlatformIntegrationPlugin)
 const std::function<void(const std::string&)> G_TEST_LOG_FUN{};
 
 const std::function<std::vector<const char*>()> G_TEST_COMMAND_LINE_ARGUMENTS{};
+
+const std::function<std::string()> G_TEST_GET_FULL_NAME{};
 
 // This is all you need to run all the tests
 int main(int argc, char* argv[])
@@ -83,11 +85,15 @@ int main(int argc, char* argv[])
         setenv("QT_QPA_PLATFORM", "minimal", 0 /* overwrite */);
     #endif
 
-    BitcoinApplication app;
-    app.setApplicationName("BitcoinSilver-Qt-test");
-    app.createNode(*init);
+
+    QCoreApplication::setOrganizationName(QAPP_ORG_NAME);
+    QCoreApplication::setApplicationName(QAPP_APP_NAME_DEFAULT "-test");
 
     int num_test_failures{0};
+
+    {
+        BitcoinApplication app;
+        app.createNode(*init);
 
     AppTests app_tests(app);
     num_test_failures += QTest::qExec(&app_tests);
@@ -114,5 +120,10 @@ int main(int argc, char* argv[])
     } else {
         qDebug("\nAll tests passed.\n");
     }
+    }
+
+    QSettings settings;
+    settings.clear();
+
     return num_test_failures;
 }

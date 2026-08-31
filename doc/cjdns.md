@@ -100,7 +100,7 @@ number of CJDNS addresses known to your node.
 In general, a node can be run with both an onion service and CJDNS (or any/all
 of IPv4/IPv6/onion/I2P/CJDNS), which can provide a potential fallback if one of
 the networks has issues. There are a number of ways to configure this; see
-[doc/tor.md](https://github.com/MrVistos/bitcoinsilver/blob/master/doc/tor.md) for
+[doc/tor.md](/doc/tor.md) for
 details.
 
 ## CJDNS-related information in BitcoinSilver
@@ -113,3 +113,5 @@ To see which CJDNS peers your node is connected to, use `bitcoinsilver-cli -neti
 or the `getpeerinfo` RPC (i.e. `bitcoinsilver-cli getpeerinfo`).
 
 You can use the `getnodeaddresses` RPC to fetch a number of CJDNS peers known to your node; run `bitcoinsilver-cli help getnodeaddresses` for details.
+
+`bitcoinsilver rpc` can also be substituted for `bitcoinsilver-cli`.

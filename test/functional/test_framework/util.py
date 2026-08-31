@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2022 The Bitcoin Core developers
+# Copyright (c) 2014-present The BitcoinSilver developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Helpful routines for regression testing."""
 
 from base64 import b64encode
-from decimal import Decimal, ROUND_DOWN
+from decimal import Decimal
 from subprocess import CalledProcessError
 import hashlib
 import inspect
@@ -13,14 +13,20 @@ import json
 import logging
 import os
 import pathlib
+import platform
 import random
 import re
-import sys
+import shlex
 import time
+import types
 
 from . import coverage
 from .authproxy import AuthServiceProxy, JSONRPCException
-from typing import Callable, Optional, Tuple
+from .descriptors import descsum_create
+from collections.abc import Callable
+from typing import Optional, Union
+
+SATOSHI_PRECISION = Decimal('0.00000001')
 
 logger = logging.getLogger("TestFramework.utils")
 
@@ -40,21 +46,42 @@ def assert_approx(v, vexp, vspan=0.00001):
         raise AssertionError("%s > [%s..%s]" % (str(v), str(vexp - vspan), str(vexp + vspan)))
 
 
-def assert_fee_amount(fee, tx_size, feerate_BTCS_kvB):
+def assert_fee_amount(fee, tx_size, feerate_BTC_kvB):
     """Assert the fee is in range."""
     assert isinstance(tx_size, int)
-    target_fee = get_fee(tx_size, feerate_BTCS_kvB)
+    target_fee = get_fee(tx_size, feerate_BTC_kvB)
     if fee < target_fee:
-        raise AssertionError("Fee of %s BTCS too low! (Should be %s BTCS)" % (str(fee), str(target_fee)))
+        raise AssertionError("Fee of %s BTC too low! (Should be %s BTC)" % (str(fee), str(target_fee)))
     # allow the wallet's estimation to be at most 2 bytes off
-    high_fee = get_fee(tx_size + 2, feerate_BTCS_kvB)
+    high_fee = get_fee(tx_size + 2, feerate_BTC_kvB)
     if fee > high_fee:
-        raise AssertionError("Fee of %s BTCS too high! (Should be %s BTCS)" % (str(fee), str(target_fee)))
+        raise AssertionError("Fee of %s BTC too high! (Should be %s BTC)" % (str(fee), str(target_fee)))
 
+
+def summarise_dict_differences(thing1, thing2):
+    if not isinstance(thing1, dict) or not isinstance(thing2, dict):
+        return thing1, thing2
+    d1, d2 = {}, {}
+    for k in sorted(thing1.keys()):
+        if k not in thing2:
+            d1[k] = thing1[k]
+        elif thing1[k] != thing2[k]:
+            d1[k], d2[k] = summarise_dict_differences(thing1[k], thing2[k])
+    for k in sorted(thing2.keys()):
+        if k not in thing1:
+            d2[k] = thing2[k]
+    return d1, d2
 
 def assert_equal(thing1, thing2, *args):
+    if thing1 != thing2 and not args and isinstance(thing1, dict) and isinstance(thing2, dict):
+        d1,d2 = summarise_dict_differences(thing1, thing2)
+        raise AssertionError("not(%s == %s)\n  in particular not(%s == %s)" % (thing1, thing2, d1, d2))
     if thing1 != thing2 or any(thing1 != arg for arg in args):
         raise AssertionError("not(%s)" % " == ".join(str(arg) for arg in (thing1, thing2) + args))
+
+def assert_not_equal(thing1, thing2, *, error_message=""):
+    if thing1 == thing2:
+        raise AssertionError(f"Both values are {thing1}{f', {error_message}' if error_message else ''}")
 
 
 def assert_greater_than(thing1, thing2):
@@ -77,10 +104,9 @@ def assert_raises_message(exc, message, fun, *args, **kwds):
     except JSONRPCException:
         raise AssertionError("Use assert_raises_rpc_error() to test RPC failures")
     except exc as e:
-        if message is not None and message not in e.error['message']:
-            raise AssertionError(
-                "Expected substring not found in error message:\nsubstring: '{}'\nerror message: '{}'.".format(
-                    message, e.error['message']))
+        if message is not None and message not in str(e):
+            raise AssertionError("Expected substring not found in exception:\n"
+                                 f"substring: '{message}'\nexception: {e!r}.")
     except Exception as e:
         raise AssertionError("Unexpected exception raised: " + type(e).__name__)
     else:
@@ -139,13 +165,13 @@ def try_rpc(code, message, fun, *args, **kwds):
     try:
         fun(*args, **kwds)
     except JSONRPCException as e:
-        # JSONRPCException was thrown as expected. Check the code and message values are correct.
-        if (code is not None) and (code != e.error["code"]):
-            raise AssertionError("Unexpected JSONRPC error code %i" % e.error["code"])
+        # JSONRPCException was thrown as expected. Check the message and code values are correct.
         if (message is not None) and (message not in e.error['message']):
             raise AssertionError(
                 "Expected substring not found in error message:\nsubstring: '{}'\nerror message: '{}'.".format(
                     message, e.error['message']))
+        if (code is not None) and (code != e.error["code"]):
+            raise AssertionError("Unexpected JSONRPC error code %i" % e.error["code"])
         return True
     except Exception as e:
         raise AssertionError("Unexpected exception raised: " + type(e).__name__)
@@ -204,11 +230,124 @@ def assert_array_result(object_array, to_match, expected, should_not_find=False)
 
 
 def check_json_precision():
-    """Make sure json library being used does not lose precision converting BTCS values"""
+    """Make sure json library being used does not lose precision converting BTC values"""
     n = Decimal("20000000.00000003")
     satoshis = int(json.loads(json.dumps(float(n))) * 1.0e8)
     if satoshis != 2000000000000003:
         raise RuntimeError("JSON encode/decode loses precision")
+
+
+class Binaries:
+    """Helper class to provide information about bitcoinsilver binaries
+
+    Attributes:
+        paths: Object returned from get_binary_paths() containing information
+            which binaries and command lines to use from environment variables and
+            the config file.
+        bin_dir: An optional string containing a directory path to look for
+            binaries, which takes precedence over the paths above, if specified.
+            This is used by tests calling binaries from previous releases.
+    """
+    def __init__(self, paths, bin_dir, *, use_valgrind=False):
+        self.paths = paths
+        self.bin_dir = bin_dir
+        suppressions_file = pathlib.Path(__file__).resolve().parents[3] / "test" / "sanitizer_suppressions" / "valgrind.supp"
+        self.valgrind_cmd = [
+            "valgrind",
+            f"--suppressions={suppressions_file}",
+            "--gen-suppressions=all",
+            "--trace-children=yes",  # Needed for 'bitcoinsilver' wrapper
+            "--exit-on-first-error=yes",
+            "--error-exitcode=1",
+            "--quiet",
+        ] if use_valgrind else []
+
+    def node_argv(self, **kwargs):
+        "Return argv array that should be used to invoke bitcoinsilverd"
+        return self._argv("node", self.paths.bitcoinsilverd, **kwargs)
+
+    def rpc_argv(self):
+        "Return argv array that should be used to invoke bitcoinsilver-cli"
+        # Add -nonamed because "bitcoinsilver rpc" enables -named by default, but bitcoinsilver-cli doesn't
+        return self._argv("rpc", self.paths.bitcoinsilvercli) + ["-nonamed"]
+
+    def bench_argv(self):
+        "Return argv array that should be used to invoke bench_bitcoinsilver"
+        return self._argv("bench", self.paths.bitcoinsilver_bench)
+
+    def tx_argv(self):
+        "Return argv array that should be used to invoke bitcoinsilver-tx"
+        return self._argv("tx", self.paths.bitcoinsilvertx)
+
+    def util_argv(self):
+        "Return argv array that should be used to invoke bitcoinsilver-util"
+        return self._argv("util", self.paths.bitcoinsilverutil)
+
+    def wallet_argv(self):
+        "Return argv array that should be used to invoke bitcoinsilver-wallet"
+        return self._argv("wallet", self.paths.bitcoinsilverwallet)
+
+    def chainstate_argv(self):
+        "Return argv array that should be used to invoke bitcoinsilver-chainstate"
+        return self._argv("chainstate", self.paths.bitcoinsilverchainstate)
+
+    def _argv(self, command, bin_path, need_ipc=False):
+        """Return argv array that should be used to invoke the command.
+
+        It either uses the bitcoinsilver wrapper executable (if BITCOINSILVER_CMD is set or
+        need_ipc is True), or the direct binary path (bitcoinsilverd, etc). When
+        bin_dir is set (by tests calling binaries from previous releases) it
+        always uses the direct path.
+
+        The returned args include valgrind, except when bin_dir is set
+        (previous releases). Also, valgrind will only apply to the bitcoinsilver
+        wrapper executable directly, not to the commands that `bitcoinsilver` calls.
+        """
+        if self.bin_dir is not None:
+            return [os.path.join(self.bin_dir, os.path.basename(bin_path))]
+        elif self.paths.bitcoinsilver_cmd is not None or need_ipc:
+            # If the current test needs IPC functionality, use the bitcoinsilver
+            # wrapper binary and append -m so it calls multiprocess binaries.
+            bitcoinsilver_cmd = self.paths.bitcoinsilver_cmd or [self.paths.bitcoinsilver_bin]
+            return self.valgrind_cmd + bitcoinsilver_cmd + (["-m"] if need_ipc else []) + [command]
+        else:
+            return self.valgrind_cmd + [bin_path]
+
+
+def get_binary_paths(config):
+    """Get paths of all binaries from environment variables or their default values"""
+
+    paths = types.SimpleNamespace()
+    binaries = {
+        "bitcoinsilver": "BITCOINSILVER_BIN",
+        "bitcoinsilverd": "BITCOINSILVERD",
+        "bench_bitcoinsilver": "BITCOINSILVER_BENCH",
+        "bitcoinsilver-cli": "BITCOINSILVERCLI",
+        "bitcoinsilver-util": "BITCOINSILVERUTIL",
+        "bitcoinsilver-tx": "BITCOINSILVERTX",
+        "bitcoinsilver-chainstate": "BITCOINSILVERCHAINSTATE",
+        "bitcoinsilver-wallet": "BITCOINSILVERWALLET",
+    }
+    # Set paths to bitcoinsilver core binaries allowing overrides with environment
+    # variables.
+    for binary, env_variable_name in binaries.items():
+        default_filename = os.path.join(
+            config["environment"]["BUILDDIR"],
+            "bin",
+            binary + config["environment"]["EXEEXT"],
+        )
+        setattr(paths, env_variable_name.lower(), os.getenv(env_variable_name, default=default_filename))
+    # BITCOINSILVER_CMD environment variable can be specified to invoke bitcoinsilver
+    # wrapper binary instead of other executables.
+    paths.bitcoinsilver_cmd = shlex.split(os.getenv("BITCOINSILVER_CMD", "")) or None
+    return paths
+
+
+def export_env_build_path(config):
+    os.environ["PATH"] = os.pathsep.join([
+        os.path.join(config["environment"]["BUILDDIR"], "bin"),
+        os.environ["PATH"],
+    ])
 
 
 def count_bytes(hex_string):
@@ -230,18 +369,46 @@ def ceildiv(a, b):
     return -(-a // b)
 
 
+def random_bitflip(data):
+    data = list(data)
+    data[random.randrange(len(data))] ^= (1 << (random.randrange(8)))
+    return bytes(data)
+
+
 def get_fee(tx_size, feerate_btc_kvb):
-    """Calculate the fee in BTCS given a feerate is BTCS/kvB. Reflects CFeeRate::GetFee"""
+    """Calculate the fee in BTC given a feerate is BTC/kvB. Reflects CFeeRate::GetFee"""
     feerate_sat_kvb = int(feerate_btc_kvb * Decimal(1e8)) # Fee in sat/kvb as an int to avoid float precision errors
     target_fee_sat = ceildiv(feerate_sat_kvb * tx_size, 1000) # Round calculated fee up to nearest sat
-    return target_fee_sat / Decimal(1e8) # Return result in  BTCS
+    return target_fee_sat / Decimal(1e8) # Return result in  BTC
 
 
-def satoshi_round(amount):
-    return Decimal(amount).quantize(Decimal('0.00000001'), rounding=ROUND_DOWN)
+def satoshi_round(amount: Union[int, float, str], *, rounding: str) -> Decimal:
+    """Rounds a Decimal amount to the nearest satoshi using the specified rounding mode."""
+    return Decimal(amount).quantize(SATOSHI_PRECISION, rounding=rounding)
 
 
-def wait_until_helper_internal(predicate, *, attempts=float('inf'), timeout=float('inf'), lock=None, timeout_factor=1.0):
+def ensure_for(*, duration, f, check_interval=0.2):
+    """Check if the predicate keeps returning True for duration.
+
+    check_interval can be used to configure the wait time between checks.
+    Setting check_interval to 0 will allow to have two checks: one in the
+    beginning and one after duration.
+    """
+    # If check_interval is 0 or negative or larger than duration, we fall back
+    # to checking once in the beginning and once at the end of duration
+    if check_interval <= 0 or check_interval > duration:
+        check_interval = duration
+    time_end = time.time() + duration
+    predicate_source = "''''\n" + inspect.getsource(f) + "'''"
+    while True:
+        if not f():
+            raise AssertionError(f"Predicate {predicate_source} became false within {duration} seconds")
+        if time.time() > time_end:
+            return
+        time.sleep(check_interval)
+
+
+def wait_until_helper_internal(predicate, *, timeout=60, lock=None, timeout_factor=1.0, check_interval=0.05):
     """Sleep until the predicate resolves to be True.
 
     Warning: Note that this method is not recommended to be used in tests as it is
@@ -250,13 +417,10 @@ def wait_until_helper_internal(predicate, *, attempts=float('inf'), timeout=floa
     properly scaled. Furthermore, `wait_until()` from `P2PInterface` class in
     `p2p.py` has a preset lock.
     """
-    if attempts == float('inf') and timeout == float('inf'):
-        timeout = 60
     timeout = timeout * timeout_factor
-    attempt = 0
     time_end = time.time() + timeout
 
-    while attempt < attempts and time.time() < time_end:
+    while time.time() < time_end:
         if lock:
             with lock:
                 if predicate():
@@ -264,17 +428,19 @@ def wait_until_helper_internal(predicate, *, attempts=float('inf'), timeout=floa
         else:
             if predicate():
                 return
-        attempt += 1
-        time.sleep(0.05)
+        time.sleep(check_interval)
 
     # Print the cause of the timeout
     predicate_source = "''''\n" + inspect.getsource(predicate) + "'''"
     logger.error("wait_until() failed. Predicate: {}".format(predicate_source))
-    if attempt >= attempts:
-        raise AssertionError("Predicate {} not true after {} attempts".format(predicate_source, attempts))
-    elif time.time() >= time_end:
-        raise AssertionError("Predicate {} not true after {} seconds".format(predicate_source, timeout))
-    raise RuntimeError('Unreachable')
+    raise AssertionError("Predicate {} not true after {} seconds".format(predicate_source, timeout))
+
+
+def bpf_cflags():
+    return [
+        "-Wno-error=implicit-function-declaration",
+        "-Wno-duplicate-decl-specifier",  # https://github.com/bitcoin/bitcoin/issues/32322
+    ]
 
 
 def sha256sum_file(filename):
@@ -287,10 +453,11 @@ def sha256sum_file(filename):
     return h.digest()
 
 
-# TODO: Remove and use random.randbytes(n) instead, available in Python 3.9
-def random_bytes(n):
-    """Return a random bytes object of length n."""
-    return bytes(random.getrandbits(8) for i in range(n))
+def util_xor(data, key, *, offset):
+    data = bytearray(data)
+    for i in range(len(data)):
+        data[i] ^= key[(i + offset) % len(key)]
+    return bytes(data)
 
 
 # RPC/P2P connection constants and functions
@@ -298,9 +465,9 @@ def random_bytes(n):
 
 # The maximum number of nodes a single test can spawn
 MAX_NODES = 12
-# Don't assign rpc or p2p ports lower than this
+# Don't assign p2p, rpc or tor ports lower than this
 PORT_MIN = int(os.getenv('TEST_RUNNER_PORT_MIN', default=11000))
-# The number of ports to "reserve" for p2p and rpc, each
+# The number of ports to "reserve" for p2p, rpc and tor, each
 PORT_RANGE = 5000
 
 
@@ -340,7 +507,11 @@ def p2p_port(n):
 
 
 def rpc_port(n):
-    return PORT_MIN + PORT_RANGE + n + (MAX_NODES * PortSeed.n) % (PORT_RANGE - 1 - MAX_NODES)
+    return p2p_port(n) + PORT_RANGE
+
+
+def tor_port(n):
+    return p2p_port(n) + PORT_RANGE * 2
 
 
 def rpc_url(datadir, i, chain, rpchost):
@@ -378,7 +549,7 @@ def write_config(config_path, *, n, chain, extra_config="", disable_autoconnect=
     else:
         chain_name_conf_arg = chain
         chain_name_conf_section = chain
-    with open(config_path, 'w', encoding='utf8') as f:
+    with open(config_path, 'w') as f:
         if chain_name_conf_arg:
             f.write("{}=1\n".format(chain_name_conf_arg))
         if chain_name_conf_section:
@@ -388,6 +559,7 @@ def write_config(config_path, *, n, chain, extra_config="", disable_autoconnect=
         # Disable server-side timeouts to avoid intermittent issues
         f.write("rpcservertimeout=99000\n")
         f.write("rpcdoccheck=1\n")
+        f.write("rpcthreads=2\n")
         f.write("fallbackfee=0.0002\n")
         f.write("server=1\n")
         f.write("keypool=1\n")
@@ -401,14 +573,24 @@ def write_config(config_path, *, n, chain, extra_config="", disable_autoconnect=
         # in tests.
         f.write("peertimeout=999999999\n")
         f.write("printtoconsole=0\n")
-        f.write("upnp=0\n")
         f.write("natpmp=0\n")
         f.write("shrinkdebugfile=0\n")
-        f.write("deprecatedrpc=create_bdb\n")  # Required to run the tests
         # To improve SQLite wallet performance so that the tests don't timeout, use -unsafesqlitesync
         f.write("unsafesqlitesync=1\n")
         if disable_autoconnect:
             f.write("connect=0\n")
+        # Limit max connections to mitigate test failures on some systems caused by the warning:
+        # "Warning: Reducing -maxconnections from <...> to <...> due to system limitations".
+        # The value is calculated as follows:
+        #  available_fds = 256          // Same as FD_SETSIZE on NetBSD.
+        #  MIN_CORE_FDS = 151           // Number of file descriptors required for core functionality.
+        #  MAX_ADDNODE_CONNECTIONS = 8  // Maximum number of -addnode outgoing nodes.
+        #  nBind == 3                   // Maximum number of bound interfaces used in a test.
+        #
+        #  min_required_fds = MIN_CORE_FDS + MAX_ADDNODE_CONNECTIONS + nBind = 151 + 8 + 3 = 162;
+        #  nMaxConnections = available_fds - min_required_fds = 256 - 161 = 94;
+        f.write("maxconnections=94\n")
+        f.write("par=" + str(min(2, os.cpu_count())) + "\n")
         f.write(extra_config)
 
 
@@ -416,16 +598,16 @@ def get_datadir_path(dirname, n):
     return pathlib.Path(dirname) / f"node{n}"
 
 
-def get_temp_default_datadir(temp_dir: pathlib.Path) -> Tuple[dict, pathlib.Path]:
+def get_temp_default_datadir(temp_dir: pathlib.Path) -> tuple[dict, pathlib.Path]:
     """Return os-specific environment variables that can be set to make the
     GetDefaultDataDir() function return a datadir path under the provided
     temp_dir, as well as the complete path it would return."""
-    if sys.platform == "win32":
+    if platform.system() == "Windows":
         env = dict(APPDATA=str(temp_dir))
         datadir = temp_dir / "BitcoinSilver"
     else:
         env = dict(HOME=str(temp_dir))
-        if sys.platform == "darwin":
+        if platform.system() == "Darwin":
             datadir = temp_dir / "Library/Application Support/BitcoinSilver"
         else:
             datadir = temp_dir / ".bitcoinsilver"
@@ -433,7 +615,7 @@ def get_temp_default_datadir(temp_dir: pathlib.Path) -> Tuple[dict, pathlib.Path
 
 
 def append_config(datadir, options):
-    with open(os.path.join(datadir, "bitcoinsilver.conf"), 'a', encoding='utf8') as f:
+    with open(os.path.join(datadir, "bitcoinsilver.conf"), 'a') as f:
         for option in options:
             f.write(option + "\n")
 
@@ -442,7 +624,7 @@ def get_auth_cookie(datadir, chain):
     user = None
     password = None
     if os.path.isfile(os.path.join(datadir, "bitcoinsilver.conf")):
-        with open(os.path.join(datadir, "bitcoinsilver.conf"), 'r', encoding='utf8') as f:
+        with open(os.path.join(datadir, "bitcoinsilver.conf"), 'r') as f:
             for line in f:
                 if line.startswith("rpcuser="):
                     assert user is None  # Ensure that there is only one rpcuser line
@@ -451,7 +633,7 @@ def get_auth_cookie(datadir, chain):
                     assert password is None  # Ensure that there is only one rpcpassword line
                     password = line.split("=")[1].strip("\n")
     try:
-        with open(os.path.join(datadir, chain, ".cookie"), 'r', encoding="ascii") as f:
+        with open(os.path.join(datadir, chain, ".cookie"), 'r') as f:
             userpass = f.read()
             split_userpass = userpass.split(':')
             user = split_userpass[0]
@@ -488,18 +670,6 @@ def check_node_connections(*, node, num_in, num_out):
 
 # Transaction/Block functions
 #############################
-
-
-def find_output(node, txid, amount, *, blockhash=None):
-    """
-    Return index to output of txid with value amount
-    Raises exception if there is none.
-    """
-    txdata = node.getrawtransaction(txid, 1, blockhash)
-    for i in range(len(txdata["vout"])):
-        if txdata["vout"][i]["value"] == amount:
-            return i
-    raise RuntimeError("find_output txid %s : %s not found" % (txid, str(amount)))
 
 
 # Create large OP_RETURN txouts that can be appended to a transaction
@@ -549,3 +719,30 @@ def find_vout_for_address(node, txid, addr):
         if addr == tx["vout"][i]["scriptPubKey"]["address"]:
             return i
     raise RuntimeError("Vout not found for address: txid=%s, addr=%s" % (txid, addr))
+
+
+def dumb_sync_blocks(*, src, dst, height=None):
+    """Sync blocks between `src` and `dst` nodes via RPC submitblock up to height."""
+    height = height or src.getblockcount()
+    for i in range(dst.getblockcount() + 1, height + 1):
+        block_hash = src.getblockhash(i)
+        block = src.getblock(blockhash=block_hash, verbosity=0)
+        dst.submitblock(block)
+    assert_equal(dst.getblockcount(), height)
+
+
+def sync_txindex(test_framework, node):
+    test_framework.log.debug("Waiting for node txindex to sync")
+    sync_start = int(time.time())
+    test_framework.wait_until(lambda: node.getindexinfo("txindex")["txindex"]["synced"])
+    test_framework.log.debug(f"Synced in {time.time() - sync_start} seconds")
+
+def wallet_importprivkey(wallet_rpc, privkey, timestamp, *, label=""):
+    desc = descsum_create("combo(" + privkey + ")")
+    req = [{
+        "desc": desc,
+        "timestamp": timestamp,
+        "label": label,
+    }]
+    import_res = wallet_rpc.importdescriptors(req)
+    assert_equal(import_res[0]["success"], True)

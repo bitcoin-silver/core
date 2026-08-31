@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2009-present The BitcoinSilver developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,15 +7,20 @@
 
 #include <coins.h>
 #include <dbwrapper.h>
-#include <logging.h>
+#include <logging/timer.h>
 #include <primitives/transaction.h>
 #include <random.h>
 #include <serialize.h>
 #include <uint256.h>
+#include <util/log.h>
+#include <util/threadnames.h>
 #include <util/vector.h>
 
 #include <cassert>
+#include <chrono>
 #include <cstdlib>
+#include <exception>
+#include <future>
 #include <iterator>
 #include <utility>
 
@@ -24,6 +29,9 @@ static constexpr uint8_t DB_BEST_BLOCK{'B'};
 static constexpr uint8_t DB_HEAD_BLOCKS{'H'};
 // Keys used in previous version that might still be found in the DB:
 static constexpr uint8_t DB_COINS{'c'};
+
+// Threshold for warning when writing this many dirty cache entries to disk.
+static constexpr size_t WARN_FLUSH_COINS_COUNT{10'000'000};
 
 bool CCoinsViewDB::NeedsUpgrade()
 {
@@ -38,8 +46,8 @@ namespace {
 
 struct CoinEntry {
     COutPoint* outpoint;
-    uint8_t key;
-    explicit CoinEntry(const COutPoint* ptr) : outpoint(const_cast<COutPoint*>(ptr)), key(DB_COIN)  {}
+    uint8_t key{DB_COIN};
+    explicit CoinEntry(const COutPoint* ptr) : outpoint(const_cast<COutPoint*>(ptr)) {}
 
     SERIALIZE_METHODS(CoinEntry, obj) { READWRITE(obj.key, obj.outpoint->hash, VARINT(obj.outpoint->n)); }
 };
@@ -51,11 +59,22 @@ CCoinsViewDB::CCoinsViewDB(DBParams db_params, CoinsViewOptions options) :
     m_options{std::move(options)},
     m_db{std::make_unique<CDBWrapper>(m_db_params)} { }
 
+CCoinsViewDB::~CCoinsViewDB()
+{
+    if (m_compaction.valid()) {
+        if (m_compaction.wait_for(std::chrono::seconds{0}) != std::future_status::ready) {
+            LogInfo("Waiting for background chainstate compaction of %s", fs::PathToString(m_db_params.path));
+        }
+        m_compaction.wait();
+    }
+}
+
 void CCoinsViewDB::ResizeCache(size_t new_cache_size)
 {
     // We can't do this operation with an in-memory DB since we'll lose all the coins upon
     // reset.
     if (!m_db_params.memory_only) {
+        LOCK(m_db_mutex);
         // Have to do a reset first to get the original `m_db` state to release its
         // filesystem lock.
         m_db.reset();
@@ -65,8 +84,13 @@ void CCoinsViewDB::ResizeCache(size_t new_cache_size)
     }
 }
 
-bool CCoinsViewDB::GetCoin(const COutPoint &outpoint, Coin &coin) const {
-    return m_db->Read(CoinEntry(&outpoint), coin);
+std::optional<Coin> CCoinsViewDB::GetCoin(const COutPoint& outpoint) const
+{
+    if (Coin coin; m_db->Read(CoinEntry(&outpoint), coin)) {
+        Assert(!coin.IsSpent()); // The UTXO database should never contain spent coins
+        return coin;
+    }
+    return std::nullopt;
 }
 
 bool CCoinsViewDB::HaveCoin(const COutPoint &outpoint) const {
@@ -88,10 +112,11 @@ std::vector<uint256> CCoinsViewDB::GetHeadBlocks() const {
     return vhashHeadBlocks;
 }
 
-bool CCoinsViewDB::BatchWrite(CCoinsMap &mapCoins, const uint256 &hashBlock, bool erase) {
+void CCoinsViewDB::BatchWrite(CoinsViewCacheCursor& cursor, const uint256& hashBlock)
+{
     CDBBatch batch(*m_db);
     size_t count = 0;
-    size_t changed = 0;
+    const size_t dirty_count{cursor.GetDirtyCount()};
     assert(!hashBlock.IsNull());
 
     uint256 old_tip = GetBestBlock();
@@ -100,12 +125,16 @@ bool CCoinsViewDB::BatchWrite(CCoinsMap &mapCoins, const uint256 &hashBlock, boo
         std::vector<uint256> old_heads = GetHeadBlocks();
         if (old_heads.size() == 2) {
             if (old_heads[0] != hashBlock) {
-                LogPrintLevel(BCLog::COINDB, BCLog::Level::Error, "The coins database detected an inconsistent state, likely due to a previous crash or shutdown. You will need to restart bitcoinsilverd with the -reindex-chainstate or -reindex configuration option.\n");
+                LogError("The coins database detected an inconsistent state, likely due to a previous crash or shutdown. You will need to restart bitcoinsilverd with the -reindex-chainstate or -reindex configuration option.\n");
             }
             assert(old_heads[0] == hashBlock);
             old_tip = old_heads[1];
         }
     }
+
+    if (dirty_count > WARN_FLUSH_COINS_COUNT) LogWarning("Flushing large (%d entries) UTXO set to disk, it may take several minutes", dirty_count);
+    LOG_TIME_MILLIS_WITH_CATEGORY(strprintf("write coins cache to disk (%d out of %d cached coins)",
+        dirty_count, cursor.GetTotalCount()), BCLog::BENCH);
 
     // In the first batch, mark the database as being in the middle of a
     // transition from old_tip to hashBlock.
@@ -114,25 +143,26 @@ bool CCoinsViewDB::BatchWrite(CCoinsMap &mapCoins, const uint256 &hashBlock, boo
     batch.Erase(DB_BEST_BLOCK);
     batch.Write(DB_HEAD_BLOCKS, Vector(hashBlock, old_tip));
 
-    for (CCoinsMap::iterator it = mapCoins.begin(); it != mapCoins.end();) {
-        if (it->second.flags & CCoinsCacheEntry::DIRTY) {
+    for (auto it{cursor.Begin()}; it != cursor.End();) {
+        if (it->second.IsDirty()) {
             CoinEntry entry(&it->first);
-            if (it->second.coin.IsSpent())
+            if (it->second.coin.IsSpent()) {
                 batch.Erase(entry);
-            else
+            } else {
                 batch.Write(entry, it->second.coin);
-            changed++;
+            }
         }
         count++;
-        it = erase ? mapCoins.erase(it) : std::next(it);
-        if (batch.SizeEstimate() > m_options.batch_write_bytes) {
-            LogPrint(BCLog::COINDB, "Writing partial batch of %.2f MiB\n", batch.SizeEstimate() * (1.0 / 1048576.0));
+        it = cursor.NextAndMaybeErase(*it);
+        if (batch.ApproximateSize() > m_options.batch_write_bytes) {
+            LogDebug(BCLog::COINDB, "Writing partial batch of %.2f MiB\n", batch.ApproximateSize() * (1.0 / 1048576.0));
+
             m_db->WriteBatch(batch);
             batch.Clear();
             if (m_options.simulate_crash_ratio) {
                 static FastRandomContext rng;
                 if (rng.randrange(m_options.simulate_crash_ratio) == 0) {
-                    LogPrintf("Simulating a crash. Goodbye.\n");
+                    LogError("Simulating a crash. Goodbye.");
                     _Exit(0);
                 }
             }
@@ -143,15 +173,38 @@ bool CCoinsViewDB::BatchWrite(CCoinsMap &mapCoins, const uint256 &hashBlock, boo
     batch.Erase(DB_HEAD_BLOCKS);
     batch.Write(DB_BEST_BLOCK, hashBlock);
 
-    LogPrint(BCLog::COINDB, "Writing final batch of %.2f MiB\n", batch.SizeEstimate() * (1.0 / 1048576.0));
-    bool ret = m_db->WriteBatch(batch);
-    LogPrint(BCLog::COINDB, "Committed %u changed transaction outputs (out of %u) to coin database...\n", (unsigned int)changed, (unsigned int)count);
-    return ret;
+    LogDebug(BCLog::COINDB, "Writing final batch of %.2f MiB\n", batch.ApproximateSize() * (1.0 / 1048576.0));
+    m_db->WriteBatch(batch);
+    LogDebug(BCLog::COINDB, "Committed %u changed transaction outputs (out of %u) to coin database...", (unsigned int)dirty_count, (unsigned int)count);
 }
 
 size_t CCoinsViewDB::EstimateSize() const
 {
     return m_db->EstimateSize(DB_COIN, uint8_t(DB_COIN + 1));
+}
+
+std::optional<std::string> CCoinsViewDB::GetDBProperty(const std::string& property)
+{
+    return m_db->GetProperty(property);
+}
+
+std::shared_future<void> CCoinsViewDB::CompactFull()
+{
+    AssertLockHeld(::cs_main);
+    if (m_compaction.valid() && m_compaction.wait_for(std::chrono::seconds{0}) != std::future_status::ready) return m_compaction;
+    m_compaction = std::async(std::launch::async, [this] {
+        try {
+            util::ThreadRename("utxocompact");
+            LOCK(m_db_mutex);
+
+            LogDebug(BCLog::COINDB, "Starting chainstate compaction of %s", fs::PathToString(m_db_params.path));
+            m_db->CompactFull();
+            LogDebug(BCLog::COINDB, "Finished chainstate compaction of %s", fs::PathToString(m_db_params.path));
+        } catch (const std::exception& e) {
+            LogWarning("Failed chainstate compaction (%s)", e.what());
+        }
+    }).share();
+    return m_compaction;
 }
 
 /** Specialization of CCoinsViewCursor to iterate over a CCoinsViewDB */

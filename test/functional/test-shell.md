@@ -24,13 +24,16 @@ user inputs. Such environments include the Python3 command line interpreter or
 
 ## 2. Importing `TestShell` from the BitcoinSilver repository
 
-We can import the `TestShell` by adding the path of the BitcoinSilver
+We can import the `TestShell` by adding the path of the configured BitcoinSilver
 `test_framework` module to the beginning of the PATH variable, and then
-importing the `TestShell` class from the `test_shell` sub-package.
+importing the `TestShell` class from the `test_shell` sub-package. Since
+the build system creates a copy of the `test_framework` module into a new `build/`
+directory along with the required configuration file, the path to the build copy
+must be used.
 
 ```
 >>> import sys
->>> sys.path.insert(0, "/path/to/bitcoinsilver/test/functional")
+>>> sys.path.insert(0, "/path/to/bitcoinsilver/build/test/functional")
 >>> from test_framework.test_shell import TestShell
 ```
 
@@ -72,7 +75,7 @@ TestShell is already running!
 ## 4. Interacting with the `TestShell`
 
 Unlike the `BitcoinTestFramework` class, the `TestShell` keeps the underlying
-Bitcoind subprocesses (nodes) and logging utilities running until the user
+BitcoinSilverd subprocesses (nodes) and logging utilities running until the user
 explicitly shuts down the `TestShell` object.
 
 During the time between the `setup` and `shutdown` calls, all `bitcoinsilverd` node
@@ -94,7 +97,7 @@ rewards to a wallet address owned by the mining node.
 
 ```
 >>> test.nodes[0].createwallet('default')
-{'name': 'default', 'warning': 'Empty string given as passphrase, wallet will not be encrypted.'}
+{'name': 'default'}
 >>> address = test.nodes[0].getnewaddress()
 >>> test.generatetoaddress(test.nodes[0], 101, address)
 ['2b98dd0044aae6f1cca7f88a0acf366a4bfe053c7f7b00da3c0d115f03d67efb', ...
@@ -123,11 +126,11 @@ We can also log custom events to the logger.
 ```
 
 **Note: Please also consider the functional test
-[readme](../test/functional/README.md), which provides an overview of the
+[readme](/test/functional/README.md), which provides an overview of the
 test-framework**. Modules such as
-[key.py](../test/functional/test_framework/key.py),
-[script.py](../test/functional/test_framework/script.py) and
-[messages.py](../test/functional/test_framework/messages.py) are particularly
+[key.py](/test/functional/test_framework/key.py),
+[script.py](/test/functional/test_framework/script.py) and
+[messages.py](/test/functional/test_framework/messages.py) are particularly
 useful in constructing objects which can be passed to the bitcoinsilverd nodes managed
 by a running `TestShell` object.
 
@@ -155,7 +158,7 @@ To prevent the logs from being removed after a shutdown, simply set the
 The following utility consolidates logs from the bitcoinsilverd nodes and the
 underlying `BitcoinTestFramework`:
 
-* `/path/to/bitcoinsilver/test/functional/combine_logs.py
+* `/path/to/bitcoinsilver/build/test/functional/combine_logs.py
   '/path/to/bitcoinsilver_func_test_XXXXXXX'`
 
 ## 6. Custom `TestShell` parameters
@@ -169,14 +172,13 @@ can be called after the TestShell is shut down.
 
 | Test parameter key | Default Value | Description |
 |---|---|---|
-| `bind_to_localhost_only` | `True` | Binds bitcoinsilverd RPC services to `127.0.0.1` if set to `True`.|
-| `cachedir` | `"/path/to/bitcoinsilver/test/cache"` | Sets the bitcoinsilverd datadir directory. |
+| `bind_to_localhost_only` | `True` | Binds bitcoinsilverd P2P services to `127.0.0.1` if set to `True`.|
+| `cachedir` | `"/path/to/bitcoinsilver/build/test/cache"` | Sets the bitcoinsilverd datadir directory. |
 | `chain`  | `"regtest"` | Sets the chain-type for the underlying test bitcoinsilverd processes. |
-| `configfile` | `"/path/to/bitcoinsilver/test/config.ini"` | Sets the location of the test framework config file. |
+| `configfile` | `"/path/to/bitcoinsilver/build/test/config.ini"` | Sets the location of the test framework config file. |
 | `coveragedir` | `None` | Records bitcoinsilverd RPC test coverage into this directory if set. |
 | `loglevel` | `INFO` | Logs events at this level and higher. Can be set to `DEBUG`, `INFO`, `WARNING`, `ERROR` or `CRITICAL`. |
 | `nocleanup` | `False` | Cleans up temporary test directory if set to `True` during `shutdown`. |
-| `noshutdown` | `False` | Does not stop bitcoinsilverd instances after `shutdown` if set to `True`. |
 | `num_nodes` | `1` | Sets the number of initialized bitcoinsilverd processes. |
 | `perf` | False | Profiles running nodes with `perf` for the duration of the test if set to `True`. |
 | `rpc_timeout` | `60` | Sets the RPC server timeout for the underlying bitcoinsilverd processes. |

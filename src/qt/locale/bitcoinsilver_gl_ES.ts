@@ -2,20 +2,12 @@
 <context>
     <name>AddressBookPage</name>
     <message>
-        <source>Right-click to edit address or label</source>
-        <translation type="unfinished">cd vcpkg/buildtrees/libvpx/srccd *./configuresed -i 's/CFLAGS+=-I/CFLAGS+=-fPIC -I/g' Makefilesed -i 's/CXXFLAGS+=-I/CXXFLAGS+=-fPIC -I/g' Makefilemakecp libvpx.a $HOME/vcpkg/installed/x64-linux/lib/cd</translation>
-    </message>
-    <message>
         <source>Create a new address</source>
         <translation type="unfinished">Crea un novo enderezo</translation>
     </message>
     <message>
         <source>&amp;New</source>
         <translation type="unfinished">&amp;Novo</translation>
-    </message>
-    <message>
-        <source>Copy the currently selected address to the system clipboard</source>
-        <translation type="unfinished">Copia o enderezo seleccionado ao portapapeis do sistema</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -32,6 +24,10 @@
     <message>
         <source>Enter address or label to search</source>
         <translation type="unfinished">Introduce un enderezo ou etiqueta para buscar</translation>
+    </message>
+    <message>
+        <source>Copy the currently selected address to the clipboard</source>
+        <translation type="unfinished">Copia o enderezo actualmente seleccionado ao portapapeis</translation>
     </message>
     <message>
         <source>Export the data in the current tab to a file</source>
@@ -58,13 +54,13 @@
         <translation type="unfinished">Selecciona</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">Estes son os teus enderezos de BitcoinSilver para enviar pagamentos. Asegurate sempre de comprobar a cantidade e maila dirección antes de enviar moedas.</translation>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">Estes son os teus enderezos de Bitcoin para enviar pagamentos. Asegurate sempre de comprobar a cantidade e maila dirección antes de enviar moedas.</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">Estes son os teus enderezos de BitcoinSilver para recibir pagamentos. Emprega o botón 'Crear novo enderezo para recibir pagamentos' na solapa de recibir para crear novos enderezos.
+        <translation type="unfinished">Estes son os teus enderezos de Bitcoin para recibir pagamentos. Emprega o botón 'Crear novo enderezo para recibir pagamentos' na solapa de recibir para crear novos enderezos.
 Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
     </message>
     <message>
@@ -92,6 +88,14 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <source>There was an error trying to save the address list to %1. Please try again.</source>
         <extracomment>An error message. %1 is a stand-in argument for the name of the file we attempted to save to.</extracomment>
         <translation type="unfinished">Houbo un erro tentando gardar a lista de enderezos en %1. Por favor proba de novo.</translation>
+    </message>
+    <message>
+        <source>Sending addresses - %1</source>
+        <translation type="unfinished">Enviando enderezos - %1</translation>
+    </message>
+    <message>
+        <source>Receiving addresses - %1</source>
+        <translation type="unfinished">Recibindo enderezos - %1</translation>
     </message>
     <message>
         <source>Exporting Failed</source>
@@ -128,10 +132,6 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">Nova frase contrasinal</translation>
     </message>
     <message>
-        <source>Repeat new passphrase</source>
-        <translation type="unfinished">Repite a frase contrasinal</translation>
-    </message>
-    <message>
         <source>Show passphrase</source>
         <translation type="unfinished">Mostra frase contrasinal</translation>
     </message>
@@ -156,8 +156,8 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">Confirmar encriptación da carteira</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINSILVERS&lt;/b&gt;!</source>
-        <translation type="unfinished">Aviso: Si encriptas a túa carteira e perdes a túa frase contrasinal, &lt;b&gt;PERDERÁS TODOS OS TEUS BITCOINSILVERS&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
+        <translation type="unfinished">Aviso: Si encriptas a túa carteira e perdes a túa frase contrasinal, &lt;b&gt;PERDERÁS TODOS OS TEUS BITCOINS&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -174,6 +174,14 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
     <message>
         <source>Enter the old passphrase and new passphrase for the wallet.</source>
         <translation type="unfinished">Introduce a frase contrasinal anterior mais a nova frase contrasinal para a carteira.</translation>
+    </message>
+    <message>
+        <source>Continue</source>
+        <translation type="unfinished">Continuar</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished">Volver</translation>
     </message>
     <message>
         <source>Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
@@ -250,6 +258,10 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
 <context>
     <name>BitcoinApplication</name>
     <message>
+        <source>Settings file %1 might be corrupt or invalid.</source>
+        <translation type="unfinished">O ficheiro de configuración %1 pode estar danado ou non válido.</translation>
+    </message>
+    <message>
         <source>Runaway exception</source>
         <translation type="unfinished">Excepción de fuga</translation>
     </message>
@@ -268,6 +280,10 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
 </context>
 <context>
     <name>QObject</name>
+    <message>
+        <source>%1 didn't yet exit safely…</source>
+        <translation type="unfinished">%1 aínda non saíu con seguridade...</translation>
+    </message>
     <message>
         <source>Amount</source>
         <translation type="unfinished">Cantidade</translation>
@@ -314,7 +330,11 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
             <numerusform />
         </translation>
     </message>
-    </context>
+    <message>
+        <source>default wallet</source>
+        <translation type="unfinished">Carteira por defecto</translation>
+    </message>
+</context>
 <context>
     <name>BitcoinGUI</name>
     <message>
@@ -383,8 +403,8 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">Proxy &lt;b&gt;activado&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a BitcoinSilver address</source>
-        <translation type="unfinished">Envía moedas a un enderezo de BitcoinSilver</translation>
+        <source>Send coins to a Bitcoin address</source>
+        <translation type="unfinished">Envía moedas a un enderezo de Bitcoin</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -423,16 +443,40 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">&amp;Cambiar a frase de contrasinal...</translation>
     </message>
     <message>
-        <source>Sign messages with your BitcoinSilver addresses to prove you own them</source>
-        <translation type="unfinished">Asina mensaxes cos teus enderezos de BitcoinSilver para probar que che pertencen</translation>
+        <source>Sign &amp;message…</source>
+        <translation type="unfinished">Asinar &amp;mensaxe…</translation>
+    </message>
+    <message>
+        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
+        <translation type="unfinished">Asina mensaxes cos teus enderezos de Bitcoin para probar que che pertencen</translation>
     </message>
     <message>
         <source>&amp;Verify message…</source>
         <translation type="unfinished">&amp;Verifica a mensaxe...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified BitcoinSilver addresses</source>
-        <translation type="unfinished">Verifica mensaxes para asegurar que foron asinados cos enderezos de BitcoinSilver especificados</translation>
+        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
+        <translation type="unfinished">Verifica mensaxes para asegurar que foron asinados cos enderezos de Bitcoin especificados</translation>
+    </message>
+    <message>
+        <source>&amp;Load PSBT from file…</source>
+        <translation type="unfinished">&amp;Cargar PSBT desde ficheiro…</translation>
+    </message>
+    <message>
+        <source>Open &amp;URI…</source>
+        <translation type="unfinished">Abrir &amp;URI…</translation>
+    </message>
+    <message>
+        <source>Close Wallet…</source>
+        <translation type="unfinished">Pechar carteira…</translation>
+    </message>
+    <message>
+        <source>Create Wallet…</source>
+        <translation type="unfinished">Crear carteira…</translation>
+    </message>
+    <message>
+        <source>Close All Wallets…</source>
+        <translation type="unfinished">Pechar todas as carteiras…</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -451,8 +495,28 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">Barra de ferramentas das pestanas</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoinsilver: URIs)</source>
-        <translation type="unfinished">Solicita pagamentos (xera un código QR e bitcoinsilver : URIs)</translation>
+        <source>Syncing Headers (%1%)…</source>
+        <translation type="unfinished">Sincronizando Cabezeiras (%1%)...</translation>
+    </message>
+    <message>
+        <source>Synchronizing with network…</source>
+        <translation type="unfinished">Sincronizando coa rede...</translation>
+    </message>
+    <message>
+        <source>Indexing blocks on disk…</source>
+        <translation type="unfinished">Indexando bloques no disco...</translation>
+    </message>
+    <message>
+        <source>Processing blocks on disk…</source>
+        <translation type="unfinished">Procesando bloques no disco...</translation>
+    </message>
+    <message>
+        <source>Connecting to peers…</source>
+        <translation type="unfinished">Connectando con compañeiros...</translation>
+    </message>
+    <message>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
+        <translation type="unfinished">Solicita pagamentos (xera un código QR e bitocin : URIs)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -469,13 +533,17 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
     <message numerus="yes">
         <source>Processed %n block(s) of transaction history.</source>
         <translation type="unfinished">
-            <numerusform />
-            <numerusform />
+            <numerusform>Procesado %n bloque do historial de transaccións.</numerusform>
+            <numerusform>Procesados %n bloques do historial de transaccións.</numerusform>
         </translation>
     </message>
     <message>
         <source>%1 behind</source>
         <translation type="unfinished">%1 tras</translation>
+    </message>
+    <message>
+        <source>Catching up…</source>
+        <translation type="unfinished">Poñéndose ao día...</translation>
     </message>
     <message>
         <source>Last received block was generated %1 ago.</source>
@@ -514,8 +582,8 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">&amp;Enderezos de recepción</translation>
     </message>
     <message>
-        <source>Open a bitcoinsilver: URI</source>
-        <translation type="unfinished">Abre una URI de BitcoinSilver</translation>
+        <source>Open a bitcoin: URI</source>
+        <translation type="unfinished">Abre una URI de Bitcoin</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -530,12 +598,8 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">Pechar carteira</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible BitcoinSilver command-line options</source>
-        <translation type="unfinished">Mostra a %1 mensaxe de axuda para obter unha lista cas posibles opcións de línea de comando de BitcoinSilver </translation>
-    </message>
-    <message>
-        <source>default wallet</source>
-        <translation type="unfinished">Carteira por defecto</translation>
+        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
+        <translation type="unfinished">Mostra a %1 mensaxe de axuda para obter unha lista cas posibles opcións de línea de comando de Bitcoin </translation>
     </message>
     <message>
         <source>No wallets available</source>
@@ -559,7 +623,7 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">%1 cliente</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
             <numerusform />
@@ -769,10 +833,6 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
 <context>
     <name>OpenWalletActivity</name>
     <message>
-        <source>default wallet</source>
-        <translation type="unfinished">Carteira por defecto</translation>
-    </message>
-    <message>
         <source>Open Wallet</source>
         <extracomment>Title of window indicating the progress of opening of a wallet.</extracomment>
         <translation type="unfinished">Abrir carteira</translation>
@@ -814,10 +874,6 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
     <message>
         <source>Disable Private Keys</source>
         <translation type="unfinished">Desactivar Claves Privadas</translation>
-    </message>
-    <message>
-        <source>Make a blank wallet. Blank wallets do not initially have private keys or scripts. Private keys and addresses can be imported, or an HD seed can be set, at a later time.</source>
-        <translation type="unfinished">Crear unha Carteira en blanco. As carteiras en blanco non teñen inicialmente claves privadas ou scripts. As claves privadas poden ser importadas ou unha semente HD poder ser configurada, máis adiante.</translation>
     </message>
     <message>
         <source>Make Blank Wallet</source>
@@ -863,8 +919,8 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
         <translation type="unfinished">Editar enderezo de envío</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid BitcoinSilver address.</source>
-        <translation type="unfinished">O enderezo introducido "%1" non é un enderezo de BitcoinSilver válido.</translation>
+        <source>The entered address "%1" is not a valid Bitcoin address.</source>
+        <translation type="unfinished">O enderezo introducido "%1" non é un enderezo de Bitcoin válido.</translation>
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -938,6 +994,20 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
     <message>
         <source>Close</source>
         <translation type="unfinished">Pechar</translation>
+    </message>
+    <message numerus="yes">
+        <source>Signed %n input(s), but more signatures are still required.</source>
+        <translation type="unfinished">
+            <numerusform />
+            <numerusform />
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>Transaction has %n unsigned input(s).</source>
+        <translation type="unfinished">
+            <numerusform />
+            <numerusform />
+        </translation>
     </message>
     </context>
 <context>
@@ -1139,13 +1209,6 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
     </message>
     </context>
 <context>
-    <name>WalletModel</name>
-    <message>
-        <source>default wallet</source>
-        <translation type="unfinished">Carteira por defecto</translation>
-    </message>
-</context>
-<context>
     <name>WalletView</name>
     <message>
         <source>&amp;Export</source>
@@ -1154,6 +1217,13 @@ Firmar é posible unicamente con enderezos de tipo 'legacy'.</translation>
     <message>
         <source>Export the data in the current tab to a file</source>
         <translation type="unfinished">Exporta os datos na pestana actual a un ficheiro</translation>
+    </message>
+    </context>
+<context>
+    <name>bitcoin-core</name>
+    <message>
+        <source>default wallet</source>
+        <translation type="unfinished">Carteira por defecto</translation>
     </message>
     </context>
 </TS>

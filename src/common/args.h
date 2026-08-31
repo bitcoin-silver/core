@@ -1,4 +1,4 @@
-// Copyright (c) 2023 The Bitcoin Core developers
+// Copyright (c) 2023-present The BitcoinSilver developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -11,12 +11,13 @@
 #include <util/chaintype.h>
 #include <util/fs.h>
 
+#include <concepts>
+#include <cstdint>
 #include <iosfwd>
 #include <list>
 #include <map>
 #include <optional>
 #include <set>
-#include <stdint.h>
 #include <string>
 #include <variant>
 #include <vector>
@@ -63,6 +64,8 @@ enum class OptionsCategory {
     GUI,
     COMMANDS,
     REGISTER_COMMANDS,
+    CLI_COMMANDS,
+    IPC,
 
     HIDDEN // Always the last option to avoid printing these in the help
 };
@@ -87,8 +90,11 @@ struct SectionInfo {
 std::string SettingToString(const common::SettingsValue&, const std::string&);
 std::optional<std::string> SettingToString(const common::SettingsValue&);
 
-int64_t SettingToInt(const common::SettingsValue&, int64_t);
-std::optional<int64_t> SettingToInt(const common::SettingsValue&);
+template <std::integral Int>
+Int SettingTo(const common::SettingsValue&, Int);
+
+template <std::integral Int>
+std::optional<Int> SettingTo(const common::SettingsValue&);
 
 bool SettingToBool(const common::SettingsValue&, bool);
 std::optional<bool> SettingToBool(const common::SettingsValue&);
@@ -135,6 +141,7 @@ protected:
     std::string m_network GUARDED_BY(cs_args);
     std::set<std::string> m_network_only_args GUARDED_BY(cs_args);
     std::map<OptionsCategory, std::map<std::string, Arg>> m_available_args GUARDED_BY(cs_args);
+    std::optional<unsigned int> m_default_flags GUARDED_BY(cs_args){};
     bool m_accept_any_command GUARDED_BY(cs_args){true};
     std::list<SectionInfo> m_config_sections GUARDED_BY(cs_args);
     std::optional<fs::path> m_config_path GUARDED_BY(cs_args);
@@ -180,6 +187,7 @@ protected:
      * Return config file path (read-only)
      */
     fs::path GetConfigFilePath() const;
+    void SetConfigFilePath(fs::path);
     [[nodiscard]] bool ReadConfigFiles(std::string& error, bool ignore_invalid_keys = false);
 
     /**
@@ -214,21 +222,21 @@ protected:
      *
      * @return Blocks path which is network specific
      */
-    const fs::path& GetBlocksDirPath() const;
+    fs::path GetBlocksDirPath() const;
 
     /**
      * Get data directory path
      *
      * @return Absolute path on success, otherwise an empty path when a non-directory path would be returned
      */
-    const fs::path& GetDataDirBase() const { return GetDataDir(false); }
+    fs::path GetDataDirBase() const { return GetDataDir(false); }
 
     /**
      * Get data directory path with appended network identifier
      *
      * @return Absolute path on success, otherwise an empty path when a non-directory path would be returned
      */
-    const fs::path& GetDataDirNet() const { return GetDataDir(true); }
+    fs::path GetDataDirNet() const { return GetDataDir(true); }
 
     /**
      * Clear cached directory paths
@@ -289,8 +297,14 @@ protected:
      * @param nDefault (e.g. 1)
      * @return command-line argument (0 if invalid number) or default value
      */
-    int64_t GetIntArg(const std::string& strArg, int64_t nDefault) const;
-    std::optional<int64_t> GetIntArg(const std::string& strArg) const;
+    template <std::integral Int>
+    Int GetArg(const std::string& strArg, Int nDefault) const;
+
+    template <std::integral Int>
+    std::optional<Int> GetArg(const std::string& strArg) const;
+
+    int64_t GetIntArg(const std::string& strArg, int64_t nDefault) const { return GetArg<int64_t>(strArg, nDefault); }
+    std::optional<int64_t> GetIntArg(const std::string& strArg) const { return GetArg<int64_t>(strArg); }
 
     /**
      * Return boolean argument or default value
@@ -356,11 +370,14 @@ protected:
     /**
      * Clear available arguments
      */
-    void ClearArgs() {
-        LOCK(cs_args);
-        m_available_args.clear();
-        m_network_only_args.clear();
-    }
+    void ClearArgs();
+
+    /**
+     * Check CLI command args
+     *
+     * @throws std::runtime_error when multiple CLI_COMMAND arguments are specified
+     */
+    void CheckMultipleCLIArgs() const;
 
     /**
      * Get the help string
@@ -369,9 +386,14 @@ protected:
 
     /**
      * Return Flags for known arg.
-     * Return nullopt for unknown arg.
+     * Return default flags for unknown arg.
      */
     std::optional<unsigned int> GetArgFlags(const std::string& name) const;
+
+    /**
+     * Set default flags to return for an unknown arg.
+     */
+    void SetDefaultFlags(std::optional<unsigned int>);
 
     /**
      * Get settings file path, or return false if read-write settings were
@@ -419,10 +441,10 @@ private:
      * @param net_specific Append network identifier to the returned path
      * @return Absolute path on success, otherwise an empty path when a non-directory path would be returned
      */
-    const fs::path& GetDataDir(bool net_specific) const;
+    fs::path GetDataDir(bool net_specific) const;
 
     /**
-     * Return -regtest/-signet/-testnet/-chain= setting as a ChainType enum if a
+     * Return -regtest/-signet/-testnet/-testnet4/-chain= setting as a ChainType enum if a
      * recognized chain type was set, or as a string if an unrecognized chain
      * name was set. Raise an exception if an invalid combination of flags was
      * provided.
@@ -446,6 +468,11 @@ bool HelpRequested(const ArgsManager& args);
 /** Add help options to the args manager */
 void SetupHelpOptions(ArgsManager& args);
 
+extern const std::vector<std::string> TEST_OPTIONS_DOC;
+
+/** Checks if a particular test option is present in -test command-line arg options */
+bool HasTestOption(const ArgsManager& args, const std::string& test_option);
+
 /**
  * Format a string to be used as group of options in help messages
  *
@@ -462,22 +489,5 @@ std::string HelpMessageGroup(const std::string& message);
  * @return the formatted string
  */
 std::string HelpMessageOpt(const std::string& option, const std::string& message);
-
-namespace common {
-#ifdef WIN32
-class WinCmdLineArgs
-{
-public:
-    WinCmdLineArgs();
-    ~WinCmdLineArgs();
-    std::pair<int, char**> get();
-
-private:
-    int argc;
-    char** argv;
-    std::vector<std::string> args;
-};
-#endif
-} // namespace common
 
 #endif // BITCOINSILVER_COMMON_ARGS_H

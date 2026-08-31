@@ -14,15 +14,15 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "BitcoinSilver"
+            VALUE "CompanyName",        CLIENT_NAME " project"
             VALUE "FileDescription",    "bitcoinsilver-tx (CLI BitcoinSilver transaction editor utility)"
-            VALUE "FileVersion",        PACKAGE_VERSION
+            VALUE "FileVersion",        CLIENT_VERSION_STRING
             VALUE "InternalName",       "bitcoinsilver-tx"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
             VALUE "OriginalFilename",   "bitcoinsilver-tx.exe"
             VALUE "ProductName",        "bitcoinsilver-tx"
-            VALUE "ProductVersion",     PACKAGE_VERSION
+            VALUE "ProductVersion",     CLIENT_VERSION_STRING
         END
     END
 

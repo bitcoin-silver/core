@@ -14,10 +14,6 @@
         <translation type="unfinished">&amp;Novo</translation>
     </message>
     <message>
-        <source>Copy the currently selected address to the system clipboard</source>
-        <translation type="unfinished">Kopiraj trenutno izbrani naslov v odložišče</translation>
-    </message>
-    <message>
         <source>&amp;Copy</source>
         <translation type="unfinished">&amp;Kopiraj</translation>
     </message>
@@ -58,13 +54,13 @@
         <translation type="unfinished">&amp;Izberi</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">To so vaši bitcoinsilver-naslovi za pošiljanje. Pred pošiljanjem vedno preverite znesek in prejemnikov naslov.</translation>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">To so vaši bitcoin-naslovi za pošiljanje. Pred pošiljanjem vedno preverite znesek in prejemnikov naslov.</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your Bitcoin addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">To so vaši bitcoinsilver-naslovi, ki jih uporabljate za prejemanje plačil. Za tvorbo novega naslova uporabite gumb "Ustvari nov prejemni naslov" v zavihku Prejmi.
+        <translation type="unfinished">To so vaši bitcoin-naslovi, ki jih uporabljate za prejemanje plačil. Za tvorbo novega naslova uporabite gumb "Ustvari nov prejemni naslov" v zavihku Prejmi.
 Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
     </message>
     <message>
@@ -92,6 +88,14 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <source>There was an error trying to save the address list to %1. Please try again.</source>
         <extracomment>An error message. %1 is a stand-in argument for the name of the file we attempted to save to.</extracomment>
         <translation type="unfinished">Poskus shranjevanja seznama naslovov v %1 je spodletel. Prosimo, poskusite znova.</translation>
+    </message>
+    <message>
+        <source>Sending addresses - %1</source>
+        <translation type="unfinished">Naslovi za pošiljanje - %1</translation>
+    </message>
+    <message>
+        <source>Receiving addresses - %1</source>
+        <translation type="unfinished">Naslovi za prejemanje - %1</translation>
     </message>
     <message>
         <source>Exporting Failed</source>
@@ -156,8 +160,8 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <translation type="unfinished">Potrdi šifriranje denarnice</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINSILVERS&lt;/b&gt;!</source>
-        <translation type="unfinished">Opozorilo: V primeru izgube gesla šifrirane denarnice, boste &lt;b&gt;IZGUBILI VSE SVOJE BITCOINSILVERE&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
+        <translation type="unfinished">Opozorilo: V primeru izgube gesla šifrirane denarnice, boste &lt;b&gt;IZGUBILI VSE SVOJE BITCOINE&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -174,6 +178,14 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
     <message>
         <source>Enter the old passphrase and new passphrase for the wallet.</source>
         <translation type="unfinished">Vnesite staro geslo in novo geslo za denarnico.</translation>
+    </message>
+    <message>
+        <source>Continue</source>
+        <translation type="unfinished">Nadaljuj</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished">Nazaj</translation>
     </message>
     <message>
         <source>Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
@@ -271,8 +283,7 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
     <message>
         <source>Do you want to reset settings to default values, or to abort without making changes?</source>
         <extracomment>Explanatory text shown on startup when the settings file cannot be read. Prompts user to make a choice between resetting or aborting.</extracomment>
-        <translation type="unfinished">Želite ponastaviti nastavitve na privzete vrednosti ali prekiniti urejanje brez sprememb?
-</translation>
+        <translation type="unfinished">Želite ponastaviti nastavitve na privzete vrednosti ali prekiniti urejanje brez sprememb?</translation>
     </message>
     <message>
         <source>A fatal error occurred. Check that settings file is writable, or try running with -nosettings.</source>
@@ -292,12 +303,16 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <translation type="unfinished">neznano</translation>
     </message>
     <message>
+        <source>Custom…</source>
+        <translation type="unfinished">Poljubno...</translation>
+    </message>
+    <message>
         <source>Amount</source>
         <translation type="unfinished">Znesek</translation>
     </message>
     <message>
-        <source>Enter a BitcoinSilver address (e.g. %1)</source>
-        <translation type="unfinished">Vnesite bitcoinsilver-naslov (npr. %1)</translation>
+        <source>Enter a Bitcoin address (e.g. %1)</source>
+        <translation type="unfinished">Vnesite bitcoin-naslov (npr. %1)</translation>
     </message>
     <message>
         <source>Inbound</source>
@@ -400,7 +415,11 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
             <numerusform>%n let</numerusform>
         </translation>
     </message>
-    </context>
+    <message>
+        <source>default wallet</source>
+        <translation type="unfinished">privzeta denarnica</translation>
+    </message>
+</context>
 <context>
     <name>BitcoinGUI</name>
     <message>
@@ -469,8 +488,8 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <translation type="unfinished">Posredniški strežnik je &lt;b&gt;omogočen&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a BitcoinSilver address</source>
-        <translation type="unfinished">Pošljite novce na bitcoinsilver-naslov</translation>
+        <source>Send coins to a Bitcoin address</source>
+        <translation type="unfinished">Pošljite novce na bitcoin-naslov</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -513,36 +532,84 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <translation type="unfinished">&amp;Podpiši sporočilo...</translation>
     </message>
     <message>
-        <source>Sign messages with your BitcoinSilver addresses to prove you own them</source>
-        <translation type="unfinished">Podpišite poljubno sporočilo z enim svojih bitcoinsilver-naslovov, da prejemniku sporočila dokažete, da je ta naslov v vaši lasti.</translation>
+        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
+        <translation type="unfinished">Podpišite poljubno sporočilo z enim svojih bitcoin-naslovov, da prejemniku sporočila dokažete, da je ta naslov v vaši lasti.</translation>
     </message>
     <message>
         <source>&amp;Verify message…</source>
         <translation type="unfinished">P&amp;reveri podpis...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified BitcoinSilver addresses</source>
-        <translation type="unfinished">Preverite, če je bilo prejeto sporočilo podpisano z določenim bitcoinsilver-naslovom.</translation>
+        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
+        <translation type="unfinished">Preverite, če je bilo prejeto sporočilo podpisano z določenim bitcoin-naslovom.</translation>
     </message>
     <message>
         <source>&amp;Load PSBT from file…</source>
         <translation type="unfinished">&amp;Naloži DPBT iz datoteke...</translation>
     </message>
     <message>
+        <source>Open &amp;URI…</source>
+        <translation type="unfinished">Odpri &amp;URI...</translation>
+    </message>
+    <message>
+        <source>Close Wallet…</source>
+        <translation type="unfinished">Zapri denarnico...</translation>
+    </message>
+    <message>
+        <source>Create Wallet…</source>
+        <translation type="unfinished">Ustvari denarnico...</translation>
+    </message>
+    <message>
+        <source>Close All Wallets…</source>
+        <translation type="unfinished">Zapri vse denarnice...</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation type="unfinished">&amp;Datoteka</translation>
+    </message>
+    <message>
+        <source>&amp;Settings</source>
+        <translation type="unfinished">&amp;Nastavitve</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation type="unfinished">&amp;Pomoč</translation>
+    </message>
+    <message>
+        <source>Tabs toolbar</source>
+        <translation type="unfinished">Orodna vrstica zavihkov</translation>
+    </message>
+    <message>
+        <source>Syncing Headers (%1%)…</source>
+        <translation type="unfinished">Sinhroniziram zaglavja (%1%)...</translation>
+    </message>
+    <message>
+        <source>Synchronizing with network…</source>
+        <translation type="unfinished">Dohitevam omrežje ...</translation>
+    </message>
+    <message>
+        <source>Indexing blocks on disk…</source>
+        <translation type="unfinished">Izdelujem kazalo blokov na disku...</translation>
+    </message>
+    <message>
+        <source>Processing blocks on disk…</source>
+        <translation type="unfinished">Procesiram bloke na disku...</translation>
+    </message>
+    <message>
         <source>Connecting to peers…</source>
         <translation type="unfinished">Povezujem se s soležniki...</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoinsilver: URIs)</source>
-        <translation type="unfinished">Zahtevajte plačilo (ustvarite zahtevek s QR-kodo in URI tipa bitcoinsilver:)</translation>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
+        <translation type="unfinished">Zahtevajte plačilo (ustvarite zahtevek s kodo QR in URI tipa bitcoin)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
-        <translation type="unfinished">Prikaži seznam naslovov in oznak, na katere ste kdaj poslali plačila</translation>
+        <translation type="unfinished">Preglejte in uredite seznam naslovov, na katere ste kdaj poslali plačila</translation>
     </message>
     <message>
         <source>Show the list of used receiving addresses and labels</source>
-        <translation type="unfinished">Prikaži seznam naslovov in oznak, na katere ste kdaj prejeli plačila</translation>
+        <translation type="unfinished">Preglejte in uredite seznam naslovov, na katere ste kdaj prejeli plačila</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -590,12 +657,16 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <translation type="unfinished">Ažurno</translation>
     </message>
     <message>
+        <source>Load Partially Signed Bitcoin Transaction</source>
+        <translation type="unfinished">Naloži delno podpisano bitcoin-transakcijo</translation>
+    </message>
+    <message>
         <source>Load PSBT from &amp;clipboard…</source>
         <translation type="unfinished">Naloži DPBT z &amp;odložišča...</translation>
     </message>
     <message>
-        <source>Load Partially Signed BitcoinSilver Transaction from clipboard</source>
-        <translation type="unfinished">Naloži delno podpisano bitcoinsilver-transakcijo z odložišča</translation>
+        <source>Load Partially Signed Bitcoin Transaction from clipboard</source>
+        <translation type="unfinished">Naloži delno podpisano bitcoin-transakcijo z odložišča</translation>
     </message>
     <message>
         <source>Node window</source>
@@ -614,8 +685,8 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <translation type="unfinished">&amp;Naslovi za prejemanje</translation>
     </message>
     <message>
-        <source>Open a bitcoinsilver: URI</source>
-        <translation type="unfinished">Odpri URI tipa bitcoinsilver:</translation>
+        <source>Open a bitcoin: URI</source>
+        <translation type="unfinished">Odpri URI tipa bitcoin:</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -644,7 +715,15 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <translation type="unfinished">Zapri vse denarnice</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible BitcoinSilver command-line options</source>
+        <source>Migrate Wallet</source>
+        <translation type="unfinished">Migriranje denarnice</translation>
+    </message>
+    <message>
+        <source>Migrate a wallet</source>
+        <translation type="unfinished">Migriranje denarnice</translation>
+    </message>
+    <message>
+        <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
         <translation type="unfinished">Pokaži %1 sporočilo za pomoč s seznamom vseh možnosti v ukazni vrstici</translation>
     </message>
     <message>
@@ -654,10 +733,6 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
     <message>
         <source>Mask the values in the Overview tab</source>
         <translation type="unfinished">Zamaskiraj vrednosti v zavihku Pregled</translation>
-    </message>
-    <message>
-        <source>default wallet</source>
-        <translation type="unfinished">privzeta denarnica</translation>
     </message>
     <message>
         <source>No wallets available</source>
@@ -688,6 +763,18 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <translation type="unfinished">O&amp;kno</translation>
     </message>
     <message>
+        <source>Zoom</source>
+        <translation type="unfinished">Povečava</translation>
+    </message>
+    <message>
+        <source>Main Window</source>
+        <translation type="unfinished">Glavno okno</translation>
+    </message>
+    <message>
+        <source>%1 client</source>
+        <translation type="unfinished">Odjemalec %1</translation>
+    </message>
+    <message>
         <source>&amp;Hide</source>
         <translation type="unfinished">&amp;Skrij</translation>
     </message>
@@ -696,13 +783,13 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <translation type="unfinished">&amp;Prikaži</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>%n aktivna povezava v omrežje bitcoinsilver. </numerusform>
-            <numerusform>%n aktivni povezavi v omrežje bitcoinsilver.</numerusform>
-            <numerusform>%n aktivne povezave v omrežje bitcoinsilver.</numerusform>
-            <numerusform>%n aktivnih povezav v omrežje bitcoinsilver.</numerusform>
+            <numerusform>%n aktivna povezava v omrežje bitcoin. </numerusform>
+            <numerusform>%n aktivni povezavi v omrežje bitcoin.</numerusform>
+            <numerusform>%n aktivne povezave v omrežje bitcoin.</numerusform>
+            <numerusform>%n aktivnih povezav v omrežje bitcoin.</numerusform>
         </translation>
     </message>
     <message>
@@ -880,10 +967,6 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <translation type="unfinished">Potrjeno</translation>
     </message>
     <message>
-        <source>Copy amount</source>
-        <translation type="unfinished">Kopiraj znesek</translation>
-    </message>
-    <message>
         <source>&amp;Copy address</source>
         <translation type="unfinished">&amp;Kopiraj naslov</translation>
     </message>
@@ -987,6 +1070,47 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
     </message>
 </context>
 <context>
+    <name>MigrateWalletActivity</name>
+    <message>
+        <source>Migrate wallet</source>
+        <translation type="unfinished">Migriraj denarnico</translation>
+    </message>
+    <message>
+        <source>Are you sure you wish to migrate the wallet &lt;i&gt;%1&lt;/i&gt;?</source>
+        <translation type="unfinished">Ali ste prepričani, da želite migrirati denarnico &lt;i&gt;%1&lt;/i&gt;?</translation>
+    </message>
+    <message>
+        <source>Migrate Wallet</source>
+        <translation type="unfinished">Migriranje denarnice</translation>
+    </message>
+    <message>
+        <source>Migrating Wallet &lt;b&gt;%1&lt;/b&gt;…</source>
+        <translation type="unfinished">Migriranje denarnice &lt;b&gt;%1&lt;/b&gt;...</translation>
+    </message>
+    <message>
+        <source>The wallet '%1' was migrated successfully.</source>
+        <translation type="unfinished">Denarnica '%1' migrirana uspešno.</translation>
+    </message>
+    <message>
+        <source>Restore Wallet</source>
+        <extracomment>Title of progress window which is displayed when wallets are being restored.</extracomment>
+        <translation type="unfinished">Obnovi denarnico</translation>
+    </message>
+    <message>
+        <source>Restoring Wallet &lt;b&gt;%1&lt;/b&gt;…</source>
+        <extracomment>Descriptive text of the restore wallets progress window which indicates to the user that wallets are currently being restored.</extracomment>
+        <translation type="unfinished">Obnavljanje denarnice &lt;b&gt;%1&lt;/b&gt;...</translation>
+    </message>
+    <message>
+        <source>Migration failed</source>
+        <translation type="unfinished">Migracija neuspešna</translation>
+    </message>
+    <message>
+        <source>Migration Successful</source>
+        <translation type="unfinished">Migracija uspešna</translation>
+    </message>
+</context>
+<context>
     <name>OpenWalletActivity</name>
     <message>
         <source>Open wallet failed</source>
@@ -995,10 +1119,6 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
     <message>
         <source>Open wallet warning</source>
         <translation type="unfinished">Opozorilo pri odpiranju denarnice</translation>
-    </message>
-    <message>
-        <source>default wallet</source>
-        <translation type="unfinished">privzeta denarnica</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -1069,6 +1189,14 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <translation type="unfinished">Ustvari denarnico</translation>
     </message>
     <message>
+        <source>You are one step away from creating your new wallet!</source>
+        <translation type="unfinished">Le še en korak in vaša nova denarnica bo ustvarjena!</translation>
+    </message>
+    <message>
+        <source>Please provide a name and, if desired, enable any advanced options</source>
+        <translation type="unfinished">Prosimo, vpišite ime in po želji izberite dodatne možnosti.</translation>
+    </message>
+    <message>
         <source>Wallet Name</source>
         <translation type="unfinished">Ime denarnice</translation>
     </message>
@@ -1095,10 +1223,6 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
     <message>
         <source>Disable Private Keys</source>
         <translation type="unfinished">Onemogoči zasebne ključe</translation>
-    </message>
-    <message>
-        <source>Make a blank wallet. Blank wallets do not initially have private keys or scripts. Private keys and addresses can be imported, or an HD seed can be set, at a later time.</source>
-        <translation type="unfinished">Ustvari prazno denarnico. Prazne denarnice ne vključujejo zasebnih ključev ali skript. Pozneje lahko uvozite zasebne ključe ali vnesete HD-seme.</translation>
     </message>
     <message>
         <source>Make Blank Wallet</source>
@@ -1157,8 +1281,8 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <translation type="unfinished">Uredi naslov za pošiljanje</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid BitcoinSilver address.</source>
-        <translation type="unfinished">Vnešeni naslov "%1" ni veljaven bitcoinsilver-naslov.</translation>
+        <source>The entered address "%1" is not a valid Bitcoin address.</source>
+        <translation type="unfinished">Vnešeni naslov "%1" ni veljaven bitcoin-naslov.</translation>
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -1201,7 +1325,73 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
     </message>
 </context>
 <context>
+    <name>HelpMessageDialog</name>
+    <message>
+        <source>version</source>
+        <translation type="unfinished">različica</translation>
+    </message>
+    <message>
+        <source>About %1</source>
+        <translation type="unfinished">O %1</translation>
+    </message>
+    <message>
+        <source>Command-line options</source>
+        <translation type="unfinished">Možnosti ukazne vrstice</translation>
+    </message>
+</context>
+<context>
+    <name>ShutdownWindow</name>
+    <message>
+        <source>%1 is shutting down…</source>
+        <translation type="unfinished">%1 se zaustavlja...</translation>
+    </message>
+    <message>
+        <source>Do not shut down the computer until this window disappears.</source>
+        <translation type="unfinished">Ne zaustavljajte računalnika, dokler to okno ne izgine.</translation>
+    </message>
+</context>
+<context>
     <name>Intro</name>
+    <message>
+        <source>Welcome</source>
+        <translation type="unfinished">Dobrodošli</translation>
+    </message>
+    <message>
+        <source>Welcome to %1.</source>
+        <translation type="unfinished">Dobrodošli v %1</translation>
+    </message>
+    <message>
+        <source>As this is the first time the program is launched, you can choose where %1 will store its data.</source>
+        <translation type="unfinished">Ker ste program zagnali prvič, lahko izberete, kje bo %1 shranil podatke.</translation>
+    </message>
+    <message>
+        <source>Limit block chain storage to</source>
+        <translation type="unfinished">Omeji velikost shrambe verige blokov na </translation>
+    </message>
+    <message>
+        <source>Reverting this setting requires re-downloading the entire blockchain. It is faster to download the full chain first and prune it later. Disables some advanced features.</source>
+        <translation type="unfinished">Če spremenite to nastavitev, boste morali ponovno naložiti celotno verigo blokov. Hitreje je najprej prenesti celotno verigo in jo obrezati pozneje. Ta nastavitev onemogoči nekatere napredne funkcije.</translation>
+    </message>
+    <message>
+        <source>This initial synchronisation is very demanding, and may expose hardware problems with your computer that had previously gone unnoticed. Each time you run %1, it will continue downloading where it left off.</source>
+        <translation type="unfinished">Začetna sinhronizacija je zelo zahtevna in lahko odkrije probleme s strojno opremo v vašem računalniku, ki so prej bili neopaženi. Vsakič, ko zaženete %1, bo le-ta nadaljeval s prenosom, kjer je prejšnjič ostal.</translation>
+    </message>
+    <message>
+        <source>When you click OK, %1 will begin to download and process the full %4 block chain (%2 GB) starting with the earliest transactions in %3 when %4 initially launched.</source>
+        <translation type="unfinished">Ko kliknete OK, bo %1 pričel prenašati in obdelovati celotno verigo blokov %4 (%2 GB), začenši s prvimi transakcijami iz %3, ko je bil %4 zagnan.</translation>
+    </message>
+    <message>
+        <source>If you have chosen to limit block chain storage (pruning), the historical data must still be downloaded and processed, but will be deleted afterward to keep your disk usage low.</source>
+        <translation type="unfinished">Če ste se odločili omejiti shranjevanje blokovnih verig (obrezovanje), je treba zgodovinske podatke še vedno prenesti in obdelati, vendar bodo kasneje izbrisani, da bo poraba prostora nizka.</translation>
+    </message>
+    <message>
+        <source>Use the default data directory</source>
+        <translation type="unfinished">Uporabi privzeto podatkovno mapo</translation>
+    </message>
+    <message>
+        <source>Use a custom data directory:</source>
+        <translation type="unfinished">Uporabi to podatkovno mapo:</translation>
+    </message>
     <message numerus="yes">
         <source>%n GB of space available</source>
         <translation type="unfinished">
@@ -1252,7 +1442,7 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         </translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the BitcoinSilver block chain.</source>
+        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
         <translation type="unfinished">%1 bo prenesel in shranil kopijo verige blokov.</translation>
     </message>
     <message>
@@ -1267,72 +1457,6 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <source>Error</source>
         <translation type="unfinished">Napaka</translation>
     </message>
-    <message>
-        <source>Welcome</source>
-        <translation type="unfinished">Dobrodošli</translation>
-    </message>
-    <message>
-        <source>Welcome to %1.</source>
-        <translation type="unfinished">Dobrodošli v %1</translation>
-    </message>
-    <message>
-        <source>As this is the first time the program is launched, you can choose where %1 will store its data.</source>
-        <translation type="unfinished">Ker ste program zagnali prvič, lahko izberete, kje bo %1 shranil podatke.</translation>
-    </message>
-    <message>
-        <source>Limit block chain storage to</source>
-        <translation type="unfinished">Omeji velikost shrambe verige blokov na </translation>
-    </message>
-    <message>
-        <source>Reverting this setting requires re-downloading the entire blockchain. It is faster to download the full chain first and prune it later. Disables some advanced features.</source>
-        <translation type="unfinished">Če spremenite to nastavitev, boste morali ponovno naložiti celotno verigo blokov. Hitreje je najprej prenesti celotno verigo in jo obrezati pozneje. Ta nastavitev onemogoči nekatere napredne funkcije.</translation>
-    </message>
-    <message>
-        <source>This initial synchronisation is very demanding, and may expose hardware problems with your computer that had previously gone unnoticed. Each time you run %1, it will continue downloading where it left off.</source>
-        <translation type="unfinished">Začetna sinhronizacija je zelo zahtevna in lahko odkrije probleme s strojno opremo v vašem računalniku, ki so prej bili neopaženi. Vsakič, ko zaženete %1, bo le-ta nadaljeval s prenosom, kjer je prejšnjič ostal.</translation>
-    </message>
-    <message>
-        <source>When you click OK, %1 will begin to download and process the full %4 block chain (%2 GB) starting with the earliest transactions in %3 when %4 initially launched.</source>
-        <translation type="unfinished">Ko kliknete OK, bo %1 pričel prenašati in obdelovati celotno verigo blokov %4 (%2 GB), začenši s prvimi transakcijami iz %3, ko je bil %4 zagnan.</translation>
-    </message>
-    <message>
-        <source>If you have chosen to limit block chain storage (pruning), the historical data must still be downloaded and processed, but will be deleted afterward to keep your disk usage low.</source>
-        <translation type="unfinished">Če ste se odločili omejiti shranjevanje blokovnih verig (obrezovanje), je treba zgodovinske podatke še vedno prenesti in obdelati, vendar bodo kasneje izbrisani, da bo poraba prostora nizka.</translation>
-    </message>
-    <message>
-        <source>Use the default data directory</source>
-        <translation type="unfinished">Uporabi privzeto podatkovno mapo</translation>
-    </message>
-    <message>
-        <source>Use a custom data directory:</source>
-        <translation type="unfinished">Uporabi to podatkovno mapo:</translation>
-    </message>
-</context>
-<context>
-    <name>HelpMessageDialog</name>
-    <message>
-        <source>version</source>
-        <translation type="unfinished">različica</translation>
-    </message>
-    <message>
-        <source>About %1</source>
-        <translation type="unfinished">O %1</translation>
-    </message>
-    <message>
-        <source>Command-line options</source>
-        <translation type="unfinished">Možnosti ukazne vrstice</translation>
-    </message>
-</context>
-<context>
-    <name>ShutdownWindow</name>
-    <message>
-        <source>%1 is shutting down…</source>
-        <translation type="unfinished">%1 se zaustavlja...</translation>
-    </message>
-    <message>
-        <source>Do not shut down the computer until this window disappears.</source>
-        <translation type="unfinished">Ne zaustavljajte računalnika, dokler to okno ne izgine.</translation>
-    </message>
 </context>
 <context>
     <name>ModalOverlay</name>
@@ -1341,8 +1465,8 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <translation type="unfinished">Obrazec</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoinsilver network, as detailed below.</source>
-        <translation type="unfinished">Zadnje transakcije morda še niso vidne, zato je prikazano dobroimetje v denarnici lahko napačno. Pravilni podatki bodo prikazani, ko bo vaša denarnica končala s sinhronizacijo z omrežjem bitcoinsilver; glejte podrobnosti spodaj.</translation>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoin network, as detailed below.</source>
+        <translation type="unfinished">Zadnje transakcije morda še niso vidne, zato je prikazano dobroimetje v denarnici lahko napačno. Pravilni podatki bodo prikazani, ko bo vaša denarnica končala s sinhronizacijo z omrežjem bitcoin; glejte podrobnosti spodaj.</translation>
     </message>
     <message>
         <source>Attempting to spend bitcoins that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
@@ -1396,8 +1520,8 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
 <context>
     <name>OpenURIDialog</name>
     <message>
-        <source>Open bitcoinsilver URI</source>
-        <translation type="unfinished">Odpri URI tipa bitcoinsilver:</translation>
+        <source>Open bitcoin URI</source>
+        <translation type="unfinished">Odpri URI tipa bitcoin:</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
@@ -1428,6 +1552,11 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <translation type="unfinished">Obrezovanje močno zniža potrebo po prostoru za shranjevanje transakcij. Še vedno pa se bodo v celoti preverjali vsi bloki. Če to nastavitev odstranite, bo potrebno ponovno prenesti celotno verigo blokov.</translation>
     </message>
     <message>
+        <source>Maximum database cache size. Make sure you have enough RAM. A larger cache can contribute to faster sync, after which the benefit is less pronounced for most use cases. Lowering the cache size will reduce memory usage. Unused mempool memory is shared for this cache.</source>
+        <extracomment>Tooltip text for Options window setting that sets the size of the database cache. Explains the corresponding effects of increasing/decreasing this value.</extracomment>
+        <translation type="unfinished">Največja dovoljena velikost predpomnilnika podatkovne baze. Imeti morate dovolj velik delovni pomnilnik (RAM). Povečanje predpomnilnika lahko prispeva k hitrejši začetni sinhronizaciji, kasneje pa večinoma manj pomaga. Znižanje velikosti predpomnilnika bo zmanjšalo porabo pomnilnika. Za ta predpomnilnik se uporablja tudi neporabljeni predpomnilnik za transakcije.</translation>
+    </message>
+    <message>
         <source>Size of &amp;database cache</source>
         <translation type="unfinished">Velikost &amp;predpomnilnika podatkovne baze:</translation>
     </message>
@@ -1438,6 +1567,14 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
     <message>
         <source>Full path to a %1 compatible script (e.g. C:\Downloads\hwi.exe or /Users/you/Downloads/hwi.py). Beware: malware can steal your coins!</source>
         <translation type="unfinished">Polna pot do skripte, združljive z %1 (n.pr. C:\Downloads\hwi.exe ali /Users/you/Downloads/hwi.py). Pozor: zlonamerna programska oprema vam lahko ukrade kovance!</translation>
+    </message>
+    <message>
+        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports PCP or NAT-PMP and it is enabled. The external port could be random.</source>
+        <translation type="unfinished">Samodejno odpiranje vrat (port) za bitcoin-odjemalec na usmerjevalniku. To deluje le, če usmerjevalnik podpira PCP ali NAT-PMP in je ta funkcija na usmerjevalniku vklopljena. Zunanja številka vrat je lahko naključna.</translation>
+    </message>
+    <message>
+        <source>Map port using PCP or NA&amp;T-PMP</source>
+        <translation type="unfinished">Preslikaj vrata z uporabo PCP ali NA&amp;T-PMP</translation>
     </message>
     <message>
         <source>IP address of the proxy (e.g. IPv4: 127.0.0.1 / IPv6: ::1)</source>
@@ -1482,11 +1619,6 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
     <message>
         <source>Reverting this setting requires re-downloading the entire blockchain.</source>
         <translation type="unfinished">Če spremenite to nastavitev, boste morali ponovno naložiti celotno verigo blokov.</translation>
-    </message>
-    <message>
-        <source>Maximum database cache size. A larger cache can contribute to faster sync, after which the benefit is less pronounced for most use cases. Lowering the cache size will reduce memory usage. Unused mempool memory is shared for this cache.</source>
-        <extracomment>Tooltip text for Options window setting that sets the size of the database cache. Explains the corresponding effects of increasing/decreasing this value.</extracomment>
-        <translation type="unfinished">Največja dovoljena vrednost za predpomnilnik podatkovne baze. Povečanje predpomnilnika lahko prispeva k hitrejši začetni sinhronizaciji, kasneje pa večinoma manj pomaga. Znižanje velikosti predpomnilnika bo zmanjšalo porabo pomnilnika. Za ta predpomnilnik se uporablja tudi neporabljeni predpomnilnik za transakcije.</translation>
     </message>
     <message>
         <source>Set the number of script verification threads. Negative values correspond to the number of cores you want to leave free to the system.</source>
@@ -1556,22 +1688,6 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <translation type="unfinished">&amp;Pot do zunanjega podpisnika</translation>
     </message>
     <message>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation type="unfinished">Samodejno odpiranje vrat za bitcoinsilver-odjemalec na usmerjevalniku (routerju). To deluje le, če usmerjevalnik podpira UPnP in je ta funkcija na usmerjevalniku omogočena.</translation>
-    </message>
-    <message>
-        <source>Map port using &amp;UPnP</source>
-        <translation type="unfinished">Preslikaj vrata z uporabo &amp;UPnP</translation>
-    </message>
-    <message>
-        <source>Automatically open the BitcoinSilver client port on the router. This only works when your router supports NAT-PMP and it is enabled. The external port could be random.</source>
-        <translation type="unfinished">Samodejno odpiranje vrat za bitcoinsilver-odjemalec na usmerjevalniku. To deluje le, če usmerjevalnik podpira NAT-PMP in je ta funkcija na usmerjevalniku omogočena. Zunanja številka vrat je lahko naključna.</translation>
-    </message>
-    <message>
-        <source>Map port using NA&amp;T-PMP</source>
-        <translation type="unfinished">Preslikaj vrata z uporabo NA&amp;T-PMP</translation>
-    </message>
-    <message>
         <source>Accept connections from outside.</source>
         <translation type="unfinished">Sprejmi povezave od zunaj.</translation>
     </message>
@@ -1580,8 +1696,8 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <translation type="unfinished">Dovoli &amp;dohodne povezave</translation>
     </message>
     <message>
-        <source>Connect to the BitcoinSilver network through a SOCKS5 proxy.</source>
-        <translation type="unfinished">Poveži se v omrežje BitcoinSilver preko posredniškega strežnika SOCKS5.</translation>
+        <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
+        <translation type="unfinished">Poveži se v omrežje Bitcoin preko posredniškega strežnika SOCKS5.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1660,24 +1776,12 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <translation type="unfinished">Omogoči dodatne možnosti podrobnega nadzora nad  kovanci v transakcijah.</translation>
     </message>
     <message>
-        <source>Connect to the BitcoinSilver network through a separate SOCKS5 proxy for Tor onion services.</source>
-        <translation type="unfinished">Poveži se v omrežje BitcoinSilver prek ločenega posredniškega strežnika SOCKS5 za storitve onion (Tor).</translation>
+        <source>Connect to the Bitcoin network through a separate SOCKS5 proxy for Tor onion services.</source>
+        <translation type="unfinished">Poveži se v omrežje Bitcoin prek ločenega posredniškega strežnika SOCKS5 za storitve onion (Tor).</translation>
     </message>
     <message>
         <source>Use separate SOCKS&amp;5 proxy to reach peers via Tor onion services:</source>
         <translation type="unfinished">Uporabi ločen posredniški strežik SOCKS5 za povezavo s soležniki prek storitev onion (Tor):</translation>
-    </message>
-    <message>
-        <source>Monospaced font in the Overview tab:</source>
-        <translation type="unfinished">Pisava enakomerne širine v zavihku Pregled:</translation>
-    </message>
-    <message>
-        <source>embedded "%1"</source>
-        <translation type="unfinished">vdelan "%1"</translation>
-    </message>
-    <message>
-        <source>closest matching "%1"</source>
-        <translation type="unfinished">najboljše ujemanje "%1"</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -1769,12 +1873,8 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <translation type="unfinished">Obrazec</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BitcoinSilver network after a connection is established, but this process has not completed yet.</source>
-        <translation type="unfinished">Prikazani podatki so morda zastareli. Program ob vzpostavitvi povezave samodejno sinhronizira denarnico z omrežjem BitcoinSilver, a trenutno ta postopek še ni zaključen.</translation>
-    </message>
-    <message>
-        <source>Watch-only:</source>
-        <translation type="unfinished">Opazovano:</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
+        <translation type="unfinished">Prikazani podatki so morda zastareli. Program ob vzpostavitvi povezave samodejno sinhronizira denarnico z omrežjem Bitcoin, a trenutno ta postopek še ni zaključen.</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1813,28 +1913,8 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <translation type="unfinished">Trenutno skupno dobroimetje</translation>
     </message>
     <message>
-        <source>Your current balance in watch-only addresses</source>
-        <translation type="unfinished">Trenutno dobroimetje sredstev na opazovanih naslovih</translation>
-    </message>
-    <message>
-        <source>Spendable:</source>
-        <translation type="unfinished">Na voljo za pošiljanje:</translation>
-    </message>
-    <message>
         <source>Recent transactions</source>
         <translation type="unfinished">Zadnje transakcije</translation>
-    </message>
-    <message>
-        <source>Unconfirmed transactions to watch-only addresses</source>
-        <translation type="unfinished">Nepotrjene transakcije na opazovanih naslovih</translation>
-    </message>
-    <message>
-        <source>Mined balance in watch-only addresses that has not yet matured</source>
-        <translation type="unfinished">Nedozorelo narudarjeno dobroimetje na opazovanih naslovih</translation>
-    </message>
-    <message>
-        <source>Current total balance in watch-only addresses</source>
-        <translation type="unfinished">Trenutno skupno dobroimetje na opazovanih naslovih</translation>
     </message>
     <message>
         <source>Privacy mode activated for the Overview tab. To unmask the values, uncheck Settings-&gt;Mask values.</source>
@@ -1883,9 +1963,14 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <source>Could not sign any more inputs.</source>
         <translation type="unfinished">Ne morem podpisati več kot toliko vhodov.</translation>
     </message>
-    <message>
-        <source>Signed %1 inputs, but more signatures are still required.</source>
-        <translation type="unfinished">%1 vhodov podpisanih, a potrebnih je več podpisov.</translation>
+    <message numerus="yes">
+        <source>Signed %n input(s), but more signatures are still required.</source>
+        <translation type="unfinished">
+            <numerusform />
+            <numerusform />
+            <numerusform />
+            <numerusform />
+        </translation>
     </message>
     <message>
         <source>Signed transaction successfully. Transaction is ready to broadcast.</source>
@@ -1921,10 +2006,6 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <translation type="unfinished">DPBT shranjena na disk.</translation>
     </message>
     <message>
-        <source> * Sends %1 to %2</source>
-        <translation type="unfinished">* Pošlje %1 na %2</translation>
-    </message>
-    <message>
         <source>own address</source>
         <translation type="unfinished">lasten naslov</translation>
     </message>
@@ -1944,9 +2025,14 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <source>or</source>
         <translation type="unfinished">ali</translation>
     </message>
-    <message>
-        <source>Transaction has %1 unsigned inputs.</source>
-        <translation type="unfinished">Transakcija ima toliko nepodpisanih vhodov: %1.</translation>
+    <message numerus="yes">
+        <source>Transaction has %n unsigned input(s).</source>
+        <translation type="unfinished">
+            <numerusform />
+            <numerusform />
+            <numerusform />
+            <numerusform />
+        </translation>
     </message>
     <message>
         <source>Transaction is missing some information about inputs.</source>
@@ -1984,16 +2070,16 @@ Podpisovanje je možno le s podedovanimi ("legacy") naslovi.</translation>
         <translation type="unfinished">Napaka pri zahtevku za plačilo</translation>
     </message>
     <message>
-        <source>Cannot start bitcoinsilver: click-to-pay handler</source>
-        <translation type="unfinished">Ni mogoče zagnati rokovalca plačilnih povezav tipa bitcoinsilver:.</translation>
+        <source>Cannot start bitcoin: click-to-pay handler</source>
+        <translation type="unfinished">Ni mogoče zagnati rokovalca plačilnih povezav tipa bitcoin:.</translation>
     </message>
     <message>
         <source>URI handling</source>
         <translation type="unfinished">Rokovanje z URI</translation>
     </message>
     <message>
-        <source>'bitcoinsilver://' is not a valid URI. Use 'bitcoinsilver:' instead.</source>
-        <translation type="unfinished">'bitcoinsilver://' ni veljaven URI. Namesto tega uporabite 'bitcoinsilver:' .</translation>
+        <source>'bitcoin://' is not a valid URI. Use 'bitcoin:' instead.</source>
+        <translation type="unfinished">'bitcoin://' ni veljaven URI. Namesto tega uporabite 'bitcoin:' .</translation>
     </message>
     <message>
         <source>Cannot process payment request because BIP70 is not supported.
@@ -2004,8 +2090,8 @@ Zaradi široko razširjenih varnostih hib v BIP70 vam toplo priporočamo, da mor
 Svetujemo, da prodajalca prosite, naj vam priskrbi URI na podlagi BIP21.</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid BitcoinSilver address or malformed URI parameters.</source>
-        <translation type="unfinished">URI je nerazumljiv. Možno je, da je bitcoinsilver-naslov neveljaven ali pa so parametri URI-ja napačno oblikovani.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid Bitcoin address or malformed URI parameters.</source>
+        <translation type="unfinished">URI je nerazumljiv. Možno je, da je bitcoin-naslov neveljaven ali pa so parametri URI-ja napačno oblikovani.</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -2158,6 +2244,14 @@ Svetujemo, da prodajalca prosite, naj vam priskrbi URI na podlagi BIP21.</transl
         <translation type="unfinished">Število povezav</translation>
     </message>
     <message>
+        <source>Local Addresses</source>
+        <translation type="unfinished">Lokalni naslovi</translation>
+    </message>
+    <message>
+        <source>Network addresses that your Bitcoin node is currently using to communicate with other nodes.</source>
+        <translation type="unfinished">Omrežni naslovi, ki jih vaše vozlišče trenutno uporablja za komunikacijo z drugimi vozlišči.</translation>
+    </message>
+    <message>
         <source>Block chain</source>
         <translation type="unfinished">Veriga blokov</translation>
     </message>
@@ -2206,6 +2300,18 @@ Svetujemo, da prodajalca prosite, naj vam priskrbi URI na podlagi BIP21.</transl
         <translation type="unfinished">Izberite soležnika, o katerem si želite ogledati podrobnejše informacije.</translation>
     </message>
     <message>
+        <source>Hide Peers Detail</source>
+        <translation type="unfinished">Skrij podrobnosti Soležnikov</translation>
+    </message>
+    <message>
+        <source>The transport layer version: %1</source>
+        <translation type="unfinished">Verzija prenosnega sloja: %1</translation>
+    </message>
+    <message>
+        <source>Session ID</source>
+        <translation type="unfinished">ID seje</translation>
+    </message>
+    <message>
         <source>Version</source>
         <translation type="unfinished">Različica</translation>
     </message>
@@ -2216,10 +2322,6 @@ Svetujemo, da prodajalca prosite, naj vam priskrbi URI na podlagi BIP21.</transl
     <message>
         <source>Transaction Relay</source>
         <translation type="unfinished">Posredovanje transakcij</translation>
-    </message>
-    <message>
-        <source>Starting Block</source>
-        <translation type="unfinished">Začetni blok</translation>
     </message>
     <message>
         <source>Synced Headers</source>
@@ -2485,8 +2587,16 @@ Svetujemo, da prodajalca prosite, naj vam priskrbi URI na podlagi BIP21.</transl
         <translation type="unfinished">Omrežna aktivnost onemogočena.</translation>
     </message>
     <message>
+        <source>None</source>
+        <translation type="unfinished">Jih ni</translation>
+    </message>
+    <message>
         <source>Executing command without any wallet</source>
         <translation type="unfinished">Izvajam ukaz brez denarnice</translation>
+    </message>
+    <message>
+        <source>Node window - [%1]</source>
+        <translation type="unfinished">Okno vozlišča - [%1]</translation>
     </message>
     <message>
         <source>Executing command using "%1" wallet</source>
@@ -2566,8 +2676,8 @@ Za več informacij glede uporabe konzole uporabite ukaz %6.
         <translation type="unfinished">&amp;Sporočilo:</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the BitcoinSilver network.</source>
-        <translation type="unfinished">Neobvezno sporočilo kot priponka zahtevku za plačilo, ki bo prikazano, ko bo zahtevek odprt. Opomba: Opravljeno plačilo v omrežju bitcoinsilver tega sporočila ne bo vsebovalo.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
+        <translation type="unfinished">Neobvezno sporočilo kot priponka zahtevku za plačilo, ki bo prikazano, ko bo zahtevek odprt. Opomba: Opravljeno plačilo v omrežju bitcoin tega sporočila ne bo vsebovalo.</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -2867,7 +2977,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
 Opomba: Ker se provizija izračuna na bajt, bi provizija "100 satoshijev na kvB" za transakcijo velikosti 500 navideznih bajtov (polovica enega kvB) znašala le 50 satošijev.</translation>
     </message>
     <message>
-        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoinsilver transactions than the network can process.</source>
+        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
         <translation type="unfinished">Kadar je v blokih manj prostora, kot je zahtev po transakcijah, lahko rudarji in posredovalna vozlišča zahtevajo minimalno provizijo. V redu, če plačate samo to minimalno provizijo, vendar se zavedajte, da se potem transakcija lahko nikoli ne potrdi, če bo povpraševanje po transakcijah večje, kot ga omrežje lahko obdela.</translation>
     </message>
     <message>
@@ -2911,10 +3021,6 @@ Opomba: Ker se provizija izračuna na bajt, bi provizija "100 satoshijev na kvB"
         <translation type="unfinished">Kopiraj količino</translation>
     </message>
     <message>
-        <source>Copy amount</source>
-        <translation type="unfinished">Kopiraj znesek</translation>
-    </message>
-    <message>
         <source>Copy fee</source>
         <translation type="unfinished">Kopiraj provizijo</translation>
     </message>
@@ -2953,12 +3059,8 @@ Opomba: Ker se provizija izračuna na bajt, bi provizija "100 satoshijev na kvB"
         <translation type="unfinished">Ustvari n&amp;epodpisano</translation>
     </message>
     <message>
-        <source>Creates a Partially Signed BitcoinSilver Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
-        <translation type="unfinished">Ustvari delno podpisano bitcoinsilver-transakcijo (DPBT, angl. PSBT), ki jo lahko kopirate in potem podpišete n.pr. z nepovezano (offline) %1 denarnico ali pa s hardversko denarnico, ki podpira DPBT.</translation>
-    </message>
-    <message>
-        <source> from wallet '%1'</source>
-        <translation type="unfinished"> iz denarnice '%1'</translation>
+        <source>Creates a Partially Signed Bitcoin Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <translation type="unfinished">Ustvari delno podpisano bitcoin-transakcijo (DPBT, angl. PSBT), ki jo lahko kopirate in potem podpišete n.pr. z nepovezano (offline) %1 denarnico ali pa s hardversko denarnico, ki podpira DPBT.</translation>
     </message>
     <message>
         <source>%1 to '%2'</source>
@@ -3013,9 +3115,9 @@ Opomba: Ker se provizija izračuna na bajt, bi provizija "100 satoshijev na kvB"
         <translation type="unfinished">Provizijo lahko zvišate kasneje (vsebuje Replace-By-Fee, BIP-125).</translation>
     </message>
     <message>
-        <source>Please, review your transaction proposal. This will produce a Partially Signed BitcoinSilver Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction proposal. This will produce a Partially Signed Bitcoin Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can only create a PSBT. This string is displayed when private keys are disabled and an external signer is not available.</extracomment>
-        <translation type="unfinished">Prosimo, preglejte predlog za transakcijo. Ustvarjena bo delno podpisana bitcoinsilver-transakcija (DPBT), ki jo lahko shranite ali kopirate in potem podpišete n.pr. z nepovezano (offline) %1 denarnico ali pa s hardversko denarnico, ki podpira DPBT.</translation>
+        <translation type="unfinished">Prosimo, preglejte predlog za transakcijo. Ustvarjena bo delno podpisana bitcoin-transakcija (DPBT), ki jo lahko shranite ali kopirate in potem podpišete n.pr. z nepovezano (offline) %1 denarnico ali pa s hardversko denarnico, ki podpira DPBT.</translation>
     </message>
     <message>
         <source>Do you want to create this transaction?</source>
@@ -3023,9 +3125,9 @@ Opomba: Ker se provizija izračuna na bajt, bi provizija "100 satoshijev na kvB"
         <translation type="unfinished">Želite ustvariti takšno transakcijo?</translation>
     </message>
     <message>
-        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed BitcoinSilver Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed Bitcoin Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can send their transaction or create a PSBT. This string is displayed when both private keys and PSBT controls are enabled.</extracomment>
-        <translation type="unfinished">Prosimo, preglejte podrobnosti transakcije. Transakcijo lahko ustvarite in pošljete, lahko pa tudi ustvarite delno podpisano bitcoinsilver-transakcijo (DPBT, angl. PSBT), ki jo lahko shranite ali kopirate na odložišče in kasneje prodpišete n.pr. z nepovezano %1 denarnico ali z denarnico, ki podpiral DPBT.</translation>
+        <translation type="unfinished">Prosimo, preglejte podrobnosti transakcije. Transakcijo lahko ustvarite in pošljete, lahko pa tudi ustvarite delno podpisano bitcoin-transakcijo (DPBT, angl. PSBT), ki jo lahko shranite ali kopirate na odložišče in kasneje prodpišete n.pr. z nepovezano %1 denarnico ali z denarnico, ki podpiral DPBT.</translation>
     </message>
     <message>
         <source>Please, review your transaction.</source>
@@ -3063,10 +3165,6 @@ Opomba: Ker se provizija izračuna na bajt, bi provizija "100 satoshijev na kvB"
         <translation type="unfinished">Potrdi pošiljanje</translation>
     </message>
     <message>
-        <source>Watch-only balance:</source>
-        <translation type="unfinished">Opazovano dobroimetje:</translation>
-    </message>
-    <message>
         <source>The recipient address is not valid. Please recheck.</source>
         <translation type="unfinished">Naslov prejemnika je neveljaven. Prosimo, preverite.</translation>
     </message>
@@ -3077,10 +3175,6 @@ Opomba: Ker se provizija izračuna na bajt, bi provizija "100 satoshijev na kvB"
     <message>
         <source>The amount exceeds your balance.</source>
         <translation type="unfinished">Znesek presega vaše dobroimetje.</translation>
-    </message>
-    <message>
-        <source>The total exceeds your balance when the %1 transaction fee is included.</source>
-        <translation type="unfinished">Celotni znesek z vključeno provizijo %1 je višji od vašega dobroimetja.</translation>
     </message>
     <message>
         <source>Duplicate address found: addresses should only be used once each.</source>
@@ -3104,8 +3198,8 @@ Opomba: Ker se provizija izračuna na bajt, bi provizija "100 satoshijev na kvB"
         </translation>
     </message>
     <message>
-        <source>Warning: Invalid BitcoinSilver address</source>
-        <translation type="unfinished">Opozorilo: Neveljaven bitcoinsilver-naslov</translation>
+        <source>Warning: Invalid Bitcoin address</source>
+        <translation type="unfinished">Opozorilo: Neveljaven bitcoin-naslov</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -3143,8 +3237,8 @@ Opomba: Ker se provizija izračuna na bajt, bi provizija "100 satoshijev na kvB"
         <translation type="unfinished">Izberite enega od že uporabljenih naslovov</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address to send the payment to</source>
-        <translation type="unfinished">BitcoinSilver-naslov, na katerega bo plačilo poslano</translation>
+        <source>The Bitcoin address to send the payment to</source>
+        <translation type="unfinished">Bitcoin-naslov, na katerega bo plačilo poslano</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
@@ -3179,8 +3273,8 @@ Opomba: Ker se provizija izračuna na bajt, bi provizija "100 satoshijev na kvB"
         <translation type="unfinished">Če vnesete oznako za zgornji naslov, se bo skupaj z naslovom shranila v imenik že uporabljenih naslovov</translation>
     </message>
     <message>
-        <source>A message that was attached to the bitcoinsilver: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the BitcoinSilver network.</source>
-        <translation type="unfinished">Sporočilo, ki je bilo pripeto na URI tipa bitcoinsilver: in bo shranjeno skupaj s podatki o transakciji. Opomba: Sporočilo ne bo poslano preko omrežja BitcoinSilver.</translation>
+        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
+        <translation type="unfinished">Sporočilo, ki je bilo pripeto na URI tipa bitcoin: in bo shranjeno skupaj s podatki o transakciji. Opomba: Sporočilo ne bo poslano preko omrežja Bitcoin.</translation>
     </message>
 </context>
 <context>
@@ -3205,12 +3299,8 @@ Opomba: Ker se provizija izračuna na bajt, bi provizija "100 satoshijev na kvB"
         <translation type="unfinished">&amp;Podpiši sporočilo</translation>
     </message>
     <message>
-        <source>You can sign messages/agreements with your addresses to prove you can receive bitcoins sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
-        <translation type="unfinished">S svojimi naslovi lahko podpisujete sporočila ali dogovore in s tem dokazujete, da na teh naslovih lahko prejemate kovance. Bodite previdni in ne podpisujte ničesar nejasnega ali naključnega, ker vas zlikovci preko ribarjenja (phishing) lahko prelisičijo, da na njih prepišete svojo identiteto. Podpisujte samo podrobno opisane izjave, s katerimi se strinjate.</translation>
-    </message>
-    <message>
-        <source>The BitcoinSilver address to sign the message with</source>
-        <translation type="unfinished">BitcoinSilver-naslov, s katerim podpisujete sporočilo</translation>
+        <source>The Bitcoin address to sign the message with</source>
+        <translation type="unfinished">Bitcoin-naslov, s katerim podpisujete sporočilo</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3229,11 +3319,7 @@ Opomba: Ker se provizija izračuna na bajt, bi provizija "100 satoshijev na kvB"
         <translation type="unfinished">Podpis</translation>
     </message>
     <message>
-        <source>Copy the current signature to the system clipboard</source>
-        <translation type="unfinished">Kopirj trenutni podpis v sistemsko odložišče.</translation>
-    </message>
-    <message>
-        <source>Sign the message to prove you own this BitcoinSilver address</source>
+        <source>Sign the message to prove you own this Bitcoin address</source>
         <translation type="unfinished">Podpišite sporočilo, da dokažete lastništvo zgornjega naslova.</translation>
     </message>
     <message>
@@ -3257,8 +3343,8 @@ Opomba: Ker se provizija izračuna na bajt, bi provizija "100 satoshijev na kvB"
         <translation type="unfinished">Da preverite verodostojnost sporočila, spodaj vnesite: prejemnikov naslov, prejeto sporočilo (pazljivo skopirajte vse prelome vrstic, presledke, tabulatorje itd.) ter prejeti podpis. Da se izognete napadom tipa man-in-the-middle, vedite, da iz veljavnega podpisa ne sledi nič drugega, kot tisto, kar je navedeno v sporočilu. Podpis samo potrjuje dejstvo, da ima podpisnik v lasti prejemni naslov, ne more pa dokazati pošiljanja nobene transakcije!</translation>
     </message>
     <message>
-        <source>The BitcoinSilver address the message was signed with</source>
-        <translation type="unfinished">BitcoinSilver-naslov, s katerim je bilo sporočilo podpisano</translation>
+        <source>The Bitcoin address the message was signed with</source>
+        <translation type="unfinished">Bitcoin-naslov, s katerim je bilo sporočilo podpisano</translation>
     </message>
     <message>
         <source>The signed message to verify</source>
@@ -3269,8 +3355,8 @@ Opomba: Ker se provizija izračuna na bajt, bi provizija "100 satoshijev na kvB"
         <translation type="unfinished">Podpis, ustvarjen ob podpisovanju sporočila</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified BitcoinSilver address</source>
-        <translation type="unfinished">Preverite, ali je bilo sporočilo v resnici podpisano z navedenim bitcoinsilver-naslovom.</translation>
+        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
+        <translation type="unfinished">Preverite, ali je bilo sporočilo v resnici podpisano z navedenim bitcoin-naslovom.</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -3291,10 +3377,6 @@ Opomba: Ker se provizija izračuna na bajt, bi provizija "100 satoshijev na kvB"
     <message>
         <source>Please check the address and try again.</source>
         <translation type="unfinished">Prosimo, preverite naslov in poskusite znova.</translation>
-    </message>
-    <message>
-        <source>The entered address does not refer to a key.</source>
-        <translation type="unfinished">Vnešeni naslov se ne nanaša na ključ.</translation>
     </message>
     <message>
         <source>Wallet unlock was cancelled.</source>
@@ -3413,10 +3495,6 @@ Opomba: Ker se provizija izračuna na bajt, bi provizija "100 satoshijev na kvB"
         <translation type="unfinished">lasten naslov</translation>
     </message>
     <message>
-        <source>watch-only</source>
-        <translation type="unfinished">opazovan</translation>
-    </message>
-    <message>
         <source>label</source>
         <translation type="unfinished">oznaka</translation>
     </message>
@@ -3480,10 +3558,6 @@ Opomba: Ker se provizija izračuna na bajt, bi provizija "100 satoshijev na kvB"
     <message>
         <source>Output index</source>
         <translation type="unfinished">Indeks izhoda</translation>
-    </message>
-    <message>
-        <source> (Certificate was not verified)</source>
-        <translation type="unfinished">(Certifikat ni bil preverjen)</translation>
     </message>
     <message>
         <source>Merchant</source>
@@ -3588,10 +3662,6 @@ Opomba: Ker se provizija izračuna na bajt, bi provizija "100 satoshijev na kvB"
         <translation type="unfinished">Narudarjeno</translation>
     </message>
     <message>
-        <source>watch-only</source>
-        <translation type="unfinished">opazovan</translation>
-    </message>
-    <message>
         <source>(n/a)</source>
         <translation type="unfinished">(ni na voljo)</translation>
     </message>
@@ -3610,10 +3680,6 @@ Opomba: Ker se provizija izračuna na bajt, bi provizija "100 satoshijev na kvB"
     <message>
         <source>Type of transaction.</source>
         <translation type="unfinished">Vrsta transakcije</translation>
-    </message>
-    <message>
-        <source>Whether or not a watch-only address is involved in this transaction.</source>
-        <translation type="unfinished">Ali je v transakciji udeležen opazovan naslov.</translation>
     </message>
     <message>
         <source>User-defined intent/purpose of the transaction.</source>
@@ -3735,10 +3801,6 @@ Opomba: Ker se provizija izračuna na bajt, bi provizija "100 satoshijev na kvB"
     <message>
         <source>Confirmed</source>
         <translation type="unfinished">Potrjeno</translation>
-    </message>
-    <message>
-        <source>Watch-only</source>
-        <translation type="unfinished">Opazovano</translation>
     </message>
     <message>
         <source>Date</source>
@@ -3868,9 +3930,8 @@ Za odpiranje denarnice kliknite Datoteka &gt; Odpri denarnico
         <translation type="unfinished">DPBT kopirana</translation>
     </message>
     <message>
-        <source>Copied to clipboard</source>
-        <comment>Fee-bump PSBT saved</comment>
-        <translation type="unfinished">Kopirano na odložišče</translation>
+        <source>Fee-bump PSBT copied to clipboard</source>
+        <translation type="unfinished">DPBT z višjo provizijo kopirana v odložišče.</translation>
     </message>
     <message>
         <source>Can't sign transaction.</source>
@@ -3883,10 +3944,6 @@ Za odpiranje denarnice kliknite Datoteka &gt; Odpri denarnico
     <message>
         <source>Can't display address</source>
         <translation type="unfinished">Ne morem prikazati naslova</translation>
-    </message>
-    <message>
-        <source>default wallet</source>
-        <translation type="unfinished">privzeta denarnica</translation>
     </message>
 </context>
 <context>
@@ -3930,26 +3987,10 @@ Za odpiranje denarnice kliknite Datoteka &gt; Odpri denarnico
     </message>
 </context>
 <context>
-    <name>bitcoinsilver-core</name>
+    <name>bitcoin-core</name>
     <message>
         <source>The %s developers</source>
         <translation type="unfinished">Razvijalci %s</translation>
-    </message>
-    <message>
-        <source>%s corrupt. Try using the wallet tool bitcoinsilver-wallet to salvage or restoring a backup.</source>
-        <translation type="unfinished">%s je okvarjena. Lahko jo poskusite popraviti z orodjem bitcoinsilver-wallet ali pa jo obnovite iz varnostne kopije.</translation>
-    </message>
-    <message>
-        <source>Cannot downgrade wallet from version %i to version %i. Wallet version unchanged.</source>
-        <translation type="unfinished">Različice denarnice ne morem znižati z %i na %i. Različica denarnice ostaja nespremenjena.</translation>
-    </message>
-    <message>
-        <source>Cannot obtain a lock on data directory %s. %s is probably already running.</source>
-        <translation type="unfinished">Ne morem zakleniti podatkovne mape %s. %s je verjetno že zagnan.</translation>
-    </message>
-    <message>
-        <source>Cannot upgrade a non HD split wallet from version %i to version %i without upgrading to support pre-split keypool. Please use version %i or no version specified.</source>
-        <translation type="unfinished">Ne morem nadgraditi nerazcepljene ne-HD denarnice z verzije %i na verzijo %i brez nadgradnje za podporo za ključe pred razcepitvijo. Prosim, uporabite verzijo %i ali pa ne izberite nobene verzije.</translation>
     </message>
     <message>
         <source>Disk space for %s may not accommodate the block files. Approximately %u GB of data will be stored in this directory.</source>
@@ -3972,12 +4013,8 @@ Za odpiranje denarnice kliknite Datoteka &gt; Odpri denarnico
         <translation type="unfinished">Napaka: identifikator zapisa v izvozni (dump) datoteki je napačen. Vsebuje "%s", pričakovano "%s".</translation>
     </message>
     <message>
-        <source>Error: Dumpfile version is not supported. This version of bitcoinsilver-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
-        <translation type="unfinished">Napaka: verzija izvozne (dump) datoteke ni podprta. Ta verzija ukaza bitcoinsilver-wallet podpira le izvozne datoteke verzije 1, ta datoteka pa ima verzijo %s.</translation>
-    </message>
-    <message>
-        <source>Error: Legacy wallets only support the "legacy", "p2sh-segwit", and "bech32" address types</source>
-        <translation type="unfinished">Napaka: podedovane denarnice podpirajo le naslove vrst "legacy", "p2sh-segwit" in "bech32".</translation>
+        <source>Error: Dumpfile version is not supported. This version of bitcoin-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
+        <translation type="unfinished">Napaka: verzija izvozne (dump) datoteke ni podprta. Ta verzija ukaza bitcoin-wallet podpira le izvozne datoteke verzije 1, ta datoteka pa ima verzijo %s.</translation>
     </message>
     <message>
         <source>Error: Unable to produce descriptors for this legacy wallet. Make sure to provide the wallet's passphrase if it is encrypted.</source>
@@ -4004,14 +4041,6 @@ Za odpiranje denarnice kliknite Datoteka &gt; Odpri denarnico
         <translation type="unfinished">Potrebno je določiti izvozno (dump) datoteko. Z ukazom dump morate uporabiti možnost -dumpfile=&lt;filename&gt;.</translation>
     </message>
     <message>
-        <source>No wallet file format provided. To use createfromdump, -format=&lt;format&gt; must be provided.</source>
-        <translation type="unfinished">Potrebno je določiti obliko izvozne (dump) datoteke. Z ukazom createfromdump morate uporabiti možnost -format=&lt;format&gt;.</translation>
-    </message>
-    <message>
-        <source>Please check that your computer's date and time are correct! If your clock is wrong, %s will not work properly.</source>
-        <translation type="unfinished">Opozorilo: Preverite, če sta datum in ura na vašem računalniku točna! %s ne bo deloval pravilno, če je nastavljeni čas nepravilen.</translation>
-    </message>
-    <message>
         <source>Please contribute if you find %s useful. Visit %s for further information about the software.</source>
         <translation type="unfinished">Prosimo, prispevajte, če se vam zdi %s uporaben. Za dodatne informacije o programski opremi obiščite %s.</translation>
     </message>
@@ -4024,10 +4053,6 @@ Za odpiranje denarnice kliknite Datoteka &gt; Odpri denarnico
         <translation type="unfinished">Način obrezovanja ni združljiv z možnostjo -reindex-chainstate. Namesto tega uporabite polni -reindex.</translation>
     </message>
     <message>
-        <source>Prune: last wallet synchronisation goes beyond pruned data. You need to -reindex (download the whole blockchain again in case of pruned node)</source>
-        <translation type="unfinished">Obrezovanje: zadnja sinhronizacija denarnice je izven obrezanih podatkov. Izvesti morate -reindex (v primeru obrezanega načina delovanja bo potrebno znova prenesti celotno verigo blokov).</translation>
-    </message>
-    <message>
         <source>SQLiteDatabase: Unknown sqlite wallet schema version %d. Only version %d is supported</source>
         <translation type="unfinished">Baza SQLite: Neznana verzija sheme SQLite denarnice %d. Podprta je le verzija %d.</translation>
     </message>
@@ -4038,10 +4063,6 @@ Za odpiranje denarnice kliknite Datoteka &gt; Odpri denarnico
     <message>
         <source>The transaction amount is too small to send after the fee has been deducted</source>
         <translation type="unfinished">Znesek transakcije po odbitku provizije je premajhen za pošiljanje.</translation>
-    </message>
-    <message>
-        <source>This error could occur if this wallet was not shutdown cleanly and was last loaded using a build with a newer version of Berkeley DB. If so, please use the software that last loaded this wallet</source>
-        <translation type="unfinished">Ta napaka se lahko pojavi, če denarnica ni bila pravilno zaprta in je bila nazadnje naložena s programsko opremo z novejšo verzijo Berkely DB. Če je temu tako, prosimo uporabite programsko opremo, s katero je bila ta denarnica nazadnje naložena.</translation>
     </message>
     <message>
         <source>This is a pre-release test build - use at your own risk - do not use for mining or merchant applications</source>
@@ -4068,28 +4089,12 @@ Za odpiranje denarnice kliknite Datoteka &gt; Odpri denarnico
         <translation type="unfinished">Ne morem ponovno obdelati blokov. Podatkovno bazo boste morali ponovno zgraditi z uporabo ukaza -reindex-chainstate.</translation>
     </message>
     <message>
-        <source>Unknown wallet file format "%s" provided. Please provide one of "bdb" or "sqlite".</source>
-        <translation type="unfinished">Nastavljena je neznana oblika datoteke denarnice "%s". Prosimo, uporabite "bdb" ali "sqlite".</translation>
-    </message>
-    <message>
         <source>Unsupported chainstate database format found. Please restart with -reindex-chainstate. This will rebuild the chainstate database.</source>
         <translation type="unfinished">Podatkovna baza stanja verige (chainstate) je v formatu, ki ni podprt. Prosimo, ponovno zaženite program z možnostjo -reindex-chainstate. S tem bo baza stanja verige zgrajena ponovno.</translation>
     </message>
     <message>
-        <source>Wallet created successfully. The legacy wallet type is being deprecated and support for creating and opening legacy wallets will be removed in the future.</source>
-        <translation type="unfinished">Denarnica uspešno ustvarjena. Podedovani tip denarnice je zastarel in v opuščanju. Podpora za tvorbo in odpiranje denarnic podedovanega tipa bo v prihodnosti odstranjena.</translation>
-    </message>
-    <message>
-        <source>Warning: Dumpfile wallet format "%s" does not match command line specified format "%s".</source>
-        <translation type="unfinished">Opozorilo: oblika izvozne (dump) datoteke "%s" ne ustreza obliki "%s", izbrani v ukazni vrstici.</translation>
-    </message>
-    <message>
         <source>Warning: Private keys detected in wallet {%s} with disabled private keys</source>
         <translation type="unfinished">Opozorilo: v denarnici {%s} z onemogočenimi zasebnimi ključi so prisotni zasebni ključi.</translation>
-    </message>
-    <message>
-        <source>Warning: We do not appear to fully agree with our peers! You may need to upgrade, or other nodes may need to upgrade.</source>
-        <translation type="unfinished">Opozorilo: Trenutno se s soležniki ne strinjamo v popolnosti! Morda morate posodobiti programsko opremo ali pa morajo to storiti vaši soležniki.</translation>
     </message>
     <message>
         <source>Witness data for blocks after height %d requires validation. Please restart with -reindex.</source>
@@ -4106,10 +4111,6 @@ Za odpiranje denarnice kliknite Datoteka &gt; Odpri denarnico
     <message>
         <source>-maxmempool must be at least %d MB</source>
         <translation type="unfinished">-maxmempool mora biti vsaj %d MB</translation>
-    </message>
-    <message>
-        <source>A fatal internal error occurred, see debug.log for details</source>
-        <translation type="unfinished">Prišlo je do usodne notranje napake. Za podrobnosti glejte datoteko debug.log.</translation>
     </message>
     <message>
         <source>Cannot resolve -%s address: '%s'</source>
@@ -4164,6 +4165,10 @@ Unable to restore backup of wallet.</source>
 Obnovitev varnostne kopije denarnice ni bila mogoča.</translation>
     </message>
     <message>
+        <source>default wallet</source>
+        <translation type="unfinished">privzeta denarnica</translation>
+    </message>
+    <message>
         <source>Config setting for %s only applied on %s network when in [%s] section.</source>
         <translation type="unfinished">Konfiguracijske nastavitve za %s se na omrežju %s upoštevajo le, če so zapisane v odseku [%s].</translation>
     </message>
@@ -4188,10 +4193,6 @@ Obnovitev varnostne kopije denarnice ni bila mogoča.</translation>
         <translation type="unfinished">Prostora na disku je premalo!</translation>
     </message>
     <message>
-        <source>Do you want to rebuild the block database now?</source>
-        <translation type="unfinished">Želite zdaj obnoviti podatkovno bazo blokov?</translation>
-    </message>
-    <message>
         <source>Done loading</source>
         <translation type="unfinished">Nalaganje končano</translation>
     </message>
@@ -4200,24 +4201,12 @@ Obnovitev varnostne kopije denarnice ni bila mogoča.</translation>
         <translation type="unfinished">Izvozna (dump) datoteka %s ne obstaja.</translation>
     </message>
     <message>
-        <source>Error creating %s</source>
-        <translation type="unfinished">Napaka pri tvorbi %s</translation>
-    </message>
-    <message>
         <source>Error initializing block database</source>
         <translation type="unfinished">Napaka pri inicializaciji podatkovne baze blokov</translation>
     </message>
     <message>
-        <source>Error initializing wallet database environment %s!</source>
-        <translation type="unfinished">Napaka pri inicializaciji okolja podatkovne baze denarnice %s!</translation>
-    </message>
-    <message>
         <source>Error loading %s</source>
         <translation type="unfinished">Napaka pri nalaganju %s</translation>
-    </message>
-    <message>
-        <source>Error loading %s: Private keys can only be disabled during creation</source>
-        <translation type="unfinished">Napaka pri nalaganju %s: Zasebni ključi se lahko onemogočijo samo ob tvorbi.</translation>
     </message>
     <message>
         <source>Error loading %s: Wallet corrupted</source>
@@ -4236,20 +4225,16 @@ Obnovitev varnostne kopije denarnice ni bila mogoča.</translation>
         <translation type="unfinished">Napaka pri odpiranju podatkovne baze blokov</translation>
     </message>
     <message>
+        <source>Error reading configuration file: %s</source>
+        <translation type="unfinished">Napaka pri branju nastavitvene datoteke: 1%s</translation>
+    </message>
+    <message>
         <source>Error reading from database, shutting down.</source>
         <translation type="unfinished">Napaka pri branju iz podarkovne baze, zapiram.</translation>
     </message>
     <message>
         <source>Error reading next record from wallet database</source>
         <translation type="unfinished">Napaka pri branju naslednjega zapisa v podatkovni bazi denarnice.</translation>
-    </message>
-    <message>
-        <source>Error: Could not add watchonly tx to watchonly wallet</source>
-        <translation type="unfinished">Napaka: dodajanje opazovane transakcije v opazovano denarnico je spodletelo</translation>
-    </message>
-    <message>
-        <source>Error: Could not delete watchonly transactions</source>
-        <translation type="unfinished">Napaka: brisanje opazovanih transakcij je spodletelo</translation>
     </message>
     <message>
         <source>Error: Couldn't create cursor into database</source>
@@ -4286,10 +4271,6 @@ Obnovitev varnostne kopije denarnice ni bila mogoča.</translation>
     <message>
         <source>Error: No %s addresses available.</source>
         <translation type="unfinished">Napaka: na voljo ni nobenega naslova '%s'</translation>
-    </message>
-    <message>
-        <source>Error: Not all watchonly txs could be deleted</source>
-        <translation type="unfinished">Napaka: nekaterih opazovanih transakcij ni bilo mogoče izbrisati</translation>
     </message>
     <message>
         <source>Error: This wallet already uses SQLite</source>
@@ -4344,10 +4325,6 @@ Obnovitev varnostne kopije denarnice ni bila mogoča.</translation>
         <translation type="unfinished">Podvojen -wallet %s -- ne upoštevam.</translation>
     </message>
     <message>
-        <source>Importing…</source>
-        <translation type="unfinished">Uvažam ...</translation>
-    </message>
-    <message>
         <source>Incorrect or no genesis block found. Wrong datadir for network?</source>
         <translation type="unfinished">Izvornega bloka ni mogoče najti ali pa je neveljaven. Preverite, če ste izbrali pravo podatkovno mapo za izbrano omrežje.</translation>
     </message>
@@ -4378,6 +4355,10 @@ Obnovitev varnostne kopije denarnice ni bila mogoča.</translation>
     <message>
         <source>Invalid P2P permission: '%s'</source>
         <translation type="unfinished">Neveljavna pooblastila P2P: '%s'</translation>
+    </message>
+    <message>
+        <source>Invalid amount for %s=&lt;amount&gt;: '%s'</source>
+        <translation type="unfinished">Neveljaven znesek za %s=&lt;amount&gt;:'%s'</translation>
     </message>
     <message>
         <source>Invalid amount for -%s=&lt;amount&gt;: '%s'</source>
@@ -4418,10 +4399,6 @@ Obnovitev varnostne kopije denarnice ni bila mogoča.</translation>
     <message>
         <source>No addresses available</source>
         <translation type="unfinished">Noben naslov ni na voljo</translation>
-    </message>
-    <message>
-        <source>Not enough file descriptors available.</source>
-        <translation type="unfinished">Na voljo ni dovolj deskriptorjev datotek.</translation>
     </message>
     <message>
         <source>Prune cannot be configured with a negative value.</source>
@@ -4516,10 +4493,6 @@ Obnovitev varnostne kopije denarnice ni bila mogoča.</translation>
         <translation type="unfinished">To je minimalna transakcijska provizija, ki jo plačate za vsako transakcijo.</translation>
     </message>
     <message>
-        <source>This is the transaction fee you will pay if you send a transaction.</source>
-        <translation type="unfinished">To je provizija, ki jo boste plačali, ko pošljete transakcijo.</translation>
-    </message>
-    <message>
         <source>Transaction amount too small</source>
         <translation type="unfinished">Znesek transakcije je prenizek</translation>
     </message>
@@ -4532,10 +4505,6 @@ Obnovitev varnostne kopije denarnice ni bila mogoča.</translation>
         <translation type="unfinished">Indeks izhoda vračila je izven obsega.</translation>
     </message>
     <message>
-        <source>Transaction has too long of a mempool chain</source>
-        <translation type="unfinished">Transakcija je del predolge verige nepotrjenih transakcij</translation>
-    </message>
-    <message>
         <source>Transaction must have at least one recipient</source>
         <translation type="unfinished">Transakcija mora imeti vsaj enega prejemnika.</translation>
     </message>
@@ -4546,10 +4515,6 @@ Obnovitev varnostne kopije denarnice ni bila mogoča.</translation>
     <message>
         <source>Transaction too large</source>
         <translation type="unfinished">Transkacija je prevelika</translation>
-    </message>
-    <message>
-        <source>Unable to allocate memory for -maxsigcachesize: '%s' MiB</source>
-        <translation type="unfinished">Spodletelo je dodeljevanje pomnilnika za -maxsigcachesize: '%s' MiB</translation>
     </message>
     <message>
         <source>Unable to bind to %s on this computer (bind returned error %s)</source>
@@ -4568,14 +4533,6 @@ Obnovitev varnostne kopije denarnice ni bila mogoča.</translation>
         <translation type="unfinished">Ne najdem UTXO-ja za zunanji vhod</translation>
     </message>
     <message>
-        <source>Unable to generate initial keys</source>
-        <translation type="unfinished">Ne morem ustvariti začetnih ključev</translation>
-    </message>
-    <message>
-        <source>Unable to generate keys</source>
-        <translation type="unfinished">Ne morem ustvariti ključev</translation>
-    </message>
-    <message>
         <source>Unable to open %s for writing</source>
         <translation type="unfinished">Ne morem odpreti %s za pisanje</translation>
     </message>
@@ -4586,10 +4543,6 @@ Obnovitev varnostne kopije denarnice ni bila mogoča.</translation>
     <message>
         <source>Unable to start HTTP server. See debug log for details.</source>
         <translation type="unfinished">Zagon HTTP strežnika neuspešen. Poglejte razhroščevalni dnevnik za podrobnosti (debug.log).</translation>
-    </message>
-    <message>
-        <source>Unable to unload the wallet before migrating</source>
-        <translation type="unfinished">Zapiranje denarnice pred migracijo ni uspelo</translation>
     </message>
     <message>
         <source>Unknown -blockfilterindex value %s.</source>
@@ -4614,6 +4567,10 @@ Obnovitev varnostne kopije denarnice ni bila mogoča.</translation>
     <message>
         <source>Unsupported logging category %s=%s.</source>
         <translation type="unfinished">Nepodprta kategorija beleženja %s=%s.</translation>
+    </message>
+    <message>
+        <source>Do you want to rebuild the databases now?</source>
+        <translation type="unfinished">Želite zdaj ponovno zgraditi baze podatkov?</translation>
     </message>
     <message>
         <source>User Agent comment (%s) contains unsafe characters.</source>

@@ -14,10 +14,6 @@
         <translation type="unfinished">Новы</translation>
     </message>
     <message>
-        <source>Copy the currently selected address to the system clipboard</source>
-        <translation type="unfinished">Капіяваць пазначаны адрас у сістэмны буфер абмену</translation>
-    </message>
-    <message>
         <source>&amp;Copy</source>
         <translation type="unfinished">Капіяваць</translation>
     </message>
@@ -58,7 +54,7 @@
         <translation type="unfinished">Выбраць</translation>
     </message>
     <message>
-        <source>These are your BitcoinSilver addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation type="unfinished">Тут знаходзяцца Біткойн-адрасы для высылання плацяжоў. Заўсёды спраўджвайце колькасць і адрас прызначэння перад здзяйсненнем транзакцыі.</translation>
     </message>
     <message>
@@ -81,6 +77,10 @@
         <source>There was an error trying to save the address list to %1. Please try again.</source>
         <extracomment>An error message. %1 is a stand-in argument for the name of the file we attempted to save to.</extracomment>
         <translation type="unfinished">Адбылася памылка падчас спробы захаваць адрас у %1. Паспрабуйце зноў.</translation>
+    </message>
+    <message>
+        <source>Sending addresses - %1</source>
+        <translation type="unfinished">Адрасы адпраўкі - %1</translation>
     </message>
     <message>
         <source>Receiving addresses - %1</source>
@@ -149,7 +149,7 @@
         <translation type="unfinished">Пацвердзіце шыфраванне гаманца</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINSILVERS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
         <translation type="unfinished">Увага: калі вы зашыфруеце свой гаманец і страціце парольную фразу, то &lt;b&gt;СТРАЦІЦЕ ЎСЕ СВАЕ БІТКОЙНЫ&lt;/b&gt;!</translation>
     </message>
     <message>
@@ -295,7 +295,7 @@
         <translation type="unfinished">Паказаць інфармацыю аб Qt</translation>
     </message>
     <message>
-        <source>Send coins to a BitcoinSilver address</source>
+        <source>Send coins to a Bitcoin address</source>
         <translation type="unfinished">Даслаць манеты на Біткойн-адрас</translation>
     </message>
     <message>
@@ -319,11 +319,11 @@
         <translation type="unfinished">Зашыфраваць прыватныя ключы, якия належаць вашаму гаманцу</translation>
     </message>
     <message>
-        <source>Sign messages with your BitcoinSilver addresses to prove you own them</source>
+        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
         <translation type="unfinished">Падпісаць паведамленне з дапамогай Біткойн-адраса каб даказаць, што яно належыць вам</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified BitcoinSilver addresses</source>
+        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
         <translation type="unfinished">Спраўдзіць паведамленне з дапамогай Біткойн-адраса каб даказаць, што яно належыць вам</translation>
     </message>
     <message>
@@ -339,7 +339,7 @@
         <translation type="unfinished">Дапамога</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoinsilver: URIs)</source>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
         <translation type="unfinished">Запатрабаваць плацёж (генеруецца QR-код для біткойн URI)</translation>
     </message>
     <message>
@@ -391,7 +391,7 @@
         <translation type="unfinished">Сінхранізавана</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to BitcoinSilver network.</source>
+        <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
             <numerusform />
@@ -587,9 +587,20 @@
     </message>
     </context>
 <context>
+    <name>HelpMessageDialog</name>
+    <message>
+        <source>Command-line options</source>
+        <translation type="unfinished">Опцыі каманднага радка</translation>
+    </message>
+</context>
+<context>
     <name>Intro</name>
     <message>
-        <source>BitcoinSilver</source>
+        <source>Welcome</source>
+        <translation type="unfinished">Вітаем</translation>
+    </message>
+    <message>
+        <source>Bitcoin</source>
         <translation type="unfinished">Біткойн</translation>
     </message>
     <message numerus="yes">
@@ -629,17 +640,6 @@
         <source>Error</source>
         <translation type="unfinished">Памылка</translation>
     </message>
-    <message>
-        <source>Welcome</source>
-        <translation type="unfinished">Вітаем</translation>
-    </message>
-    </context>
-<context>
-    <name>HelpMessageDialog</name>
-    <message>
-        <source>Command-line options</source>
-        <translation type="unfinished">Опцыі каманднага радка</translation>
-    </message>
 </context>
 <context>
     <name>ModalOverlay</name>
@@ -676,6 +676,25 @@
     <message>
         <source>Form</source>
         <translation type="unfinished">Форма</translation>
+    </message>
+    </context>
+<context>
+    <name>PSBTOperationsDialog</name>
+    <message numerus="yes">
+        <source>Signed %n input(s), but more signatures are still required.</source>
+        <translation type="unfinished">
+            <numerusform />
+            <numerusform />
+            <numerusform />
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>Transaction has %n unsigned input(s).</source>
+        <translation type="unfinished">
+            <numerusform />
+            <numerusform />
+            <numerusform />
+        </translation>
     </message>
     </context>
 <context>
@@ -1080,11 +1099,7 @@
     </message>
     </context>
 <context>
-    <name>bitcoinsilver-core</name>
-    <message>
-        <source>Do you want to rebuild the block database now?</source>
-        <translation type="unfinished">Ці жадаеце вы перабудаваць зараз базу звестак блокаў?</translation>
-    </message>
+    <name>bitcoin-core</name>
     <message>
         <source>Done loading</source>
         <translation type="unfinished">Загрузка выканана</translation>
@@ -1092,10 +1107,6 @@
     <message>
         <source>Error initializing block database</source>
         <translation type="unfinished">Памылка ініцыялізацыі базвы звестак блокаў</translation>
-    </message>
-    <message>
-        <source>Error initializing wallet database environment %s!</source>
-        <translation type="unfinished">Памалка ініцыялізацыі асяроддзя базы звестак гаманца %s!</translation>
     </message>
     <message>
         <source>Error loading block database</source>
@@ -1108,10 +1119,6 @@
     <message>
         <source>Insufficient funds</source>
         <translation type="unfinished">Недастаткова сродкаў</translation>
-    </message>
-    <message>
-        <source>Not enough file descriptors available.</source>
-        <translation type="unfinished">Не хапае файлавых дэскрыптараў.</translation>
     </message>
     <message>
         <source>Signing transaction failed</source>

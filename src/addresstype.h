@@ -1,17 +1,20 @@
-// Copyright (c) 2023 The Bitcoin Core developers
+// Copyright (c) 2023-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOINSILVER_ADDRESSTYPE_H
 #define BITCOINSILVER_ADDRESSTYPE_H
 
+#include <attributes.h>
 #include <pubkey.h>
 #include <script/script.h>
 #include <uint256.h>
+#include <util/check.h>
 #include <util/hash_type.h>
 
-#include <variant>
 #include <algorithm>
+#include <variant>
+#include <vector>
 
 class CNoDestination
 {
@@ -114,6 +117,16 @@ public:
     }
 };
 
+/** Witness program for Pay-to-Anchor output script type */
+static const std::vector<unsigned char> ANCHOR_BYTES{0x4e, 0x73};
+
+struct PayToAnchor : public WitnessUnknown
+{
+    PayToAnchor() : WitnessUnknown(1, ANCHOR_BYTES) {
+        Assume(CScript::IsPayToAnchor(1, ANCHOR_BYTES));
+    };
+};
+
 /**
  * A txout script categorized into standard templates.
  *  * CNoDestination: Optionally a script, no corresponding address.
@@ -123,10 +136,11 @@ public:
  *  * WitnessV0ScriptHash: TxoutType::WITNESS_V0_SCRIPTHASH destination (P2WSH address)
  *  * WitnessV0KeyHash: TxoutType::WITNESS_V0_KEYHASH destination (P2WPKH address)
  *  * WitnessV1Taproot: TxoutType::WITNESS_V1_TAPROOT destination (P2TR address)
+ *  * PayToAnchor: TxoutType::ANCHOR destination (P2A address)
  *  * WitnessUnknown: TxoutType::WITNESS_UNKNOWN destination (P2W??? address)
  *  A CTxDestination is the internal data type encoded in a bitcoinsilver address
  */
-using CTxDestination = std::variant<CNoDestination, PubKeyDestination, PKHash, ScriptHash, WitnessV0ScriptHash, WitnessV0KeyHash, WitnessV1Taproot, WitnessUnknown>;
+using CTxDestination = std::variant<CNoDestination, PubKeyDestination, PKHash, ScriptHash, WitnessV0ScriptHash, WitnessV0KeyHash, WitnessV1Taproot, PayToAnchor, WitnessUnknown>;
 
 /** Check whether a CTxDestination corresponds to one with an address. */
 bool IsValidDestination(const CTxDestination& dest);

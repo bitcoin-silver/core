@@ -1,7 +1,9 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2009-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
+#include <bitcoin-build-config.h> // IWYU pragma: keep
 
 #include <addrdb.h>
 
@@ -22,6 +24,7 @@
 #include <univalue.h>
 #include <util/fs.h>
 #include <util/fs_helpers.h>
+#include <util/syserror.h>
 #include <util/translation.h>
 
 namespace {
@@ -40,7 +43,8 @@ bool SerializeDB(Stream& stream, const Data& data)
         hashwriter << Params().MessageStart() << data;
         stream << hashwriter.GetHash();
     } catch (const std::exception& e) {
-        return error("%s: Serialize or I/O error - %s", __func__, e.what());
+        LogError("%s: Serialize or I/O error - %s\n", __func__, e.what());
+        return false;
     }
 
     return true;
@@ -50,7 +54,7 @@ template <typename Data>
 bool SerializeFileDB(const std::string& prefix, const fs::path& path, const Data& data)
 {
     // Generate random temporary filename
-    const uint16_t randv{GetRand<uint16_t>()};
+    const uint16_t randv{FastRandomContext().rand<uint16_t>()};
     std::string tmpfn = strprintf("%s.%04x", prefix, randv);
 
     // open temp output file
@@ -58,28 +62,35 @@ bool SerializeFileDB(const std::string& prefix, const fs::path& path, const Data
     FILE *file = fsbridge::fopen(pathTmp, "wb");
     AutoFile fileout{file};
     if (fileout.IsNull()) {
-        fileout.fclose();
         remove(pathTmp);
-        return error("%s: Failed to open file %s", __func__, fs::PathToString(pathTmp));
+        LogError("%s: Failed to open file %s\n", __func__, fs::PathToString(pathTmp));
+        return false;
     }
 
     // Serialize
     if (!SerializeDB(fileout, data)) {
-        fileout.fclose();
+        (void)fileout.fclose();
         remove(pathTmp);
         return false;
     }
-    if (!FileCommit(fileout.Get())) {
-        fileout.fclose();
+    if (!fileout.Commit()) {
+        (void)fileout.fclose();
         remove(pathTmp);
-        return error("%s: Failed to flush file %s", __func__, fs::PathToString(pathTmp));
+        LogError("%s: Failed to flush file %s\n", __func__, fs::PathToString(pathTmp));
+        return false;
     }
-    fileout.fclose();
+    if (fileout.fclose() != 0) {
+        const int errno_save{errno};
+        remove(pathTmp);
+        LogError("Failed to close file %s after commit: %s", fs::PathToString(pathTmp), SysErrorString(errno_save));
+        return false;
+    }
 
     // replace existing file, if any, with new file
     if (!RenameOver(pathTmp, path)) {
         remove(pathTmp);
-        return error("%s: Rename-into-place failed", __func__);
+        LogError("%s: Rename-into-place failed\n", __func__);
+        return false;
     }
 
     return true;
@@ -136,7 +147,7 @@ bool CBanDB::Write(const banmap_t& banSet)
     }
 
     for (const auto& err : errors) {
-        error("%s", err);
+        LogError("%s\n", err);
     }
     return false;
 }
@@ -144,7 +155,7 @@ bool CBanDB::Write(const banmap_t& banSet)
 bool CBanDB::Read(banmap_t& banSet)
 {
     if (fs::exists(m_banlist_dat)) {
-        LogPrintf("banlist.dat ignored because it can only be read by " PACKAGE_NAME " version 22.x. Remove %s to silence this warning.\n", fs::quoted(fs::PathToString(m_banlist_dat)));
+        LogWarning("banlist.dat ignored because it can only be read by " CLIENT_NAME " version 22.x. Remove %s to silence this warning.", fs::quoted(fs::PathToString(m_banlist_dat)));
     }
     // If the JSON banlist does not exist, then recreate it
     if (!fs::exists(m_banlist_json)) {
@@ -156,7 +167,7 @@ bool CBanDB::Read(banmap_t& banSet)
 
     if (!common::ReadSettings(m_banlist_json, settings, errors)) {
         for (const auto& err : errors) {
-            LogPrintf("Cannot load banlist %s: %s\n", fs::PathToString(m_banlist_json), err);
+            LogWarning("Cannot load banlist %s: %s", fs::PathToString(m_banlist_json), err);
         }
         return false;
     }
@@ -164,7 +175,7 @@ bool CBanDB::Read(banmap_t& banSet)
     try {
         BanMapFromJson(settings[JSON_KEY], banSet);
     } catch (const std::runtime_error& e) {
-        LogPrintf("Cannot parse banlist %s: %s\n", fs::PathToString(m_banlist_json), e.what());
+        LogWarning("Cannot parse banlist %s: %s", fs::PathToString(m_banlist_json), e.what());
         return false;
     }
 
@@ -185,32 +196,33 @@ void ReadFromStream(AddrMan& addr, DataStream& ssPeers)
 util::Result<std::unique_ptr<AddrMan>> LoadAddrman(const NetGroupManager& netgroupman, const ArgsManager& args)
 {
     auto check_addrman = std::clamp<int32_t>(args.GetIntArg("-checkaddrman", DEFAULT_ADDRMAN_CONSISTENCY_CHECKS), 0, 1000000);
-    auto addrman{std::make_unique<AddrMan>(netgroupman, /*deterministic=*/false, /*consistency_check_ratio=*/check_addrman)};
+    bool deterministic = HasTestOption(args, "addrman"); // use a deterministic addrman only for tests
+
+    auto addrman{std::make_unique<AddrMan>(netgroupman, deterministic, /*consistency_check_ratio=*/check_addrman)};
 
     const auto start{SteadyClock::now()};
     const auto path_addr{args.GetDataDirNet() / "peers.dat"};
     try {
         DeserializeFileDB(path_addr, *addrman);
-        LogPrintf("Loaded %i addresses from peers.dat  %dms\n", addrman->Size(), Ticks<std::chrono::milliseconds>(SteadyClock::now() - start));
+        LogInfo("Loaded %i addresses from peers.dat  %dms", addrman->Size(), Ticks<std::chrono::milliseconds>(SteadyClock::now() - start));
     } catch (const DbNotFoundError&) {
         // Addrman can be in an inconsistent state after failure, reset it
-        addrman = std::make_unique<AddrMan>(netgroupman, /*deterministic=*/false, /*consistency_check_ratio=*/check_addrman);
-        LogPrintf("Creating peers.dat because the file was not found (%s)\n", fs::quoted(fs::PathToString(path_addr)));
+        addrman = std::make_unique<AddrMan>(netgroupman, deterministic, /*consistency_check_ratio=*/check_addrman);
+        LogInfo("Creating peers.dat because the file was not found (%s)", fs::quoted(fs::PathToString(path_addr)));
         DumpPeerAddresses(args, *addrman);
     } catch (const InvalidAddrManVersionError&) {
         if (!RenameOver(path_addr, (fs::path)path_addr + ".bak")) {
             return util::Error{strprintf(_("Failed to rename invalid peers.dat file. Please move or delete it and try again."))};
         }
         // Addrman can be in an inconsistent state after failure, reset it
-        addrman = std::make_unique<AddrMan>(netgroupman, /*deterministic=*/false, /*consistency_check_ratio=*/check_addrman);
-        LogPrintf("Creating new peers.dat because the file version was not compatible (%s). Original backed up to peers.dat.bak\n", fs::quoted(fs::PathToString(path_addr)));
+        addrman = std::make_unique<AddrMan>(netgroupman, deterministic, /*consistency_check_ratio=*/check_addrman);
+        LogWarning("Creating new peers.dat because the file version was not compatible (%s). Original backed up to peers.dat.bak", fs::quoted(fs::PathToString(path_addr)));
         DumpPeerAddresses(args, *addrman);
     } catch (const std::exception& e) {
         return util::Error{strprintf(_("Invalid or corrupt peers.dat (%s). If you believe this is a bug, please report it to %s. As a workaround, you can move the file (%s) out of the way (rename, move, or delete) to have a new one created on the next start."),
-                                     e.what(), PACKAGE_BUGREPORT, fs::quoted(fs::PathToString(path_addr)))};
+                                     e.what(), CLIENT_BUGREPORT, fs::quoted(fs::PathToString(path_addr)))};
     }
-    return {std::move(addrman)}; // std::move should be unnecessary but is temporarily needed to work around clang bug
-                                 // (https://github.com/MrVistos/bitcoinsilver/pull/25977#issuecomment-1561270092)
+    return addrman;
 }
 
 void DumpAnchors(const fs::path& anchors_db_path, const std::vector<CAddress>& anchors)
@@ -224,7 +236,7 @@ std::vector<CAddress> ReadAnchors(const fs::path& anchors_db_path)
     std::vector<CAddress> anchors;
     try {
         DeserializeFileDB(anchors_db_path, CAddress::V2_DISK(anchors));
-        LogPrintf("Loaded %i addresses from %s\n", anchors.size(), fs::quoted(fs::PathToString(anchors_db_path.filename())));
+        LogInfo("Loaded %i addresses from %s", anchors.size(), fs::quoted(fs::PathToString(anchors_db_path.filename())));
     } catch (const std::exception&) {
         anchors.clear();
     }

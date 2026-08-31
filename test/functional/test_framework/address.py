@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2016-2022 The Bitcoin Core developers
+# Copyright (c) 2016-present The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Encode and decode BitcoinSilver addresses.
@@ -47,18 +47,20 @@ class AddressType(enum.Enum):
 b58chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
 
 
-def create_deterministic_address_bcrt1_p2tr_op_true():
+def create_deterministic_address_bcrt1_p2tr_op_true(explicit_internal_key=None):
     """
     Generates a deterministic bech32m address (segwit v1 output) that
     can be spent with a witness stack of OP_TRUE and the control block
     with internal public key (script-path spending).
 
-    Returns a tuple with the generated address and the internal key.
+    Returns a tuple with the generated address and the TaprootInfo object.
     """
-    internal_key = (1).to_bytes(32, 'big')
-    address = output_key_to_p2tr(taproot_construct(internal_key, [(None, CScript([OP_TRUE]))]).output_pubkey)
+    internal_key = explicit_internal_key or (1).to_bytes(32, 'big')
+    taproot_info = taproot_construct(internal_key, [("only-path", CScript([OP_TRUE]))])
+    address = output_key_to_p2tr(taproot_info.output_pubkey)
+    if explicit_internal_key is None:
     assert_equal(address, 'bcrt1p9yfmy5h72durp7zrhlw9lf7jpwjgvwdg0jr0lqmmjtgg83266lqsekaqka')
-    return (address, internal_key)
+    return (address, taproot_info)
 
 
 def byte_to_base58(b, version):
@@ -153,6 +155,9 @@ def output_key_to_p2tr(key, main=False):
     assert len(key) == 32
     return program_to_witness(1, key, main)
 
+def p2a(main=False):
+    return program_to_witness(1, "4e73", main)
+
 def check_key(key):
     if (type(key) is str):
         key = bytes.fromhex(key)  # Assuming this is hex string
@@ -188,9 +193,7 @@ def address_to_scriptpubkey(address):
         return keyhash_to_p2pkh_script(payload)
     elif version == 196:  # testnet script hash
         return scripthash_to_p2sh_script(payload)
-    # TODO: also support other address formats
-    else:
-        assert False
+    raise ValueError(f"Unsupported address type: {address}")
 
 
 class TestFrameworkScript(unittest.TestCase):

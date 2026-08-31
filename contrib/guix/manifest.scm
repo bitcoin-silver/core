@@ -1,30 +1,32 @@
 (use-modules (gnu packages)
-             (gnu packages autotools)
              ((gnu packages bash) #:select (bash-minimal))
              (gnu packages bison)
              ((gnu packages certs) #:select (nss-certs))
+             ((gnu packages check) #:select (libfaketime))
              ((gnu packages cmake) #:select (cmake-minimal))
              (gnu packages commencement)
              (gnu packages compression)
              (gnu packages cross-base)
-             (gnu packages file)
              (gnu packages gawk)
              (gnu packages gcc)
              ((gnu packages installers) #:select (nsis-x86_64))
-             ((gnu packages linux) #:select (linux-libre-headers-5.15 util-linux))
+             ((gnu packages linux) #:select (linux-libre-headers-6.1))
              (gnu packages llvm)
              (gnu packages mingw)
-             (gnu packages moreutils)
+             (gnu packages ninja)
              (gnu packages pkg-config)
              ((gnu packages python) #:select (python-minimal))
-             ((gnu packages python-build) #:select (python-tomli))
+             ((gnu packages python-build) #:select (python-poetry-core))
              ((gnu packages python-crypto) #:select (python-asn1crypto))
+             ((gnu packages python-science) #:select (python-scikit-build-core))
+             ((gnu packages python-xyz) #:select (python-pydantic-2))
              ((gnu packages tls) #:select (openssl))
              ((gnu packages version-control) #:select (git-minimal))
              (guix build-system cmake)
-             (guix build-system gnu)
              (guix build-system python)
+             (guix build-system pyproject)
              (guix build-system trivial)
+             (guix download)
              (guix gexp)
              (guix git-download)
              ((guix licenses) #:prefix license:)
@@ -80,26 +82,37 @@ FILE-NAME found in ./patches relative to the current file."
       (build-system trivial-build-system)
       (arguments '(#:builder (begin (mkdir %output) #t)))
       (propagated-inputs
-       `(("binutils" ,xbinutils)
-         ("libc" ,xlibc)
-         ("libc:static" ,xlibc "static")
-         ("gcc" ,xgcc)
-         ("gcc-lib" ,xgcc "lib")))
+        (list xbinutils
+              xlibc
+              xgcc
+              `(,xlibc "static")
+              `(,xgcc "lib")))
       (synopsis (string-append "Complete GCC tool chain for " target))
       (description (string-append "This package provides a complete GCC tool
 chain for " target " development."))
       (home-page (package-home-page xgcc))
       (license (package-license xgcc)))))
 
-(define base-gcc gcc-10)
-(define base-linux-kernel-headers linux-libre-headers-5.15)
+(define base-gcc
+  (package
+    (inherit gcc-14) ;; 14.2.0
+    (version "14.3.0")
+    (source (origin
+              (method url-fetch)
+              (uri (string-append "mirror://gnu/gcc/gcc-"
+                                  version "/gcc-" version ".tar.xz"))
+              (sha256
+               (base32
+                "0fna78ly417g69fdm4i5f3ms96g8xzzjza8gwp41lqr5fqlpgp70"))))))
+
+(define base-linux-kernel-headers linux-libre-headers-6.1)
 
 (define* (make-bitcoinsilver-cross-toolchain target
                                        #:key
-                                       (base-gcc-for-libc linux-base-gcc)
+                                       (base-gcc-for-libc (gcc-libgcc-patches linux-base-gcc))
                                        (base-kernel-headers base-linux-kernel-headers)
-                                       (base-libc glibc-2.27)
-                                       (base-gcc linux-base-gcc))
+                                       (base-libc glibc-2.31)
+                                       (base-gcc (gcc-libgcc-patches linux-base-gcc)))
   "Convenience wrapper around MAKE-CROSS-TOOLCHAIN with default values
 desirable for building BitcoinSilver release binaries."
   (make-cross-toolchain target
@@ -108,17 +121,27 @@ desirable for building BitcoinSilver release binaries."
                         base-libc
                         base-gcc))
 
-(define (gcc-mingw-patches gcc)
+(define (gcc-libgcc-patches gcc)
   (package-with-extra-patches gcc
-    (search-our-patches "gcc-remap-guix-store.patch"
-                        "vmov-alignment.patch")))
+    (search-our-patches "gcc-remap-guix-store.patch" "gcc-ssa-generation.patch")))
+
+(define (binutils-mingw-patches binutils)
+  (package-with-extra-patches binutils
+    (search-our-patches "binutils-unaligned-default.patch")))
+
+(define (winpthreads-patches mingw-w64-x86_64-winpthreads)
+  (package-with-extra-patches mingw-w64-x86_64-winpthreads
+    (search-our-patches "winpthreads-remap-guix-store.patch")))
 
 (define (make-mingw-pthreads-cross-toolchain target)
   "Create a cross-compilation toolchain package for TARGET"
-  (let* ((xbinutils (cross-binutils target))
-         (pthreads-xlibc mingw-w64-x86_64-winpthreads)
+  (let* ((xbinutils (binutils-mingw-patches (cross-binutils target)))
+         (machine (substring target 0 (string-index target #\-)))
+         (pthreads-xlibc (winpthreads-patches (make-mingw-w64 machine
+                                         #:xgcc (cross-gcc target #:xgcc (gcc-libgcc-patches base-gcc))
+                                         #:with-winpthreads? #t)))
          (pthreads-xgcc (cross-gcc target
-                                    #:xgcc (gcc-mingw-patches mingw-w64-base-gcc)
+                                    #:xgcc (gcc-libgcc-patches mingw-w64-base-gcc)
                                     #:xbinutils xbinutils
                                     #:libc pthreads-xlibc)))
     ;; Define a meta-package that propagates the resulting XBINUTILS, XLIBC, and
@@ -130,10 +153,10 @@ desirable for building BitcoinSilver release binaries."
       (build-system trivial-build-system)
       (arguments '(#:builder (begin (mkdir %output) #t)))
       (propagated-inputs
-       `(("binutils" ,xbinutils)
-         ("libc" ,pthreads-xlibc)
-         ("gcc" ,pthreads-xgcc)
-         ("gcc-lib" ,pthreads-xgcc "lib")))
+        (list xbinutils
+              pthreads-xlibc
+              pthreads-xgcc
+              `(,pthreads-xgcc "lib")))
       (synopsis (string-append "Complete GCC tool chain for " target))
       (description (string-append "This package provides a complete GCC tool
 chain for " target " development."))
@@ -143,41 +166,38 @@ chain for " target " development."))
 ;; While LIEF is packaged in Guix, we maintain our own package,
 ;; to simplify building, and more easily apply updates.
 ;; Moreover, the Guix's package uses cmake, which caused build
-;; failure; see https://github.com/MrVistos/bitcoinsilver/pull/27296.
+;; failure; see https://github.com/bitcoin/bitcoin/pull/27296.
 (define-public python-lief
   (package
     (name "python-lief")
-    (version "0.13.2")
+    (version "0.16.6")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                     (url "https://github.com/lief-project/LIEF")
                     (commit version)))
               (file-name (git-file-name name version))
-              (modules '((guix build utils)))
-              (snippet
-               '(begin
-                  ;; Configure build for Python bindings.
-                  (substitute* "api/python/config-default.toml"
-                    (("(ninja         = )true" all m)
-                     (string-append m "false"))
-                    (("(parallel-jobs = )0" all m)
-                     (string-append m (number->string (parallel-job-count)))))))
               (sha256
                (base32
-                "0y48x358ppig5xp97ahcphfipx7cg9chldj2q5zrmn610fmi4zll"))))
-    (build-system python-build-system)
-    (native-inputs (list cmake-minimal python-tomli))
+                "1pq9nagrnkl1x943bqnpiyxmkd9vk99znfxiwqp6vf012b50bz2a"))
+              (patches (search-our-patches "lief-scikit-0-9.patch"))))
+    (build-system pyproject-build-system)
+    (native-inputs (list cmake-minimal
+                         ninja
+                         python-scikit-build-core
+                         python-pydantic-2))
     (arguments
      (list
       #:tests? #f                  ;needs network
       #:phases #~(modify-phases %standard-phases
-                   (add-before 'build 'change-directory
+                   (add-before 'build 'set-pythonpath
                      (lambda _
-                       (chdir "api/python")))
-                   (replace 'build
+                       (setenv "PYTHONPATH"
+                         (string-append (string-append (getcwd) "/api/python/backend")
+                                      ":" (or (getenv "PYTHONPATH") "")))))
+                  (add-after 'set-pythonpath 'change-directory
                      (lambda _
-                       (invoke "python" "setup.py" "build"))))))
+                       (chdir "api/python"))))))
     (home-page "https://github.com/lief-project/LIEF")
     (synopsis "Library to instrument executable formats")
     (description
@@ -198,8 +218,17 @@ and abstract ELF, PE and MachO formats.")
                (base32
                 "1j47vwq4caxfv0xw68kw5yh00qcpbd56d7rq6c483ma3y7s96yyz"))))
     (build-system cmake-build-system)
-    (inputs
-     `(("openssl", openssl)))
+    (arguments
+     (list
+      #:phases
+      #~(modify-phases %standard-phases
+          (replace 'check
+            (lambda* (#:key tests? #:allow-other-keys)
+              (if tests?
+                  (invoke "faketime" "-f" "@2025-01-01 00:00:00" ;; Tests fail after 2025.
+                          "ctest" "--output-on-failure" "--no-tests=error")
+                  (format #t "test suite not run~%")))))))
+    (inputs (list libfaketime openssl))
     (home-page "https://github.com/mtrojnar/osslsigncode")
     (synopsis "Authenticode signing and timestamping tool")
     (description "osslsigncode is a small tool that implements part of the
@@ -256,8 +285,7 @@ thus should be able to compile on most platforms where these exist.")
             (files '("etc/ssl/certs/ca-certificates.crt")))))
 
     (propagated-inputs
-     `(("python-asn1crypto" ,python-asn1crypto)
-       ("openssl" ,openssl)))
+      (list python-asn1crypto openssl))
     (arguments
      `(#:phases
        (modify-phases %standard-phases
@@ -295,7 +323,7 @@ thus should be able to compile on most platforms where these exist.")
   (package (inherit python-oscrypto)
     (name "python-oscryptotests")
     (propagated-inputs
-      `(("python-oscrypto" ,python-oscrypto)))
+      (list python-oscrypto))
     (arguments
      `(#:tests? #f
        #:phases
@@ -322,9 +350,9 @@ thus should be able to compile on most platforms where these exist.")
            "1qw2k7xis53179lpqdqyylbcmp76lj7sagp883wmxg5i7chhc96k"))))
       (build-system python-build-system)
       (propagated-inputs
-       `(("python-asn1crypto" ,python-asn1crypto)
-         ("python-oscrypto" ,python-oscrypto)
-         ("python-oscryptotests", python-oscryptotests))) ;; certvalidator tests import oscryptotests
+        (list python-asn1crypto
+              python-oscrypto
+              python-oscryptotests)) ;; certvalidator tests import oscryptotests
       (arguments
        `(#:phases
          (modify-phases %standard-phases
@@ -372,82 +400,11 @@ certificates or paths. Supports various options, including: validation at a
 specific moment in time, whitelisting and revocation checks.")
       (license license:expat))))
 
-(define-public python-altgraph
-  (package
-    (name "python-altgraph")
-    (version "0.17")
-    (source
-     (origin
-       (method git-fetch)
-       (uri (git-reference
-             (url "https://github.com/ronaldoussoren/altgraph")
-             (commit (string-append "v" version))))
-       (file-name (git-file-name name version))
-       (sha256
-        (base32
-         "09sm4srvvkw458pn48ga9q7ykr4xlz7q8gh1h9w7nxpf001qgpwb"))))
-    (build-system python-build-system)
-    (home-page "https://github.com/ronaldoussoren/altgraph")
-    (synopsis "Python graph (network) package")
-    (description "altgraph is a fork of graphlib: a graph (network) package for
-constructing graphs, BFS and DFS traversals, topological sort, shortest paths,
-etc. with graphviz output.")
-    (license license:expat)))
-
-
-(define-public python-macholib
-  (package
-    (name "python-macholib")
-    (version "1.14")
-    (source
-     (origin
-       (method git-fetch)
-       (uri (git-reference
-             (url "https://github.com/ronaldoussoren/macholib")
-             (commit (string-append "v" version))))
-       (file-name (git-file-name name version))
-       (sha256
-        (base32
-         "0aislnnfsza9wl4f0vp45ivzlc0pzhp9d4r08700slrypn5flg42"))))
-    (build-system python-build-system)
-    (propagated-inputs
-     `(("python-altgraph" ,python-altgraph)))
-    (arguments
-     '(#:phases
-       (modify-phases %standard-phases
-         (add-after 'unpack 'disable-broken-tests
-           (lambda _
-             ;; This test is broken as there is no keyboard interrupt.
-             (substitute* "macholib_tests/test_command_line.py"
-               (("^(.*)class TestCmdLine" line indent)
-                (string-append indent
-                               "@unittest.skip(\"Disabled by Guix\")\n"
-                               line)))
-             (substitute* "macholib_tests/test_dyld.py"
-               (("^(.*)def test_\\S+_find" line indent)
-                (string-append indent
-                               "@unittest.skip(\"Disabled by Guix\")\n"
-                               line))
-               (("^(.*)def testBasic" line indent)
-                (string-append indent
-                               "@unittest.skip(\"Disabled by Guix\")\n"
-                               line))
-               )
-             #t)))))
-    (home-page "https://github.com/ronaldoussoren/macholib")
-    (synopsis "Python library for analyzing and editing Mach-O headers")
-    (description "macholib is a Macho-O header analyzer and editor. It's
-typically used as a dependency analysis tool, and also to rewrite dylib
-references in Mach-O headers to be @executable_path relative. Though this tool
-targets a platform specific file format, it is pure python code that is platform
-and endian independent.")
-    (license license:expat)))
-
 (define-public python-signapple
-  (let ((commit "7a96b4171a360abf0f0f56e499f8f9ed2116280d"))
+  (let ((commit "85bfcecc33d2773bc09bc318cec0614af2c8e287"))
     (package
       (name "python-signapple")
-      (version (git-version "0.1" "1" commit))
+      (version (git-version "0.2.0" "1" commit))
       (source
        (origin
          (method git-fetch)
@@ -457,14 +414,14 @@ and endian independent.")
          (file-name (git-file-name name commit))
          (sha256
           (base32
-           "0aa4k180jnpal15yhncnm3g3z9gzmi7qb25q5l0kaj444a1p2pm4"))))
-      (build-system python-build-system)
+           "17yqjll8nw83q6dhgqhkl7w502z5vy9sln8m6mlx0f1c10isg8yg"))))
+      (build-system pyproject-build-system)
       (propagated-inputs
-       `(("python-asn1crypto" ,python-asn1crypto)
-         ("python-oscrypto" ,python-oscrypto)
-         ("python-certvalidator" ,python-certvalidator)
-         ("python-elfesteem" ,python-elfesteem)
-         ("python-macholib" ,python-macholib)))
+        (list python-asn1crypto
+              python-oscrypto
+              python-certvalidator
+              python-elfesteem))
+      (native-inputs (list python-poetry-core))
       ;; There are no tests, but attempting to run python setup.py test leads to
       ;; problems, just disable the test
       (arguments '(#:tests? #f))
@@ -483,12 +440,11 @@ inspecting signatures in Mach-O binaries.")
           `(append ,flags
             ;; https://gcc.gnu.org/install/configure.html
             (list "--enable-threads=posix",
-                  building-on)))
-        ((#:make-flags flags)
-          ;; Uses the SSP functions from glibc instead of from libssp.so.
-          ;; Our 'symbol-check' script will complain if we link against libssp.so,
-          ;; and thus will ensure that this works properly.
-          `(cons "gcc_cv_libc_provides_ssp=yes" ,flags))))))
+                  "--enable-default-ssp=yes",
+                  "--enable-host-bind-now=yes",
+                  "--disable-gcov",
+                  "--disable-libgomp",
+                  building-on)))))))
 
 (define-public linux-base-gcc
   (package
@@ -501,6 +457,14 @@ inspecting signatures in Mach-O binaries.")
             (list "--enable-initfini-array=yes",
                   "--enable-default-ssp=yes",
                   "--enable-default-pie=yes",
+                  "--enable-host-bind-now=yes",
+                  "--enable-standard-branch-protection=yes",
+                  "--enable-cet=yes",
+                  "--enable-gprofng=no",
+                  "--disable-gcov",
+                  "--disable-libgomp",
+                  "--disable-libquadmath",
+                  "--disable-libsanitizer",
                   building-on)))
         ((#:phases phases)
           `(modify-phases ,phases
@@ -514,32 +478,33 @@ inspecting signatures in Mach-O binaries.")
                  (("-rpath=") "-rpath-link="))
                #t))))))))
 
-(define-public glibc-2.27
+(define-public glibc-2.31
+  (let ((commit "7b27c450c34563a28e634cccb399cd415e71ebfe"))
   (package
-    (inherit glibc-2.31)
-    (version "2.27")
+    (inherit glibc) ;; 2.39
+    (version "2.31")
     (source (origin
               (method git-fetch)
               (uri (git-reference
                     (url "https://sourceware.org/git/glibc.git")
-                    (commit "73886db6218e613bd6d4edf529f11e008a6c2fa6")))
-              (file-name (git-file-name "glibc" "73886db6218e613bd6d4edf529f11e008a6c2fa6"))
+                    (commit commit)))
+              (file-name (git-file-name "glibc" commit))
               (sha256
                (base32
-                "0azpb9cvnbv25zg8019rqz48h8i2257ngyjg566dlnp74ivrs9vq"))
-              (patches (search-our-patches "glibc-2.27-riscv64-Use-__has_include-to-include-asm-syscalls.h.patch"
-                                           "glibc-2.27-fcommon.patch"
-                                           "glibc-2.27-guix-prefix.patch"
-                                           "glibc-2.27-no-librt.patch"
-                                           "glibc-2.27-powerpc-ldbrx.patch"))))
+                "017qdpr5id7ddb4lpkzj2li1abvw916m3fc6n7nw28z4h5qbv2n0"))
+              (patches (search-our-patches "glibc-guix-prefix.patch"
+                                           "glibc-riscv-jumptarget.patch"))))
     (arguments
       (substitute-keyword-arguments (package-arguments glibc)
         ((#:configure-flags flags)
           `(append ,flags
             ;; https://www.gnu.org/software/libc/manual/html_node/Configuring-and-compiling.html
             (list "--enable-stack-protector=all",
+                  "--enable-cet",
                   "--enable-bind-now",
                   "--disable-werror",
+                  "--disable-timezone-tools",
+                  "--disable-profile",
                   building-on)))
     ((#:phases phases)
         `(modify-phases ,phases
@@ -547,12 +512,13 @@ inspecting signatures in Mach-O binaries.")
              (lambda* (#:key outputs #:allow-other-keys)
                ;; Install the rpc data base file under `$out/etc/rpc'.
                ;; Otherwise build will fail with "Permission denied."
+               ;; Can be removed when we are building 2.32 or later.
                (let ((out (assoc-ref outputs "out")))
                  (substitute* "sunrpc/Makefile"
                    (("^\\$\\(inst_sysconfdir\\)/rpc(.*)$" _ suffix)
                     (string-append out "/etc/rpc" suffix "\n"))
                    (("^install-others =.*$")
-                    (string-append "install-others = " out "/etc/rpc\n"))))))))))))
+                    (string-append "install-others = " out "/etc/rpc\n")))))))))))))
 
 (packages->manifest
  (append
@@ -560,9 +526,7 @@ inspecting signatures in Mach-O binaries.")
         bash-minimal
         which
         coreutils-minimal
-        util-linux
         ;; File(system) inspection
-        file
         grep
         diffutils
         findutils
@@ -570,22 +534,15 @@ inspecting signatures in Mach-O binaries.")
         patch
         gawk
         sed
-        moreutils
         ;; Compression and archiving
         tar
-        bzip2
         gzip
         xz
         ;; Build tools
+        gcc-toolchain-14
+        cmake-minimal
         gnu-make
-        libtool
-        autoconf-2.71
-        automake
-        pkg-config
-        bison
-        ;; Native GCC 10 toolchain
-        gcc-toolchain-10
-        (list gcc-toolchain-10 "static")
+        ninja
         ;; Scripting
         python-minimal ;; (3.10)
         ;; Git
@@ -594,14 +551,20 @@ inspecting signatures in Mach-O binaries.")
         python-lief)
   (let ((target (getenv "HOST")))
     (cond ((string-suffix? "-mingw32" target)
-           ;; Windows
            (list zip
                  (make-mingw-pthreads-cross-toolchain "x86_64-w64-mingw32")
                  nsis-x86_64
                  nss-certs
                  osslsigncode))
           ((string-contains target "-linux-")
-           (list (make-bitcoinsilver-cross-toolchain target)))
+           (list bison
+                 pkg-config
+                 (list gcc-toolchain-14 "static")
+                 (make-bitcoinsilver-cross-toolchain target)))
           ((string-contains target "darwin")
-           (list clang-toolchain-15 binutils cmake-minimal python-signapple zip))
+           (list clang-toolchain-19
+                 lld-19
+                 (make-lld-wrapper lld-19 #:lld-as-ld? #t)
+                 python-signapple
+                 zip))
           (else '())))))

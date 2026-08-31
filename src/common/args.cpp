@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2009-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -16,11 +16,10 @@
 #include <util/fs.h>
 #include <util/fs_helpers.h>
 #include <util/strencodings.h>
+#include <util/string.h>
 
 #ifdef WIN32
-#include <codecvt>    /* for codecvt_utf8_utf16 */
-#include <shellapi.h> /* for CommandLineToArgvW */
-#include <shlobj.h>   /* for CSIDL_APPDATA */
+#include <shlobj.h>
 #endif
 
 #include <algorithm>
@@ -28,7 +27,6 @@
 #include <cstdint>
 #include <cstdlib>
 #include <cstring>
-#include <filesystem>
 #include <map>
 #include <optional>
 #include <stdexcept>
@@ -85,7 +83,7 @@ KeyInfo InterpretKey(std::string key)
         result.section = key.substr(0, option_index);
         key.erase(0, option_index + 1);
     }
-    if (key.substr(0, 2) == "no") {
+    if (key.starts_with("no")) {
         key.erase(0, 2);
         result.negated = true;
     }
@@ -115,7 +113,7 @@ std::optional<common::SettingsValue> InterpretValue(const KeyInfo& key, const st
         }
         // Double negatives like -nofoo=0 are supported (but discouraged)
         if (value && !InterpretBool(*value)) {
-            LogPrintf("Warning: parsed potentially confusing double-negative -%s=%s\n", key.name, *value);
+            LogWarning("Parsed potentially confusing double-negative -%s=%s", key.name, *value);
             return true;
         }
         return false;
@@ -160,12 +158,13 @@ std::list<SectionInfo> ArgsManager::GetUnrecognizedSections() const
         ChainTypeToString(ChainType::REGTEST),
         ChainTypeToString(ChainType::SIGNET),
         ChainTypeToString(ChainType::TESTNET),
+        ChainTypeToString(ChainType::TESTNET4),
         ChainTypeToString(ChainType::MAIN),
     };
 
     LOCK(cs_args);
     std::list<SectionInfo> unrecognized = m_config_sections;
-    unrecognized.remove_if([](const SectionInfo& appeared){ return available_sections.find(appeared.m_name) != available_sections.end(); });
+    unrecognized.remove_if([](const SectionInfo& appeared){ return available_sections.contains(appeared.m_name); });
     return unrecognized;
 }
 
@@ -183,12 +182,12 @@ bool ArgsManager::ParseParameters(int argc, const char* const argv[], std::strin
     for (int i = 1; i < argc; i++) {
         std::string key(argv[i]);
 
-#ifdef MAC_OSX
+#ifdef __APPLE__
         // At the first time when a user gets the "App downloaded from the
         // internet" warning, and clicks the Open button, macOS passes
         // a unique process serial number (PSN) as -psn_... command-line
         // argument, which we filter out.
-        if (key.substr(0, 5) == "-psn_") continue;
+        if (key.starts_with("-psn_")) continue;
 #endif
 
         if (key == "-") break; //bitcoinsilver-tx using stdin
@@ -265,7 +264,13 @@ std::optional<unsigned int> ArgsManager::GetArgFlags(const std::string& name) co
             return search->second.m_flags;
         }
     }
-    return std::nullopt;
+    return m_default_flags;
+}
+
+void ArgsManager::SetDefaultFlags(std::optional<unsigned int> flags)
+{
+    LOCK(cs_args);
+    m_default_flags = flags;
 }
 
 fs::path ArgsManager::GetPathArg(std::string arg, const fs::path& default_value) const
@@ -278,7 +283,7 @@ fs::path ArgsManager::GetPathArg(std::string arg, const fs::path& default_value)
     return result.has_filename() ? result : result.parent_path();
 }
 
-const fs::path& ArgsManager::GetBlocksDirPath() const
+fs::path ArgsManager::GetBlocksDirPath() const
 {
     LOCK(cs_args);
     fs::path& path = m_cached_blocks_path;
@@ -303,7 +308,7 @@ const fs::path& ArgsManager::GetBlocksDirPath() const
     return path;
 }
 
-const fs::path& ArgsManager::GetDataDir(bool net_specific) const
+fs::path ArgsManager::GetDataDir(bool net_specific) const
 {
     LOCK(cs_args);
     fs::path& path = net_specific ? m_cached_network_datadir_path : m_cached_datadir_path;
@@ -393,7 +398,7 @@ static void SaveErrors(const std::vector<std::string> errors, std::vector<std::s
         if (error_out) {
             error_out->emplace_back(error);
         } else {
-            LogPrintf("%s\n", error);
+            LogWarning("%s", error);
         }
     }
 }
@@ -415,7 +420,7 @@ bool ArgsManager::ReadSettingsFile(std::vector<std::string>* errors)
     for (const auto& setting : m_settings.rw_settings) {
         KeyInfo key = InterpretKey(setting.first); // Split setting key into section and argname
         if (!GetArgFlags('-' + key.name)) {
-            LogPrintf("Ignoring unknown rw_settings value %s\n", setting.first);
+            LogWarning("Ignoring unknown rw_settings value %s", setting.first);
         }
     }
     return true;
@@ -478,29 +483,33 @@ std::string SettingToString(const common::SettingsValue& value, const std::strin
     return SettingToString(value).value_or(strDefault);
 }
 
-int64_t ArgsManager::GetIntArg(const std::string& strArg, int64_t nDefault) const
+template <std::integral Int>
+Int ArgsManager::GetArg(const std::string& strArg, Int nDefault) const
 {
-    return GetIntArg(strArg).value_or(nDefault);
+    return GetArg<Int>(strArg).value_or(nDefault);
 }
 
-std::optional<int64_t> ArgsManager::GetIntArg(const std::string& strArg) const
+template <std::integral Int>
+std::optional<Int> ArgsManager::GetArg(const std::string& strArg) const
 {
     const common::SettingsValue value = GetSetting(strArg);
-    return SettingToInt(value);
+    return SettingTo<Int>(value);
 }
 
-std::optional<int64_t> SettingToInt(const common::SettingsValue& value)
+template <std::integral Int>
+std::optional<Int> SettingTo(const common::SettingsValue& value)
 {
     if (value.isNull()) return std::nullopt;
     if (value.isFalse()) return 0;
     if (value.isTrue()) return 1;
-    if (value.isNum()) return value.getInt<int64_t>();
-    return LocaleIndependentAtoi<int64_t>(value.get_str());
+    if (value.isNum()) return value.getInt<Int>();
+    return LocaleIndependentAtoi<Int>(value.get_str());
 }
 
-int64_t SettingToInt(const common::SettingsValue& value, int64_t nDefault)
+template <std::integral Int>
+Int SettingTo(const common::SettingsValue& value, Int nDefault)
 {
-    return SettingToInt(value).value_or(nDefault);
+    return SettingTo<Int>(value).value_or(nDefault);
 }
 
 bool ArgsManager::GetBoolArg(const std::string& strArg, bool fDefault) const
@@ -525,6 +534,23 @@ bool SettingToBool(const common::SettingsValue& value, bool fDefault)
 {
     return SettingToBool(value).value_or(fDefault);
 }
+
+#define INSTANTIATE_INT_TYPE(Type)                                                    \
+    template Type ArgsManager::GetArg<Type>(const std::string&, Type) const;          \
+    template std::optional<Type> ArgsManager::GetArg<Type>(const std::string&) const; \
+    template Type SettingTo<Type>(const common::SettingsValue&, Type);                \
+    template std::optional<Type> SettingTo<Type>(const common::SettingsValue&)
+
+INSTANTIATE_INT_TYPE(int8_t);
+INSTANTIATE_INT_TYPE(uint8_t);
+INSTANTIATE_INT_TYPE(int16_t);
+INSTANTIATE_INT_TYPE(uint16_t);
+INSTANTIATE_INT_TYPE(int32_t);
+INSTANTIATE_INT_TYPE(uint32_t);
+INSTANTIATE_INT_TYPE(int64_t);
+INSTANTIATE_INT_TYPE(uint64_t);
+
+#undef INSTANTIATE_INT_TYPE
 
 bool ArgsManager::SoftSetArg(const std::string& strArg, const std::string& strValue)
 {
@@ -588,6 +614,31 @@ void ArgsManager::AddHiddenArgs(const std::vector<std::string>& names)
     }
 }
 
+void ArgsManager::ClearArgs()
+{
+    LOCK(cs_args);
+    m_settings = {};
+    m_available_args.clear();
+    m_network_only_args.clear();
+}
+
+void ArgsManager::CheckMultipleCLIArgs() const
+{
+    LOCK(cs_args);
+    std::vector<std::string> found{};
+    auto cmds = m_available_args.find(OptionsCategory::CLI_COMMANDS);
+    if (cmds != m_available_args.end()) {
+        for (const auto& [cmd, argspec] : cmds->second) {
+            if (IsArgSet(cmd)) {
+                found.push_back(cmd);
+            }
+        }
+        if (found.size() > 1) {
+            throw std::runtime_error(strprintf("Only one of %s may be specified.", util::Join(found, ", ")));
+        }
+    }
+}
+
 std::string ArgsManager::GetHelpMessage() const
 {
     const bool show_debug = GetBoolArg("-help-debug", false);
@@ -617,6 +668,9 @@ std::string ArgsManager::GetHelpMessage() const
             case OptionsCategory::RPC:
                 usage += HelpMessageGroup("RPC server options:");
                 break;
+            case OptionsCategory::IPC:
+                usage += HelpMessageGroup("IPC interprocess connection options:");
+                break;
             case OptionsCategory::WALLET:
                 usage += HelpMessageGroup("Wallet options:");
                 break;
@@ -634,6 +688,9 @@ std::string ArgsManager::GetHelpMessage() const
                 break;
             case OptionsCategory::REGISTER_COMMANDS:
                 usage += HelpMessageGroup("Register Commands:");
+                break;
+            case OptionsCategory::CLI_COMMANDS:
+                usage += HelpMessageGroup("CLI Commands:");
                 break;
             default:
                 break;
@@ -664,8 +721,8 @@ bool HelpRequested(const ArgsManager& args)
 
 void SetupHelpOptions(ArgsManager& args)
 {
-    args.AddArg("-?", "Print this help message and exit", ArgsManager::ALLOW_ANY, OptionsCategory::OPTIONS);
-    args.AddHiddenArgs({"-h", "-help"});
+    args.AddArg("-help", "Print this help message and exit (also -h or -?)", ArgsManager::ALLOW_ANY, OptionsCategory::OPTIONS);
+    args.AddHiddenArgs({"-h", "-?"});
 }
 
 static const int screenWidth = 79;
@@ -683,14 +740,35 @@ std::string HelpMessageOpt(const std::string &option, const std::string &message
            std::string("\n\n");
 }
 
+const std::vector<std::string> TEST_OPTIONS_DOC{
+    "addrman (use deterministic addrman)",
+    "reindex_after_failure_noninteractive_yes (When asked for a reindex after failure interactively, simulate as-if answered with 'yes')",
+    "bip94 (enforce BIP94 consensus rules)",
+};
+
+bool HasTestOption(const ArgsManager& args, const std::string& test_option)
+{
+    const auto options = args.GetArgs("-test");
+    return std::any_of(options.begin(), options.end(), [test_option](const auto& option) {
+        return option == test_option;
+    });
+}
+
 fs::path GetDefaultDataDir()
 {
-    // Windows: C:\Users\Username\AppData\Roaming\BitcoinSilver
+    // Windows:
+    //   old: C:\Users\Username\AppData\Roaming\BitcoinSilver
+    //   new: C:\Users\Username\AppData\Local\BitcoinSilver
     // macOS: ~/Library/Application Support/BitcoinSilver
     // Unix-like: ~/.bitcoinsilver
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "BitcoinSilver";
+    // Check for existence of datadir in old location and keep it there
+    fs::path legacy_path = GetSpecialFolderPath(CSIDL_APPDATA) / "BitcoinSilver";
+    if (fs::exists(legacy_path)) return legacy_path;
+
+    // Otherwise, fresh installs can start in the new, "proper" location
+    return GetSpecialFolderPath(CSIDL_LOCAL_APPDATA) / "BitcoinSilver";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -698,7 +776,7 @@ fs::path GetDefaultDataDir()
         pathRet = fs::path("/");
     else
         pathRet = fs::path(pszHome);
-#ifdef MAC_OSX
+#ifdef __APPLE__
     // macOS
     return pathRet / "Library/Application Support/BitcoinSilver";
 #else
@@ -718,6 +796,13 @@ fs::path ArgsManager::GetConfigFilePath() const
 {
     LOCK(cs_args);
     return *Assert(m_config_path);
+}
+
+void ArgsManager::SetConfigFilePath(fs::path path)
+{
+    LOCK(cs_args);
+    assert(!m_config_path);
+    m_config_path = path;
 }
 
 ChainType ArgsManager::GetChainType() const
@@ -748,10 +833,11 @@ std::variant<ChainType, std::string> ArgsManager::GetChainArg() const
     const bool fRegTest = get_net("-regtest");
     const bool fSigNet  = get_net("-signet");
     const bool fTestNet = get_net("-testnet");
+    const bool fTestNet4 = get_net("-testnet4");
     const auto chain_arg = GetArg("-chain");
 
-    if ((int)chain_arg.has_value() + (int)fRegTest + (int)fSigNet + (int)fTestNet > 1) {
-        throw std::runtime_error("Invalid combination of -regtest, -signet, -testnet and -chain. Can use at most one.");
+    if ((int)chain_arg.has_value() + (int)fRegTest + (int)fSigNet + (int)fTestNet + (int)fTestNet4 > 1) {
+        throw std::runtime_error("Invalid combination of -regtest, -signet, -testnet, -testnet4 and -chain. Can use at most one.");
     }
     if (chain_arg) {
         if (auto parsed = ChainTypeFromString(*chain_arg)) return *parsed;
@@ -761,12 +847,13 @@ std::variant<ChainType, std::string> ArgsManager::GetChainArg() const
     if (fRegTest) return ChainType::REGTEST;
     if (fSigNet) return ChainType::SIGNET;
     if (fTestNet) return ChainType::TESTNET;
+    if (fTestNet4) return ChainType::TESTNET4;
     return ChainType::MAIN;
 }
 
 bool ArgsManager::UseDefaultSection(const std::string& arg) const
 {
-    return m_network == ChainTypeToString(ChainType::MAIN) || m_network_only_args.count(arg) == 0;
+    return m_network == ChainTypeToString(ChainType::MAIN) || !m_network_only_args.contains(arg);
 }
 
 common::SettingsValue ArgsManager::GetSetting(const std::string& arg) const
@@ -794,7 +881,7 @@ void ArgsManager::logArgsPrefix(
             std::optional<unsigned int> flags = GetArgFlags('-' + arg.first);
             if (flags) {
                 std::string value_str = (*flags & SENSITIVE) ? "****" : value.write();
-                LogPrintf("%s %s%s=%s\n", prefix, section_str, arg.first, value_str);
+                LogInfo("%s %s%s=%s\n", prefix, section_str, arg.first, value_str);
             }
         }
     }
@@ -807,34 +894,7 @@ void ArgsManager::LogArgs() const
         logArgsPrefix("Config file arg:", section.first, section.second);
     }
     for (const auto& setting : m_settings.rw_settings) {
-        LogPrintf("Setting file arg: %s = %s\n", setting.first, setting.second.write());
+        LogInfo("Setting file arg: %s = %s\n", setting.first, setting.second.write());
     }
     logArgsPrefix("Command-line arg:", "", m_settings.command_line_options);
 }
-
-namespace common {
-#ifdef WIN32
-WinCmdLineArgs::WinCmdLineArgs()
-{
-    wchar_t** wargv = CommandLineToArgvW(GetCommandLineW(), &argc);
-    std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>, wchar_t> utf8_cvt;
-    argv = new char*[argc];
-    args.resize(argc);
-    for (int i = 0; i < argc; i++) {
-        args[i] = utf8_cvt.to_bytes(wargv[i]);
-        argv[i] = &*args[i].begin();
-    }
-    LocalFree(wargv);
-}
-
-WinCmdLineArgs::~WinCmdLineArgs()
-{
-    delete[] argv;
-}
-
-std::pair<int, char**> WinCmdLineArgs::get()
-{
-    return std::make_pair(argc, argv);
-}
-#endif
-} // namespace common

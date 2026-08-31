@@ -1,4 +1,4 @@
-// Copyright (c) 2019-2022 The Bitcoin Core developers
+// Copyright (c) 2019-present The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -14,11 +14,11 @@
 #include <primitives/transaction.h>
 #include <streams.h>
 #include <test/fuzz/fuzz.h>
+#include <test/util/random.h>
 #include <univalue.h>
 #include <util/chaintype.h>
 #include <util/rbf.h>
 #include <validation.h>
-#include <version.h>
 
 #include <cassert>
 
@@ -29,31 +29,21 @@ void initialize_transaction()
 
 FUZZ_TARGET(transaction, .init = initialize_transaction)
 {
-    CDataStream ds(buffer, SER_NETWORK, INIT_PROTO_VERSION);
-    try {
-        int nVersion;
-        ds >> nVersion;
-        ds.SetVersion(nVersion);
-    } catch (const std::ios_base::failure&) {
-        return;
-    }
+    SeedRandomStateForTest(SeedRand::ZEROS);
+    SpanReader ds{buffer};
     bool valid_tx = true;
     const CTransaction tx = [&] {
         try {
-            return CTransaction(deserialize, ds);
+            return CTransaction(deserialize, TX_WITH_WITNESS, ds);
         } catch (const std::ios_base::failure&) {
             valid_tx = false;
             return CTransaction{CMutableTransaction{}};
         }
     }();
     bool valid_mutable_tx = true;
-    CDataStream ds_mtx(buffer, SER_NETWORK, INIT_PROTO_VERSION);
     CMutableTransaction mutable_tx;
     try {
-        int nVersion;
-        ds_mtx >> nVersion;
-        ds_mtx.SetVersion(nVersion);
-        ds_mtx >> mutable_tx;
+        SpanReader{buffer} >> TX_WITH_WITNESS(mutable_tx);
     } catch (const std::ios_base::failure&) {
         valid_mutable_tx = false;
     }
@@ -77,7 +67,7 @@ FUZZ_TARGET(transaction, .init = initialize_transaction)
     }
 
     (void)tx.GetHash();
-    (void)tx.GetTotalSize();
+    (void)tx.ComputeTotalSize();
     try {
         (void)tx.GetValueOut();
     } catch (const std::runtime_error&) {
@@ -101,7 +91,7 @@ FUZZ_TARGET(transaction, .init = initialize_transaction)
     (void)AreInputsStandard(tx, coins_view_cache);
     (void)IsWitnessStandard(tx, coins_view_cache);
 
-    if (tx.GetTotalSize() < 250'000) { // Avoid high memory usage (with msan) due to json encoding
+    if (tx.ComputeTotalSize() < 250'000) { // Avoid high memory usage (with msan) due to json encoding
         {
             UniValue u{UniValue::VOBJ};
             TxToUniv(tx, /*block_hash=*/uint256::ZERO, /*entry=*/u);

@@ -3,9 +3,9 @@ BitcoinSilver
 
 Setup
 ---------------------
-BitcoinSilver is the original BitcoinSilver client and it builds the backbone of the network. It downloads and, by default, stores the entire history of BitcoinSilver transactions, which requires a few hundred gigabytes of disk space. Depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more.
+BitcoinSilver is the original BitcoinSilver client and it builds the backbone of the network. It downloads and, by default, stores the entire history of BitcoinSilver transactions, which requires several hundred gigabytes or more of disk space. Depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to several days or more.
 
-To download BitcoinSilver, visit [https://github.com/MrVistos/bitcoinsilver/releases](https://github.com/MrVistos/bitcoinsilver/releases).
+To download BitcoinSilver, visit [https://github.com/bitcoin-silver/core/releases](https://github.com/bitcoin-silver/core/releases).
 
 Running
 ---------------------
@@ -28,7 +28,7 @@ Drag BitcoinSilver to your applications folder, and then run BitcoinSilver.
 
 ### Need Help?
 
-* See the documentation at the [BitcoinSilver Readme](https://github.com/MrVistos/bitcoinsilver/)
+* See the documentation at the [BitcoinSilver Readme](https://github.com/bitcoin-silver/core)
 for help and more information.
 * Ask for help on [BitcoinSilver Discord](https://discord.com/invite/MCGn7dzvgd).
 * Ask for help on the [BitcoinTalk](https://bitcointalk.org/) forums, in the [Technical Support board](https://bitcointalk.org/index.php?board=4.0).
@@ -40,11 +40,10 @@ The following are developer notes on how to build BitcoinSilver on your native p
 - [Dependencies](dependencies.md)
 - [macOS Build Notes](build-osx.md)
 - [Unix Build Notes](build-unix.md)
-- [Windows Build Notes](build-windows.md)
+- [Windows Build Notes](build-windows-msvc.md)
 - [FreeBSD Build Notes](build-freebsd.md)
 - [OpenBSD Build Notes](build-openbsd.md)
 - [NetBSD Build Notes](build-netbsd.md)
-- [Android Build Notes](build-android.md)
 
 Development
 ---------------------
@@ -53,12 +52,11 @@ The BitcoinSilver repo's [root README](/README.md) contains relevant information
 - [Developer Notes](developer-notes.md)
 - [Productivity Notes](productivity.md)
 - [Release Process](release-process.md)
-- [Source Code Documentation (External Link)](https://doxygen.mrvistos.github.io/bitcoinsilver//)
+- [Source Code Documentation (External Link)](https://github.com/bitcoin-silver/core)
 - [Translation Process](translation_process.md)
 - [Translation Strings Policy](translation_strings_policy.md)
 - [JSON-RPC Interface](JSON-RPC-interface.md)
 - [Unauthenticated REST Interface](REST-interface.md)
-- [Shared Libraries](shared-libraries.md)
 - [BIPS](bips.md)
 - [Dnsseed Policy](dnsseed-policy.md)
 - [Benchmarking](benchmarking.md)
@@ -77,6 +75,7 @@ The BitcoinSilver repo's [root README](/README.md) contains relevant information
 - [Init Scripts (systemd/upstart/openrc)](init.md)
 - [Managing Wallets](managing-wallets.md)
 - [Multisig Tutorial](multisig-tutorial.md)
+- [Offline Signing Tutorial](offline-signing-tutorial.md)
 - [P2P bad ports definition and list](p2p-bad-ports.md)
 - [PSBT support](psbt.md)
 - [Reduce Memory](reduce-memory.md)
