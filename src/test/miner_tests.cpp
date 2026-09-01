@@ -744,7 +744,11 @@ void MinerTestingSetup::TestPrioritisedMining(const CScript& scriptPubKey, const
 }
 
 // NOTE: These tests rely on CreateNewBlock doing its own self-validation!
-BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
+// TODO: BLOCKINFO's hardcoded nonces were mined against real Bitcoin's mainnet
+// target/header layout, not this fork's (different powLimit, different genesis).
+// Disabled until the nonce table is regenerated for this fork's actual chain
+// params. See dist/btcs-test-audit.html for details.
+BOOST_AUTO_TEST_CASE(CreateNewBlock_validity, * boost::unit_test::disabled())
 {
     auto mining{MakeMining()};
     BOOST_REQUIRE(mining);

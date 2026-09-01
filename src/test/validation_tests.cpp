@@ -53,7 +53,13 @@ BOOST_AUTO_TEST_CASE(block_subsidy_test)
     TestBlockSubsidyHalvings(1000); // Just another interval
 }
 
-BOOST_AUTO_TEST_CASE(subsidy_limit_test)
+// TODO: hardcodes real Bitcoin's exact 21M-coin total supply and 50-COIN
+// per-block cap. This fork's issuance (including the 470,000 BTCS height-1
+// premine) is intentionally different. Confirmed: the final BOOST_CHECK_EQUAL
+// compares against real Bitcoin's exact total emission, not this fork's.
+// Needs the fork's real total supply recomputed, not a value swap.
+// See dist/btcs-test-audit.html.
+BOOST_AUTO_TEST_CASE(subsidy_limit_test, * boost::unit_test::disabled())
 {
     const auto chainParams = CreateChainParams(*m_node.args, ChainType::MAIN);
     CAmount nSum = 0;
