@@ -134,7 +134,7 @@ jobs:
         run: sudo xcode-select -s /Applications/Xcode_16.2.app
 
       - name: Install dependencies
-        run: brew install cmake boost pkgconf libevent qt@6 qrencode
+        run: brew install cmake boost pkgconf libevent qt@6 qrencode python
 
       - name: Configure
         run: |
@@ -162,16 +162,16 @@ jobs:
           echo "Genesis hash: $hash"
           test "$hash" = "00000ea8e97e04892a03df35947ff0c4df705723f5b18be7cc6456ed16e9788e"
 
+      # bitcoin-qt itself is dynamically linked against Homebrew's Qt6 at
+      # this runner's absolute path, which won't exist on an end user's Mac
+      # -- that's what the `deploy` target below is for: it runs
+      # contrib/macdeploy/macdeployqtplus, which bundles Qt's actual
+      # frameworks into a real, self-contained BitcoinSilver-Qt.app.
+      - name: Build macOS .app bundle
+        run: cmake --build build -j"$(sysctl -n hw.ncpu)" --target deploy
+
       # Note: macOS ships BSD grep, which has no -P (PCRE) support -- unlike
       # the Linux/Windows jobs' version-extraction, this stays POSIX-ERE-only.
-      #
-      # bitcoin-qt is intentionally NOT packaged here: it's dynamically linked
-      # against Homebrew's Qt6 at this runner's absolute path
-      # (/opt/homebrew/opt/qt6/...), which won't exist on an end user's Mac.
-      # Making it portable needs `cmake --build build --target deploy`
-      # (macdeployqtplus bundling Qt's frameworks into a real .app) -- left
-      # for a follow-up. The GUI target is still built above, just to confirm
-      # it compiles cleanly on macOS; only the CLI binaries ship here.
       - name: Package
         run: |
           set -e
@@ -185,11 +185,14 @@ jobs:
           strip "dist/${name}/bin/"*
           cp COPYING README.md "dist/${name}/"
           tar -czf "dist/${name}.tar.gz" -C dist "${name}"
+          cp "build/bitcoinsilver-macos-app.zip" "dist/bitcoinsilver-${version}-arm64-apple-darwin-Qt.zip"
 
       - uses: actions/upload-artifact@v4
         with:
           name: macos-binaries
-          path: dist/*.tar.gz
+          path: |
+            dist/*.tar.gz
+            dist/*.zip
 
   release:
     name: Create GitHub Release
