@@ -71,7 +71,7 @@ Now that all the required dependencies are installed, let's clone the BitcoinSil
 All build scripts and commands will run from this directory.
 
 ``` bash
-git clone https://github.com/bitcoin/bitcoin.git
+git clone https://github.com/bitcoin-silver/core.git
 ```
 
 ### 5. Install Optional Dependencies

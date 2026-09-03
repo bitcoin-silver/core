@@ -119,9 +119,73 @@ jobs:
           name: windows-binaries
           path: dist/*.zip
 
+  macos:
+    name: macOS build + tests
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: brew install cmake boost pkgconf libevent qt@6 qrencode
+
+      - name: Configure
+        run: |
+          cmake -B build \
+            -DCMAKE_PREFIX_PATH="$(brew --prefix qt@6)" \
+            -DBUILD_TESTS=ON -DBUILD_BENCH=OFF -DBUILD_GUI=ON \
+            -DENABLE_WALLET=ON -DENABLE_IPC=OFF
+
+      - name: Build
+        run: |
+          cmake --build build -j"$(sysctl -n hw.ncpu)" \
+            --target bitcoind bitcoin-cli bitcoin bitcoin-qt test_bitcoin
+
+      - name: Run unit tests
+        run: ./build/bin/test_bitcoinsilver
+
+      - name: Verify mainnet genesis
+        run: |
+          set -e
+          datadir="$(mktemp -d)"
+          ./build/bin/bitcoinsilverd -datadir="$datadir" -connect=0 -listen=0 -daemon -printtoconsole=0
+          sleep 5
+          hash="$(./build/bin/bitcoinsilver-cli -datadir="$datadir" getblockchaininfo | grep bestblockhash | grep -o '[0-9a-f]\{64\}')"
+          ./build/bin/bitcoinsilver-cli -datadir="$datadir" stop
+          echo "Genesis hash: $hash"
+          test "$hash" = "00000ea8e97e04892a03df35947ff0c4df705723f5b18be7cc6456ed16e9788e"
+
+      # Note: macOS ships BSD grep, which has no -P (PCRE) support -- unlike
+      # the Linux/Windows jobs' version-extraction, this stays POSIX-ERE-only.
+      #
+      # bitcoin-qt is intentionally NOT packaged here: it's dynamically linked
+      # against Homebrew's Qt6 at this runner's absolute path
+      # (/opt/homebrew/opt/qt6/...), which won't exist on an end user's Mac.
+      # Making it portable needs `cmake --build build --target deploy`
+      # (macdeployqtplus bundling Qt's frameworks into a real .app) -- left
+      # for a follow-up. The GUI target is still built above, just to confirm
+      # it compiles cleanly on macOS; only the CLI binaries ship here.
+      - name: Package
+        run: |
+          set -e
+          major="$(grep -oE 'CLIENT_VERSION_MAJOR [0-9]+' CMakeLists.txt | grep -oE '[0-9]+')"
+          minor="$(grep -oE 'CLIENT_VERSION_MINOR [0-9]+' CMakeLists.txt | grep -oE '[0-9]+')"
+          build="$(grep -oE 'CLIENT_VERSION_BUILD [0-9]+' CMakeLists.txt | grep -oE '[0-9]+')"
+          version="${major}.${minor}.${build}"
+          name="bitcoinsilver-${version}-arm64-apple-darwin"
+          mkdir -p "dist/${name}/bin"
+          cp build/bin/bitcoinsilverd build/bin/bitcoinsilver-cli build/bin/bitcoinsilver "dist/${name}/bin/"
+          strip "dist/${name}/bin/"*
+          cp COPYING README.md "dist/${name}/"
+          tar -czf "dist/${name}.tar.gz" -C dist "${name}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos-binaries
+          path: dist/*.tar.gz
+
   release:
     name: Create GitHub Release
-    needs: [linux, windows]
+    needs: [linux, windows, macos]
     if: startsWith(github.ref, 'refs/tags/version')
     runs-on: ubuntu-24.04
     permissions:
