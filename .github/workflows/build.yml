@@ -125,6 +125,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # doc/dependencies.md requires Clang 17.0+; macos-14's default Xcode
+      # (15.4) ships AppleClang 15.0, which is too old and fails to compile
+      # real, unmodified upstream code (util::Overloaded's C++20 aggregate
+      # CTAD) -- confirmed by this job's first real run. Xcode 16.2 is
+      # already present on this runner image, just not selected by default.
+      - name: Select Xcode 16.2 (need Clang 17+, default Xcode 15.4 is too old)
+        run: sudo xcode-select -s /Applications/Xcode_16.2.app
+
       - name: Install dependencies
         run: brew install cmake boost pkgconf libevent qt@6 qrencode
 
