@@ -170,6 +170,15 @@ jobs:
       - name: Build macOS .app bundle
         run: cmake --build build -j"$(sysctl -n hw.ncpu)" --target deploy
 
+      # A .dmg is the more familiar distributable format for most Mac users
+      # (drag-to-Applications) than a plain .zip -- hdiutil is a native macOS
+      # tool, no extra dependency, and this only wraps the already-built
+      # .app so it doesn't touch macdeployqtplus at all.
+      - name: Build DMG
+        run: |
+          hdiutil create -volname "BitcoinSilver-Qt" -srcfolder build/BitcoinSilver-Qt.app \
+            -ov -format UDZO build/bitcoinsilver-macos-app.dmg
+
       # Note: macOS ships BSD grep, which has no -P (PCRE) support -- unlike
       # the Linux/Windows jobs' version-extraction, this stays POSIX-ERE-only.
       - name: Package
@@ -186,6 +195,7 @@ jobs:
           cp COPYING README.md "dist/${name}/"
           tar -czf "dist/${name}.tar.gz" -C dist "${name}"
           cp "build/bitcoinsilver-macos-app.zip" "dist/bitcoinsilver-${version}-arm64-apple-darwin-Qt.zip"
+          cp "build/bitcoinsilver-macos-app.dmg" "dist/bitcoinsilver-${version}-arm64-apple-darwin-Qt.dmg"
 
       - uses: actions/upload-artifact@v4
         with:
@@ -193,10 +203,84 @@ jobs:
           path: |
             dist/*.tar.gz
             dist/*.zip
+            dist/*.dmg
+
+  macos-intel:
+    name: macOS build + tests (Intel)
+    runs-on: macos-15-intel
+    steps:
+      - uses: actions/checkout@v4
+
+      # doc/dependencies.md requires Clang 17.0+. This is a runner we've
+      # never used before -- unlike macos-14, macos-15-intel is based on a
+      # newer macOS/Xcode baseline, so its default Xcode may already be new
+      # enough. Left unpinned deliberately: if this job fails on a Clang
+      # version error, add an explicit `xcode-select` step here the same
+      # way the arm64 job above needed one.
+      - name: Install dependencies
+        run: brew install cmake boost pkgconf libevent qt@6 qrencode python
+
+      - name: Configure
+        run: |
+          cmake -B build \
+            -DCMAKE_PREFIX_PATH="$(brew --prefix qt@6)" \
+            -DBUILD_TESTS=ON -DBUILD_BENCH=OFF -DBUILD_GUI=ON \
+            -DENABLE_WALLET=ON -DENABLE_IPC=OFF
+
+      - name: Build
+        run: |
+          cmake --build build -j"$(sysctl -n hw.ncpu)" \
+            --target bitcoind bitcoin-cli bitcoin bitcoin-qt test_bitcoin
+
+      - name: Run unit tests
+        run: ./build/bin/test_bitcoinsilver
+
+      - name: Verify mainnet genesis
+        run: |
+          set -e
+          datadir="$(mktemp -d)"
+          ./build/bin/bitcoinsilverd -datadir="$datadir" -connect=0 -listen=0 -daemon -printtoconsole=0
+          sleep 5
+          hash="$(./build/bin/bitcoinsilver-cli -datadir="$datadir" getblockchaininfo | grep bestblockhash | grep -o '[0-9a-f]\{64\}')"
+          ./build/bin/bitcoinsilver-cli -datadir="$datadir" stop
+          echo "Genesis hash: $hash"
+          test "$hash" = "00000ea8e97e04892a03df35947ff0c4df705723f5b18be7cc6456ed16e9788e"
+
+      - name: Build macOS .app bundle
+        run: cmake --build build -j"$(sysctl -n hw.ncpu)" --target deploy
+
+      - name: Build DMG
+        run: |
+          hdiutil create -volname "BitcoinSilver-Qt" -srcfolder build/BitcoinSilver-Qt.app \
+            -ov -format UDZO build/bitcoinsilver-macos-app.dmg
+
+      - name: Package
+        run: |
+          set -e
+          major="$(grep -oE 'CLIENT_VERSION_MAJOR [0-9]+' CMakeLists.txt | grep -oE '[0-9]+')"
+          minor="$(grep -oE 'CLIENT_VERSION_MINOR [0-9]+' CMakeLists.txt | grep -oE '[0-9]+')"
+          build="$(grep -oE 'CLIENT_VERSION_BUILD [0-9]+' CMakeLists.txt | grep -oE '[0-9]+')"
+          version="${major}.${minor}.${build}"
+          name="bitcoinsilver-${version}-x86_64-apple-darwin"
+          mkdir -p "dist/${name}/bin"
+          cp build/bin/bitcoinsilverd build/bin/bitcoinsilver-cli build/bin/bitcoinsilver "dist/${name}/bin/"
+          strip "dist/${name}/bin/"*
+          cp COPYING README.md "dist/${name}/"
+          tar -czf "dist/${name}.tar.gz" -C dist "${name}"
+          cp "build/bitcoinsilver-macos-app.zip" "dist/bitcoinsilver-${version}-x86_64-apple-darwin-Qt.zip"
+          cp "build/bitcoinsilver-macos-app.dmg" "dist/bitcoinsilver-${version}-x86_64-apple-darwin-Qt.dmg"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos-intel-binaries
+          path: |
+            dist/*.tar.gz
+            dist/*.zip
+            dist/*.dmg
 
   release:
     name: Create GitHub Release
-    needs: [linux, windows, macos]
+    needs: [linux, windows, macos, macos-intel]
     if: startsWith(github.ref, 'refs/tags/version')
     runs-on: ubuntu-24.04
     permissions:
