@@ -28,12 +28,12 @@ jobs:
         run: |
           cmake -B build \
             -DBUILD_TESTS=ON -DBUILD_BENCH=OFF -DBUILD_GUI=ON \
-            -DENABLE_WALLET=ON -DENABLE_IPC=OFF
+            -DENABLE_WALLET=ON -DENABLE_IPC=OFF -DWITH_ZMQ=ON
 
       - name: Build
         run: |
           cmake --build build -j"$(nproc)" \
-            --target bitcoind bitcoin-cli bitcoin bitcoin-qt test_bitcoin
+            --target bitcoind bitcoin-cli bitcoin bitcoin-qt bitcoin-tx bitcoin-util bitcoin-wallet test_bitcoin
 
       - name: Run unit tests
         run: ./build/bin/test_bitcoinsilver
@@ -55,7 +55,7 @@ jobs:
           version="$(grep -oP 'CLIENT_VERSION_MAJOR \K[0-9]+' CMakeLists.txt).$(grep -oP 'CLIENT_VERSION_MINOR \K[0-9]+' CMakeLists.txt).$(grep -oP 'CLIENT_VERSION_BUILD \K[0-9]+' CMakeLists.txt)"
           name="bitcoinsilver-${version}-x86_64-linux-gnu"
           mkdir -p "dist/${name}/bin"
-          cp build/bin/bitcoinsilverd build/bin/bitcoinsilver-cli build/bin/bitcoinsilver build/bin/bitcoinsilver-qt "dist/${name}/bin/"
+          cp build/bin/bitcoinsilverd build/bin/bitcoinsilver-cli build/bin/bitcoinsilver build/bin/bitcoinsilver-qt build/bin/bitcoinsilver-tx build/bin/bitcoinsilver-util build/bin/bitcoinsilver-wallet "dist/${name}/bin/"
           strip "dist/${name}/bin/"*
           cp COPYING README.md "dist/${name}/"
           tar -czf "dist/${name}.tar.gz" -C dist "${name}"
@@ -96,12 +96,13 @@ jobs:
         run: |
           cmake -B build-win64 \
             --toolchain depends/x86_64-w64-mingw32/toolchain.cmake \
-            -DBUILD_GUI=ON -DBUILD_TESTS=OFF -DBUILD_BENCH=OFF -DENABLE_WALLET=ON
+            -DBUILD_GUI=ON -DBUILD_TESTS=OFF -DBUILD_BENCH=OFF -DENABLE_WALLET=ON \
+            -DWITH_ZMQ=ON -DBUILD_TX=ON -DBUILD_UTIL=ON -DBUILD_WALLET_TOOL=ON
 
       - name: Build
         run: |
           cmake --build build-win64 -j"$(nproc)" \
-            --target bitcoind bitcoin-cli bitcoin bitcoin-qt
+            --target bitcoind bitcoin-cli bitcoin bitcoin-qt bitcoin-tx bitcoin-util bitcoin-wallet
 
       - name: Package
         run: |
@@ -134,19 +135,19 @@ jobs:
         run: sudo xcode-select -s /Applications/Xcode_16.2.app
 
       - name: Install dependencies
-        run: brew install cmake boost pkgconf libevent qt@6 qrencode python
+        run: brew install cmake boost pkgconf libevent qt@6 qrencode python zeromq
 
       - name: Configure
         run: |
           cmake -B build \
             -DCMAKE_PREFIX_PATH="$(brew --prefix qt@6)" \
             -DBUILD_TESTS=ON -DBUILD_BENCH=OFF -DBUILD_GUI=ON \
-            -DENABLE_WALLET=ON -DENABLE_IPC=OFF
+            -DENABLE_WALLET=ON -DENABLE_IPC=OFF -DWITH_ZMQ=ON
 
       - name: Build
         run: |
           cmake --build build -j"$(sysctl -n hw.ncpu)" \
-            --target bitcoind bitcoin-cli bitcoin bitcoin-qt test_bitcoin
+            --target bitcoind bitcoin-cli bitcoin bitcoin-qt bitcoin-tx bitcoin-util bitcoin-wallet test_bitcoin
 
       - name: Run unit tests
         run: ./build/bin/test_bitcoinsilver
@@ -190,7 +191,7 @@ jobs:
           version="${major}.${minor}.${build}"
           name="bitcoinsilver-${version}-arm64-apple-darwin"
           mkdir -p "dist/${name}/bin"
-          cp build/bin/bitcoinsilverd build/bin/bitcoinsilver-cli build/bin/bitcoinsilver "dist/${name}/bin/"
+          cp build/bin/bitcoinsilverd build/bin/bitcoinsilver-cli build/bin/bitcoinsilver build/bin/bitcoinsilver-tx build/bin/bitcoinsilver-util build/bin/bitcoinsilver-wallet "dist/${name}/bin/"
           strip "dist/${name}/bin/"*
           cp COPYING README.md "dist/${name}/"
           tar -czf "dist/${name}.tar.gz" -C dist "${name}"
@@ -218,19 +219,19 @@ jobs:
       # version error, add an explicit `xcode-select` step here the same
       # way the arm64 job above needed one.
       - name: Install dependencies
-        run: brew install cmake boost pkgconf libevent qt@6 qrencode python
+        run: brew install cmake boost pkgconf libevent qt@6 qrencode python zeromq
 
       - name: Configure
         run: |
           cmake -B build \
             -DCMAKE_PREFIX_PATH="$(brew --prefix qt@6)" \
             -DBUILD_TESTS=ON -DBUILD_BENCH=OFF -DBUILD_GUI=ON \
-            -DENABLE_WALLET=ON -DENABLE_IPC=OFF
+            -DENABLE_WALLET=ON -DENABLE_IPC=OFF -DWITH_ZMQ=ON
 
       - name: Build
         run: |
           cmake --build build -j"$(sysctl -n hw.ncpu)" \
-            --target bitcoind bitcoin-cli bitcoin bitcoin-qt test_bitcoin
+            --target bitcoind bitcoin-cli bitcoin bitcoin-qt bitcoin-tx bitcoin-util bitcoin-wallet test_bitcoin
 
       - name: Run unit tests
         run: ./build/bin/test_bitcoinsilver
@@ -263,7 +264,7 @@ jobs:
           version="${major}.${minor}.${build}"
           name="bitcoinsilver-${version}-x86_64-apple-darwin"
           mkdir -p "dist/${name}/bin"
-          cp build/bin/bitcoinsilverd build/bin/bitcoinsilver-cli build/bin/bitcoinsilver "dist/${name}/bin/"
+          cp build/bin/bitcoinsilverd build/bin/bitcoinsilver-cli build/bin/bitcoinsilver build/bin/bitcoinsilver-tx build/bin/bitcoinsilver-util build/bin/bitcoinsilver-wallet "dist/${name}/bin/"
           strip "dist/${name}/bin/"*
           cp COPYING README.md "dist/${name}/"
           tar -czf "dist/${name}.tar.gz" -C dist "${name}"
